@@ -1,0 +1,60 @@
+import { useState } from 'react';
+{{#if typescript}}
+import { Alert } from 'react-native';
+
+interface UseRegisterResult {
+  register: (name: string, email: string, password: string) => Promise<void>;
+  isLoading: boolean;
+  error: string | null;
+}
+
+export function useRegister(): UseRegisterResult {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const register = async (name: string, email: string, password: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      // Replace with your actual registration logic
+      // Example: await supabase.auth.signUp({ email, password, options: { data: { name } } });
+      console.log('Register attempt', { name, email, password });
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      Alert.alert('Success', 'Account created successfully');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Registration failed';
+      setError(message);
+      Alert.alert('Error', message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { register, isLoading, error };
+}
+{{else}}
+import { Alert } from 'react-native';
+
+export function useRegister() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const register = async (name, email, password) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      console.log('Register attempt', { name, email, password });
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      Alert.alert('Success', 'Account created successfully');
+    } catch (err) {
+      const message = err.message || 'Registration failed';
+      setError(message);
+      Alert.alert('Error', message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { register, isLoading, error };
+}
+{{/if}}

@@ -1,0 +1,1201 @@
+{
+  "version": 1,
+  "name": "@expo-snips/registry",
+  "generatedAt": "2026-08-16T21:58:31.529Z",
+  "recipes": [
+    {
+      "id": "app/home",
+      "name": "Home Dashboard Screen",
+      "description": "Home screen with greeting, stats cards and upcoming tasks list.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/home/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { \n  View, \n  Text, \n  Pressable, \n  ScrollView, \n  RefreshControl{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{#if (eq icons \"lucide\")}}\nimport { Bell, Search, ChevronRight, TrendingUp } from 'lucide-react-native';\n{{/if}}\n\n{{#if (eq icons \"lucide\")}}\nconst stats = [\n  { label: 'Active Streak', value: '12', icon: TrendingUp, delta: '+2 today' },\n  { label: 'Tasks Done', value: '48', icon: Search, delta: 'this week' },\n];\n{{else}}\nconst stats = [\n  { label: 'Active Streak', value: '12', delta: '+2 today' },\n  { label: 'Tasks Done', value: '48', delta: 'this week' },\n];\n{{/if}}\n\nconst upcoming = [\n  { title: 'Morning workout', time: '7:00 AM', done: false },\n  { title: 'Team standup', time: '9:30 AM', done: false },\n  { title: 'Read for 20 minutes', time: '8:00 PM', done: true },\n];\n\nexport default function HomeScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-gray-50\"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>\n      <ScrollView\n        contentContainerStyle={styles.content}\n        refreshControl={\n          <RefreshControl refreshing={false} onRefresh={() => console.log('refresh')} />\n        }\n      >\n        {/* Header */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between px-5 pt-4 pb-6\"{{else}}style={styles.header}{{/if}}>\n          <View>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-gray-500\"{{else}}style={styles.greeting}{{/if}}>\n              Good morning\n            </Text>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-2xl font-bold text-gray-900\"{{else}}style={styles.headerTitle}{{/if}}>\n              Jane\n            </Text>\n          </View>\n          <View {{#if (eq styling \"nativewind\")}}className=\"flex-row gap-3\"{{else}}style={styles.headerActions}{{/if}}>\n            {{#if (eq icons \"lucide\")}}\n            <Pressable {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-white\"{{else}}style={styles.iconButton}{{/if}}>\n              <Bell size={20} color=\"#4B5563\" />\n            </Pressable>\n            <Pressable {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-white\"{{else}}style={styles.iconButton}{{/if}}>\n              <Search size={20} color=\"#4B5563\" />\n            </Pressable>\n            {{/if}}\n          </View>\n        </View>\n\n        {/* Stats */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-row gap-4 px-5\"{{else}}style={styles.statsRow}{{/if}}>\n          {stats.map(({ label, value{{#if (eq icons \"lucide\")}}, icon: Icon{{/if}}, delta }) => (\n            <View key={label} {{#if (eq styling \"nativewind\")}}className=\"flex-1 rounded-2xl bg-white p-4\"{{else}}style={styles.statCard}{{/if}}>\n              <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center gap-2\"{{else}}style={styles.statHeader}{{/if}}>\n                {{#if (eq icons \"lucide\")}}\n                <Icon size={16} color=\"#2563EB\" />\n                {{/if}}\n                <Text {{#if (eq styling \"nativewind\")}}className=\"text-xs text-gray-500\"{{else}}style={styles.statLabel}{{/if}}>{label}</Text>\n              </View>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-2xl font-bold text-gray-900\"{{else}}style={styles.statValue}{{/if}}>{value}</Text>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-xs text-gray-400\"{{else}}style={styles.statDelta}{{/if}}>{delta}</Text>\n            </View>\n          ))}\n        </View>\n\n        {/* Upcoming */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"mt-8\"{{else}}style={styles.section}{{/if}}>\n          <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between px-5\"{{else}}style={styles.sectionHeader}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-lg font-bold text-gray-900\"{{else}}style={styles.sectionTitle}{{/if}}>\n              Up next\n            </Text>\n            <Pressable {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center\"{{else}}style={styles.seeAll}{{/if}}>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-blue-600\"{{else}}style={styles.seeAllText}{{/if}}>See all</Text>\n              {{#if (eq icons \"lucide\")}}\n              <ChevronRight size={16} color=\"#2563EB\" />\n              {{/if}}\n            </Pressable>\n          </View>\n\n          <View {{#if (eq styling \"nativewind\")}}className=\"mt-4 gap-3 px-5\"{{else}}style={styles.taskList}{{/if}}>\n            {upcoming.map((task) => (\n              <Pressable key={task.title} {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center rounded-2xl bg-white p-4\"{{else}}style={styles.taskCard}{{/if}}>\n                <View\n                  {{#if (eq styling \"nativewind\")}}className={`h-5 w-5 rounded-full border-2 ${task.done ? 'border-blue-600 bg-blue-600' : 'border-gray-300'}`}{{else}}style={[styles.taskCheck, task.done && styles.taskCheckDone]}{{/if}}\n                />\n                <View {{#if (eq styling \"nativewind\")}}className=\"ml-3 flex-1\"{{else}}style={styles.taskBody}{{/if}}>\n                  <Text\n                    {{#if (eq styling \"nativewind\")}}className={`text-base ${task.done ? 'text-gray-400 line-through' : 'text-gray-900'}`}{{else}}style={[styles.taskTitle, task.done && styles.taskTitleDone]}{{/if}}\n                  >\n                    {task.title}\n                  </Text>\n                  <Text {{#if (eq styling \"nativewind\")}}className=\"text-xs text-gray-400\"{{else}}style={styles.taskTime}{{/if}}>{task.time}</Text>\n                </View>\n              </Pressable>\n            ))}\n          </View>\n        </View>\n      </ScrollView>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#F9FAFB',\n  },\n  content: {\n    paddingBottom: 24,\n  },\n  header: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n    paddingHorizontal: 20,\n    paddingTop: 16,\n    paddingBottom: 24,\n  },\n  greeting: {\n    fontSize: 14,\n    color: '#6B7280',\n  },\n  headerTitle: {\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  headerActions: {\n    flexDirection: 'row',\n    gap: 12,\n  },\n  iconButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#FFFFFF',\n  },\n  statsRow: {\n    flexDirection: 'row',\n    gap: 16,\n    paddingHorizontal: 20,\n  },\n  statCard: {\n    flex: 1,\n    borderRadius: 16,\n    backgroundColor: '#FFFFFF',\n    padding: 16,\n  },\n  statHeader: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    gap: 8,\n  },\n  statLabel: {\n    fontSize: 12,\n    color: '#6B7280',\n  },\n  statValue: {\n    marginTop: 8,\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  statDelta: {\n    marginTop: 4,\n    fontSize: 12,\n    color: '#9CA3AF',\n  },\n  section: {\n    marginTop: 32,\n  },\n  sectionHeader: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n    paddingHorizontal: 20,\n  },\n  sectionTitle: {\n    fontSize: 18,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  seeAll: {\n    flexDirection: 'row',\n    alignItems: 'center',\n  },\n  seeAllText: {\n    fontSize: 14,\n    color: '#2563EB',\n  },\n  taskList: {\n    marginTop: 16,\n    gap: 12,\n    paddingHorizontal: 20,\n  },\n  taskCard: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderRadius: 16,\n    backgroundColor: '#FFFFFF',\n    padding: 16,\n  },\n  taskCheck: {\n    height: 20,\n    width: 20,\n    borderRadius: 10,\n    borderWidth: 2,\n    borderColor: '#D1D5DB',\n  },\n  taskCheckDone: {\n    borderColor: '#2563EB',\n    backgroundColor: '#2563EB',\n  },\n  taskBody: {\n    marginLeft: 12,\n    flex: 1,\n  },\n  taskTitle: {\n    fontSize: 16,\n    color: '#111827',\n  },\n  taskTitleDone: {\n    color: '#9CA3AF',\n    textDecorationLine: 'line-through',\n  },\n  taskTime: {\n    fontSize: 12,\n    color: '#9CA3AF',\n  },\n});\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "app",
+        "home",
+        "dashboard"
+      ],
+      "primitives": []
+    },
+    {
+      "id": "app/notifications",
+      "name": "Notifications Screen",
+      "description": "Notifications list with unread indicators and mark all read action.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/notifications/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { \n  View, \n  Text, \n  Pressable, \n  ScrollView{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\nimport { Link } from 'expo-router';\n{{#if (eq icons \"lucide\")}}\nimport { ChevronLeft } from 'lucide-react-native';\n{{/if}}\n\nconst notifications = [\n  {\n    id: '1',\n    type: 'order',\n    title: 'Order delivered',\n    message: 'Your order #2841 has been delivered. Enjoy!',\n    time: '2m ago',\n    read: false,\n  },\n  {\n    id: '2',\n    type: 'update',\n    title: 'New feature available',\n    message: 'Check out the new dark mode in settings.',\n    time: '1h ago',\n    read: false,\n  },\n  {\n    id: '3',\n    type: 'reminder',\n    title: 'Weekly summary',\n    message: 'Here is what you accomplished this week.',\n    time: '1d ago',\n    read: true,\n  },\n  {\n    id: '4',\n    type: 'promo',\n    title: '20% off your next order',\n    message: 'Limited time offer. Use code SAVE20.',\n    time: '3d ago',\n    read: true,\n  },\n];\n\nexport default function NotificationsScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-gray-50\"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>\n      <ScrollView contentContainerStyle={styles.content}>\n        {/* Header */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between px-5 pt-4 pb-6\"{{else}}style={styles.header}{{/if}}>\n          <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center\"{{else}}style={styles.headerLeft}{{/if}}>\n            {{#if (eq icons \"lucide\")}}\n            <Link href=\"/\" {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-white\"{{else}}style={styles.backButton}{{/if}}>\n              <ChevronLeft size={22} color=\"#111827\" />\n            </Link>\n            {{/if}}\n            <Text {{#if (eq styling \"nativewind\")}}className=\"ml-3 text-2xl font-bold text-gray-900\"{{else}}style={styles.headerTitle}{{/if}}>\n              Notifications\n            </Text>\n          </View>\n          <Pressable onPress={() => console.log('mark all read')}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-blue-600\"{{else}}style={styles.markAll}{{/if}}>Mark all read</Text>\n          </Pressable>\n        </View>\n\n        {/* List */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"gap-3 px-5\"{{else}}style={styles.list}{{/if}}>\n          {notifications.map((notification) => (\n            <Pressable\n              key={notification.id}\n              {{#if (eq styling \"nativewind\")}}className={`rounded-2xl p-4 ${notification.read ? 'bg-white' : 'bg-blue-50'}`}{{else}}style={[styles.card, !notification.read && styles.cardUnread]}{{/if}}\n            >\n              <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between\"{{else}}style={styles.cardHeader}{{/if}}>\n                <Text\n                  {{#if (eq styling \"nativewind\")}}className={`flex-1 text-base font-semibold ${notification.read ? 'text-gray-900' : 'text-blue-900'}`}{{else}}style={styles.cardTitle}{{/if}}\n                >\n                  {notification.title}\n                </Text>\n                {!notification.read && (\n                  <View {{#if (eq styling \"nativewind\")}}className=\"ml-2 h-2 w-2 rounded-full bg-blue-600\"{{else}}style={styles.unreadDot}{{/if}} />\n                )}\n              </View>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-sm text-gray-600\"{{else}}style={styles.cardMessage}{{/if}}>\n                {notification.message}\n              </Text>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-xs text-gray-400\"{{else}}style={styles.cardTime}{{/if}}>\n                {notification.time}\n              </Text>\n            </Pressable>\n          ))}\n        </View>\n      </ScrollView>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#F9FAFB',\n  },\n  content: {\n    paddingBottom: 24,\n  },\n  header: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n    paddingHorizontal: 20,\n    paddingTop: 16,\n    paddingBottom: 24,\n  },\n  headerLeft: {\n    flexDirection: 'row',\n    alignItems: 'center',\n  },\n  backButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#FFFFFF',\n  },\n  headerTitle: {\n    marginLeft: 12,\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  markAll: {\n    fontSize: 14,\n    color: '#2563EB',\n  },\n  list: {\n    gap: 12,\n    paddingHorizontal: 20,\n  },\n  card: {\n    borderRadius: 16,\n    padding: 16,\n    backgroundColor: '#FFFFFF',\n  },\n  cardUnread: {\n    backgroundColor: '#EFF6FF',\n  },\n  cardHeader: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n  },\n  cardTitle: {\n    flex: 1,\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#111827',\n  },\n  unreadDot: {\n    marginLeft: 8,\n    height: 8,\n    width: 8,\n    borderRadius: 4,\n    backgroundColor: '#2563EB',\n  },\n  cardMessage: {\n    marginTop: 4,\n    fontSize: 14,\n    color: '#4B5563',\n  },\n  cardTime: {\n    marginTop: 8,\n    fontSize: 12,\n    color: '#9CA3AF',\n  },\n});\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "app",
+        "notifications",
+        "list"
+      ],
+      "primitives": []
+    },
+    {
+      "id": "app/profile",
+      "name": "Profile Screen",
+      "description": "User profile with avatar, ratings and account menu.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/profile/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { \n  View, \n  Text, \n  Pressable, \n  ScrollView{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\nimport { Link } from 'expo-router';\n{{#if (eq icons \"lucide\")}}\nimport { Settings, ChevronRight, User, Star, MapPin, LogOut } from 'lucide-react-native';\n{{/if}}\n\n{{#if (eq icons \"lucide\")}}\nconst menu = [\n  { label: 'My orders', icon: Star },\n  { label: 'Saved addresses', icon: MapPin },\n  { label: 'Account settings', icon: User },\n];\n{{else}}\nconst menu = [\n  { label: 'My orders' },\n  { label: 'Saved addresses' },\n  { label: 'Account settings' },\n];\n{{/if}}\n\nexport default function ProfileScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-gray-50\"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>\n      <ScrollView contentContainerStyle={styles.content}>\n        {/* Header */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between px-5 pt-4 pb-6\"{{else}}style={styles.header}{{/if}}>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-2xl font-bold text-gray-900\"{{else}}style={styles.headerTitle}{{/if}}>\n            Profile\n          </Text>\n          {{#if (eq icons \"lucide\")}}\n          <Link href=\"/settings\" {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-white\"{{else}}style={styles.iconButton}{{/if}}>\n            <Settings size={20} color=\"#4B5563\" />\n          </Link>\n          {{/if}}\n        </View>\n\n        {/* User card */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"mx-5 flex-row items-center rounded-2xl bg-white p-5\"{{else}}style={styles.userCard}{{/if}}>\n          <View {{#if (eq styling \"nativewind\")}}className=\"h-16 w-16 items-center justify-center rounded-full bg-blue-100\"{{else}}style={styles.avatar}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-2xl font-bold text-blue-600\"{{else}}style={styles.avatarText}{{/if}}>J</Text>\n          </View>\n          <View {{#if (eq styling \"nativewind\")}}className=\"ml-4 flex-1\"{{else}}style={styles.userInfo}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-lg font-bold text-gray-900\"{{else}}style={styles.userName}{{/if}}>\n              Jane Doe\n            </Text>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-gray-500\"{{else}}style={styles.userEmail}{{/if}}>\n              jane@example.com\n            </Text>\n            <View {{#if (eq styling \"nativewind\")}}className=\"mt-2 flex-row items-center gap-1\"{{else}}style={styles.ratingRow}{{/if}}>\n              {{#if (eq icons \"lucide\")}}\n              <Star size={14} color=\"#F59E0B\" fill=\"#F59E0B\" />\n              {{/if}}\n              <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-gray-700\"{{else}}style={styles.rating}{{/if}}>4.8</Text>\n            </View>\n          </View>\n        </View>\n\n        {/* Menu */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"mt-6 rounded-2xl bg-white mx-5\"{{else}}style={styles.menuCard}{{/if}}>\n          {menu.map(({ label{{#if (eq icons \"lucide\")}}, icon: Icon{{/if}} }, index) => (\n            <Pressable\n              key={label}\n              {{#if (eq styling \"nativewind\")}}className={`flex-row items-center px-4 py-4 ${index > 0 ? 'border-t border-gray-100' : ''}`}{{else}}style={[styles.menuItem, index > 0 && styles.menuItemBorder]}{{/if}}\n            >\n              {{#if (eq icons \"lucide\")}}\n              <Icon size={20} color=\"#4B5563\" />\n              {{/if}}\n              <Text {{#if (eq styling \"nativewind\")}}className=\"ml-3 flex-1 text-base text-gray-900\"{{else}}style={styles.menuLabel}{{/if}}>\n                {label}\n              </Text>\n              {{#if (eq icons \"lucide\")}}\n              <ChevronRight size={18} color=\"#9CA3AF\" />\n              {{/if}}\n            </Pressable>\n          ))}\n        </View>\n\n        {/* Logout */}\n        <Pressable\n          onPress={() => console.log('logout')}\n          {{#if (eq styling \"nativewind\")}}className=\"mx-5 mt-6 flex-row items-center justify-center rounded-2xl bg-white py-4\"{{else}}style={styles.logout}{{/if}}\n        >\n          {{#if (eq icons \"lucide\")}}\n          <LogOut size={18} color=\"#EF4444\" />\n          {{/if}}\n          <Text {{#if (eq styling \"nativewind\")}}className=\"ml-2 text-base font-medium text-red-600\"{{else}}style={styles.logoutText}{{/if}}>\n            Log out\n          </Text>\n        </Pressable>\n      </ScrollView>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#F9FAFB',\n  },\n  content: {\n    paddingBottom: 24,\n  },\n  header: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n    paddingHorizontal: 20,\n    paddingTop: 16,\n    paddingBottom: 24,\n  },\n  headerTitle: {\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  iconButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#FFFFFF',\n  },\n  userCard: {\n    marginHorizontal: 20,\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderRadius: 16,\n    backgroundColor: '#FFFFFF',\n    padding: 20,\n  },\n  avatar: {\n    height: 64,\n    width: 64,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 32,\n    backgroundColor: '#DBEAFE',\n  },\n  avatarText: {\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#2563EB',\n  },\n  userInfo: {\n    marginLeft: 16,\n    flex: 1,\n  },\n  userName: {\n    fontSize: 18,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  userEmail: {\n    fontSize: 14,\n    color: '#6B7280',\n  },\n  ratingRow: {\n    marginTop: 8,\n    flexDirection: 'row',\n    alignItems: 'center',\n    gap: 4,\n  },\n  rating: {\n    fontSize: 14,\n    color: '#374151',\n  },\n  menuCard: {\n    marginTop: 24,\n    borderRadius: 16,\n    backgroundColor: '#FFFFFF',\n    marginHorizontal: 20,\n  },\n  menuItem: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    paddingHorizontal: 16,\n    paddingVertical: 16,\n  },\n  menuItemBorder: {\n    borderTopWidth: 1,\n    borderTopColor: '#F3F4F6',\n  },\n  menuLabel: {\n    marginLeft: 12,\n    flex: 1,\n    fontSize: 16,\n    color: '#111827',\n  },\n  logout: {\n    marginHorizontal: 20,\n    marginTop: 24,\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 16,\n    backgroundColor: '#FFFFFF',\n    paddingVertical: 16,\n  },\n  logoutText: {\n    marginLeft: 8,\n    fontSize: 16,\n    fontWeight: '500',\n    color: '#DC2626',\n  },\n});\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "app",
+        "profile",
+        "account"
+      ],
+      "primitives": []
+    },
+    {
+      "id": "app/search",
+      "name": "Search Screen",
+      "description": "Search screen with recent searches, query input and results list.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/search/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { useState } from 'react';\nimport { \n  View, \n  Text, \n  TextInput, \n  Pressable, \n  FlatList{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{#if (eq icons \"lucide\")}}\nimport { Search as SearchIcon, X, Clock } from 'lucide-react-native';\n{{/if}}\n\nconst recentSearches = ['camera', 'wireless earbuds', 'running shoes', 'usb-c hub'];\n\nconst results = [\n  { id: '1', title: 'Wireless Earbuds Pro', category: 'Electronics' },\n  { id: '2', title: 'Running Shoes', category: 'Sports' },\n  { id: '3', title: 'Smart Camera', category: 'Electronics' },\n  { id: '4', title: 'USB-C Hub 7-in-1', category: 'Accessories' },\n];\n\nexport default function SearchScreen() {\n  const [query, setQuery] = useState('');\n  const [submitted, setSubmitted] = useState(false);\n\n  const submit = (value: string) => {\n    const text = value.trim();\n    if (!text) return;\n    setQuery(text);\n    setSubmitted(true);\n  };\n\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>\n      <View {{#if (eq styling \"nativewind\")}}className=\"px-5 pt-4\"{{else}}style={styles.header}{{/if}}>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-2xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n          Search\n        </Text>\n        <View {{#if (eq styling \"nativewind\")}}className=\"mt-4 flex-row items-center rounded-xl bg-gray-100 px-4\"{{else}}style={styles.searchBar}{{/if}}>\n          {{#if (eq icons \"lucide\")}}\n          <SearchIcon size={20} color=\"#6B7280\" />\n          {{/if}}\n          <TextInput\n            value={query}\n            onChangeText={setQuery}\n            onSubmitEditing={() => submit(query)}\n            returnKeyType=\"search\"\n            placeholder=\"Search products\"\n            placeholderTextColor=\"#9CA3AF\"\n            autoCapitalize=\"none\"\n            {{#if (eq styling \"nativewind\")}}className=\"ml-3 flex-1 py-3 text-gray-900\"{{else}}style={styles.searchInput}{{/if}}\n          />\n          {query.length > 0 && (\n            <Pressable onPress={() => { setQuery(''); setSubmitted(false); }}>\n              {{#if (eq icons \"lucide\")}}\n              <X size={18} color=\"#6B7280\" />\n              {{else}}\n              <Text {{#if (eq styling \"nativewind\")}}className=\"text-lg text-gray-500\"{{else}}style={styles.clearText}{{/if}}>×</Text>\n              {{/if}}\n            </Pressable>\n          )}\n        </View>\n      </View>\n\n      {!submitted ? (\n        <View {{#if (eq styling \"nativewind\")}}className=\"px-5 pt-6\"{{else}}style={styles.recentSection}{{/if}}>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-gray-900\"{{else}}style={styles.sectionTitle}{{/if}}>\n            Recent\n          </Text>\n          <View {{#if (eq styling \"nativewind\")}}className=\"mt-3 flex-row flex-wrap gap-2\"{{else}}style={styles.chips}{{/if}}>\n            {recentSearches.map((term) => (\n              <Pressable\n                key={term}\n                onPress={() => submit(term)}\n                {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center rounded-full bg-gray-100 px-4 py-2\"{{else}}style={styles.chip}{{/if}}\n              >\n                {{#if (eq icons \"lucide\")}}\n                <Clock size={14} color=\"#6B7280\" />\n                {{/if}}\n                <Text {{#if (eq styling \"nativewind\")}}className=\"ml-1.5 text-sm text-gray-700\"{{else}}style={styles.chipText}{{/if}}>{term}</Text>\n              </Pressable>\n            ))}\n          </View>\n        </View>\n      ) : (\n        <FlatList\n          data={results}\n          keyExtractor={(item) => item.id}\n          contentContainerStyle={styles.resultsContent}\n          ListHeaderComponent={\n            <Text {{#if (eq styling \"nativewind\")}}className=\"px-5 pb-3 text-base font-semibold text-gray-900\"{{else}}style={styles.sectionTitle}{{/if}}>\n              Results for \"{query}\"\n            </Text>\n          }\n          renderItem={({ item }) => (\n            <Pressable {{#if (eq styling \"nativewind\")}}className=\"border-b border-gray-100 px-5 py-4\"{{else}}style={styles.resultItem}{{/if}}>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"text-base text-gray-900\"{{else}}style={styles.resultTitle}{{/if}}>{item.title}</Text>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"mt-0.5 text-sm text-gray-400\"{{else}}style={styles.resultCategory}{{/if}}>{item.category}</Text>\n            </Pressable>\n          )}\n        />\n      )}\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  header: {\n    paddingHorizontal: 20,\n    paddingTop: 16,\n  },\n  title: {\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  searchBar: {\n    marginTop: 16,\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#F3F4F6',\n    paddingHorizontal: 16,\n  },\n  searchInput: {\n    marginLeft: 12,\n    flex: 1,\n    paddingVertical: 12,\n    color: '#111827',\n  },\n  clearText: {\n    fontSize: 18,\n    color: '#6B7280',\n  },\n  recentSection: {\n    paddingHorizontal: 20,\n    paddingTop: 24,\n  },\n  sectionTitle: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#111827',\n  },\n  chips: {\n    marginTop: 12,\n    flexDirection: 'row',\n    flexWrap: 'wrap',\n    gap: 8,\n  },\n  chip: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderRadius: 20,\n    backgroundColor: '#F3F4F6',\n    paddingHorizontal: 16,\n    paddingVertical: 8,\n  },\n  chipText: {\n    marginLeft: 6,\n    fontSize: 14,\n    color: '#374151',\n  },\n  resultsContent: {\n    paddingTop: 24,\n    paddingBottom: 24,\n  },\n  resultItem: {\n    borderBottomWidth: 1,\n    borderBottomColor: '#F3F4F6',\n    paddingHorizontal: 20,\n    paddingVertical: 16,\n  },\n  resultTitle: {\n    fontSize: 16,\n    color: '#111827',\n  },\n  resultCategory: {\n    marginTop: 2,\n    fontSize: 14,\n    color: '#9CA3AF',\n  },\n});\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "app",
+        "search"
+      ],
+      "primitives": []
+    },
+    {
+      "id": "app/settings",
+      "name": "Settings Screen",
+      "description": "Settings screen with grouped items, toggles and back navigation.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/settings/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { useState } from 'react';\nimport { \n  View, \n  Text, \n  Pressable, \n  ScrollView, \n  Switch{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{#if (eq icons \"lucide\")}}\nimport { ChevronLeft, ChevronRight } from 'lucide-react-native';\n{{/if}}\nimport { useRouter } from 'expo-router';\n\n{{#if (eq icons \"lucide\")}}\nconst sections = [\n  { title: 'Account', items: ['Personal info', 'Password & security', 'Email preferences'] },\n  { title: 'Preferences', items: ['Language', 'Theme', 'Units'] },\n];\n{{else}}\nconst sections = [\n  { title: 'Account', items: ['Personal info', 'Password & security', 'Email preferences'] },\n  { title: 'Preferences', items: ['Language', 'Theme', 'Units'] },\n];\n{{/if}}\n\nexport default function SettingsScreen() {\n  const router = useRouter();\n  const [notifications, setNotifications] = useState(true);\n  const [darkMode, setDarkMode] = useState(false);\n\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-gray-50\"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>\n      <ScrollView contentContainerStyle={styles.content}>\n        {/* Header */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center px-5 pt-4 pb-6\"{{else}}style={styles.header}{{/if}}>\n          {{#if (eq icons \"lucide\")}}\n          <Pressable onPress={() => router.back()} {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-white\"{{else}}style={styles.backButton}{{/if}}>\n            <ChevronLeft size={22} color=\"#111827\" />\n          </Pressable>\n          {{/if}}\n          <Text {{#if (eq styling \"nativewind\")}}className=\"ml-3 text-2xl font-bold text-gray-900\"{{else}}style={styles.headerTitle}{{/if}}>\n            Settings\n          </Text>\n        </View>\n\n        {/* Grouped sections */}\n        {sections.map((section) => (\n          <View key={section.title} {{#if (eq styling \"nativewind\")}}className=\"mx-5 mb-6\"{{else}}style={styles.section}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"mb-2 px-2 text-sm font-medium uppercase tracking-wide text-gray-400\"{{else}}style={styles.sectionTitle}{{/if}}>\n              {section.title}\n            </Text>\n            <View {{#if (eq styling \"nativewind\")}}className=\"rounded-2xl bg-white\"{{else}}style={styles.sectionCard}{{/if}}>\n              {section.items.map((item, index) => (\n                <Pressable\n                  key={item}\n                  {{#if (eq styling \"nativewind\")}}className={`flex-row items-center px-4 py-4 ${index > 0 ? 'border-t border-gray-100' : ''}`}{{else}}style={[styles.item, index > 0 && styles.itemBorder]}{{/if}}\n                >\n                  <Text {{#if (eq styling \"nativewind\")}}className=\"flex-1 text-base text-gray-900\"{{else}}style={styles.itemLabel}{{/if}}>\n                    {item}\n                  </Text>\n                  {{#if (eq icons \"lucide\")}}\n                  <ChevronRight size={18} color=\"#9CA3AF\" />\n                  {{/if}}\n                </Pressable>\n              ))}\n            </View>\n          </View>\n        ))}\n\n        {/* Toggles */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"mx-5 mb-6\"{{else}}style={styles.section}{{/if}}>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mb-2 px-2 text-sm font-medium uppercase tracking-wide text-gray-400\"{{else}}style={styles.sectionTitle}{{/if}}>\n            General\n          </Text>\n          <View {{#if (eq styling \"nativewind\")}}className=\"rounded-2xl bg-white\"{{else}}style={styles.sectionCard}{{/if}}>\n            <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center px-4 py-4\"{{else}}style={styles.item}{{/if}}>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"flex-1 text-base text-gray-900\"{{else}}style={styles.itemLabel}{{/if}}>\n                Push notifications\n              </Text>\n              <Switch value={notifications} onValueChange={setNotifications} />\n            </View>\n            <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center border-t border-gray-100 px-4 py-4\"{{else}}style={[styles.item, styles.itemBorder]}{{/if}}>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"flex-1 text-base text-gray-900\"{{else}}style={styles.itemLabel}{{/if}}>\n                Dark mode\n              </Text>\n              <Switch value={darkMode} onValueChange={setDarkMode} />\n            </View>\n          </View>\n        </View>\n      </ScrollView>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#F9FAFB',\n  },\n  content: {\n    paddingBottom: 24,\n  },\n  header: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    paddingHorizontal: 20,\n    paddingTop: 16,\n    paddingBottom: 24,\n  },\n  backButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#FFFFFF',\n  },\n  headerTitle: {\n    marginLeft: 12,\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  section: {\n    marginHorizontal: 20,\n    marginBottom: 24,\n  },\n  sectionTitle: {\n    marginBottom: 8,\n    paddingHorizontal: 8,\n    fontSize: 14,\n    fontWeight: '500',\n    textTransform: 'uppercase',\n    letterSpacing: 0.5,\n    color: '#9CA3AF',\n  },\n  sectionCard: {\n    borderRadius: 16,\n    backgroundColor: '#FFFFFF',\n  },\n  item: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    paddingHorizontal: 16,\n    paddingVertical: 16,\n  },\n  itemBorder: {\n    borderTopWidth: 1,\n    borderTopColor: '#F3F4F6',\n  },\n  itemLabel: {\n    flex: 1,\n    fontSize: 16,\n    color: '#111827',\n  },\n});\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "app",
+        "settings",
+        "preferences"
+      ],
+      "primitives": []
+    },
+    {
+      "id": "auth/forgot-password",
+      "name": "Forgot Password Screen",
+      "description": "Email submission to reset a forgotten password.",
+      "version": "0.2.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native",
+          "shadcn"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "react-hook-form",
+        "zod",
+        "@hookform/resolvers",
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/forgot-password/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { \n  View, \n  Text, \n  KeyboardAvoidingView, \n  Platform, \n  SafeAreaView, \n  ScrollView{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { Link } from 'expo-router';\n{{#if (eq icons \"lucide\")}}\nimport { ArrowLeft } from 'lucide-react-native';\n{{/if}}\nimport { ForgotPasswordForm } from '../../components/ForgotPasswordForm';\n\nexport default function ForgotPasswordScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <KeyboardAvoidingView\n        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}\n        {{#if (eq styling \"nativewind\")}}className=\"flex-1\"{{else}}style={styles.flex1}{{/if}}\n      >\n        <ScrollView\n          contentContainerStyle={styles.scrollContent}\n          keyboardShouldPersistTaps=\"handled\"\n        >\n          {{#if (eq icons \"lucide\")}}\n          <Link href=\"/login\" {{#if (eq styling \"nativewind\")}}className=\"mb-6\"{{else}}style={styles.backButton}{{/if}}>\n            <ArrowLeft size={24} color=\"#111827\" />\n          </Link>\n          {{/if}}\n\n          <View {{#if (eq styling \"nativewind\")}}className=\"mb-8\"{{else}}style={styles.header}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-3xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n              Reset password\n            </Text>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-base text-gray-600\"{{else}}style={styles.subtitle}{{/if}}>\n              Enter your email and we'll send you a link to reset your password.\n            </Text>\n          </View>\n\n          <ForgotPasswordForm />\n        </ScrollView>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  flex1: {\n    flex: 1,\n  },\n  scrollContent: {\n    flexGrow: 1,\n    padding: 24,\n    justifyContent: 'center',\n  },\n  backButton: {\n    marginBottom: 24,\n  },\n  header: {\n    marginBottom: 32,\n  },\n  title: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    fontSize: 16,\n    color: '#4B5563',\n  },\n});\n{{/if}}"
+        },
+        {
+          "path": "app/forgot-password/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "shadcn"
+            ],
+            "icons": [
+              "lucide"
+            ]
+          },
+          "template": "import { KeyboardAvoidingView, Platform, View, Text } from \"react-native\";\nimport { SafeAreaView } from \"react-native-safe-area-context\";\nimport { ForgotPasswordForm } from \"../../components/ForgotPasswordForm\";\n\nexport default function ForgotPasswordScreen() {\n  return (\n    <SafeAreaView className=\"flex-1 bg-background\">\n      <KeyboardAvoidingView\n        behavior={Platform.OS === \"ios\" ? \"padding\" : \"height\"}\n        className=\"flex-1\"\n      >\n        <View className=\"flex-1 justify-center px-6\">\n          <View>\n            <Text className=\"text-3xl font-bold text-foreground\">Reset password</Text>\n            <Text className=\"mt-2 text-muted-foreground\">\n              Enter your email and we'll send you a link to reset your password.\n            </Text>\n          </View>\n\n          <View className=\"mt-8\">\n            <ForgotPasswordForm />\n          </View>\n        </View>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}"
+        },
+        {
+          "path": "components/ForgotPasswordForm.tsx",
+          "when": {
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { useState } from 'react';\nimport { \n  View, \n  Text, \n  TextInput, \n  Pressable, \n  ActivityIndicator{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { useForm, Controller } from 'react-hook-form';\nimport { zodResolver } from '@hookform/resolvers/zod';\nimport { z } from 'zod';\n{{#if (eq icons \"lucide\")}}\nimport { Mail } from 'lucide-react-native';\n{{/if}}\n\n{{#if typescript}}\nconst schema = z.object({\n  email: z.string().min(1, 'Email is required').email('Enter a valid email'),\n});\n\ntype FormData = z.infer<typeof schema>;\n{{/if}}\n\nexport function ForgotPasswordForm() {\n  {{#if typescript}}\n  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({\n    resolver: zodResolver(schema),\n    defaultValues: { email: '' },\n  });\n  {{else}}\n  const schema = z.object({\n    email: z.string().min(1, 'Email is required').email('Enter a valid email'),\n  });\n  const { control, handleSubmit, formState: { errors } } = useForm({\n    resolver: zodResolver(schema),\n    defaultValues: { email: '' },\n  });\n  {{/if}}\n\n  const [sent, setSent] = useState(false);\n  const [isLoading, setIsLoading] = useState(false);\n\n  const onSubmit = async ({{#if typescript}}data: FormData{{else}}data{{/if}}) => {\n    setIsLoading(true);\n    try {\n      // Replace with your actual reset logic\n      // Example: await supabase.auth.resetPasswordForEmail(data.email);\n      console.log('Reset request', { email: data.email });\n      await new Promise((resolve) => setTimeout(resolve, 1500));\n      setSent(true);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n\n  if (sent) {\n    return (\n      <View {{#if (eq styling \"nativewind\")}}className=\"items-center rounded-xl bg-green-50 px-4 py-4\"{{else}}style={styles.successCard}{{/if}}>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-medium text-green-700\"{{else}}style={styles.successText}{{/if}}>\n          Check your inbox! We sent a reset link to your email.\n        </Text>\n      </View>\n    );\n  }\n\n  return (\n    <View {{#if (eq styling \"nativewind\")}}className=\"gap-4\"{{else}}style={styles.container}{{/if}}>\n      <View>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mb-1 text-sm font-medium text-gray-700\"{{else}}style={styles.label}{{/if}}>\n          Email\n        </Text>\n        <Controller\n          control={control}\n          name=\"email\"\n          render={({ field: { onChange, onBlur, value } }) => (\n            <View {{#if (eq styling \"nativewind\")}}className={`flex-row items-center border rounded-lg px-3 py-3 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}{{else}}style={[styles.inputContainer, errors.email && styles.inputError]}{{/if}}>\n              {{#if (eq icons \"lucide\")}}\n              <Mail size={20} color={errors.email ? '#EF4444' : '#6B7280'} />\n              {{/if}}\n              <TextInput\n                placeholder=\"you@example.com\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n                autoCapitalize=\"none\"\n                keyboardType=\"email-address\"\n                placeholderTextColor=\"#9CA3AF\"\n                {{#if (eq styling \"nativewind\")}}className=\"flex-1 ml-3 text-gray-900\"{{else}}style={styles.input}{{/if}}\n              />\n            </View>\n          )}\n        />\n        {errors.email && (\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-sm text-red-500\"{{else}}style={styles.errorText}{{/if}}>\n            {errors.email.message}\n          </Text>\n        )}\n      </View>\n\n      <Pressable\n        onPress={handleSubmit(onSubmit)}\n        disabled={isLoading}\n        {{#if (eq styling \"nativewind\")}}className={`py-3 rounded-lg ${isLoading ? 'bg-blue-400' : 'bg-blue-600'}`}{{else}}style={[styles.button, isLoading && styles.buttonDisabled]}{{/if}}\n      >\n        {isLoading ? (\n          <ActivityIndicator color=\"#FFFFFF\" />\n        ) : (\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-white text-center font-semibold text-base\"{{else}}style={styles.buttonText}{{/if}}>\n            Send Reset Link\n          </Text>\n        )}\n      </Pressable>\n    </View>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  container: {\n    gap: 16,\n  },\n  label: {\n    marginBottom: 4,\n    fontSize: 14,\n    fontWeight: '500',\n    color: '#374151',\n  },\n  inputContainer: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderWidth: 1,\n    borderColor: '#D1D5DB',\n    borderRadius: 8,\n    paddingHorizontal: 12,\n    paddingVertical: 12,\n  },\n  inputError: {\n    borderColor: '#EF4444',\n  },\n  input: {\n    flex: 1,\n    marginLeft: 12,\n    color: '#111827',\n  },\n  errorText: {\n    marginTop: 4,\n    fontSize: 14,\n    color: '#EF4444',\n  },\n  button: {\n    paddingVertical: 12,\n    borderRadius: 8,\n    backgroundColor: '#2563EB',\n  },\n  buttonDisabled: {\n    backgroundColor: '#93C5FD',\n  },\n  buttonText: {\n    color: '#FFFFFF',\n    textAlign: 'center',\n    fontWeight: '600',\n    fontSize: 16,\n  },\n  successCard: {\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#F0FDF4',\n    paddingHorizontal: 16,\n    paddingVertical: 16,\n  },\n  successText: {\n    fontSize: 16,\n    fontWeight: '500',\n    color: '#15803D',\n  },\n});\n{{/if}}"
+        },
+        {
+          "path": "components/ForgotPasswordForm.tsx",
+          "when": {
+            "ui": [
+              "shadcn"
+            ],
+            "icons": [
+              "lucide"
+            ]
+          },
+          "template": "import { useState } from \"react\";\nimport { Controller, useForm } from \"react-hook-form\";\nimport { zodResolver } from \"@hookform/resolvers/zod\";\nimport { z } from \"zod\";\nimport { Text, View } from \"react-native\";\nimport { Mail } from \"lucide-react-native\";\nimport { Input } from \"../components/ui/input\";\nimport { Button } from \"../components/ui/button\";\n\nconst schema = z.object({\n  email: z.string().min(1, \"Email is required\").email(\"Enter a valid email\"),\n});\n\ntype FormData = z.infer<typeof schema>;\n\nexport function ForgotPasswordForm() {\n  const [sent, setSent] = useState(false);\n  const {\n    control,\n    handleSubmit,\n    formState: { errors, isSubmitting },\n  } = useForm<FormData>({\n    resolver: zodResolver(schema),\n    defaultValues: { email: \"\" },\n  });\n\n  const onSubmit = (data: FormData) => {\n    console.log(data);\n    setSent(true);\n  };\n\n  if (sent) {\n    return (\n      <View className=\"gap-3\">\n        <View className=\"items-center rounded-xl bg-green-50 px-4 py-4\">\n          <Text className=\"text-base font-medium text-green-700\">\n            Check your inbox! We sent a reset link to your email.\n          </Text>\n        </View>\n      </View>\n    );\n  }\n\n  return (\n    <View className=\"gap-4\">\n      <View>\n        <View className=\"flex-row items-center gap-3\">\n          <Mail size={20} className=\"text-muted-foreground\" />\n          <Controller\n            control={control}\n            name=\"email\"\n            render={({ field: { onChange, onBlur, value } }) => (\n              <Input\n                placeholder=\"Email\"\n                autoCapitalize=\"none\"\n                keyboardType=\"email-address\"\n                className=\"flex-1\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n              />\n            )}\n          />\n        </View>\n        {errors.email && (\n          <Text className=\"mt-1 text-sm text-destructive\">{errors.email.message}</Text>\n        )}\n      </View>\n\n      <Button\n        onPress={handleSubmit(onSubmit)}\n        disabled={isSubmitting}\n        className=\"mt-2\"\n        size=\"lg\"\n      >\n        {isSubmitting ? \"Sending...\" : \"Send Reset Link\"}\n      </Button>\n    </View>\n  );\n}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "auth",
+        "forgot-password",
+        "form"
+      ],
+      "primitives": [
+        "ui/utils",
+        "ui/button",
+        "ui/input"
+      ]
+    },
+    {
+      "id": "auth/login",
+      "name": "Login Screen",
+      "description": "Email/password login with validation, loading states and error handling.",
+      "version": "0.3.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native",
+          "shadcn"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "react-hook-form",
+        "zod",
+        "@hookform/resolvers",
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/login/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { \n  View, \n  Text, \n  KeyboardAvoidingView, \n  Platform, \n  SafeAreaView, \n  ScrollView{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { Link } from 'expo-router';\n{{#if (eq icons \"lucide\")}}\nimport { ArrowLeft } from 'lucide-react-native';\n{{/if}}\nimport { LoginForm } from '../../components/LoginForm';\n\nexport default function LoginScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <KeyboardAvoidingView\n        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}\n        {{#if (eq styling \"nativewind\")}}className=\"flex-1\"{{else}}style={styles.flex1}{{/if}}\n      >\n        <ScrollView\n          contentContainerStyle={styles.scrollContent}\n          keyboardShouldPersistTaps=\"handled\"\n        >\n          {{#if (eq icons \"lucide\")}}\n          <Link href=\"/\" {{#if (eq styling \"nativewind\")}}className=\"mb-6\"{{else}}style={styles.backButton}{{/if}}>\n            <ArrowLeft size={24} color=\"#111827\" />\n          </Link>\n          {{/if}}\n\n          <View {{#if (eq styling \"nativewind\")}}className=\"mb-8\"{{else}}style={styles.header}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-3xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n              Welcome back\n            </Text>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-base text-gray-600\"{{else}}style={styles.subtitle}{{/if}}>\n              Sign in to your account to continue\n            </Text>\n          </View>\n\n          <LoginForm />\n\n          <View {{#if (eq styling \"nativewind\")}}className=\"mt-6 flex-row justify-center\"{{else}}style={styles.footer}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-gray-600\"{{else}}style={styles.footerText}{{/if}}>\n              Don't have an account?{' '}\n            </Text>\n            <Link href=\"/register\" {{#if (eq styling \"nativewind\")}}className=\"text-blue-600 font-semibold\"{{else}}style={styles.link}{{/if}}>\n              Sign up\n            </Link>\n          </View>\n        </ScrollView>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  flex1: {\n    flex: 1,\n  },\n  scrollContent: {\n    flexGrow: 1,\n    padding: 24,\n    justifyContent: 'center',\n  },\n  backButton: {\n    marginBottom: 24,\n  },\n  header: {\n    marginBottom: 32,\n  },\n  title: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    fontSize: 16,\n    color: '#4B5563',\n  },\n  footer: {\n    marginTop: 24,\n    flexDirection: 'row',\n    justifyContent: 'center',\n  },\n  footerText: {\n    color: '#4B5563',\n  },\n  link: {\n    color: '#2563EB',\n    fontWeight: '600',\n  },\n});\n{{/if}}"
+        },
+        {
+          "path": "app/login/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "shadcn"
+            ],
+            "icons": [
+              "lucide"
+            ]
+          },
+          "template": "import { KeyboardAvoidingView, Platform, View, Text } from \"react-native\";\nimport { SafeAreaView } from \"react-native-safe-area-context\";\nimport { LoginForm } from \"../../components/LoginForm\";\n\nexport default function LoginScreen() {\n  return (\n    <SafeAreaView className=\"flex-1 bg-background\">\n      <KeyboardAvoidingView\n        behavior={Platform.OS === \"ios\" ? \"padding\" : \"height\"}\n        className=\"flex-1\"\n      >\n        <View className=\"flex-1 justify-center px-6\">\n          <View>\n            <Text className=\"text-3xl font-bold text-foreground\">Welcome back</Text>\n            <Text className=\"mt-2 text-muted-foreground\">\n              Sign in to your account to continue\n            </Text>\n          </View>\n\n          <View className=\"mt-8\">\n            <LoginForm />\n          </View>\n        </View>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}"
+        },
+        {
+          "path": "components/LoginForm.tsx",
+          "when": {
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { useState } from 'react';\nimport { \n  View, \n  Text, \n  TextInput, \n  Pressable, \n  ActivityIndicator{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { useForm, Controller } from 'react-hook-form';\nimport { zodResolver } from '@hookform/resolvers/zod';\nimport { z } from 'zod';\nimport { Link } from 'expo-router';\n{{#if (eq icons \"lucide\")}}\nimport { Mail, Lock, Eye, EyeOff } from 'lucide-react-native';\n{{/if}}\nimport { useLogin } from '../hooks/useLogin';\n\n{{#if typescript}}\nconst schema = z.object({\n  email: z.string().email('Invalid email address'),\n  password: z.string().min(6, 'Password must be at least 6 characters'),\n});\n\ntype FormData = z.infer<typeof schema>;\n{{/if}}\n\nexport function LoginForm() {\n  {{#if typescript}}\n  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({\n    resolver: zodResolver(schema),\n    defaultValues: { email: '', password: '' },\n  });\n  {{else}}\n  const schema = z.object({\n    email: z.string().email(),\n    password: z.string().min(6),\n  });\n  const { control, handleSubmit, formState: { errors } } = useForm({\n    resolver: zodResolver(schema),\n    defaultValues: { email: '', password: '' },\n  });\n  {{/if}}\n\n  const { login, isLoading } = useLogin();\n  const [showPassword, setShowPassword] = useState(false);\n\n  const onSubmit = async ({{#if typescript}}data: FormData{{else}}data{{/if}}) => {\n    await login(data.email, data.password);\n  };\n\n  return (\n    <View {{#if (eq styling \"nativewind\")}}className=\"gap-5\"{{else}}style={styles.container}{{/if}}>\n      {/* Email field */}\n      <View>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mb-1 text-sm font-medium text-gray-700\"{{else}}style={styles.label}{{/if}}>\n          Email\n        </Text>\n        <Controller\n          control={control}\n          name=\"email\"\n          render={({ field: { onChange, onBlur, value } }) => (\n            <View {{#if (eq styling \"nativewind\")}}className={`flex-row items-center border rounded-lg px-3 py-3 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}{{else}}style={[styles.inputContainer, errors.email && styles.inputError]}{{/if}}>\n              {{#if (eq icons \"lucide\")}}\n              <Mail size={20} color={errors.email ? '#EF4444' : '#6B7280'} />\n              {{/if}}\n              <TextInput\n                placeholder=\"you@example.com\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n                autoCapitalize=\"none\"\n                keyboardType=\"email-address\"\n                placeholderTextColor=\"#9CA3AF\"\n                {{#if (eq styling \"nativewind\")}}className=\"flex-1 ml-3 text-gray-900\"{{else}}style={styles.input}{{/if}}\n              />\n            </View>\n          )}\n        />\n        {errors.email && (\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-sm text-red-500\"{{else}}style={styles.errorText}{{/if}}>\n            {errors.email.message}\n          </Text>\n        )}\n      </View>\n\n      {/* Password field */}\n      <View>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mb-1 text-sm font-medium text-gray-700\"{{else}}style={styles.label}{{/if}}>\n          Password\n        </Text>\n        <Controller\n          control={control}\n          name=\"password\"\n          render={({ field: { onChange, onBlur, value } }) => (\n            <View {{#if (eq styling \"nativewind\")}}className={`flex-row items-center border rounded-lg px-3 py-3 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}{{else}}style={[styles.inputContainer, errors.password && styles.inputError]}{{/if}}>\n              {{#if (eq icons \"lucide\")}}\n              <Lock size={20} color={errors.password ? '#EF4444' : '#6B7280'} />\n              {{/if}}\n              <TextInput\n                placeholder=\"••••••••\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n                secureTextEntry={!showPassword}\n                placeholderTextColor=\"#9CA3AF\"\n                {{#if (eq styling \"nativewind\")}}className=\"flex-1 ml-3 text-gray-900\"{{else}}style={styles.input}{{/if}}\n              />\n              {{#if (eq icons \"lucide\")}}\n              <Pressable onPress={() => setShowPassword(!showPassword)}>\n                {showPassword ? (\n                  <EyeOff size={20} color=\"#6B7280\" />\n                ) : (\n                  <Eye size={20} color=\"#6B7280\" />\n                )}\n              </Pressable>\n              {{/if}}\n            </View>\n          )}\n        />\n        {errors.password && (\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-sm text-red-500\"{{else}}style={styles.errorText}{{/if}}>\n            {errors.password.message}\n          </Text>\n        )}\n      </View>\n\n      {/* Forgot password */}\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-row justify-end\"{{else}}style={styles.forgotContainer}{{/if}}>\n        <Link \n          href=\"/forgot-password\" \n          {{#if (eq styling \"nativewind\")}}className=\"text-blue-600 text-sm font-medium\"{{else}}style={styles.link}{{/if}}\n        >\n          Forgot password?\n        </Link>\n      </View>\n\n      {/* Submit button */}\n      <Pressable\n        onPress={handleSubmit(onSubmit)}\n        disabled={isLoading}\n        {{#if (eq styling \"nativewind\")}}className={`py-3 rounded-lg ${isLoading ? 'bg-blue-400' : 'bg-blue-600'}`}{{else}}style={[styles.button, isLoading && styles.buttonDisabled]}{{/if}}\n      >\n        {isLoading ? (\n          <ActivityIndicator color=\"#FFFFFF\" />\n        ) : (\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-white text-center font-semibold text-base\"{{else}}style={styles.buttonText}{{/if}}>\n            Sign In\n          </Text>\n        )}\n      </Pressable>\n    </View>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  container: {\n    gap: 20,\n  },\n  label: {\n    marginBottom: 4,\n    fontSize: 14,\n    fontWeight: '500',\n    color: '#374151',\n  },\n  inputContainer: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderWidth: 1,\n    borderColor: '#D1D5DB',\n    borderRadius: 8,\n    paddingHorizontal: 12,\n    paddingVertical: 12,\n  },\n  inputError: {\n    borderColor: '#EF4444',\n  },\n  input: {\n    flex: 1,\n    marginLeft: 12,\n    color: '#111827',\n  },\n  errorText: {\n    marginTop: 4,\n    fontSize: 14,\n    color: '#EF4444',\n  },\n  forgotContainer: {\n    flexDirection: 'row',\n    justifyContent: 'flex-end',\n  },\n  link: {\n    color: '#2563EB',\n    fontSize: 14,\n    fontWeight: '500',\n  },\n  button: {\n    paddingVertical: 12,\n    borderRadius: 8,\n    backgroundColor: '#2563EB',\n  },\n  buttonDisabled: {\n    backgroundColor: '#93C5FD',\n  },\n  buttonText: {\n    color: '#FFFFFF',\n    textAlign: 'center',\n    fontWeight: '600',\n    fontSize: 16,\n  },\n});\n{{/if}}"
+        },
+        {
+          "path": "components/LoginForm.tsx",
+          "when": {
+            "ui": [
+              "shadcn"
+            ],
+            "icons": [
+              "lucide"
+            ]
+          },
+          "template": "import { Controller, useForm } from \"react-hook-form\";\nimport { zodResolver } from \"@hookform/resolvers/zod\";\nimport { z } from \"zod\";\nimport { Text, View } from \"react-native\";\nimport { Lock, Mail } from \"lucide-react-native\";\nimport { Input } from \"../components/ui/input\";\nimport { Button } from \"../components/ui/button\";\n\nconst schema = z.object({\n  email: z.string().min(1, \"Email is required\").email(\"Enter a valid email\"),\n  password: z.string().min(6, \"Password must be at least 6 characters\"),\n});\n\ntype FormData = z.infer<typeof schema>;\n\nexport function LoginForm() {\n  const {\n    control,\n    handleSubmit,\n    formState: { errors, isSubmitting },\n  } = useForm<FormData>({\n    resolver: zodResolver(schema),\n    defaultValues: { email: \"\", password: \"\" },\n  });\n\n  const onSubmit = (data: FormData) => {\n    console.log(data);\n  };\n\n  return (\n    <View className=\"gap-4\">\n      <View>\n        <View className=\"flex-row items-center gap-3\">\n          <Mail size={20} className=\"text-muted-foreground\" />\n          <Controller\n            control={control}\n            name=\"email\"\n            render={({ field: { onChange, onBlur, value } }) => (\n              <Input\n                placeholder=\"Email\"\n                autoCapitalize=\"none\"\n                keyboardType=\"email-address\"\n                className=\"flex-1\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n              />\n            )}\n          />\n        </View>\n        {errors.email && (\n          <Text className=\"mt-1 text-sm text-destructive\">{errors.email.message}</Text>\n        )}\n      </View>\n\n      <View>\n        <View className=\"flex-row items-center gap-3\">\n          <Lock size={20} className=\"text-muted-foreground\" />\n          <Controller\n            control={control}\n            name=\"password\"\n            render={({ field: { onChange, onBlur, value } }) => (\n              <Input\n                placeholder=\"Password\"\n                secureTextEntry\n                className=\"flex-1\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n              />\n            )}\n          />\n        </View>\n        {errors.password && (\n          <Text className=\"mt-1 text-sm text-destructive\">{errors.password.message}</Text>\n        )}\n      </View>\n\n      <Button\n        onPress={handleSubmit(onSubmit)}\n        disabled={isSubmitting}\n        className=\"mt-2\"\n        size=\"lg\"\n      >\n        {isSubmitting ? \"Signing in...\" : \"Sign In\"}\n      </Button>\n    </View>\n  );\n}"
+        },
+        {
+          "path": "hooks/useLogin.ts",
+          "when": {
+            "typescript": true
+          },
+          "template": "import { useState } from 'react';\n{{#if typescript}}\nimport { Alert } from 'react-native';\n\ninterface UseLoginResult {\n  login: (email: string, password: string) => Promise<void>;\n  isLoading: boolean;\n  error: string | null;\n}\n\nexport function useLogin(): UseLoginResult {\n  const [isLoading, setIsLoading] = useState(false);\n  const [error, setError] = useState<string | null>(null);\n\n  const login = async (email: string, password: string) => {\n    setIsLoading(true);\n    setError(null);\n    try {\n      // Replace with your actual authentication logic\n      // Example: await supabase.auth.signInWithPassword({ email, password });\n      console.log('Login attempt', { email, password });\n      await new Promise((resolve) => setTimeout(resolve, 1500));\n      Alert.alert('Success', 'Logged in successfully');\n    } catch (err) {\n      const message = err instanceof Error ? err.message : 'Login failed';\n      setError(message);\n      Alert.alert('Error', message);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n\n  return { login, isLoading, error };\n}\n{{else}}\nimport { Alert } from 'react-native';\n\nexport function useLogin() {\n  const [isLoading, setIsLoading] = useState(false);\n  const [error, setError] = useState(null);\n\n  const login = async (email, password) => {\n    setIsLoading(true);\n    setError(null);\n    try {\n      console.log('Login attempt', { email, password });\n      await new Promise((resolve) => setTimeout(resolve, 1500));\n      Alert.alert('Success', 'Logged in successfully');\n    } catch (err) {\n      const message = err.message || 'Login failed';\n      setError(message);\n      Alert.alert('Error', message);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n\n  return { login, isLoading, error };\n}\n{{/if}}"
+        },
+        {
+          "path": "hooks/useLogin.js",
+          "when": {
+            "typescript": false
+          },
+          "template": "import { useState } from 'react';\n{{#if typescript}}\nimport { Alert } from 'react-native';\n\ninterface UseLoginResult {\n  login: (email: string, password: string) => Promise<void>;\n  isLoading: boolean;\n  error: string | null;\n}\n\nexport function useLogin(): UseLoginResult {\n  const [isLoading, setIsLoading] = useState(false);\n  const [error, setError] = useState<string | null>(null);\n\n  const login = async (email: string, password: string) => {\n    setIsLoading(true);\n    setError(null);\n    try {\n      // Replace with your actual authentication logic\n      // Example: await supabase.auth.signInWithPassword({ email, password });\n      console.log('Login attempt', { email, password });\n      await new Promise((resolve) => setTimeout(resolve, 1500));\n      Alert.alert('Success', 'Logged in successfully');\n    } catch (err) {\n      const message = err instanceof Error ? err.message : 'Login failed';\n      setError(message);\n      Alert.alert('Error', message);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n\n  return { login, isLoading, error };\n}\n{{else}}\nimport { Alert } from 'react-native';\n\nexport function useLogin() {\n  const [isLoading, setIsLoading] = useState(false);\n  const [error, setError] = useState(null);\n\n  const login = async (email, password) => {\n    setIsLoading(true);\n    setError(null);\n    try {\n      console.log('Login attempt', { email, password });\n      await new Promise((resolve) => setTimeout(resolve, 1500));\n      Alert.alert('Success', 'Logged in successfully');\n    } catch (err) {\n      const message = err.message || 'Login failed';\n      setError(message);\n      Alert.alert('Error', message);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n\n  return { login, isLoading, error };\n}\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "auth",
+        "login",
+        "form"
+      ],
+      "primitives": [
+        "ui/utils",
+        "ui/button",
+        "ui/input"
+      ]
+    },
+    {
+      "id": "auth/otp-verification",
+      "name": "OTP Verification Screen",
+      "description": "One-time passcode entry with auto-submit and error handling.",
+      "version": "0.2.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native",
+          "shadcn"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/otp-verification/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { \n  View, \n  Text, \n  KeyboardAvoidingView, \n  Platform, \n  SafeAreaView, \n  ScrollView{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\n{{#if (eq icons \"lucide\")}}\nimport { ArrowLeft } from 'lucide-react-native';\n{{/if}}\nimport { Link } from 'expo-router';\nimport { OtpInput } from '../../components/OtpInput';\n\nexport default function OtpVerificationScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <KeyboardAvoidingView\n        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}\n        {{#if (eq styling \"nativewind\")}}className=\"flex-1\"{{else}}style={styles.flex1}{{/if}}\n      >\n        <ScrollView\n          contentContainerStyle={styles.scrollContent}\n          keyboardShouldPersistTaps=\"handled\"\n        >\n          {{#if (eq icons \"lucide\")}}\n          <Link href=\"/\" {{#if (eq styling \"nativewind\")}}className=\"mb-6\"{{else}}style={styles.backButton}{{/if}}>\n            <ArrowLeft size={24} color=\"#111827\" />\n          </Link>\n          {{/if}}\n\n          <View {{#if (eq styling \"nativewind\")}}className=\"mb-8\"{{else}}style={styles.header}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-3xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n              Verify code\n            </Text>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-base text-gray-600\"{{else}}style={styles.subtitle}{{/if}}>\n              Enter the 6-digit code we sent to your email.\n            </Text>\n          </View>\n\n          <OtpInput />\n        </ScrollView>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  flex1: {\n    flex: 1,\n  },\n  scrollContent: {\n    flexGrow: 1,\n    padding: 24,\n    justifyContent: 'center',\n  },\n  backButton: {\n    marginBottom: 24,\n  },\n  header: {\n    marginBottom: 32,\n  },\n  title: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    fontSize: 16,\n    color: '#4B5563',\n  },\n});\n{{/if}}"
+        },
+        {
+          "path": "app/otp-verification/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "shadcn"
+            ],
+            "icons": [
+              "lucide"
+            ]
+          },
+          "template": "import { KeyboardAvoidingView, Platform, View, Text } from \"react-native\";\nimport { SafeAreaView } from \"react-native-safe-area-context\";\nimport { OtpInput } from \"../../components/OtpInput\";\n\nexport default function OtpVerificationScreen() {\n  return (\n    <SafeAreaView className=\"flex-1 bg-background\">\n      <KeyboardAvoidingView\n        behavior={Platform.OS === \"ios\" ? \"padding\" : \"height\"}\n        className=\"flex-1\"\n      >\n        <View className=\"flex-1 justify-center px-6\">\n          <View>\n            <Text className=\"text-3xl font-bold text-foreground\">Verify code</Text>\n            <Text className=\"mt-2 text-muted-foreground\">\n              Enter the 6-digit code we sent to your email.\n            </Text>\n          </View>\n\n          <View className=\"mt-8\">\n            <OtpInput />\n          </View>\n        </View>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}"
+        },
+        {
+          "path": "components/OtpInput.tsx",
+          "when": {
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { useRef, useState } from 'react';\nimport { \n  Pressable, \n  Text, \n  TextInput, \n  View{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\n{{#if (eq icons \"lucide\")}}\nimport { RefreshCw } from 'lucide-react-native';\n{{/if}}\n\nconst OTP_LENGTH = 6;\n\nexport function OtpInput() {\n  const [code, setCode] = useState('');\n  {{#if typescript}}\n  const [error, setError] = useState<string | null>(null);\n  {{else}}\n  const [error, setError] = useState(null);\n  {{/if}}\n  const inputRef = useRef<TextInput>(null);\n\n  const handleChange = (value: string) => {\n    const digits = value.replace(/[^0-9]/g, '').slice(0, OTP_LENGTH);\n    setCode(digits);\n    setError(null);\n  };\n\n  const handleVerify = () => {\n    if (code.length < OTP_LENGTH) {\n      setError(`Enter the ${OTP_LENGTH}-digit code.`);\n      return;\n    }\n    // Replace with your actual verification logic\n    console.log('OTP submitted:', code);\n  };\n\n  const handleResend = () => {\n    setCode('');\n    inputRef.current?.focus();\n  };\n\n  return (\n    <View {{#if (eq styling \"nativewind\")}}className=\"gap-4\"{{else}}style={styles.container}{{/if}}>\n      <Pressable onPress={() => inputRef.current?.focus()}>\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-row justify-between\"{{else}}style={styles.boxesRow}{{/if}}>\n          {Array.from({ length: OTP_LENGTH }).map((_, i) => {\n            const active = code.length === i;\n            const filled = Boolean(code[i]);\n            return (\n              <View\n                key={i}\n                {{#if (eq styling \"nativewind\")}}className={`h-14 w-12 items-center justify-center rounded-xl border-2 ${\n                  active || filled\n                    ? 'border-blue-500 bg-blue-50'\n                    : 'border-gray-300 bg-gray-50'\n                }`}{{else}}style={[styles.box, (active || filled) && styles.boxActive]}{{/if}}\n              >\n                <Text {{#if (eq styling \"nativewind\")}}className=\"text-xl font-semibold text-gray-900\"{{else}}style={styles.boxText}{{/if}}>\n                  {code[i] ?? ''}\n                </Text>\n              </View>\n            );\n          })}\n        </View>\n        <TextInput\n          ref={inputRef}\n          value={code}\n          onChangeText={handleChange}\n          keyboardType=\"number-pad\"\n          maxLength={OTP_LENGTH}\n          {{#if (eq styling \"nativewind\")}}className=\"absolute h-1 w-full opacity-0\"{{else}}style={styles.hiddenInput}{{/if}}\n          accessibilityLabel=\"One-time code\"\n        />\n      </Pressable>\n\n      {error && (\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-red-500\"{{else}}style={styles.errorText}{{/if}}>\n          {error}\n        </Text>\n      )}\n\n      <Pressable\n        onPress={handleVerify}\n        {{#if (eq styling \"nativewind\")}}className=\"mt-2 items-center rounded-xl bg-blue-600 py-4\"{{else}}style={styles.button}{{/if}}\n      >\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-white\"{{else}}style={styles.buttonText}{{/if}}>\n          Verify\n        </Text>\n      </Pressable>\n\n      <Pressable\n        onPress={handleResend}\n        {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-center gap-2 py-2\"{{else}}style={styles.resend}{{/if}}\n      >\n        {{#if (eq icons \"lucide\")}}\n        <RefreshCw size={16} color=\"#6B7280\" />\n        {{/if}}\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-gray-500\"{{else}}style={styles.resendText}{{/if}}>\n          Resend code\n        </Text>\n      </Pressable>\n    </View>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  container: {\n    gap: 16,\n  },\n  boxesRow: {\n    flexDirection: 'row',\n    justifyContent: 'space-between',\n  },\n  box: {\n    height: 56,\n    width: 48,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderWidth: 2,\n    borderColor: '#D1D5DB',\n    backgroundColor: '#F9FAFB',\n    borderRadius: 12,\n  },\n  boxActive: {\n    borderColor: '#3B82F6',\n    backgroundColor: '#EFF6FF',\n  },\n  boxText: {\n    fontSize: 20,\n    fontWeight: '600',\n    color: '#111827',\n  },\n  hiddenInput: {\n    position: 'absolute',\n    height: 4,\n    width: '100%',\n    opacity: 0,\n  },\n  errorText: {\n    fontSize: 14,\n    color: '#EF4444',\n  },\n  button: {\n    marginTop: 8,\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#2563EB',\n    paddingVertical: 16,\n  },\n  buttonText: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#FFFFFF',\n  },\n  resend: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'center',\n    gap: 8,\n    paddingVertical: 8,\n  },\n  resendText: {\n    fontSize: 14,\n    color: '#6B7280',\n  },\n});\n{{/if}}"
+        },
+        {
+          "path": "components/OtpInput.tsx",
+          "when": {
+            "ui": [
+              "shadcn"
+            ],
+            "icons": [
+              "lucide"
+            ]
+          },
+          "template": "import { useRef, useState } from \"react\";\nimport { Pressable, Text, TextInput, View } from \"react-native\";\nimport { RefreshCw } from \"lucide-react-native\";\nimport { Button } from \"../components/ui/button\";\n\nconst OTP_LENGTH = 6;\n\nexport function OtpInput() {\n  const [code, setCode] = useState(\"\");\n  const [error, setError] = useState<string | null>(null);\n  const inputRef = useRef<TextInput>(null);\n\n  const handleChange = (value: string) => {\n    const digits = value.replace(/[^0-9]/g, \"\").slice(0, OTP_LENGTH);\n    setCode(digits);\n    setError(null);\n  };\n\n  const handleVerify = () => {\n    if (code.length < OTP_LENGTH) {\n      setError(`Enter the ${OTP_LENGTH}-digit code.`);\n      return;\n    }\n    console.log(\"OTP submitted:\", code);\n  };\n\n  const handleResend = () => {\n    setCode(\"\");\n    inputRef.current?.focus();\n  };\n\n  return (\n    <View className=\"gap-4\">\n      <Pressable onPress={() => inputRef.current?.focus()}>\n        <View className=\"flex-row justify-between\">\n          {Array.from({ length: OTP_LENGTH }).map((_, i) => {\n            const active = code.length === i;\n            const filled = Boolean(code[i]);\n            return (\n              <View\n                key={i}\n                className={`h-14 w-12 items-center justify-center rounded-md border-2 ${\n                  active || filled\n                    ? \"border-primary bg-primary/10\"\n                    : \"border-input bg-background\"\n                }`}\n              >\n                <Text className=\"text-xl font-semibold text-foreground\">\n                  {code[i] ?? \"\"}\n                </Text>\n              </View>\n            );\n          })}\n        </View>\n        <TextInput\n          ref={inputRef}\n          value={code}\n          onChangeText={handleChange}\n          keyboardType=\"number-pad\"\n          maxLength={OTP_LENGTH}\n          className=\"absolute h-1 w-full opacity-0\"\n          accessibilityLabel=\"One-time code\"\n        />\n      </Pressable>\n\n      {error && <Text className=\"text-sm text-destructive\">{error}</Text>}\n\n      <Button onPress={handleVerify} size=\"lg\" className=\"mt-2\">\n        Verify\n      </Button>\n\n      <Pressable onPress={handleResend} className=\"flex-row items-center justify-center gap-2 py-2\">\n        <RefreshCw size={16} className=\"text-muted-foreground\" />\n        <Text className=\"text-sm text-muted-foreground\">Resend code</Text>\n      </Pressable>\n    </View>\n  );\n}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "auth",
+        "otp",
+        "verification"
+      ],
+      "primitives": [
+        "ui/utils",
+        "ui/button",
+        "ui/input"
+      ]
+    },
+    {
+      "id": "auth/register",
+      "name": "Register Screen",
+      "description": "Email/password registration with name, validation and error handling.",
+      "version": "0.2.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native",
+          "shadcn"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "react-hook-form",
+        "zod",
+        "@hookform/resolvers",
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/register/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { \n  View, \n  Text, \n  KeyboardAvoidingView, \n  Platform, \n  SafeAreaView, \n  ScrollView{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { Link } from 'expo-router';\n{{#if (eq icons \"lucide\")}}\nimport { ArrowLeft } from 'lucide-react-native';\n{{/if}}\nimport { RegisterForm } from '../../components/RegisterForm';\n\nexport default function RegisterScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <KeyboardAvoidingView\n        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}\n        {{#if (eq styling \"nativewind\")}}className=\"flex-1\"{{else}}style={styles.flex1}{{/if}}\n      >\n        <ScrollView\n          contentContainerStyle={styles.scrollContent}\n          keyboardShouldPersistTaps=\"handled\"\n        >\n          {{#if (eq icons \"lucide\")}}\n          <Link href=\"/\" {{#if (eq styling \"nativewind\")}}className=\"mb-6\"{{else}}style={styles.backButton}{{/if}}>\n            <ArrowLeft size={24} color=\"#111827\" />\n          </Link>\n          {{/if}}\n\n          <View {{#if (eq styling \"nativewind\")}}className=\"mb-8\"{{else}}style={styles.header}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-3xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n              Create account\n            </Text>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-base text-gray-600\"{{else}}style={styles.subtitle}{{/if}}>\n              Join us and get started in minutes\n            </Text>\n          </View>\n\n          <RegisterForm />\n\n          <View {{#if (eq styling \"nativewind\")}}className=\"mt-6 flex-row justify-center\"{{else}}style={styles.footer}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-gray-600\"{{else}}style={styles.footerText}{{/if}}>\n              Already have an account?{' '}\n            </Text>\n            <Link href=\"/login\" {{#if (eq styling \"nativewind\")}}className=\"text-blue-600 font-semibold\"{{else}}style={styles.link}{{/if}}>\n              Sign in\n            </Link>\n          </View>\n        </ScrollView>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  flex1: {\n    flex: 1,\n  },\n  scrollContent: {\n    flexGrow: 1,\n    padding: 24,\n    justifyContent: 'center',\n  },\n  backButton: {\n    marginBottom: 24,\n  },\n  header: {\n    marginBottom: 32,\n  },\n  title: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    fontSize: 16,\n    color: '#4B5563',\n  },\n  footer: {\n    marginTop: 24,\n    flexDirection: 'row',\n    justifyContent: 'center',\n  },\n  footerText: {\n    color: '#4B5563',\n  },\n  link: {\n    color: '#2563EB',\n    fontWeight: '600',\n  },\n});\n{{/if}}"
+        },
+        {
+          "path": "app/register/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "shadcn"
+            ],
+            "icons": [
+              "lucide"
+            ]
+          },
+          "template": "import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from \"react-native\";\nimport { SafeAreaView } from \"react-native-safe-area-context\";\nimport { RegisterForm } from \"../../components/RegisterForm\";\n\nexport default function RegisterScreen() {\n  return (\n    <SafeAreaView className=\"flex-1 bg-background\">\n      <KeyboardAvoidingView\n        behavior={Platform.OS === \"ios\" ? \"padding\" : \"height\"}\n        className=\"flex-1\"\n      >\n        <ScrollView\n          contentContainerClassName=\"flex-grow justify-center px-6 py-8\"\n          keyboardShouldPersistTaps=\"handled\"\n        >\n          <View>\n            <Text className=\"text-3xl font-bold text-foreground\">Create account</Text>\n            <Text className=\"mt-2 text-muted-foreground\">\n              Join us and get started in minutes.\n            </Text>\n          </View>\n\n          <View className=\"mt-8\">\n            <RegisterForm />\n          </View>\n        </ScrollView>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}"
+        },
+        {
+          "path": "components/RegisterForm.tsx",
+          "when": {
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { useState } from 'react';\nimport { \n  View, \n  Text, \n  TextInput, \n  Pressable, \n  ActivityIndicator{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { useForm, Controller } from 'react-hook-form';\nimport { zodResolver } from '@hookform/resolvers/zod';\nimport { z } from 'zod';\n{{#if (eq icons \"lucide\")}}\nimport { Mail, Lock, User, Eye, EyeOff } from 'lucide-react-native';\n{{/if}}\nimport { useRegister } from '../hooks/useRegister';\n\n{{#if typescript}}\nconst schema = z.object({\n  name: z.string().min(2, 'Name must be at least 2 characters'),\n  email: z.string().email('Invalid email address'),\n  password: z.string().min(6, 'Password must be at least 6 characters'),\n  confirmPassword: z.string().min(6, 'Please confirm your password'),\n}).refine((data) => data.password === data.confirmPassword, {\n  message: 'Passwords do not match',\n  path: ['confirmPassword'],\n});\n\ntype FormData = z.infer<typeof schema>;\n{{/if}}\n\nexport function RegisterForm() {\n  {{#if typescript}}\n  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({\n    resolver: zodResolver(schema),\n    defaultValues: { name: '', email: '', password: '', confirmPassword: '' },\n  });\n  {{else}}\n  const schema = z.object({\n    name: z.string().min(2),\n    email: z.string().email(),\n    password: z.string().min(6),\n    confirmPassword: z.string().min(6),\n  }).refine((data) => data.password === data.confirmPassword, {\n    message: 'Passwords do not match',\n    path: ['confirmPassword'],\n  });\n  const { control, handleSubmit, formState: { errors } } = useForm({\n    resolver: zodResolver(schema),\n    defaultValues: { name: '', email: '', password: '', confirmPassword: '' },\n  });\n  {{/if}}\n\n  const { register, isLoading } = useRegister();\n  const [showPassword, setShowPassword] = useState(false);\n\n  const onSubmit = async ({{#if typescript}}data: FormData{{else}}data{{/if}}) => {\n    await register(data.name, data.email, data.password);\n  };\n\n  return (\n    <View {{#if (eq styling \"nativewind\")}}className=\"gap-5\"{{else}}style={styles.container}{{/if}}>\n      {/* Name field */}\n      <View>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mb-1 text-sm font-medium text-gray-700\"{{else}}style={styles.label}{{/if}}>\n          Name\n        </Text>\n        <Controller\n          control={control}\n          name=\"name\"\n          render={({ field: { onChange, onBlur, value } }) => (\n            <View {{#if (eq styling \"nativewind\")}}className={`flex-row items-center border rounded-lg px-3 py-3 ${errors.name ? 'border-red-500' : 'border-gray-300'}`}{{else}}style={[styles.inputContainer, errors.name && styles.inputError]}{{/if}}>\n              {{#if (eq icons \"lucide\")}}\n              <User size={20} color={errors.name ? '#EF4444' : '#6B7280'} />\n              {{/if}}\n              <TextInput\n                placeholder=\"Jane Doe\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n                autoCapitalize=\"words\"\n                placeholderTextColor=\"#9CA3AF\"\n                {{#if (eq styling \"nativewind\")}}className=\"flex-1 ml-3 text-gray-900\"{{else}}style={styles.input}{{/if}}\n              />\n            </View>\n          )}\n        />\n        {errors.name && (\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-sm text-red-500\"{{else}}style={styles.errorText}{{/if}}>\n            {errors.name.message}\n          </Text>\n        )}\n      </View>\n\n      {/* Email field */}\n      <View>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mb-1 text-sm font-medium text-gray-700\"{{else}}style={styles.label}{{/if}}>\n          Email\n        </Text>\n        <Controller\n          control={control}\n          name=\"email\"\n          render={({ field: { onChange, onBlur, value } }) => (\n            <View {{#if (eq styling \"nativewind\")}}className={`flex-row items-center border rounded-lg px-3 py-3 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}{{else}}style={[styles.inputContainer, errors.email && styles.inputError]}{{/if}}>\n              {{#if (eq icons \"lucide\")}}\n              <Mail size={20} color={errors.email ? '#EF4444' : '#6B7280'} />\n              {{/if}}\n              <TextInput\n                placeholder=\"you@example.com\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n                autoCapitalize=\"none\"\n                keyboardType=\"email-address\"\n                placeholderTextColor=\"#9CA3AF\"\n                {{#if (eq styling \"nativewind\")}}className=\"flex-1 ml-3 text-gray-900\"{{else}}style={styles.input}{{/if}}\n              />\n            </View>\n          )}\n        />\n        {errors.email && (\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-sm text-red-500\"{{else}}style={styles.errorText}{{/if}}>\n            {errors.email.message}\n          </Text>\n        )}\n      </View>\n\n      {/* Password field */}\n      <View>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mb-1 text-sm font-medium text-gray-700\"{{else}}style={styles.label}{{/if}}>\n          Password\n        </Text>\n        <Controller\n          control={control}\n          name=\"password\"\n          render={({ field: { onChange, onBlur, value } }) => (\n            <View {{#if (eq styling \"nativewind\")}}className={`flex-row items-center border rounded-lg px-3 py-3 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}{{else}}style={[styles.inputContainer, errors.password && styles.inputError]}{{/if}}>\n              {{#if (eq icons \"lucide\")}}\n              <Lock size={20} color={errors.password ? '#EF4444' : '#6B7280'} />\n              {{/if}}\n              <TextInput\n                placeholder=\"••••••••\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n                secureTextEntry={!showPassword}\n                placeholderTextColor=\"#9CA3AF\"\n                {{#if (eq styling \"nativewind\")}}className=\"flex-1 ml-3 text-gray-900\"{{else}}style={styles.input}{{/if}}\n              />\n              {{#if (eq icons \"lucide\")}}\n              <Pressable onPress={() => setShowPassword(!showPassword)}>\n                {showPassword ? (\n                  <EyeOff size={20} color=\"#6B7280\" />\n                ) : (\n                  <Eye size={20} color=\"#6B7280\" />\n                )}\n              </Pressable>\n              {{/if}}\n            </View>\n          )}\n        />\n        {errors.password && (\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-sm text-red-500\"{{else}}style={styles.errorText}{{/if}}>\n            {errors.password.message}\n          </Text>\n        )}\n      </View>\n\n      {/* Confirm password field */}\n      <View>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mb-1 text-sm font-medium text-gray-700\"{{else}}style={styles.label}{{/if}}>\n          Confirm password\n        </Text>\n        <Controller\n          control={control}\n          name=\"confirmPassword\"\n          render={({ field: { onChange, onBlur, value } }) => (\n            <View {{#if (eq styling \"nativewind\")}}className={`flex-row items-center border rounded-lg px-3 py-3 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'}`}{{else}}style={[styles.inputContainer, errors.confirmPassword && styles.inputError]}{{/if}}>\n              {{#if (eq icons \"lucide\")}}\n              <Lock size={20} color={errors.confirmPassword ? '#EF4444' : '#6B7280'} />\n              {{/if}}\n              <TextInput\n                placeholder=\"••••••••\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n                secureTextEntry={!showPassword}\n                placeholderTextColor=\"#9CA3AF\"\n                {{#if (eq styling \"nativewind\")}}className=\"flex-1 ml-3 text-gray-900\"{{else}}style={styles.input}{{/if}}\n              />\n            </View>\n          )}\n        />\n        {errors.confirmPassword && (\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-sm text-red-500\"{{else}}style={styles.errorText}{{/if}}>\n            {errors.confirmPassword.message}\n          </Text>\n        )}\n      </View>\n\n      {/* Submit button */}\n      <Pressable\n        onPress={handleSubmit(onSubmit)}\n        disabled={isLoading}\n        {{#if (eq styling \"nativewind\")}}className={`py-3 rounded-lg ${isLoading ? 'bg-blue-400' : 'bg-blue-600'}`}{{else}}style={[styles.button, isLoading && styles.buttonDisabled]}{{/if}}\n      >\n        {isLoading ? (\n          <ActivityIndicator color=\"#FFFFFF\" />\n        ) : (\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-white text-center font-semibold text-base\"{{else}}style={styles.buttonText}{{/if}}>\n            Create Account\n          </Text>\n        )}\n      </Pressable>\n    </View>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  container: {\n    gap: 20,\n  },\n  label: {\n    marginBottom: 4,\n    fontSize: 14,\n    fontWeight: '500',\n    color: '#374151',\n  },\n  inputContainer: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderWidth: 1,\n    borderColor: '#D1D5DB',\n    borderRadius: 8,\n    paddingHorizontal: 12,\n    paddingVertical: 12,\n  },\n  inputError: {\n    borderColor: '#EF4444',\n  },\n  input: {\n    flex: 1,\n    marginLeft: 12,\n    color: '#111827',\n  },\n  errorText: {\n    marginTop: 4,\n    fontSize: 14,\n    color: '#EF4444',\n  },\n  button: {\n    paddingVertical: 12,\n    borderRadius: 8,\n    backgroundColor: '#2563EB',\n  },\n  buttonDisabled: {\n    backgroundColor: '#93C5FD',\n  },\n  buttonText: {\n    color: '#FFFFFF',\n    textAlign: 'center',\n    fontWeight: '600',\n    fontSize: 16,\n  },\n});\n{{/if}}"
+        },
+        {
+          "path": "components/RegisterForm.tsx",
+          "when": {
+            "ui": [
+              "shadcn"
+            ],
+            "icons": [
+              "lucide"
+            ]
+          },
+          "template": "import { Controller, useForm } from \"react-hook-form\";\nimport { zodResolver } from \"@hookform/resolvers/zod\";\nimport { z } from \"zod\";\nimport { Text, View } from \"react-native\";\nimport { Lock, Mail, User } from \"lucide-react-native\";\nimport { Input } from \"../components/ui/input\";\nimport { Button } from \"../components/ui/button\";\n\nconst schema = z\n  .object({\n    name: z.string().min(2, \"Name must be at least 2 characters\"),\n    email: z.string().min(1, \"Email is required\").email(\"Enter a valid email\"),\n    password: z.string().min(6, \"Password must be at least 6 characters\"),\n    confirmPassword: z.string(),\n  })\n  .refine((data) => data.password === data.confirmPassword, {\n    message: \"Passwords do not match\",\n    path: [\"confirmPassword\"],\n  });\n\ntype FormData = z.infer<typeof schema>;\n\nexport function RegisterForm() {\n  const {\n    control,\n    handleSubmit,\n    formState: { errors, isSubmitting },\n  } = useForm<FormData>({\n    resolver: zodResolver(schema),\n    defaultValues: { name: \"\", email: \"\", password: \"\", confirmPassword: \"\" },\n  });\n\n  const onSubmit = (data: FormData) => {\n    console.log(data);\n  };\n\n  return (\n    <View className=\"gap-4\">\n      <View>\n        <View className=\"flex-row items-center gap-3\">\n          <User size={20} className=\"text-muted-foreground\" />\n          <Controller\n            control={control}\n            name=\"name\"\n            render={({ field: { onChange, onBlur, value } }) => (\n              <Input\n                placeholder=\"Full name\"\n                autoCapitalize=\"words\"\n                className=\"flex-1\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n              />\n            )}\n          />\n        </View>\n        {errors.name && (\n          <Text className=\"mt-1 text-sm text-destructive\">{errors.name.message}</Text>\n        )}\n      </View>\n\n      <View>\n        <View className=\"flex-row items-center gap-3\">\n          <Mail size={20} className=\"text-muted-foreground\" />\n          <Controller\n            control={control}\n            name=\"email\"\n            render={({ field: { onChange, onBlur, value } }) => (\n              <Input\n                placeholder=\"Email\"\n                autoCapitalize=\"none\"\n                keyboardType=\"email-address\"\n                className=\"flex-1\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n              />\n            )}\n          />\n        </View>\n        {errors.email && (\n          <Text className=\"mt-1 text-sm text-destructive\">{errors.email.message}</Text>\n        )}\n      </View>\n\n      <View>\n        <View className=\"flex-row items-center gap-3\">\n          <Lock size={20} className=\"text-muted-foreground\" />\n          <Controller\n            control={control}\n            name=\"password\"\n            render={({ field: { onChange, onBlur, value } }) => (\n              <Input\n                placeholder=\"Password\"\n                secureTextEntry\n                className=\"flex-1\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n              />\n            )}\n          />\n        </View>\n        {errors.password && (\n          <Text className=\"mt-1 text-sm text-destructive\">{errors.password.message}</Text>\n        )}\n      </View>\n\n      <View>\n        <View className=\"flex-row items-center gap-3\">\n          <Lock size={20} className=\"text-muted-foreground\" />\n          <Controller\n            control={control}\n            name=\"confirmPassword\"\n            render={({ field: { onChange, onBlur, value } }) => (\n              <Input\n                placeholder=\"Confirm password\"\n                secureTextEntry\n                className=\"flex-1\"\n                value={value}\n                onChangeText={onChange}\n                onBlur={onBlur}\n              />\n            )}\n          />\n        </View>\n        {errors.confirmPassword && (\n          <Text className=\"mt-1 text-sm text-destructive\">{errors.confirmPassword.message}</Text>\n        )}\n      </View>\n\n      <Button\n        onPress={handleSubmit(onSubmit)}\n        disabled={isSubmitting}\n        className=\"mt-2\"\n        size=\"lg\"\n      >\n        {isSubmitting ? \"Creating account...\" : \"Create Account\"}\n      </Button>\n    </View>\n  );\n}"
+        },
+        {
+          "path": "hooks/useRegister.ts",
+          "when": {
+            "typescript": true
+          },
+          "template": "import { useState } from 'react';\n{{#if typescript}}\nimport { Alert } from 'react-native';\n\ninterface UseRegisterResult {\n  register: (name: string, email: string, password: string) => Promise<void>;\n  isLoading: boolean;\n  error: string | null;\n}\n\nexport function useRegister(): UseRegisterResult {\n  const [isLoading, setIsLoading] = useState(false);\n  const [error, setError] = useState<string | null>(null);\n\n  const register = async (name: string, email: string, password: string) => {\n    setIsLoading(true);\n    setError(null);\n    try {\n      // Replace with your actual registration logic\n      // Example: await supabase.auth.signUp({ email, password, options: { data: { name } } });\n      console.log('Register attempt', { name, email, password });\n      await new Promise((resolve) => setTimeout(resolve, 1500));\n      Alert.alert('Success', 'Account created successfully');\n    } catch (err) {\n      const message = err instanceof Error ? err.message : 'Registration failed';\n      setError(message);\n      Alert.alert('Error', message);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n\n  return { register, isLoading, error };\n}\n{{else}}\nimport { Alert } from 'react-native';\n\nexport function useRegister() {\n  const [isLoading, setIsLoading] = useState(false);\n  const [error, setError] = useState(null);\n\n  const register = async (name, email, password) => {\n    setIsLoading(true);\n    setError(null);\n    try {\n      console.log('Register attempt', { name, email, password });\n      await new Promise((resolve) => setTimeout(resolve, 1500));\n      Alert.alert('Success', 'Account created successfully');\n    } catch (err) {\n      const message = err.message || 'Registration failed';\n      setError(message);\n      Alert.alert('Error', message);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n\n  return { register, isLoading, error };\n}\n{{/if}}"
+        },
+        {
+          "path": "hooks/useRegister.js",
+          "when": {
+            "typescript": false
+          },
+          "template": "import { useState } from 'react';\n{{#if typescript}}\nimport { Alert } from 'react-native';\n\ninterface UseRegisterResult {\n  register: (name: string, email: string, password: string) => Promise<void>;\n  isLoading: boolean;\n  error: string | null;\n}\n\nexport function useRegister(): UseRegisterResult {\n  const [isLoading, setIsLoading] = useState(false);\n  const [error, setError] = useState<string | null>(null);\n\n  const register = async (name: string, email: string, password: string) => {\n    setIsLoading(true);\n    setError(null);\n    try {\n      // Replace with your actual registration logic\n      // Example: await supabase.auth.signUp({ email, password, options: { data: { name } } });\n      console.log('Register attempt', { name, email, password });\n      await new Promise((resolve) => setTimeout(resolve, 1500));\n      Alert.alert('Success', 'Account created successfully');\n    } catch (err) {\n      const message = err instanceof Error ? err.message : 'Registration failed';\n      setError(message);\n      Alert.alert('Error', message);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n\n  return { register, isLoading, error };\n}\n{{else}}\nimport { Alert } from 'react-native';\n\nexport function useRegister() {\n  const [isLoading, setIsLoading] = useState(false);\n  const [error, setError] = useState(null);\n\n  const register = async (name, email, password) => {\n    setIsLoading(true);\n    setError(null);\n    try {\n      console.log('Register attempt', { name, email, password });\n      await new Promise((resolve) => setTimeout(resolve, 1500));\n      Alert.alert('Success', 'Account created successfully');\n    } catch (err) {\n      const message = err.message || 'Registration failed';\n      setError(message);\n      Alert.alert('Error', message);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n\n  return { register, isLoading, error };\n}\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "auth",
+        "register",
+        "signup",
+        "form"
+      ],
+      "primitives": [
+        "ui/utils",
+        "ui/button",
+        "ui/input"
+      ]
+    },
+    {
+      "id": "ecommerce/product-details",
+      "name": "Product Details Screen",
+      "description": "Product detail view with image, rating, description, quantity selector and add to cart.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/products/[id].tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { useState } from 'react';\nimport { \n  View, \n  Text, \n  Pressable, \n  ScrollView{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\nimport { useLocalSearchParams, useRouter } from 'expo-router';\n{{#if (eq icons \"lucide\")}}\nimport { ChevronLeft, Star, ShoppingCart, Heart, Share2 } from 'lucide-react-native';\n{{/if}}\n\nexport default function ProductDetailsScreen() {\n  const params = useLocalSearchParams();\n  const router = useRouter();\n  const [quantity, setQuantity] = useState(1);\n  const [favorite, setFavorite] = useState(false);\n\n  const product = {\n    title: 'Wireless Earbuds Pro',\n    price: '$129.00',\n    rating: 4.8,\n    reviews: 1240,\n    description:\n      'Premium wireless earbuds with active noise cancellation, 30-hour battery life, and crystal-clear call quality.',\n  };\n\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>\n      {/* Top bar */}\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between px-5 pt-4\"{{else}}style={styles.topBar}{{/if}}>\n        {{#if (eq icons \"lucide\")}}\n        <Pressable onPress={() => router.back()} {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-gray-100\"{{else}}style={styles.roundButton}{{/if}}>\n          <ChevronLeft size={22} color=\"#111827\" />\n        </Pressable>\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-row gap-3\"{{else}}style={styles.topActions}{{/if}}>\n          <Pressable onPress={() => setFavorite(!favorite)} {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-gray-100\"{{else}}style={styles.roundButton}{{/if}}>\n            <Heart size={20} color={favorite ? '#EF4444' : '#111827'} fill={favorite ? '#EF4444' : 'none'} />\n          </Pressable>\n          <Pressable onPress={() => console.log('share')} {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-gray-100\"{{else}}style={styles.roundButton}{{/if}}>\n            <Share2 size={20} color=\"#111827\" />\n          </Pressable>\n        </View>\n        {{/if}}\n      </View>\n\n      <ScrollView contentContainerStyle={styles.content}>\n        {/* Image */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"mx-5 mt-4 h-72 items-center justify-center rounded-2xl bg-blue-50\"{{else}}style={styles.image}{{/if}}>\n          <View {{#if (eq styling \"nativewind\")}}className=\"h-40 w-40 rounded-3xl bg-blue-200\"{{else}}style={styles.imageBlock}{{/if}} />\n        </View>\n\n        {/* Info */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"mt-6 px-5\"{{else}}style={styles.info}{{/if}}>\n          <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center gap-2\"{{else}}style={styles.ratingRow}{{/if}}>\n            {{#if (eq icons \"lucide\")}}\n            <Star size={16} color=\"#F59E0B\" fill=\"#F59E0B\" />\n            {{/if}}\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm font-medium text-gray-900\"{{else}}style={styles.rating}{{/if}}>{product.rating}</Text>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-gray-400\"{{else}}style={styles.reviews}{{/if}}>({product.reviews} reviews)</Text>\n          </View>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-2xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n            {product.title}\n          </Text>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-2xl font-bold text-blue-600\"{{else}}style={styles.price}{{/if}}>\n            {product.price}\n          </Text>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-4 text-base leading-6 text-gray-600\"{{else}}style={styles.description}{{/if}}>\n            {product.description}\n          </Text>\n\n          {/* Quantity */}\n          <View {{#if (eq styling \"nativewind\")}}className=\"mt-6 flex-row items-center justify-between\"{{else}}style={styles.quantityRow}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-medium text-gray-900\"{{else}}style={styles.quantityLabel}{{/if}}>Quantity</Text>\n            <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center rounded-full bg-gray-100\"{{else}}style={styles.quantityControl}{{/if}}>\n              <Pressable\n                onPress={() => setQuantity((q) => Math.max(1, q - 1))}\n                {{#if (eq styling \"nativewind\")}}className=\"h-9 w-9 items-center justify-center\"{{else}}style={styles.quantityButton}{{/if}}\n              >\n                <Text {{#if (eq styling \"nativewind\")}}className=\"text-xl text-gray-700\"{{else}}style={styles.quantityButtonText}{{/if}}>−</Text>\n              </Pressable>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"w-8 text-center text-base font-semibold text-gray-900\"{{else}}style={styles.quantityValue}{{/if}}>{quantity}</Text>\n              <Pressable\n                onPress={() => setQuantity((q) => q + 1)}\n                {{#if (eq styling \"nativewind\")}}className=\"h-9 w-9 items-center justify-center\"{{else}}style={styles.quantityButton}{{/if}}\n              >\n                <Text {{#if (eq styling \"nativewind\")}}className=\"text-xl text-gray-700\"{{else}}style={styles.quantityButtonText}{{/if}}>+</Text>\n              </Pressable>\n            </View>\n          </View>\n        </View>\n      </ScrollView>\n\n      {/* Add to cart */}\n      <View {{#if (eq styling \"nativewind\")}}className=\"border-t border-gray-100 px-5 py-4\"{{else}}style={styles.bottomBar}{{/if}}>\n        <Pressable onPress={() => console.log('add to cart', { ...product, quantity })} {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-center rounded-xl bg-blue-600 py-4\"{{else}}style={styles.addButton}{{/if}}>\n          {{#if (eq icons \"lucide\")}}\n          <ShoppingCart size={20} color=\"#FFFFFF\" />\n          {{/if}}\n          <Text {{#if (eq styling \"nativewind\")}}className=\"ml-2 text-base font-semibold text-white\"{{else}}style={styles.addButtonText}{{/if}}>\n            Add to Cart\n          </Text>\n        </Pressable>\n      </View>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  topBar: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n    paddingHorizontal: 20,\n    paddingTop: 16,\n  },\n  topActions: {\n    flexDirection: 'row',\n    gap: 12,\n  },\n  roundButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#F3F4F6',\n  },\n  content: {\n    paddingBottom: 24,\n  },\n  image: {\n    marginHorizontal: 20,\n    marginTop: 16,\n    height: 288,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 16,\n    backgroundColor: '#EFF6FF',\n  },\n  imageBlock: {\n    height: 160,\n    width: 160,\n    borderRadius: 24,\n    backgroundColor: '#BFDBFE',\n  },\n  info: {\n    marginTop: 24,\n    paddingHorizontal: 20,\n  },\n  ratingRow: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    gap: 8,\n  },\n  rating: {\n    fontSize: 14,\n    fontWeight: '500',\n    color: '#111827',\n  },\n  reviews: {\n    fontSize: 14,\n    color: '#9CA3AF',\n  },\n  title: {\n    marginTop: 8,\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  price: {\n    marginTop: 4,\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#2563EB',\n  },\n  description: {\n    marginTop: 16,\n    fontSize: 16,\n    lineHeight: 24,\n    color: '#4B5563',\n  },\n  quantityRow: {\n    marginTop: 24,\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n  },\n  quantityLabel: {\n    fontSize: 16,\n    fontWeight: '500',\n    color: '#111827',\n  },\n  quantityControl: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderRadius: 20,\n    backgroundColor: '#F3F4F6',\n  },\n  quantityButton: {\n    height: 36,\n    width: 36,\n    alignItems: 'center',\n    justifyContent: 'center',\n  },\n  quantityButtonText: {\n    fontSize: 20,\n    color: '#374151',\n  },\n  quantityValue: {\n    width: 32,\n    textAlign: 'center',\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#111827',\n  },\n  bottomBar: {\n    borderTopWidth: 1,\n    borderTopColor: '#F3F4F6',\n    paddingHorizontal: 20,\n    paddingVertical: 16,\n  },\n  addButton: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 12,\n    backgroundColor: '#2563EB',\n    paddingVertical: 16,\n  },\n  addButtonText: {\n    marginLeft: 8,\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#FFFFFF',\n  },\n});\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "ecommerce",
+        "product",
+        "details"
+      ],
+      "primitives": []
+    },
+    {
+      "id": "ecommerce/products",
+      "name": "Product Listing Screen",
+      "description": "Two-column product grid with prices, ratings and filter button.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/products/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { \n  View, \n  Text, \n  Pressable, \n  FlatList{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{#if (eq icons \"lucide\")}}\nimport { Star, SlidersHorizontal } from 'lucide-react-native';\n{{/if}}\n\nconst products = [\n  { id: '1', title: 'Wireless Earbuds Pro', price: '$129.00', rating: 4.8, color: '#DBEAFE' },\n  { id: '2', title: 'Smart Watch Series 5', price: '$249.00', rating: 4.6, color: '#FCE7F3' },\n  { id: '3', title: 'Portable Speaker Mini', price: '$59.00', rating: 4.4, color: '#D1FAE5' },\n  { id: '4', title: 'USB-C Fast Charger', price: '$39.00', rating: 4.7, color: '#FEF3C7' },\n  { id: '5', title: 'Bluetooth Keyboard', price: '$79.00', rating: 4.5, color: '#E0E7FF' },\n  { id: '6', title: 'Noise-Cancelling Headphones', price: '$199.00', rating: 4.9, color: '#FEE2E2' },\n];\n\nexport default function ProductsScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-gray-50\"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>\n      {/* Header */}\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between px-5 pt-4 pb-4\"{{else}}style={styles.header}{{/if}}>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-2xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n          Shop\n        </Text>\n        {{#if (eq icons \"lucide\")}}\n        <Pressable {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-white\"{{else}}style={styles.filterButton}{{/if}}>\n          <SlidersHorizontal size={20} color=\"#4B5563\" />\n        </Pressable>\n        {{/if}}\n      </View>\n\n      <FlatList\n        data={products}\n        keyExtractor={(item) => item.id}\n        numColumns={2}\n        contentContainerStyle={styles.grid}\n        columnWrapperStyle={styles.gridRow}\n        renderItem={({ item }) => (\n          <Pressable {{#if (eq styling \"nativewind\")}}className=\"mb-4 flex-1 rounded-2xl bg-white p-4\"{{else}}style={styles.card}{{/if}}>\n            <View\n              {{#if (eq styling \"nativewind\")}}className=\"h-36 w-full items-center justify-center rounded-xl\"{{else}}style={styles.imagePlaceholder}{{/if}}\n            >\n              <View {{#if (eq styling \"nativewind\")}}className=\"h-20 w-20 rounded-2xl\"{{else}}style={[styles.imageBlock, { backgroundColor: item.color }]}{{/if}} />\n            </View>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"mt-3 text-sm font-medium text-gray-900\"{{else}}style={styles.cardTitle}{{/if}} numberOfLines={2}>\n              {item.title}\n            </Text>\n            <View {{#if (eq styling \"nativewind\")}}className=\"mt-2 flex-row items-center justify-between\"{{else}}style={styles.cardFooter}{{/if}}>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-bold text-gray-900\"{{else}}style={styles.price}{{/if}}>{item.price}</Text>\n              <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center gap-1\"{{else}}style={styles.rating}{{/if}}>\n                {{#if (eq icons \"lucide\")}}\n                <Star size={14} color=\"#F59E0B\" fill=\"#F59E0B\" />\n                {{/if}}\n                <Text {{#if (eq styling \"nativewind\")}}className=\"text-xs text-gray-500\"{{else}}style={styles.ratingText}{{/if}}>{item.rating}</Text>\n              </View>\n            </View>\n          </Pressable>\n        )}\n      />\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#F9FAFB',\n  },\n  header: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n    paddingHorizontal: 20,\n    paddingTop: 16,\n    paddingBottom: 16,\n  },\n  title: {\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  filterButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#FFFFFF',\n  },\n  grid: {\n    paddingHorizontal: 20,\n    paddingBottom: 24,\n  },\n  gridRow: {\n    gap: 12,\n  },\n  card: {\n    marginBottom: 16,\n    flex: 1,\n    borderRadius: 16,\n    backgroundColor: '#FFFFFF',\n    padding: 16,\n  },\n  imagePlaceholder: {\n    height: 144,\n    width: '100%',\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 12,\n    backgroundColor: '#F3F4F6',\n  },\n  imageBlock: {\n    height: 80,\n    width: 80,\n    borderRadius: 16,\n  },\n  cardTitle: {\n    marginTop: 12,\n    fontSize: 14,\n    fontWeight: '500',\n    color: '#111827',\n  },\n  cardFooter: {\n    marginTop: 8,\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n  },\n  price: {\n    fontSize: 16,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  rating: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    gap: 4,\n  },\n  ratingText: {\n    fontSize: 12,\n    color: '#6B7280',\n  },\n});\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "ecommerce",
+        "products",
+        "list",
+        "catalog"
+      ],
+      "primitives": []
+    },
+    {
+      "id": "onboarding/features",
+      "name": "Features Onboarding Screen",
+      "description": "Onboarding screen with selectable feature cards and continue action.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/onboarding/features.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { useState } from 'react';\nimport { \n  View, \n  Text, \n  Pressable{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{#if (eq icons \"lucide\")}}\nimport { Check } from 'lucide-react-native';\n{{/if}}\n\n{{#if (eq icons \"lucide\")}}\nconst features = [\n  { title: 'Track anything', description: 'Log habits, goals, and stats all in one place.' },\n  { title: 'Smart reminders', description: 'Get nudged at just the right moment.' },\n  { title: 'Beautiful insights', description: 'Understand your progress with clear charts.' },\n  { title: 'Works offline', description: 'Your data stays on your device, always available.' },\n];\n{{else}}\nconst features = [\n  { title: 'Track anything', description: 'Log habits, goals, and stats all in one place.' },\n  { title: 'Smart reminders', description: 'Get nudged at just the right moment.' },\n  { title: 'Beautiful insights', description: 'Understand your progress with clear charts.' },\n  { title: 'Works offline', description: 'Your data stays on your device, always available.' },\n];\n{{/if}}\n\nexport default function FeaturesScreen() {\n  const [selected, setSelected] = useState<number[]>([]);\n\n  const toggle = (index: number) => {\n    setSelected((prev) =>\n      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]\n    );\n  };\n\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-1 justify-center px-6\"{{else}}style={styles.container}{{/if}}>\n        <View>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-3xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n            Pick your focus\n          </Text>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-gray-500\"{{else}}style={styles.subtitle}{{/if}}>\n            Select the features you care about most. You can change these later.\n          </Text>\n        </View>\n\n        <View {{#if (eq styling \"nativewind\")}}className=\"mt-8 gap-3\"{{else}}style={styles.list}{{/if}}>\n          {features.map((feature, index) => {\n            const isSelected = selected.includes(index);\n            return (\n              <Pressable\n                key={feature.title}\n                onPress={() => toggle(index)}\n                {{#if (eq styling \"nativewind\")}}className={`flex-row items-center rounded-2xl border-2 px-4 py-4 ${\n                  isSelected ? 'border-blue-600 bg-blue-50' : 'border-gray-200 bg-white'\n                }`}{{else}}style={[styles.card, isSelected && styles.cardSelected]}{{/if}}\n              >\n                <View {{#if (eq styling \"nativewind\")}}className=\"flex-1\"{{else}}style={styles.cardBody}{{/if}}>\n                  <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-gray-900\"{{else}}style={styles.cardTitle}{{/if}}>\n                    {feature.title}\n                  </Text>\n                  <Text {{#if (eq styling \"nativewind\")}}className=\"mt-0.5 text-sm text-gray-500\"{{else}}style={styles.cardDescription}{{/if}}>\n                    {feature.description}\n                  </Text>\n                </View>\n                <View\n                  {{#if (eq styling \"nativewind\")}}className={`h-6 w-6 items-center justify-center rounded-full border-2 ${\n                    isSelected ? 'border-blue-600 bg-blue-600' : 'border-gray-300'\n                  }`}{{else}}style={[styles.checkbox, isSelected && styles.checkboxSelected]}{{/if}}\n                >\n                  {isSelected && (\n                    {{#if (eq icons \"lucide\")}}\n                    <Check size={14} color=\"#FFFFFF\" />\n                    {{else}}\n                    <Text {{#if (eq styling \"nativewind\")}}className=\"text-xs font-bold text-white\"{{else}}style={styles.checkText}{{/if}}>✓</Text>\n                    {{/if}}\n                  )}\n                </View>\n              </Pressable>\n            );\n          })}\n        </View>\n\n        <Pressable\n          onPress={() => console.log('Continue with selections', selected)}\n          {{#if (eq styling \"nativewind\")}}className=\"mt-8 items-center rounded-xl bg-blue-600 py-4\"{{else}}style={styles.button}{{/if}}\n        >\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-white\"{{else}}style={styles.buttonText}{{/if}}>\n            Continue\n          </Text>\n        </Pressable>\n      </View>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  container: {\n    flex: 1,\n    justifyContent: 'center',\n    paddingHorizontal: 24,\n  },\n  title: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    color: '#6B7280',\n  },\n  list: {\n    marginTop: 32,\n    gap: 12,\n  },\n  card: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderWidth: 2,\n    borderColor: '#E5E7EB',\n    backgroundColor: '#FFFFFF',\n    borderRadius: 16,\n    paddingHorizontal: 16,\n    paddingVertical: 16,\n  },\n  cardSelected: {\n    borderColor: '#2563EB',\n    backgroundColor: '#EFF6FF',\n  },\n  cardBody: {\n    flex: 1,\n  },\n  cardTitle: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#111827',\n  },\n  cardDescription: {\n    marginTop: 2,\n    fontSize: 14,\n    color: '#6B7280',\n  },\n  checkbox: {\n    height: 24,\n    width: 24,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderWidth: 2,\n    borderColor: '#D1D5DB',\n    borderRadius: 12,\n  },\n  checkboxSelected: {\n    borderColor: '#2563EB',\n    backgroundColor: '#2563EB',\n  },\n  checkText: {\n    fontSize: 12,\n    fontWeight: 'bold',\n    color: '#FFFFFF',\n  },\n  button: {\n    marginTop: 32,\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#2563EB',\n    paddingVertical: 16,\n  },\n  buttonText: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#FFFFFF',\n  },\n});\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "onboarding",
+        "features",
+        "intro"
+      ],
+      "primitives": []
+    },
+    {
+      "id": "onboarding/permissions",
+      "name": "Permissions Screen",
+      "description": "Request notification permissions with allow/deny actions.",
+      "version": "0.2.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native",
+          "shadcn"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native",
+        "expo-notifications"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/permissions/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { useState } from 'react';\nimport { \n  Pressable, \n  Text, \n  View{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\nimport * as Notifications from 'expo-notifications';\n{{#if (eq icons \"lucide\")}}\nimport { Bell, Check, X } from 'lucide-react-native';\n{{/if}}\n\nexport default function PermissionsScreen() {\n  {{#if typescript}}\n  const [status, setStatus] = useState<'pending' | 'granted' | 'denied'>('pending');\n  {{else}}\n  const [status, setStatus] = useState('pending');\n  {{/if}}\n\n  const requestPermission = async () => {\n    const { status: permissionStatus } = await Notifications.requestPermissionsAsync();\n    setStatus(permissionStatus === 'granted' ? 'granted' : 'denied');\n  };\n\n  if (status !== 'pending') {\n    return (\n      <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-1 items-center justify-center px-6\"{{else}}style={styles.center}{{/if}}>\n          <View\n            {{#if (eq styling \"nativewind\")}}className={`h-20 w-20 items-center justify-center rounded-3xl ${\n              status === 'granted' ? 'bg-green-100' : 'bg-gray-100'\n            }`}{{else}}style={[styles.statusIcon, status === 'granted' && styles.statusIconGranted]}{{/if}}\n          >\n            {{#if (eq icons \"lucide\")}}\n            {status === 'granted' ? (\n              <Check size={36} color=\"#16A34A\" />\n            ) : (\n              <X size={36} color=\"#6B7280\" />\n            )}\n            {{else}}\n            <Text {{#if (eq styling \"nativewind\")}}className={`text-3xl font-bold ${status === 'granted' ? 'text-green-600' : 'text-gray-500'}`}{{else}}style={styles.statusText}{{/if}}>\n              {status === 'granted' ? '✓' : '×'}\n            </Text>\n            {{/if}}\n          </View>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-6 text-center text-2xl font-bold text-gray-900\"{{else}}style={styles.statusTitle}{{/if}}>\n            {status === 'granted' ? 'Notifications enabled' : 'Notifications disabled'}\n          </Text>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-center text-gray-500\"{{else}}style={styles.statusSubtitle}{{/if}}>\n            {status === 'granted'\n              ? \"You'll stay up to date with everything important.\"\n              : 'You can change this anytime in your device settings.'}\n          </Text>\n        </View>\n      </SafeAreaView>\n    );\n  }\n\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-1 justify-center px-6\"{{else}}style={styles.container}{{/if}}>\n        <View {{#if (eq styling \"nativewind\")}}className=\"items-center\"{{else}}style={styles.hero}{{/if}}>\n          {{#if (eq icons \"lucide\")}}\n          <View {{#if (eq styling \"nativewind\")}}className=\"h-20 w-20 items-center justify-center rounded-3xl bg-blue-100\"{{else}}style={styles.icon}{{/if}}>\n            <Bell size={36} color=\"#2563EB\" />\n          </View>\n          {{else}}\n          <View {{#if (eq styling \"nativewind\")}}className=\"h-20 w-20 items-center justify-center rounded-3xl bg-blue-100\"{{else}}style={styles.icon}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-3xl font-bold text-blue-600\"{{else}}style={styles.iconText}{{/if}}>!</Text>\n          </View>\n          {{/if}}\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-6 text-center text-3xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n            Stay in the loop\n          </Text>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-center text-gray-500\"{{else}}style={styles.subtitle}{{/if}}>\n            Allow notifications to get important updates, reminders, and news.\n          </Text>\n        </View>\n\n        <View {{#if (eq styling \"nativewind\")}}className=\"mt-12 gap-3\"{{else}}style={styles.actions}{{/if}}>\n          <Pressable\n            onPress={requestPermission}\n            {{#if (eq styling \"nativewind\")}}className=\"items-center rounded-xl bg-blue-600 py-4\"{{else}}style={styles.primaryButton}{{/if}}\n          >\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-white\"{{else}}style={styles.primaryButtonText}{{/if}}>\n              Allow Notifications\n            </Text>\n          </Pressable>\n          <Pressable\n            onPress={() => setStatus('denied')}\n            {{#if (eq styling \"nativewind\")}}className=\"items-center rounded-xl py-3\"{{else}}style={styles.secondaryButton}{{/if}}\n          >\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-medium text-gray-500\"{{else}}style={styles.secondaryButtonText}{{/if}}>\n              Not now\n            </Text>\n          </Pressable>\n        </View>\n      </View>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  container: {\n    flex: 1,\n    justifyContent: 'center',\n    paddingHorizontal: 24,\n  },\n  hero: {\n    alignItems: 'center',\n  },\n  icon: {\n    height: 80,\n    width: 80,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 24,\n    backgroundColor: '#DBEAFE',\n  },\n  iconText: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#2563EB',\n  },\n  title: {\n    marginTop: 24,\n    textAlign: 'center',\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    textAlign: 'center',\n    color: '#6B7280',\n  },\n  actions: {\n    marginTop: 48,\n    gap: 12,\n  },\n  primaryButton: {\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#2563EB',\n    paddingVertical: 16,\n  },\n  primaryButtonText: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#FFFFFF',\n  },\n  secondaryButton: {\n    alignItems: 'center',\n    borderRadius: 12,\n    paddingVertical: 12,\n  },\n  secondaryButtonText: {\n    fontSize: 16,\n    fontWeight: '500',\n    color: '#6B7280',\n  },\n  center: {\n    flex: 1,\n    alignItems: 'center',\n    justifyContent: 'center',\n    paddingHorizontal: 24,\n  },\n  statusIcon: {\n    height: 80,\n    width: 80,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 24,\n    backgroundColor: '#F3F4F6',\n  },\n  statusIconGranted: {\n    backgroundColor: '#DCFCE7',\n  },\n  statusText: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#6B7280',\n  },\n  statusTitle: {\n    marginTop: 24,\n    textAlign: 'center',\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  statusSubtitle: {\n    marginTop: 8,\n    textAlign: 'center',\n    color: '#6B7280',\n  },\n});\n{{/if}}"
+        },
+        {
+          "path": "app/permissions/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "shadcn"
+            ],
+            "icons": [
+              "lucide"
+            ]
+          },
+          "template": "import { useState } from \"react\";\nimport { Text, View } from \"react-native\";\nimport { SafeAreaView } from \"react-native-safe-area-context\";\nimport * as Notifications from \"expo-notifications\";\nimport { Bell, Check, X } from \"lucide-react-native\";\nimport { Button } from \"../../components/ui/button\";\n\nexport default function PermissionsScreen() {\n  const [status, setStatus] = useState<\"pending\" | \"granted\" | \"denied\">(\"pending\");\n\n  const requestPermission = async () => {\n    const { status: permissionStatus } = await Notifications.requestPermissionsAsync();\n    setStatus(permissionStatus === \"granted\" ? \"granted\" : \"denied\");\n  };\n\n  if (status !== \"pending\") {\n    return (\n      <SafeAreaView className=\"flex-1 bg-background\">\n        <View className=\"flex-1 items-center justify-center px-6\">\n          <View\n            className={`h-20 w-20 items-center justify-center rounded-3xl ${\n              status === \"granted\" ? \"bg-green-100\" : \"bg-muted\"\n            }`}\n          >\n            {status === \"granted\" ? (\n              <Check size={36} className=\"text-green-600\" />\n            ) : (\n              <X size={36} className=\"text-muted-foreground\" />\n            )}\n          </View>\n          <Text className=\"mt-6 text-center text-2xl font-bold text-foreground\">\n            {status === \"granted\" ? \"Notifications enabled\" : \"Notifications disabled\"}\n          </Text>\n          <Text className=\"mt-2 text-center text-muted-foreground\">\n            {status === \"granted\"\n              ? \"You'll stay up to date with everything important.\"\n              : \"You can change this anytime in your device settings.\"}\n          </Text>\n        </View>\n      </SafeAreaView>\n    );\n  }\n\n  return (\n    <SafeAreaView className=\"flex-1 bg-background\">\n      <View className=\"flex-1 justify-center px-6\">\n        <View className=\"items-center\">\n          <View className=\"h-20 w-20 items-center justify-center rounded-3xl bg-primary/10\">\n            <Bell size={36} className=\"text-primary\" />\n          </View>\n          <Text className=\"mt-6 text-center text-3xl font-bold text-foreground\">\n            Stay in the loop\n          </Text>\n          <Text className=\"mt-2 text-center text-muted-foreground\">\n            Allow notifications to get important updates, reminders, and news.\n          </Text>\n        </View>\n\n        <View className=\"mt-12 gap-3\">\n          <Button size=\"lg\" onPress={requestPermission}>\n            Allow Notifications\n          </Button>\n          <Button variant=\"ghost\" size=\"lg\" onPress={() => setStatus(\"denied\")}>\n            Not now\n          </Button>\n        </View>\n      </View>\n    </SafeAreaView>\n  );\n}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "onboarding",
+        "permissions",
+        "notifications"
+      ],
+      "primitives": [
+        "ui/utils",
+        "ui/button"
+      ]
+    },
+    {
+      "id": "onboarding/welcome",
+      "name": "Welcome Screen",
+      "description": "Onboarding welcome screen with feature highlights and call to action.",
+      "version": "0.2.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native",
+          "shadcn"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/welcome/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { \n  View, \n  Text, \n  Pressable{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\n{{#if (eq styling \"nativewind\")}}\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{else}}\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{/if}}\n{{#if (eq icons \"lucide\")}}\nimport { Sparkles, Zap, Shield } from 'lucide-react-native';\n{{/if}}\n\n{{#if (eq icons \"lucide\")}}\nconst features = [\n  { icon: Zap, title: 'Fast', description: 'Lightning-quick performance on any device.' },\n  { icon: Shield, title: 'Secure', description: 'Your data is protected with industry-grade security.' },\n  { icon: Sparkles, title: 'Beautiful', description: \"A clean, modern interface you'll love using.\" },\n];\n{{else}}\nconst features = [\n  { title: 'Fast', description: 'Lightning-quick performance on any device.' },\n  { title: 'Secure', description: 'Your data is protected with industry-grade security.' },\n  { title: 'Beautiful', description: \"A clean, modern interface you'll love using.\" },\n];\n{{/if}}\n\nexport default function WelcomeScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-1 justify-center px-6\"{{else}}style={styles.container}{{/if}}>\n        <View {{#if (eq styling \"nativewind\")}}className=\"items-center\"{{else}}style={styles.hero}{{/if}}>\n          {{#if (eq icons \"lucide\")}}\n          <View {{#if (eq styling \"nativewind\")}}className=\"h-20 w-20 items-center justify-center rounded-3xl bg-blue-600\"{{else}}style={styles.logo}{{/if}}>\n            <Sparkles size={36} color=\"#FFFFFF\" />\n          </View>\n          {{else}}\n          <View {{#if (eq styling \"nativewind\")}}className=\"h-20 w-20 items-center justify-center rounded-3xl bg-blue-600\"{{else}}style={styles.logo}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-3xl font-bold text-white\"{{else}}style={styles.logoText}{{/if}}>S</Text>\n          </View>\n          {{/if}}\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-6 text-center text-3xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n            Welcome to Snips\n          </Text>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-center text-gray-500\"{{else}}style={styles.subtitle}{{/if}}>\n            Everything you need, beautifully simple.\n          </Text>\n        </View>\n\n        <View {{#if (eq styling \"nativewind\")}}className=\"mt-12 gap-5\"{{else}}style={styles.features}{{/if}}>\n          {features.map(({{#if (eq icons \"lucide\")}}{ icon: Icon, title, description }{{else}}{ title, description }{{/if}}) => (\n            <View key={title} {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center gap-4\"{{else}}style={styles.featureRow}{{/if}}>\n              {{#if (eq icons \"lucide\")}}\n              <View {{#if (eq styling \"nativewind\")}}className=\"h-12 w-12 items-center justify-center rounded-xl bg-blue-50\"{{else}}style={styles.featureIcon}{{/if}}>\n                <Icon size={22} color=\"#2563EB\" />\n              </View>\n              {{/if}}\n              <View {{#if (eq styling \"nativewind\")}}className=\"flex-1\"{{else}}style={styles.featureBody}{{/if}}>\n                <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-gray-900\"{{else}}style={styles.featureTitle}{{/if}}>{title}</Text>\n                <Text {{#if (eq styling \"nativewind\")}}className=\"mt-0.5 text-sm text-gray-500\"{{else}}style={styles.featureDescription}{{/if}}>{description}</Text>\n              </View>\n            </View>\n          ))}\n        </View>\n\n        <View {{#if (eq styling \"nativewind\")}}className=\"mt-12 gap-3\"{{else}}style={styles.actions}{{/if}}>\n          <Pressable {{#if (eq styling \"nativewind\")}}className=\"items-center rounded-xl bg-blue-600 py-4\"{{else}}style={styles.primaryButton}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-white\"{{else}}style={styles.primaryButtonText}{{/if}}>\n              Get Started\n            </Text>\n          </Pressable>\n          <Pressable {{#if (eq styling \"nativewind\")}}className=\"items-center rounded-xl py-3\"{{else}}style={styles.secondaryButton}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-medium text-gray-500\"{{else}}style={styles.secondaryButtonText}{{/if}}>\n              I already have an account\n            </Text>\n          </Pressable>\n        </View>\n      </View>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  container: {\n    flex: 1,\n    justifyContent: 'center',\n    paddingHorizontal: 24,\n  },\n  hero: {\n    alignItems: 'center',\n  },\n  logo: {\n    height: 80,\n    width: 80,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 24,\n    backgroundColor: '#2563EB',\n  },\n  logoText: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#FFFFFF',\n  },\n  title: {\n    marginTop: 24,\n    textAlign: 'center',\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    textAlign: 'center',\n    color: '#6B7280',\n  },\n  features: {\n    marginTop: 48,\n    gap: 20,\n  },\n  featureRow: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    gap: 16,\n  },\n  featureIcon: {\n    height: 48,\n    width: 48,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 12,\n    backgroundColor: '#EFF6FF',\n  },\n  featureBody: {\n    flex: 1,\n  },\n  featureTitle: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#111827',\n  },\n  featureDescription: {\n    marginTop: 2,\n    fontSize: 14,\n    color: '#6B7280',\n  },\n  actions: {\n    marginTop: 48,\n    gap: 12,\n  },\n  primaryButton: {\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#2563EB',\n    paddingVertical: 16,\n  },\n  primaryButtonText: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#FFFFFF',\n  },\n  secondaryButton: {\n    alignItems: 'center',\n    borderRadius: 12,\n    paddingVertical: 12,\n  },\n  secondaryButtonText: {\n    fontSize: 16,\n    fontWeight: '500',\n    color: '#6B7280',\n  },\n});\n{{/if}}"
+        },
+        {
+          "path": "app/welcome/index.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "shadcn"
+            ],
+            "icons": [
+              "lucide"
+            ]
+          },
+          "template": "import { View, Text } from \"react-native\";\nimport { SafeAreaView } from \"react-native-safe-area-context\";\nimport { Sparkles, Zap, Shield } from \"lucide-react-native\";\nimport { Button } from \"../../components/ui/button\";\n\nconst features = [\n  { icon: Zap, title: \"Fast\", description: \"Lightning-quick performance on any device.\" },\n  { icon: Shield, title: \"Secure\", description: \"Your data is protected with industry-grade security.\" },\n  { icon: Sparkles, title: \"Beautiful\", description: \"A clean, modern interface you'll love using.\" },\n];\n\nexport default function WelcomeScreen() {\n  return (\n    <SafeAreaView className=\"flex-1 bg-background\">\n      <View className=\"flex-1 justify-center px-6\">\n        <View className=\"items-center\">\n          <View className=\"h-20 w-20 items-center justify-center rounded-3xl bg-primary\">\n            <Sparkles size={36} className=\"text-primary-foreground\" />\n          </View>\n          <Text className=\"mt-6 text-center text-3xl font-bold text-foreground\">\n            Welcome to Snips\n          </Text>\n          <Text className=\"mt-2 text-center text-muted-foreground\">\n            Everything you need, beautifully simple.\n          </Text>\n        </View>\n\n        <View className=\"mt-12 gap-5\">\n          {features.map(({ icon: Icon, title, description }) => (\n            <View key={title} className=\"flex-row items-center gap-4\">\n              <View className=\"h-12 w-12 items-center justify-center rounded-xl bg-primary/10\">\n                <Icon size={22} className=\"text-primary\" />\n              </View>\n              <View className=\"flex-1\">\n                <Text className=\"text-base font-semibold text-foreground\">{title}</Text>\n                <Text className=\"mt-0.5 text-sm text-muted-foreground\">{description}</Text>\n              </View>\n            </View>\n          ))}\n        </View>\n\n        <View className=\"mt-12 gap-3\">\n          <Button size=\"lg\">Get Started</Button>\n          <Button variant=\"ghost\" size=\"lg\">\n            I already have an account\n          </Button>\n        </View>\n      </View>\n    </SafeAreaView>\n  );\n}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "onboarding",
+        "welcome",
+        "intro"
+      ],
+      "primitives": [
+        "ui/utils",
+        "ui/button"
+      ]
+    },
+    {
+      "id": "ui/button",
+      "name": "Button primitive",
+      "description": "shadcn-style Button built on Pressable with cva variants.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "shadcn"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/button.tsx",
+          "when": {
+            "styling": [
+              "nativewind"
+            ],
+            "ui": [
+              "shadcn"
+            ],
+            "typescript": true
+          },
+          "template": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport * as React from \"react\";\nimport { Pressable, Text, type PressableProps } from \"react-native\";\n\nimport { cn } from \"../../lib/utils\";\n\nconst buttonVariants = cva(\n  \"group flex items-center justify-center rounded-md web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-primary web:hover:opacity-90 active:opacity-90\",\n        destructive: \"bg-destructive web:hover:opacity-90 active:opacity-90\",\n        outline: \"border border-input bg-background web:hover:bg-accent web:text-accent-foreground\",\n        secondary: \"bg-secondary web:hover:opacity-80 active:opacity-80\",\n        ghost: \"web:hover:bg-accent web:hover:text-accent-foreground\",\n        link: \"web:underline-offset-4 web:hover:underline web:focus:underline\",\n      },\n      size: {\n        default: \"h-10 px-4 py-2 native:h-12 native:px-5 native:py-3\",\n        sm: \"h-9 rounded-md px-3\",\n        lg: \"h-11 rounded-md px-8\",\n        icon: \"h-10 w-10\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n);\n\nconst buttonTextVariants = cva(\n  \"native:text-base text-sm font-medium text-foreground web:whitespace-nowrap\",\n  {\n    variants: {\n      variant: {\n        default: \"text-primary-foreground\",\n        destructive: \"text-destructive-foreground\",\n        outline: \"group-active:text-accent-foreground\",\n        secondary: \"text-secondary-foreground\",\n        ghost: \"group-active:text-accent-foreground\",\n        link: \"text-primary group-active:underline\",\n      },\n      size: {\n        default: \"\",\n        sm: \"text-sm\",\n        lg: \"native:text-lg\",\n        icon: \"\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n);\n\ntype ButtonProps = PressableProps &\n  VariantProps<typeof buttonVariants> & {\n    className?: string;\n    textClass?: string;\n  };\n\nconst Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>(\n  ({ className, textClass, variant = \"default\", size = \"default\", ...props }, ref) => {\n    return (\n      <Pressable\n        className={cn(buttonVariants({ variant, size }), className)}\n        ref={ref}\n        {...props}\n      >\n        {typeof props.children === \"string\" ? (\n          <Text className={cn(buttonTextVariants({ variant, size }), textClass)}>\n            {props.children}\n          </Text>\n        ) : (\n          props.children\n        )}\n      </Pressable>\n    );\n  }\n);\nButton.displayName = \"Button\";\n\nexport { Button, buttonVariants };\nexport type { ButtonProps };"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "ui",
+        "button",
+        "primitive"
+      ],
+      "primitives": [
+        "ui/utils"
+      ]
+    },
+    {
+      "id": "ui/input",
+      "name": "Input primitive",
+      "description": "shadcn-style Input built on TextInput with cva styling.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "shadcn"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/input.tsx",
+          "when": {
+            "styling": [
+              "nativewind"
+            ],
+            "ui": [
+              "shadcn"
+            ],
+            "typescript": true
+          },
+          "template": "import * as React from \"react\";\nimport { TextInput, type TextInputProps } from \"react-native\";\n\nimport { cn } from \"../../lib/utils\";\n\nconst Input = React.forwardRef<React.ElementRef<typeof TextInput>, TextInputProps>(\n  ({ className, placeholderTextColor = \"#9ca3af\", ...props }, ref) => {\n    return (\n      <TextInput\n        ref={ref}\n        placeholderTextColor={placeholderTextColor}\n        className={cn(\n          \"web:flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base text-foreground placeholder:text-muted-foreground native:h-12 native:px-4 native:text-lg web:py-2\",\n          className\n        )}\n        {...props}\n      />\n    );\n  }\n);\nInput.displayName = \"Input\";\n\nexport { Input };"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "ui",
+        "input",
+        "primitive"
+      ],
+      "primitives": [
+        "ui/utils"
+      ]
+    },
+    {
+      "id": "ui/utils",
+      "name": "cn utility",
+      "description": "Class name merge helper (clsx + tailwind-merge) used by shadcn-style primitives.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "shadcn"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "lib/utils.ts",
+          "when": {
+            "styling": [
+              "nativewind"
+            ],
+            "ui": [
+              "shadcn"
+            ],
+            "typescript": true
+          },
+          "template": "import { clsx, type ClassValue } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "ui",
+        "util"
+      ]
+    },
+    {
+      "id": "utility/empty",
+      "name": "Empty State Screen",
+      "description": "Empty state with icon, message and primary action button.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/empty.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { \n  View, \n  Text, \n  Pressable{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{#if (eq icons \"lucide\")}}\nimport { PackageOpen } from 'lucide-react-native';\n{{/if}}\n\nexport default function EmptyScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-1 items-center justify-center px-8\"{{else}}style={styles.container}{{/if}}>\n        {{#if (eq icons \"lucide\")}}\n        <View {{#if (eq styling \"nativewind\")}}className=\"h-24 w-24 items-center justify-center rounded-full bg-gray-100\"{{else}}style={styles.iconCircle}{{/if}}>\n          <PackageOpen size={40} color=\"#9CA3AF\" />\n        </View>\n        {{else}}\n        <View {{#if (eq styling \"nativewind\")}}className=\"h-24 w-24 items-center justify-center rounded-full bg-gray-100\"{{else}}style={styles.iconCircle}{{/if}}>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-4xl text-gray-400\"{{else}}style={styles.iconText}{{/if}}>∅</Text>\n        </View>\n        {{/if}}\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mt-6 text-xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n          Nothing here yet\n        </Text>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-center text-base text-gray-500\"{{else}}style={styles.subtitle}{{/if}}>\n          When you add items they'll show up here. Get started to see your content.\n        </Text>\n        <Pressable\n          onPress={() => console.log('action')}\n          {{#if (eq styling \"nativewind\")}}className=\"mt-8 items-center rounded-xl bg-blue-600 px-8 py-4\"{{else}}style={styles.button}{{/if}}\n        >\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-white\"{{else}}style={styles.buttonText}{{/if}}>\n            Get Started\n          </Text>\n        </Pressable>\n      </View>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  container: {\n    flex: 1,\n    alignItems: 'center',\n    justifyContent: 'center',\n    paddingHorizontal: 32,\n  },\n  iconCircle: {\n    height: 96,\n    width: 96,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 48,\n    backgroundColor: '#F3F4F6',\n  },\n  iconText: {\n    fontSize: 36,\n    color: '#9CA3AF',\n  },\n  title: {\n    marginTop: 24,\n    fontSize: 20,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    textAlign: 'center',\n    fontSize: 16,\n    color: '#6B7280',\n  },\n  button: {\n    marginTop: 32,\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#2563EB',\n    paddingHorizontal: 32,\n    paddingVertical: 16,\n  },\n  buttonText: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#FFFFFF',\n  },\n});\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "utility",
+        "empty",
+        "state"
+      ],
+      "primitives": []
+    },
+    {
+      "id": "utility/error",
+      "name": "Error State Screen",
+      "description": "Error state with warning icon, message and retry action.",
+      "version": "0.1.0",
+      "framework": "react-native",
+      "runtime": "expo",
+      "typescript": true,
+      "supported": {
+        "styling": [
+          "nativewind",
+          "stylesheet"
+        ],
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ],
+        "icons": [
+          "lucide",
+          "none"
+        ]
+      },
+      "dependencies": [
+        "lucide-react-native"
+      ],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "app/error.tsx",
+          "when": {
+            "router": [
+              "expo-router"
+            ],
+            "ui": [
+              "native"
+            ]
+          },
+          "template": "import { \n  View, \n  Text, \n  Pressable{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{#if (eq icons \"lucide\")}}\nimport { TriangleAlert, RefreshCw } from 'lucide-react-native';\n{{/if}}\n\nexport default function ErrorScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-1 items-center justify-center px-8\"{{else}}style={styles.container}{{/if}}>\n        {{#if (eq icons \"lucide\")}}\n        <View {{#if (eq styling \"nativewind\")}}className=\"h-24 w-24 items-center justify-center rounded-full bg-red-50\"{{else}}style={styles.iconCircle}{{/if}}>\n          <TriangleAlert size={40} color=\"#EF4444\" />\n        </View>\n        {{else}}\n        <View {{#if (eq styling \"nativewind\")}}className=\"h-24 w-24 items-center justify-center rounded-full bg-red-50\"{{else}}style={styles.iconCircle}{{/if}}>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-4xl text-red-500\"{{else}}style={styles.iconText}{{/if}}>!</Text>\n        </View>\n        {{/if}}\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mt-6 text-xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n          Something went wrong\n        </Text>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-center text-base text-gray-500\"{{else}}style={styles.subtitle}{{/if}}>\n          We couldn't load this content. Please try again.\n        </Text>\n        <Pressable\n          onPress={() => console.log('retry')}\n          {{#if (eq styling \"nativewind\")}}className=\"mt-8 flex-row items-center rounded-xl bg-blue-600 px-8 py-4\"{{else}}style={styles.button}{{/if}}\n        >\n          {{#if (eq icons \"lucide\")}}\n          <RefreshCw size={18} color=\"#FFFFFF\" />\n          {{/if}}\n          <Text {{#if (eq styling \"nativewind\")}}className=\"ml-2 text-base font-semibold text-white\"{{else}}style={styles.buttonText}{{/if}}>\n            Try Again\n          </Text>\n        </Pressable>\n      </View>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  container: {\n    flex: 1,\n    alignItems: 'center',\n    justifyContent: 'center',\n    paddingHorizontal: 32,\n  },\n  iconCircle: {\n    height: 96,\n    width: 96,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 48,\n    backgroundColor: '#FEF2F2',\n  },\n  iconText: {\n    fontSize: 36,\n    color: '#EF4444',\n  },\n  title: {\n    marginTop: 24,\n    fontSize: 20,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    textAlign: 'center',\n    fontSize: 16,\n    color: '#6B7280',\n  },\n  button: {\n    marginTop: 32,\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#2563EB',\n    paddingHorizontal: 32,\n    paddingVertical: 16,\n  },\n  buttonText: {\n    marginLeft: 8,\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#FFFFFF',\n  },\n});\n{{/if}}"
+        }
+      ],
+      "variants": [],
+      "tags": [
+        "utility",
+        "error",
+        "state"
+      ],
+      "primitives": []
+    }
+  ]
+}

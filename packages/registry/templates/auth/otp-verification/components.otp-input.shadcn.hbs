@@ -1,0 +1,78 @@
+import { useRef, useState } from "react";
+import { Pressable, Text, TextInput, View } from "react-native";
+import { RefreshCw } from "lucide-react-native";
+import { Button } from "../components/ui/button";
+
+const OTP_LENGTH = 6;
+
+export function OtpInput() {
+  const [code, setCode] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const inputRef = useRef<TextInput>(null);
+
+  const handleChange = (value: string) => {
+    const digits = value.replace(/[^0-9]/g, "").slice(0, OTP_LENGTH);
+    setCode(digits);
+    setError(null);
+  };
+
+  const handleVerify = () => {
+    if (code.length < OTP_LENGTH) {
+      setError(`Enter the ${OTP_LENGTH}-digit code.`);
+      return;
+    }
+    console.log("OTP submitted:", code);
+  };
+
+  const handleResend = () => {
+    setCode("");
+    inputRef.current?.focus();
+  };
+
+  return (
+    <View className="gap-4">
+      <Pressable onPress={() => inputRef.current?.focus()}>
+        <View className="flex-row justify-between">
+          {Array.from({ length: OTP_LENGTH }).map((_, i) => {
+            const active = code.length === i;
+            const filled = Boolean(code[i]);
+            return (
+              <View
+                key={i}
+                className={`h-14 w-12 items-center justify-center rounded-md border-2 ${
+                  active || filled
+                    ? "border-primary bg-primary/10"
+                    : "border-input bg-background"
+                }`}
+              >
+                <Text className="text-xl font-semibold text-foreground">
+                  {code[i] ?? ""}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
+        <TextInput
+          ref={inputRef}
+          value={code}
+          onChangeText={handleChange}
+          keyboardType="number-pad"
+          maxLength={OTP_LENGTH}
+          className="absolute h-1 w-full opacity-0"
+          accessibilityLabel="One-time code"
+        />
+      </Pressable>
+
+      {error && <Text className="text-sm text-destructive">{error}</Text>}
+
+      <Button onPress={handleVerify} size="lg" className="mt-2">
+        Verify
+      </Button>
+
+      <Pressable onPress={handleResend} className="flex-row items-center justify-center gap-2 py-2">
+        <RefreshCw size={16} className="text-muted-foreground" />
+        <Text className="text-sm text-muted-foreground">Resend code</Text>
+      </Pressable>
+    </View>
+  );
+}

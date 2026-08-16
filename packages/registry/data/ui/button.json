@@ -1,0 +1,27 @@
+{
+  "id": "ui/button",
+  "name": "Button primitive",
+  "description": "shadcn-style Button built on Pressable with cva variants.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind"],
+    "router": ["expo-router"],
+    "ui": ["shadcn"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": ["class-variance-authority"],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "components/ui/button.tsx",
+      "when": { "styling": ["nativewind"], "ui": ["shadcn"], "typescript": true },
+      "templateFile": "ui/button.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["ui", "button", "primitive"],
+  "primitives": ["ui/utils"]
+}

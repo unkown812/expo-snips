@@ -1,0 +1,247 @@
+import { 
+  View, 
+  Text, 
+  Pressable, 
+  ScrollView, 
+  RefreshControl{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+{{#if (eq icons "lucide")}}
+import { Bell, Search, ChevronRight, TrendingUp } from 'lucide-react-native';
+{{/if}}
+
+{{#if (eq icons "lucide")}}
+const stats = [
+  { label: 'Active Streak', value: '12', icon: TrendingUp, delta: '+2 today' },
+  { label: 'Tasks Done', value: '48', icon: Search, delta: 'this week' },
+];
+{{else}}
+const stats = [
+  { label: 'Active Streak', value: '12', delta: '+2 today' },
+  { label: 'Tasks Done', value: '48', delta: 'this week' },
+];
+{{/if}}
+
+const upcoming = [
+  { title: 'Morning workout', time: '7:00 AM', done: false },
+  { title: 'Team standup', time: '9:30 AM', done: false },
+  { title: 'Read for 20 minutes', time: '8:00 PM', done: true },
+];
+
+export default function HomeScreen() {
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-gray-50"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={() => console.log('refresh')} />
+        }
+      >
+        {/* Header */}
+        <View {{#if (eq styling "nativewind")}}className="flex-row items-center justify-between px-5 pt-4 pb-6"{{else}}style={styles.header}{{/if}}>
+          <View>
+            <Text {{#if (eq styling "nativewind")}}className="text-sm text-gray-500"{{else}}style={styles.greeting}{{/if}}>
+              Good morning
+            </Text>
+            <Text {{#if (eq styling "nativewind")}}className="text-2xl font-bold text-gray-900"{{else}}style={styles.headerTitle}{{/if}}>
+              Jane
+            </Text>
+          </View>
+          <View {{#if (eq styling "nativewind")}}className="flex-row gap-3"{{else}}style={styles.headerActions}{{/if}}>
+            {{#if (eq icons "lucide")}}
+            <Pressable {{#if (eq styling "nativewind")}}className="h-10 w-10 items-center justify-center rounded-full bg-white"{{else}}style={styles.iconButton}{{/if}}>
+              <Bell size={20} color="#4B5563" />
+            </Pressable>
+            <Pressable {{#if (eq styling "nativewind")}}className="h-10 w-10 items-center justify-center rounded-full bg-white"{{else}}style={styles.iconButton}{{/if}}>
+              <Search size={20} color="#4B5563" />
+            </Pressable>
+            {{/if}}
+          </View>
+        </View>
+
+        {/* Stats */}
+        <View {{#if (eq styling "nativewind")}}className="flex-row gap-4 px-5"{{else}}style={styles.statsRow}{{/if}}>
+          {stats.map(({ label, value{{#if (eq icons "lucide")}}, icon: Icon{{/if}}, delta }) => (
+            <View key={label} {{#if (eq styling "nativewind")}}className="flex-1 rounded-2xl bg-white p-4"{{else}}style={styles.statCard}{{/if}}>
+              <View {{#if (eq styling "nativewind")}}className="flex-row items-center gap-2"{{else}}style={styles.statHeader}{{/if}}>
+                {{#if (eq icons "lucide")}}
+                <Icon size={16} color="#2563EB" />
+                {{/if}}
+                <Text {{#if (eq styling "nativewind")}}className="text-xs text-gray-500"{{else}}style={styles.statLabel}{{/if}}>{label}</Text>
+              </View>
+              <Text {{#if (eq styling "nativewind")}}className="mt-2 text-2xl font-bold text-gray-900"{{else}}style={styles.statValue}{{/if}}>{value}</Text>
+              <Text {{#if (eq styling "nativewind")}}className="mt-1 text-xs text-gray-400"{{else}}style={styles.statDelta}{{/if}}>{delta}</Text>
+            </View>
+          ))}
+        </View>
+
+        {/* Upcoming */}
+        <View {{#if (eq styling "nativewind")}}className="mt-8"{{else}}style={styles.section}{{/if}}>
+          <View {{#if (eq styling "nativewind")}}className="flex-row items-center justify-between px-5"{{else}}style={styles.sectionHeader}{{/if}}>
+            <Text {{#if (eq styling "nativewind")}}className="text-lg font-bold text-gray-900"{{else}}style={styles.sectionTitle}{{/if}}>
+              Up next
+            </Text>
+            <Pressable {{#if (eq styling "nativewind")}}className="flex-row items-center"{{else}}style={styles.seeAll}{{/if}}>
+              <Text {{#if (eq styling "nativewind")}}className="text-sm text-blue-600"{{else}}style={styles.seeAllText}{{/if}}>See all</Text>
+              {{#if (eq icons "lucide")}}
+              <ChevronRight size={16} color="#2563EB" />
+              {{/if}}
+            </Pressable>
+          </View>
+
+          <View {{#if (eq styling "nativewind")}}className="mt-4 gap-3 px-5"{{else}}style={styles.taskList}{{/if}}>
+            {upcoming.map((task) => (
+              <Pressable key={task.title} {{#if (eq styling "nativewind")}}className="flex-row items-center rounded-2xl bg-white p-4"{{else}}style={styles.taskCard}{{/if}}>
+                <View
+                  {{#if (eq styling "nativewind")}}className={`h-5 w-5 rounded-full border-2 ${task.done ? 'border-blue-600 bg-blue-600' : 'border-gray-300'}`}{{else}}style={[styles.taskCheck, task.done && styles.taskCheckDone]}{{/if}}
+                />
+                <View {{#if (eq styling "nativewind")}}className="ml-3 flex-1"{{else}}style={styles.taskBody}{{/if}}>
+                  <Text
+                    {{#if (eq styling "nativewind")}}className={`text-base ${task.done ? 'text-gray-400 line-through' : 'text-gray-900'}`}{{else}}style={[styles.taskTitle, task.done && styles.taskTitleDone]}{{/if}}
+                  >
+                    {task.title}
+                  </Text>
+                  <Text {{#if (eq styling "nativewind")}}className="text-xs text-gray-400"{{else}}style={styles.taskTime}{{/if}}>{task.time}</Text>
+                </View>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
+  },
+  content: {
+    paddingBottom: 24,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 24,
+  },
+  greeting: {
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  headerActions: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  iconButton: {
+    height: 40,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  statsRow: {
+    flexDirection: 'row',
+    gap: 16,
+    paddingHorizontal: 20,
+  },
+  statCard: {
+    flex: 1,
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+  },
+  statHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  statLabel: {
+    fontSize: 12,
+    color: '#6B7280',
+  },
+  statValue: {
+    marginTop: 8,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  statDelta: {
+    marginTop: 4,
+    fontSize: 12,
+    color: '#9CA3AF',
+  },
+  section: {
+    marginTop: 32,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  seeAll: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  seeAllText: {
+    fontSize: 14,
+    color: '#2563EB',
+  },
+  taskList: {
+    marginTop: 16,
+    gap: 12,
+    paddingHorizontal: 20,
+  },
+  taskCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+  },
+  taskCheck: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#D1D5DB',
+  },
+  taskCheckDone: {
+    borderColor: '#2563EB',
+    backgroundColor: '#2563EB',
+  },
+  taskBody: {
+    marginLeft: 12,
+    flex: 1,
+  },
+  taskTitle: {
+    fontSize: 16,
+    color: '#111827',
+  },
+  taskTitleDone: {
+    color: '#9CA3AF',
+    textDecorationLine: 'line-through',
+  },
+  taskTime: {
+    fontSize: 12,
+    color: '#9CA3AF',
+  },
+});
+{{/if}}

@@ -1,0 +1,182 @@
+import { useState } from 'react';
+import { 
+  View, 
+  Text, 
+  Pressable{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+{{#if (eq icons "lucide")}}
+import { Check } from 'lucide-react-native';
+{{/if}}
+
+{{#if (eq icons "lucide")}}
+const features = [
+  { title: 'Track anything', description: 'Log habits, goals, and stats all in one place.' },
+  { title: 'Smart reminders', description: 'Get nudged at just the right moment.' },
+  { title: 'Beautiful insights', description: 'Understand your progress with clear charts.' },
+  { title: 'Works offline', description: 'Your data stays on your device, always available.' },
+];
+{{else}}
+const features = [
+  { title: 'Track anything', description: 'Log habits, goals, and stats all in one place.' },
+  { title: 'Smart reminders', description: 'Get nudged at just the right moment.' },
+  { title: 'Beautiful insights', description: 'Understand your progress with clear charts.' },
+  { title: 'Works offline', description: 'Your data stays on your device, always available.' },
+];
+{{/if}}
+
+export default function FeaturesScreen() {
+  const [selected, setSelected] = useState<number[]>([]);
+
+  const toggle = (index: number) => {
+    setSelected((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
+  };
+
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-white"{{else}}style={styles.safeArea}{{/if}}>
+      <View {{#if (eq styling "nativewind")}}className="flex-1 justify-center px-6"{{else}}style={styles.container}{{/if}}>
+        <View>
+          <Text {{#if (eq styling "nativewind")}}className="text-3xl font-bold text-gray-900"{{else}}style={styles.title}{{/if}}>
+            Pick your focus
+          </Text>
+          <Text {{#if (eq styling "nativewind")}}className="mt-2 text-gray-500"{{else}}style={styles.subtitle}{{/if}}>
+            Select the features you care about most. You can change these later.
+          </Text>
+        </View>
+
+        <View {{#if (eq styling "nativewind")}}className="mt-8 gap-3"{{else}}style={styles.list}{{/if}}>
+          {features.map((feature, index) => {
+            const isSelected = selected.includes(index);
+            return (
+              <Pressable
+                key={feature.title}
+                onPress={() => toggle(index)}
+                {{#if (eq styling "nativewind")}}className={`flex-row items-center rounded-2xl border-2 px-4 py-4 ${
+                  isSelected ? 'border-blue-600 bg-blue-50' : 'border-gray-200 bg-white'
+                }`}{{else}}style={[styles.card, isSelected && styles.cardSelected]}{{/if}}
+              >
+                <View {{#if (eq styling "nativewind")}}className="flex-1"{{else}}style={styles.cardBody}{{/if}}>
+                  <Text {{#if (eq styling "nativewind")}}className="text-base font-semibold text-gray-900"{{else}}style={styles.cardTitle}{{/if}}>
+                    {feature.title}
+                  </Text>
+                  <Text {{#if (eq styling "nativewind")}}className="mt-0.5 text-sm text-gray-500"{{else}}style={styles.cardDescription}{{/if}}>
+                    {feature.description}
+                  </Text>
+                </View>
+                <View
+                  {{#if (eq styling "nativewind")}}className={`h-6 w-6 items-center justify-center rounded-full border-2 ${
+                    isSelected ? 'border-blue-600 bg-blue-600' : 'border-gray-300'
+                  }`}{{else}}style={[styles.checkbox, isSelected && styles.checkboxSelected]}{{/if}}
+                >
+                  {isSelected && (
+                    {{#if (eq icons "lucide")}}
+                    <Check size={14} color="#FFFFFF" />
+                    {{else}}
+                    <Text {{#if (eq styling "nativewind")}}className="text-xs font-bold text-white"{{else}}style={styles.checkText}{{/if}}>✓</Text>
+                    {{/if}}
+                  )}
+                </View>
+              </Pressable>
+            );
+          })}
+        </View>
+
+        <Pressable
+          onPress={() => console.log('Continue with selections', selected)}
+          {{#if (eq styling "nativewind")}}className="mt-8 items-center rounded-xl bg-blue-600 py-4"{{else}}style={styles.button}{{/if}}
+        >
+          <Text {{#if (eq styling "nativewind")}}className="text-base font-semibold text-white"{{else}}style={styles.buttonText}{{/if}}>
+            Continue
+          </Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  subtitle: {
+    marginTop: 8,
+    color: '#6B7280',
+  },
+  list: {
+    marginTop: 32,
+    gap: 12,
+  },
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#E5E7EB',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
+  cardSelected: {
+    borderColor: '#2563EB',
+    backgroundColor: '#EFF6FF',
+  },
+  cardBody: {
+    flex: 1,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#111827',
+  },
+  cardDescription: {
+    marginTop: 2,
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  checkbox: {
+    height: 24,
+    width: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: '#D1D5DB',
+    borderRadius: 12,
+  },
+  checkboxSelected: {
+    borderColor: '#2563EB',
+    backgroundColor: '#2563EB',
+  },
+  checkText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  button: {
+    marginTop: 32,
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: '#2563EB',
+    paddingVertical: 16,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+});
+{{/if}}

@@ -1,0 +1,180 @@
+import { 
+  View, 
+  Text, 
+  Pressable{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+{{#if (eq styling "nativewind")}}
+import { SafeAreaView } from 'react-native-safe-area-context';
+{{else}}
+import { SafeAreaView } from 'react-native-safe-area-context';
+{{/if}}
+{{#if (eq icons "lucide")}}
+import { Sparkles, Zap, Shield } from 'lucide-react-native';
+{{/if}}
+
+{{#if (eq icons "lucide")}}
+const features = [
+  { icon: Zap, title: 'Fast', description: 'Lightning-quick performance on any device.' },
+  { icon: Shield, title: 'Secure', description: 'Your data is protected with industry-grade security.' },
+  { icon: Sparkles, title: 'Beautiful', description: "A clean, modern interface you'll love using." },
+];
+{{else}}
+const features = [
+  { title: 'Fast', description: 'Lightning-quick performance on any device.' },
+  { title: 'Secure', description: 'Your data is protected with industry-grade security.' },
+  { title: 'Beautiful', description: "A clean, modern interface you'll love using." },
+];
+{{/if}}
+
+export default function WelcomeScreen() {
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-white"{{else}}style={styles.safeArea}{{/if}}>
+      <View {{#if (eq styling "nativewind")}}className="flex-1 justify-center px-6"{{else}}style={styles.container}{{/if}}>
+        <View {{#if (eq styling "nativewind")}}className="items-center"{{else}}style={styles.hero}{{/if}}>
+          {{#if (eq icons "lucide")}}
+          <View {{#if (eq styling "nativewind")}}className="h-20 w-20 items-center justify-center rounded-3xl bg-blue-600"{{else}}style={styles.logo}{{/if}}>
+            <Sparkles size={36} color="#FFFFFF" />
+          </View>
+          {{else}}
+          <View {{#if (eq styling "nativewind")}}className="h-20 w-20 items-center justify-center rounded-3xl bg-blue-600"{{else}}style={styles.logo}{{/if}}>
+            <Text {{#if (eq styling "nativewind")}}className="text-3xl font-bold text-white"{{else}}style={styles.logoText}{{/if}}>S</Text>
+          </View>
+          {{/if}}
+          <Text {{#if (eq styling "nativewind")}}className="mt-6 text-center text-3xl font-bold text-gray-900"{{else}}style={styles.title}{{/if}}>
+            Welcome to Snips
+          </Text>
+          <Text {{#if (eq styling "nativewind")}}className="mt-2 text-center text-gray-500"{{else}}style={styles.subtitle}{{/if}}>
+            Everything you need, beautifully simple.
+          </Text>
+        </View>
+
+        <View {{#if (eq styling "nativewind")}}className="mt-12 gap-5"{{else}}style={styles.features}{{/if}}>
+          {features.map(({{#if (eq icons "lucide")}}{ icon: Icon, title, description }{{else}}{ title, description }{{/if}}) => (
+            <View key={title} {{#if (eq styling "nativewind")}}className="flex-row items-center gap-4"{{else}}style={styles.featureRow}{{/if}}>
+              {{#if (eq icons "lucide")}}
+              <View {{#if (eq styling "nativewind")}}className="h-12 w-12 items-center justify-center rounded-xl bg-blue-50"{{else}}style={styles.featureIcon}{{/if}}>
+                <Icon size={22} color="#2563EB" />
+              </View>
+              {{/if}}
+              <View {{#if (eq styling "nativewind")}}className="flex-1"{{else}}style={styles.featureBody}{{/if}}>
+                <Text {{#if (eq styling "nativewind")}}className="text-base font-semibold text-gray-900"{{else}}style={styles.featureTitle}{{/if}}>{title}</Text>
+                <Text {{#if (eq styling "nativewind")}}className="mt-0.5 text-sm text-gray-500"{{else}}style={styles.featureDescription}{{/if}}>{description}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+
+        <View {{#if (eq styling "nativewind")}}className="mt-12 gap-3"{{else}}style={styles.actions}{{/if}}>
+          <Pressable {{#if (eq styling "nativewind")}}className="items-center rounded-xl bg-blue-600 py-4"{{else}}style={styles.primaryButton}{{/if}}>
+            <Text {{#if (eq styling "nativewind")}}className="text-base font-semibold text-white"{{else}}style={styles.primaryButtonText}{{/if}}>
+              Get Started
+            </Text>
+          </Pressable>
+          <Pressable {{#if (eq styling "nativewind")}}className="items-center rounded-xl py-3"{{else}}style={styles.secondaryButton}{{/if}}>
+            <Text {{#if (eq styling "nativewind")}}className="text-base font-medium text-gray-500"{{else}}style={styles.secondaryButtonText}{{/if}}>
+              I already have an account
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+  },
+  hero: {
+    alignItems: 'center',
+  },
+  logo: {
+    height: 80,
+    width: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 24,
+    backgroundColor: '#2563EB',
+  },
+  logoText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  title: {
+    marginTop: 24,
+    textAlign: 'center',
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  subtitle: {
+    marginTop: 8,
+    textAlign: 'center',
+    color: '#6B7280',
+  },
+  features: {
+    marginTop: 48,
+    gap: 20,
+  },
+  featureRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+  },
+  featureIcon: {
+    height: 48,
+    width: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    backgroundColor: '#EFF6FF',
+  },
+  featureBody: {
+    flex: 1,
+  },
+  featureTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#111827',
+  },
+  featureDescription: {
+    marginTop: 2,
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  actions: {
+    marginTop: 48,
+    gap: 12,
+  },
+  primaryButton: {
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: '#2563EB',
+    paddingVertical: 16,
+  },
+  primaryButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+  secondaryButton: {
+    alignItems: 'center',
+    borderRadius: 12,
+    paddingVertical: 12,
+  },
+  secondaryButtonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#6B7280',
+  },
+});
+{{/if}}

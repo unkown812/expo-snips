@@ -1,0 +1,29 @@
+{
+  "id": "ecommerce/product-details",
+  "name": "Product Details Screen",
+  "description": "Product detail view with image, rating, description, quantity selector and add to cart.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/products/[id].tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "ecommerce/products/app.product-details.index.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["ecommerce", "product", "details"],
+  "primitives": []
+}

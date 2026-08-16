@@ -1,0 +1,29 @@
+{
+  "id": "utility/empty",
+  "name": "Empty State Screen",
+  "description": "Empty state with icon, message and primary action button.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/empty.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "utility/empty/app.empty.index.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["utility", "empty", "state"],
+  "primitives": []
+}

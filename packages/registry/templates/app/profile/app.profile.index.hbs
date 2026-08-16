@@ -1,0 +1,215 @@
+import { 
+  View, 
+  Text, 
+  Pressable, 
+  ScrollView{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Link } from 'expo-router';
+{{#if (eq icons "lucide")}}
+import { Settings, ChevronRight, User, Star, MapPin, LogOut } from 'lucide-react-native';
+{{/if}}
+
+{{#if (eq icons "lucide")}}
+const menu = [
+  { label: 'My orders', icon: Star },
+  { label: 'Saved addresses', icon: MapPin },
+  { label: 'Account settings', icon: User },
+];
+{{else}}
+const menu = [
+  { label: 'My orders' },
+  { label: 'Saved addresses' },
+  { label: 'Account settings' },
+];
+{{/if}}
+
+export default function ProfileScreen() {
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-gray-50"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>
+      <ScrollView contentContainerStyle={styles.content}>
+        {/* Header */}
+        <View {{#if (eq styling "nativewind")}}className="flex-row items-center justify-between px-5 pt-4 pb-6"{{else}}style={styles.header}{{/if}}>
+          <Text {{#if (eq styling "nativewind")}}className="text-2xl font-bold text-gray-900"{{else}}style={styles.headerTitle}{{/if}}>
+            Profile
+          </Text>
+          {{#if (eq icons "lucide")}}
+          <Link href="/settings" {{#if (eq styling "nativewind")}}className="h-10 w-10 items-center justify-center rounded-full bg-white"{{else}}style={styles.iconButton}{{/if}}>
+            <Settings size={20} color="#4B5563" />
+          </Link>
+          {{/if}}
+        </View>
+
+        {/* User card */}
+        <View {{#if (eq styling "nativewind")}}className="mx-5 flex-row items-center rounded-2xl bg-white p-5"{{else}}style={styles.userCard}{{/if}}>
+          <View {{#if (eq styling "nativewind")}}className="h-16 w-16 items-center justify-center rounded-full bg-blue-100"{{else}}style={styles.avatar}{{/if}}>
+            <Text {{#if (eq styling "nativewind")}}className="text-2xl font-bold text-blue-600"{{else}}style={styles.avatarText}{{/if}}>J</Text>
+          </View>
+          <View {{#if (eq styling "nativewind")}}className="ml-4 flex-1"{{else}}style={styles.userInfo}{{/if}}>
+            <Text {{#if (eq styling "nativewind")}}className="text-lg font-bold text-gray-900"{{else}}style={styles.userName}{{/if}}>
+              Jane Doe
+            </Text>
+            <Text {{#if (eq styling "nativewind")}}className="text-sm text-gray-500"{{else}}style={styles.userEmail}{{/if}}>
+              jane@example.com
+            </Text>
+            <View {{#if (eq styling "nativewind")}}className="mt-2 flex-row items-center gap-1"{{else}}style={styles.ratingRow}{{/if}}>
+              {{#if (eq icons "lucide")}}
+              <Star size={14} color="#F59E0B" fill="#F59E0B" />
+              {{/if}}
+              <Text {{#if (eq styling "nativewind")}}className="text-sm text-gray-700"{{else}}style={styles.rating}{{/if}}>4.8</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Menu */}
+        <View {{#if (eq styling "nativewind")}}className="mt-6 rounded-2xl bg-white mx-5"{{else}}style={styles.menuCard}{{/if}}>
+          {menu.map(({ label{{#if (eq icons "lucide")}}, icon: Icon{{/if}} }, index) => (
+            <Pressable
+              key={label}
+              {{#if (eq styling "nativewind")}}className={`flex-row items-center px-4 py-4 ${index > 0 ? 'border-t border-gray-100' : ''}`}{{else}}style={[styles.menuItem, index > 0 && styles.menuItemBorder]}{{/if}}
+            >
+              {{#if (eq icons "lucide")}}
+              <Icon size={20} color="#4B5563" />
+              {{/if}}
+              <Text {{#if (eq styling "nativewind")}}className="ml-3 flex-1 text-base text-gray-900"{{else}}style={styles.menuLabel}{{/if}}>
+                {label}
+              </Text>
+              {{#if (eq icons "lucide")}}
+              <ChevronRight size={18} color="#9CA3AF" />
+              {{/if}}
+            </Pressable>
+          ))}
+        </View>
+
+        {/* Logout */}
+        <Pressable
+          onPress={() => console.log('logout')}
+          {{#if (eq styling "nativewind")}}className="mx-5 mt-6 flex-row items-center justify-center rounded-2xl bg-white py-4"{{else}}style={styles.logout}{{/if}}
+        >
+          {{#if (eq icons "lucide")}}
+          <LogOut size={18} color="#EF4444" />
+          {{/if}}
+          <Text {{#if (eq styling "nativewind")}}className="ml-2 text-base font-medium text-red-600"{{else}}style={styles.logoutText}{{/if}}>
+            Log out
+          </Text>
+        </Pressable>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
+  },
+  content: {
+    paddingBottom: 24,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 24,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  iconButton: {
+    height: 40,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  userCard: {
+    marginHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    padding: 20,
+  },
+  avatar: {
+    height: 64,
+    width: 64,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 32,
+    backgroundColor: '#DBEAFE',
+  },
+  avatarText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2563EB',
+  },
+  userInfo: {
+    marginLeft: 16,
+    flex: 1,
+  },
+  userName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  userEmail: {
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  ratingRow: {
+    marginTop: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  rating: {
+    fontSize: 14,
+    color: '#374151',
+  },
+  menuCard: {
+    marginTop: 24,
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: 20,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
+  menuItemBorder: {
+    borderTopWidth: 1,
+    borderTopColor: '#F3F4F6',
+  },
+  menuLabel: {
+    marginLeft: 12,
+    flex: 1,
+    fontSize: 16,
+    color: '#111827',
+  },
+  logout: {
+    marginHorizontal: 20,
+    marginTop: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    paddingVertical: 16,
+  },
+  logoutText: {
+    marginLeft: 8,
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#DC2626',
+  },
+});
+{{/if}}

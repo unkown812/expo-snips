@@ -1,0 +1,57 @@
+{
+  "id": "auth/login",
+  "name": "Login Screen",
+  "description": "Email/password login with validation, loading states and error handling.",
+  "version": "0.3.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native", "shadcn"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "react-hook-form",
+    "zod",
+    "@hookform/resolvers",
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/login/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "auth/login/app.login.index.hbs"
+    },
+    {
+      "path": "app/login/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["shadcn"], "icons": ["lucide"] },
+      "templateFile": "auth/login/app.login.index.shadcn.hbs"
+    },
+    {
+      "path": "components/LoginForm.tsx",
+      "when": { "ui": ["native"] },
+      "templateFile": "auth/login/components.login-form.hbs"
+    },
+    {
+      "path": "components/LoginForm.tsx",
+      "when": { "ui": ["shadcn"], "icons": ["lucide"] },
+      "templateFile": "auth/login/components.login-form.shadcn.hbs"
+    },
+    {
+      "path": "hooks/useLogin.ts",
+      "when": { "typescript": true },
+      "templateFile": "auth/login/hooks.use-login.hbs"
+    },
+    {
+      "path": "hooks/useLogin.js",
+      "when": { "typescript": false },
+      "templateFile": "auth/login/hooks.use-login.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["auth", "login", "form"],
+  "primitives": ["ui/utils", "ui/button", "ui/input"]
+}

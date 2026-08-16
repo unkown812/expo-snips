@@ -1,0 +1,57 @@
+{
+  "id": "auth/register",
+  "name": "Register Screen",
+  "description": "Email/password registration with name, validation and error handling.",
+  "version": "0.2.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native", "shadcn"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "react-hook-form",
+    "zod",
+    "@hookform/resolvers",
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/register/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "auth/register/app.register.index.hbs"
+    },
+    {
+      "path": "app/register/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["shadcn"], "icons": ["lucide"] },
+      "templateFile": "auth/register/app.register.index.shadcn.hbs"
+    },
+    {
+      "path": "components/RegisterForm.tsx",
+      "when": { "ui": ["native"] },
+      "templateFile": "auth/register/components.register-form.hbs"
+    },
+    {
+      "path": "components/RegisterForm.tsx",
+      "when": { "ui": ["shadcn"], "icons": ["lucide"] },
+      "templateFile": "auth/register/components.register-form.shadcn.hbs"
+    },
+    {
+      "path": "hooks/useRegister.ts",
+      "when": { "typescript": true },
+      "templateFile": "auth/register/hooks.use-register.hbs"
+    },
+    {
+      "path": "hooks/useRegister.js",
+      "when": { "typescript": false },
+      "templateFile": "auth/register/hooks.use-register.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["auth", "register", "signup", "form"],
+  "primitives": ["ui/utils", "ui/button", "ui/input"]
+}

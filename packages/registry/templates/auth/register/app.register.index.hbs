@@ -1,0 +1,101 @@
+import { 
+  View, 
+  Text, 
+  KeyboardAvoidingView, 
+  Platform, 
+  SafeAreaView, 
+  ScrollView{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { Link } from 'expo-router';
+{{#if (eq icons "lucide")}}
+import { ArrowLeft } from 'lucide-react-native';
+{{/if}}
+import { RegisterForm } from '../../components/RegisterForm';
+
+export default function RegisterScreen() {
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-white"{{else}}style={styles.safeArea}{{/if}}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        {{#if (eq styling "nativewind")}}className="flex-1"{{else}}style={styles.flex1}{{/if}}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+        >
+          {{#if (eq icons "lucide")}}
+          <Link href="/" {{#if (eq styling "nativewind")}}className="mb-6"{{else}}style={styles.backButton}{{/if}}>
+            <ArrowLeft size={24} color="#111827" />
+          </Link>
+          {{/if}}
+
+          <View {{#if (eq styling "nativewind")}}className="mb-8"{{else}}style={styles.header}{{/if}}>
+            <Text {{#if (eq styling "nativewind")}}className="text-3xl font-bold text-gray-900"{{else}}style={styles.title}{{/if}}>
+              Create account
+            </Text>
+            <Text {{#if (eq styling "nativewind")}}className="mt-2 text-base text-gray-600"{{else}}style={styles.subtitle}{{/if}}>
+              Join us and get started in minutes
+            </Text>
+          </View>
+
+          <RegisterForm />
+
+          <View {{#if (eq styling "nativewind")}}className="mt-6 flex-row justify-center"{{else}}style={styles.footer}{{/if}}>
+            <Text {{#if (eq styling "nativewind")}}className="text-gray-600"{{else}}style={styles.footerText}{{/if}}>
+              Already have an account?{' '}
+            </Text>
+            <Link href="/login" {{#if (eq styling "nativewind")}}className="text-blue-600 font-semibold"{{else}}style={styles.link}{{/if}}>
+              Sign in
+            </Link>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  flex1: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    padding: 24,
+    justifyContent: 'center',
+  },
+  backButton: {
+    marginBottom: 24,
+  },
+  header: {
+    marginBottom: 32,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  subtitle: {
+    marginTop: 8,
+    fontSize: 16,
+    color: '#4B5563',
+  },
+  footer: {
+    marginTop: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  footerText: {
+    color: '#4B5563',
+  },
+  link: {
+    color: '#2563EB',
+    fontWeight: '600',
+  },
+});
+{{/if}}

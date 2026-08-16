@@ -1,0 +1,29 @@
+{
+  "id": "app/notifications",
+  "name": "Notifications Screen",
+  "description": "Notifications list with unread indicators and mark all read action.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/notifications/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "app/notifications/app.notifications.index.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["app", "notifications", "list"],
+  "primitives": []
+}

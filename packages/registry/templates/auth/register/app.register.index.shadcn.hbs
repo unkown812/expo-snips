@@ -1,0 +1,30 @@
+import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { RegisterForm } from "../../components/RegisterForm";
+
+export default function RegisterScreen() {
+  return (
+    <SafeAreaView className="flex-1 bg-background">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        className="flex-1"
+      >
+        <ScrollView
+          contentContainerClassName="flex-grow justify-center px-6 py-8"
+          keyboardShouldPersistTaps="handled"
+        >
+          <View>
+            <Text className="text-3xl font-bold text-foreground">Create account</Text>
+            <Text className="mt-2 text-muted-foreground">
+              Join us and get started in minutes.
+            </Text>
+          </View>
+
+          <View className="mt-8">
+            <RegisterForm />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+}

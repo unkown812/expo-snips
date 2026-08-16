@@ -1,0 +1,29 @@
+{
+  "id": "ecommerce/products",
+  "name": "Product Listing Screen",
+  "description": "Two-column product grid with prices, ratings and filter button.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/products/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "ecommerce/products/app.products.index.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["ecommerce", "products", "list", "catalog"],
+  "primitives": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "auth/otp-verification",
+  "name": "OTP Verification Screen",
+  "description": "One-time passcode entry with auto-submit and error handling.",
+  "version": "0.2.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native", "shadcn"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/otp-verification/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "auth/otp-verification/app.otp-verification.index.hbs"
+    },
+    {
+      "path": "app/otp-verification/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["shadcn"], "icons": ["lucide"] },
+      "templateFile": "auth/otp-verification/app.otp-verification.index.shadcn.hbs"
+    },
+    {
+      "path": "components/OtpInput.tsx",
+      "when": { "ui": ["native"] },
+      "templateFile": "auth/otp-verification/components.otp-input.hbs"
+    },
+    {
+      "path": "components/OtpInput.tsx",
+      "when": { "ui": ["shadcn"], "icons": ["lucide"] },
+      "templateFile": "auth/otp-verification/components.otp-input.shadcn.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["auth", "otp", "verification"],
+  "primitives": ["ui/utils", "ui/button", "ui/input"]
+}

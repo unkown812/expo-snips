@@ -1,0 +1,27 @@
+{
+  "id": "ui/input",
+  "name": "Input primitive",
+  "description": "shadcn-style Input built on TextInput with cva styling.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind"],
+    "router": ["expo-router"],
+    "ui": ["shadcn"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": ["class-variance-authority"],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "components/ui/input.tsx",
+      "when": { "styling": ["nativewind"], "ui": ["shadcn"], "typescript": true },
+      "templateFile": "ui/input.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["ui", "input", "primitive"],
+  "primitives": ["ui/utils"]
+}

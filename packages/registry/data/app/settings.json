@@ -1,0 +1,29 @@
+{
+  "id": "app/settings",
+  "name": "Settings Screen",
+  "description": "Settings screen with grouped items, toggles and back navigation.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/settings/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "app/settings/app.settings.index.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["app", "settings", "preferences"],
+  "primitives": []
+}

@@ -1,0 +1,29 @@
+{
+  "id": "app/home",
+  "name": "Home Dashboard Screen",
+  "description": "Home screen with greeting, stats cards and upcoming tasks list.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/home/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "app/home/app.home.index.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["app", "home", "dashboard"],
+  "primitives": []
+}

@@ -1,0 +1,80 @@
+import { 
+  View, 
+  Text, 
+  KeyboardAvoidingView, 
+  Platform, 
+  SafeAreaView, 
+  ScrollView{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+{{#if (eq icons "lucide")}}
+import { ArrowLeft } from 'lucide-react-native';
+{{/if}}
+import { Link } from 'expo-router';
+import { OtpInput } from '../../components/OtpInput';
+
+export default function OtpVerificationScreen() {
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-white"{{else}}style={styles.safeArea}{{/if}}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        {{#if (eq styling "nativewind")}}className="flex-1"{{else}}style={styles.flex1}{{/if}}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+        >
+          {{#if (eq icons "lucide")}}
+          <Link href="/" {{#if (eq styling "nativewind")}}className="mb-6"{{else}}style={styles.backButton}{{/if}}>
+            <ArrowLeft size={24} color="#111827" />
+          </Link>
+          {{/if}}
+
+          <View {{#if (eq styling "nativewind")}}className="mb-8"{{else}}style={styles.header}{{/if}}>
+            <Text {{#if (eq styling "nativewind")}}className="text-3xl font-bold text-gray-900"{{else}}style={styles.title}{{/if}}>
+              Verify code
+            </Text>
+            <Text {{#if (eq styling "nativewind")}}className="mt-2 text-base text-gray-600"{{else}}style={styles.subtitle}{{/if}}>
+              Enter the 6-digit code we sent to your email.
+            </Text>
+          </View>
+
+          <OtpInput />
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  flex1: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    padding: 24,
+    justifyContent: 'center',
+  },
+  backButton: {
+    marginBottom: 24,
+  },
+  header: {
+    marginBottom: 32,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  subtitle: {
+    marginTop: 8,
+    fontSize: 16,
+    color: '#4B5563',
+  },
+});
+{{/if}}

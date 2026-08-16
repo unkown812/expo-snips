@@ -1,0 +1,160 @@
+import { useState } from 'react';
+import { 
+  View, 
+  Text, 
+  Pressable, 
+  ScrollView, 
+  Switch{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+{{#if (eq icons "lucide")}}
+import { ChevronLeft, ChevronRight } from 'lucide-react-native';
+{{/if}}
+import { useRouter } from 'expo-router';
+
+{{#if (eq icons "lucide")}}
+const sections = [
+  { title: 'Account', items: ['Personal info', 'Password & security', 'Email preferences'] },
+  { title: 'Preferences', items: ['Language', 'Theme', 'Units'] },
+];
+{{else}}
+const sections = [
+  { title: 'Account', items: ['Personal info', 'Password & security', 'Email preferences'] },
+  { title: 'Preferences', items: ['Language', 'Theme', 'Units'] },
+];
+{{/if}}
+
+export default function SettingsScreen() {
+  const router = useRouter();
+  const [notifications, setNotifications] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-gray-50"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>
+      <ScrollView contentContainerStyle={styles.content}>
+        {/* Header */}
+        <View {{#if (eq styling "nativewind")}}className="flex-row items-center px-5 pt-4 pb-6"{{else}}style={styles.header}{{/if}}>
+          {{#if (eq icons "lucide")}}
+          <Pressable onPress={() => router.back()} {{#if (eq styling "nativewind")}}className="h-10 w-10 items-center justify-center rounded-full bg-white"{{else}}style={styles.backButton}{{/if}}>
+            <ChevronLeft size={22} color="#111827" />
+          </Pressable>
+          {{/if}}
+          <Text {{#if (eq styling "nativewind")}}className="ml-3 text-2xl font-bold text-gray-900"{{else}}style={styles.headerTitle}{{/if}}>
+            Settings
+          </Text>
+        </View>
+
+        {/* Grouped sections */}
+        {sections.map((section) => (
+          <View key={section.title} {{#if (eq styling "nativewind")}}className="mx-5 mb-6"{{else}}style={styles.section}{{/if}}>
+            <Text {{#if (eq styling "nativewind")}}className="mb-2 px-2 text-sm font-medium uppercase tracking-wide text-gray-400"{{else}}style={styles.sectionTitle}{{/if}}>
+              {section.title}
+            </Text>
+            <View {{#if (eq styling "nativewind")}}className="rounded-2xl bg-white"{{else}}style={styles.sectionCard}{{/if}}>
+              {section.items.map((item, index) => (
+                <Pressable
+                  key={item}
+                  {{#if (eq styling "nativewind")}}className={`flex-row items-center px-4 py-4 ${index > 0 ? 'border-t border-gray-100' : ''}`}{{else}}style={[styles.item, index > 0 && styles.itemBorder]}{{/if}}
+                >
+                  <Text {{#if (eq styling "nativewind")}}className="flex-1 text-base text-gray-900"{{else}}style={styles.itemLabel}{{/if}}>
+                    {item}
+                  </Text>
+                  {{#if (eq icons "lucide")}}
+                  <ChevronRight size={18} color="#9CA3AF" />
+                  {{/if}}
+                </Pressable>
+              ))}
+            </View>
+          </View>
+        ))}
+
+        {/* Toggles */}
+        <View {{#if (eq styling "nativewind")}}className="mx-5 mb-6"{{else}}style={styles.section}{{/if}}>
+          <Text {{#if (eq styling "nativewind")}}className="mb-2 px-2 text-sm font-medium uppercase tracking-wide text-gray-400"{{else}}style={styles.sectionTitle}{{/if}}>
+            General
+          </Text>
+          <View {{#if (eq styling "nativewind")}}className="rounded-2xl bg-white"{{else}}style={styles.sectionCard}{{/if}}>
+            <View {{#if (eq styling "nativewind")}}className="flex-row items-center px-4 py-4"{{else}}style={styles.item}{{/if}}>
+              <Text {{#if (eq styling "nativewind")}}className="flex-1 text-base text-gray-900"{{else}}style={styles.itemLabel}{{/if}}>
+                Push notifications
+              </Text>
+              <Switch value={notifications} onValueChange={setNotifications} />
+            </View>
+            <View {{#if (eq styling "nativewind")}}className="flex-row items-center border-t border-gray-100 px-4 py-4"{{else}}style={[styles.item, styles.itemBorder]}{{/if}}>
+              <Text {{#if (eq styling "nativewind")}}className="flex-1 text-base text-gray-900"{{else}}style={styles.itemLabel}{{/if}}>
+                Dark mode
+              </Text>
+              <Switch value={darkMode} onValueChange={setDarkMode} />
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
+  },
+  content: {
+    paddingBottom: 24,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 24,
+  },
+  backButton: {
+    height: 40,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  headerTitle: {
+    marginLeft: 12,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  section: {
+    marginHorizontal: 20,
+    marginBottom: 24,
+  },
+  sectionTitle: {
+    marginBottom: 8,
+    paddingHorizontal: 8,
+    fontSize: 14,
+    fontWeight: '500',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    color: '#9CA3AF',
+  },
+  sectionCard: {
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+  },
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
+  itemBorder: {
+    borderTopWidth: 1,
+    borderTopColor: '#F3F4F6',
+  },
+  itemLabel: {
+    flex: 1,
+    fontSize: 16,
+    color: '#111827',
+  },
+});
+{{/if}}

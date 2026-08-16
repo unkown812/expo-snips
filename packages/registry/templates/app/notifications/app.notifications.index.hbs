@@ -1,0 +1,181 @@
+import { 
+  View, 
+  Text, 
+  Pressable, 
+  ScrollView{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Link } from 'expo-router';
+{{#if (eq icons "lucide")}}
+import { ChevronLeft } from 'lucide-react-native';
+{{/if}}
+
+const notifications = [
+  {
+    id: '1',
+    type: 'order',
+    title: 'Order delivered',
+    message: 'Your order #2841 has been delivered. Enjoy!',
+    time: '2m ago',
+    read: false,
+  },
+  {
+    id: '2',
+    type: 'update',
+    title: 'New feature available',
+    message: 'Check out the new dark mode in settings.',
+    time: '1h ago',
+    read: false,
+  },
+  {
+    id: '3',
+    type: 'reminder',
+    title: 'Weekly summary',
+    message: 'Here is what you accomplished this week.',
+    time: '1d ago',
+    read: true,
+  },
+  {
+    id: '4',
+    type: 'promo',
+    title: '20% off your next order',
+    message: 'Limited time offer. Use code SAVE20.',
+    time: '3d ago',
+    read: true,
+  },
+];
+
+export default function NotificationsScreen() {
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-gray-50"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>
+      <ScrollView contentContainerStyle={styles.content}>
+        {/* Header */}
+        <View {{#if (eq styling "nativewind")}}className="flex-row items-center justify-between px-5 pt-4 pb-6"{{else}}style={styles.header}{{/if}}>
+          <View {{#if (eq styling "nativewind")}}className="flex-row items-center"{{else}}style={styles.headerLeft}{{/if}}>
+            {{#if (eq icons "lucide")}}
+            <Link href="/" {{#if (eq styling "nativewind")}}className="h-10 w-10 items-center justify-center rounded-full bg-white"{{else}}style={styles.backButton}{{/if}}>
+              <ChevronLeft size={22} color="#111827" />
+            </Link>
+            {{/if}}
+            <Text {{#if (eq styling "nativewind")}}className="ml-3 text-2xl font-bold text-gray-900"{{else}}style={styles.headerTitle}{{/if}}>
+              Notifications
+            </Text>
+          </View>
+          <Pressable onPress={() => console.log('mark all read')}>
+            <Text {{#if (eq styling "nativewind")}}className="text-sm text-blue-600"{{else}}style={styles.markAll}{{/if}}>Mark all read</Text>
+          </Pressable>
+        </View>
+
+        {/* List */}
+        <View {{#if (eq styling "nativewind")}}className="gap-3 px-5"{{else}}style={styles.list}{{/if}}>
+          {notifications.map((notification) => (
+            <Pressable
+              key={notification.id}
+              {{#if (eq styling "nativewind")}}className={`rounded-2xl p-4 ${notification.read ? 'bg-white' : 'bg-blue-50'}`}{{else}}style={[styles.card, !notification.read && styles.cardUnread]}{{/if}}
+            >
+              <View {{#if (eq styling "nativewind")}}className="flex-row items-center justify-between"{{else}}style={styles.cardHeader}{{/if}}>
+                <Text
+                  {{#if (eq styling "nativewind")}}className={`flex-1 text-base font-semibold ${notification.read ? 'text-gray-900' : 'text-blue-900'}`}{{else}}style={styles.cardTitle}{{/if}}
+                >
+                  {notification.title}
+                </Text>
+                {!notification.read && (
+                  <View {{#if (eq styling "nativewind")}}className="ml-2 h-2 w-2 rounded-full bg-blue-600"{{else}}style={styles.unreadDot}{{/if}} />
+                )}
+              </View>
+              <Text {{#if (eq styling "nativewind")}}className="mt-1 text-sm text-gray-600"{{else}}style={styles.cardMessage}{{/if}}>
+                {notification.message}
+              </Text>
+              <Text {{#if (eq styling "nativewind")}}className="mt-2 text-xs text-gray-400"{{else}}style={styles.cardTime}{{/if}}>
+                {notification.time}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
+  },
+  content: {
+    paddingBottom: 24,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 24,
+  },
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  backButton: {
+    height: 40,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  headerTitle: {
+    marginLeft: 12,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  markAll: {
+    fontSize: 14,
+    color: '#2563EB',
+  },
+  list: {
+    gap: 12,
+    paddingHorizontal: 20,
+  },
+  card: {
+    borderRadius: 16,
+    padding: 16,
+    backgroundColor: '#FFFFFF',
+  },
+  cardUnread: {
+    backgroundColor: '#EFF6FF',
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  cardTitle: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#111827',
+  },
+  unreadDot: {
+    marginLeft: 8,
+    height: 8,
+    width: 8,
+    borderRadius: 4,
+    backgroundColor: '#2563EB',
+  },
+  cardMessage: {
+    marginTop: 4,
+    fontSize: 14,
+    color: '#4B5563',
+  },
+  cardTime: {
+    marginTop: 8,
+    fontSize: 12,
+    color: '#9CA3AF',
+  },
+});
+{{/if}}

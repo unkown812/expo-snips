@@ -1,0 +1,29 @@
+{
+  "id": "utility/error",
+  "name": "Error State Screen",
+  "description": "Error state with warning icon, message and retry action.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/error.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "utility/error/app.error.index.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["utility", "error", "state"],
+  "primitives": []
+}

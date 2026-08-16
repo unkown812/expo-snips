@@ -1,0 +1,34 @@
+{
+  "id": "onboarding/welcome",
+  "name": "Welcome Screen",
+  "description": "Onboarding welcome screen with feature highlights and call to action.",
+  "version": "0.2.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native", "shadcn"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/welcome/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "onboarding/welcome/app.welcome.index.hbs"
+    },
+    {
+      "path": "app/welcome/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["shadcn"], "icons": ["lucide"] },
+      "templateFile": "onboarding/welcome/app.welcome.index.shadcn.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["onboarding", "welcome", "intro"],
+  "primitives": ["ui/utils", "ui/button"]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "app/profile",
+  "name": "Profile Screen",
+  "description": "User profile with avatar, ratings and account menu.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/profile/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "app/profile/app.profile.index.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["app", "profile", "account"],
+  "primitives": []
+}

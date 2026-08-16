@@ -1,0 +1,10 @@
+{
+  "name": "expo-snips",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -r dev",
+    "test": "pnpm -r test"
+  }
+}

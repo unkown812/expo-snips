@@ -1,0 +1,267 @@
+import { useState } from 'react';
+import { 
+  View, 
+  Text, 
+  TextInput, 
+  Pressable, 
+  ActivityIndicator{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+{{#if (eq icons "lucide")}}
+import { Mail, Lock, User, Eye, EyeOff } from 'lucide-react-native';
+{{/if}}
+import { useRegister } from '../hooks/useRegister';
+
+{{#if typescript}}
+const schema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+  confirmPassword: z.string().min(6, 'Please confirm your password'),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: 'Passwords do not match',
+  path: ['confirmPassword'],
+});
+
+type FormData = z.infer<typeof schema>;
+{{/if}}
+
+export function RegisterForm() {
+  {{#if typescript}}
+  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
+  });
+  {{else}}
+  const schema = z.object({
+    name: z.string().min(2),
+    email: z.string().email(),
+    password: z.string().min(6),
+    confirmPassword: z.string().min(6),
+  }).refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  });
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
+  });
+  {{/if}}
+
+  const { register, isLoading } = useRegister();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const onSubmit = async ({{#if typescript}}data: FormData{{else}}data{{/if}}) => {
+    await register(data.name, data.email, data.password);
+  };
+
+  return (
+    <View {{#if (eq styling "nativewind")}}className="gap-5"{{else}}style={styles.container}{{/if}}>
+      {/* Name field */}
+      <View>
+        <Text {{#if (eq styling "nativewind")}}className="mb-1 text-sm font-medium text-gray-700"{{else}}style={styles.label}{{/if}}>
+          Name
+        </Text>
+        <Controller
+          control={control}
+          name="name"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View {{#if (eq styling "nativewind")}}className={`flex-row items-center border rounded-lg px-3 py-3 ${errors.name ? 'border-red-500' : 'border-gray-300'}`}{{else}}style={[styles.inputContainer, errors.name && styles.inputError]}{{/if}}>
+              {{#if (eq icons "lucide")}}
+              <User size={20} color={errors.name ? '#EF4444' : '#6B7280'} />
+              {{/if}}
+              <TextInput
+                placeholder="Jane Doe"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                autoCapitalize="words"
+                placeholderTextColor="#9CA3AF"
+                {{#if (eq styling "nativewind")}}className="flex-1 ml-3 text-gray-900"{{else}}style={styles.input}{{/if}}
+              />
+            </View>
+          )}
+        />
+        {errors.name && (
+          <Text {{#if (eq styling "nativewind")}}className="mt-1 text-sm text-red-500"{{else}}style={styles.errorText}{{/if}}>
+            {errors.name.message}
+          </Text>
+        )}
+      </View>
+
+      {/* Email field */}
+      <View>
+        <Text {{#if (eq styling "nativewind")}}className="mb-1 text-sm font-medium text-gray-700"{{else}}style={styles.label}{{/if}}>
+          Email
+        </Text>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View {{#if (eq styling "nativewind")}}className={`flex-row items-center border rounded-lg px-3 py-3 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}{{else}}style={[styles.inputContainer, errors.email && styles.inputError]}{{/if}}>
+              {{#if (eq icons "lucide")}}
+              <Mail size={20} color={errors.email ? '#EF4444' : '#6B7280'} />
+              {{/if}}
+              <TextInput
+                placeholder="you@example.com"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                placeholderTextColor="#9CA3AF"
+                {{#if (eq styling "nativewind")}}className="flex-1 ml-3 text-gray-900"{{else}}style={styles.input}{{/if}}
+              />
+            </View>
+          )}
+        />
+        {errors.email && (
+          <Text {{#if (eq styling "nativewind")}}className="mt-1 text-sm text-red-500"{{else}}style={styles.errorText}{{/if}}>
+            {errors.email.message}
+          </Text>
+        )}
+      </View>
+
+      {/* Password field */}
+      <View>
+        <Text {{#if (eq styling "nativewind")}}className="mb-1 text-sm font-medium text-gray-700"{{else}}style={styles.label}{{/if}}>
+          Password
+        </Text>
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View {{#if (eq styling "nativewind")}}className={`flex-row items-center border rounded-lg px-3 py-3 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}{{else}}style={[styles.inputContainer, errors.password && styles.inputError]}{{/if}}>
+              {{#if (eq icons "lucide")}}
+              <Lock size={20} color={errors.password ? '#EF4444' : '#6B7280'} />
+              {{/if}}
+              <TextInput
+                placeholder="••••••••"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                secureTextEntry={!showPassword}
+                placeholderTextColor="#9CA3AF"
+                {{#if (eq styling "nativewind")}}className="flex-1 ml-3 text-gray-900"{{else}}style={styles.input}{{/if}}
+              />
+              {{#if (eq icons "lucide")}}
+              <Pressable onPress={() => setShowPassword(!showPassword)}>
+                {showPassword ? (
+                  <EyeOff size={20} color="#6B7280" />
+                ) : (
+                  <Eye size={20} color="#6B7280" />
+                )}
+              </Pressable>
+              {{/if}}
+            </View>
+          )}
+        />
+        {errors.password && (
+          <Text {{#if (eq styling "nativewind")}}className="mt-1 text-sm text-red-500"{{else}}style={styles.errorText}{{/if}}>
+            {errors.password.message}
+          </Text>
+        )}
+      </View>
+
+      {/* Confirm password field */}
+      <View>
+        <Text {{#if (eq styling "nativewind")}}className="mb-1 text-sm font-medium text-gray-700"{{else}}style={styles.label}{{/if}}>
+          Confirm password
+        </Text>
+        <Controller
+          control={control}
+          name="confirmPassword"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View {{#if (eq styling "nativewind")}}className={`flex-row items-center border rounded-lg px-3 py-3 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'}`}{{else}}style={[styles.inputContainer, errors.confirmPassword && styles.inputError]}{{/if}}>
+              {{#if (eq icons "lucide")}}
+              <Lock size={20} color={errors.confirmPassword ? '#EF4444' : '#6B7280'} />
+              {{/if}}
+              <TextInput
+                placeholder="••••••••"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                secureTextEntry={!showPassword}
+                placeholderTextColor="#9CA3AF"
+                {{#if (eq styling "nativewind")}}className="flex-1 ml-3 text-gray-900"{{else}}style={styles.input}{{/if}}
+              />
+            </View>
+          )}
+        />
+        {errors.confirmPassword && (
+          <Text {{#if (eq styling "nativewind")}}className="mt-1 text-sm text-red-500"{{else}}style={styles.errorText}{{/if}}>
+            {errors.confirmPassword.message}
+          </Text>
+        )}
+      </View>
+
+      {/* Submit button */}
+      <Pressable
+        onPress={handleSubmit(onSubmit)}
+        disabled={isLoading}
+        {{#if (eq styling "nativewind")}}className={`py-3 rounded-lg ${isLoading ? 'bg-blue-400' : 'bg-blue-600'}`}{{else}}style={[styles.button, isLoading && styles.buttonDisabled]}{{/if}}
+      >
+        {isLoading ? (
+          <ActivityIndicator color="#FFFFFF" />
+        ) : (
+          <Text {{#if (eq styling "nativewind")}}className="text-white text-center font-semibold text-base"{{else}}style={styles.buttonText}{{/if}}>
+            Create Account
+          </Text>
+        )}
+      </Pressable>
+    </View>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  container: {
+    gap: 20,
+  },
+  label: {
+    marginBottom: 4,
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#374151',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#D1D5DB',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+  },
+  inputError: {
+    borderColor: '#EF4444',
+  },
+  input: {
+    flex: 1,
+    marginLeft: 12,
+    color: '#111827',
+  },
+  errorText: {
+    marginTop: 4,
+    fontSize: 14,
+    color: '#EF4444',
+  },
+  button: {
+    paddingVertical: 12,
+    borderRadius: 8,
+    backgroundColor: '#2563EB',
+  },
+  buttonDisabled: {
+    backgroundColor: '#93C5FD',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+});
+{{/if}}

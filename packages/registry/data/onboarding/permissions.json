@@ -1,0 +1,35 @@
+{
+  "id": "onboarding/permissions",
+  "name": "Permissions Screen",
+  "description": "Request notification permissions with allow/deny actions.",
+  "version": "0.2.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native", "shadcn"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native",
+    "expo-notifications"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/permissions/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "onboarding/permissions/app.permissions.index.hbs"
+    },
+    {
+      "path": "app/permissions/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["shadcn"], "icons": ["lucide"] },
+      "templateFile": "onboarding/permissions/app.permissions.index.shadcn.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["onboarding", "permissions", "notifications"],
+  "primitives": ["ui/utils", "ui/button"]
+}

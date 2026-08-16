@@ -1,0 +1,203 @@
+import { useState } from 'react';
+import { 
+  Pressable, 
+  Text, 
+  View{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import * as Notifications from 'expo-notifications';
+{{#if (eq icons "lucide")}}
+import { Bell, Check, X } from 'lucide-react-native';
+{{/if}}
+
+export default function PermissionsScreen() {
+  {{#if typescript}}
+  const [status, setStatus] = useState<'pending' | 'granted' | 'denied'>('pending');
+  {{else}}
+  const [status, setStatus] = useState('pending');
+  {{/if}}
+
+  const requestPermission = async () => {
+    const { status: permissionStatus } = await Notifications.requestPermissionsAsync();
+    setStatus(permissionStatus === 'granted' ? 'granted' : 'denied');
+  };
+
+  if (status !== 'pending') {
+    return (
+      <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-white"{{else}}style={styles.safeArea}{{/if}}>
+        <View {{#if (eq styling "nativewind")}}className="flex-1 items-center justify-center px-6"{{else}}style={styles.center}{{/if}}>
+          <View
+            {{#if (eq styling "nativewind")}}className={`h-20 w-20 items-center justify-center rounded-3xl ${
+              status === 'granted' ? 'bg-green-100' : 'bg-gray-100'
+            }`}{{else}}style={[styles.statusIcon, status === 'granted' && styles.statusIconGranted]}{{/if}}
+          >
+            {{#if (eq icons "lucide")}}
+            {status === 'granted' ? (
+              <Check size={36} color="#16A34A" />
+            ) : (
+              <X size={36} color="#6B7280" />
+            )}
+            {{else}}
+            <Text {{#if (eq styling "nativewind")}}className={`text-3xl font-bold ${status === 'granted' ? 'text-green-600' : 'text-gray-500'}`}{{else}}style={styles.statusText}{{/if}}>
+              {status === 'granted' ? '✓' : '×'}
+            </Text>
+            {{/if}}
+          </View>
+          <Text {{#if (eq styling "nativewind")}}className="mt-6 text-center text-2xl font-bold text-gray-900"{{else}}style={styles.statusTitle}{{/if}}>
+            {status === 'granted' ? 'Notifications enabled' : 'Notifications disabled'}
+          </Text>
+          <Text {{#if (eq styling "nativewind")}}className="mt-2 text-center text-gray-500"{{else}}style={styles.statusSubtitle}{{/if}}>
+            {status === 'granted'
+              ? "You'll stay up to date with everything important."
+              : 'You can change this anytime in your device settings.'}
+          </Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-white"{{else}}style={styles.safeArea}{{/if}}>
+      <View {{#if (eq styling "nativewind")}}className="flex-1 justify-center px-6"{{else}}style={styles.container}{{/if}}>
+        <View {{#if (eq styling "nativewind")}}className="items-center"{{else}}style={styles.hero}{{/if}}>
+          {{#if (eq icons "lucide")}}
+          <View {{#if (eq styling "nativewind")}}className="h-20 w-20 items-center justify-center rounded-3xl bg-blue-100"{{else}}style={styles.icon}{{/if}}>
+            <Bell size={36} color="#2563EB" />
+          </View>
+          {{else}}
+          <View {{#if (eq styling "nativewind")}}className="h-20 w-20 items-center justify-center rounded-3xl bg-blue-100"{{else}}style={styles.icon}{{/if}}>
+            <Text {{#if (eq styling "nativewind")}}className="text-3xl font-bold text-blue-600"{{else}}style={styles.iconText}{{/if}}>!</Text>
+          </View>
+          {{/if}}
+          <Text {{#if (eq styling "nativewind")}}className="mt-6 text-center text-3xl font-bold text-gray-900"{{else}}style={styles.title}{{/if}}>
+            Stay in the loop
+          </Text>
+          <Text {{#if (eq styling "nativewind")}}className="mt-2 text-center text-gray-500"{{else}}style={styles.subtitle}{{/if}}>
+            Allow notifications to get important updates, reminders, and news.
+          </Text>
+        </View>
+
+        <View {{#if (eq styling "nativewind")}}className="mt-12 gap-3"{{else}}style={styles.actions}{{/if}}>
+          <Pressable
+            onPress={requestPermission}
+            {{#if (eq styling "nativewind")}}className="items-center rounded-xl bg-blue-600 py-4"{{else}}style={styles.primaryButton}{{/if}}
+          >
+            <Text {{#if (eq styling "nativewind")}}className="text-base font-semibold text-white"{{else}}style={styles.primaryButtonText}{{/if}}>
+              Allow Notifications
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => setStatus('denied')}
+            {{#if (eq styling "nativewind")}}className="items-center rounded-xl py-3"{{else}}style={styles.secondaryButton}{{/if}}
+          >
+            <Text {{#if (eq styling "nativewind")}}className="text-base font-medium text-gray-500"{{else}}style={styles.secondaryButtonText}{{/if}}>
+              Not now
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+  },
+  hero: {
+    alignItems: 'center',
+  },
+  icon: {
+    height: 80,
+    width: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 24,
+    backgroundColor: '#DBEAFE',
+  },
+  iconText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#2563EB',
+  },
+  title: {
+    marginTop: 24,
+    textAlign: 'center',
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  subtitle: {
+    marginTop: 8,
+    textAlign: 'center',
+    color: '#6B7280',
+  },
+  actions: {
+    marginTop: 48,
+    gap: 12,
+  },
+  primaryButton: {
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: '#2563EB',
+    paddingVertical: 16,
+  },
+  primaryButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+  secondaryButton: {
+    alignItems: 'center',
+    borderRadius: 12,
+    paddingVertical: 12,
+  },
+  secondaryButtonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#6B7280',
+  },
+  center: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+  },
+  statusIcon: {
+    height: 80,
+    width: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 24,
+    backgroundColor: '#F3F4F6',
+  },
+  statusIconGranted: {
+    backgroundColor: '#DCFCE7',
+  },
+  statusText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#6B7280',
+  },
+  statusTitle: {
+    marginTop: 24,
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  statusSubtitle: {
+    marginTop: 8,
+    textAlign: 'center',
+    color: '#6B7280',
+  },
+});
+{{/if}}

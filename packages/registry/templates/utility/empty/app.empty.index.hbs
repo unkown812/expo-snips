@@ -1,0 +1,94 @@
+import { 
+  View, 
+  Text, 
+  Pressable{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+{{#if (eq icons "lucide")}}
+import { PackageOpen } from 'lucide-react-native';
+{{/if}}
+
+export default function EmptyScreen() {
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-white"{{else}}style={styles.safeArea}{{/if}}>
+      <View {{#if (eq styling "nativewind")}}className="flex-1 items-center justify-center px-8"{{else}}style={styles.container}{{/if}}>
+        {{#if (eq icons "lucide")}}
+        <View {{#if (eq styling "nativewind")}}className="h-24 w-24 items-center justify-center rounded-full bg-gray-100"{{else}}style={styles.iconCircle}{{/if}}>
+          <PackageOpen size={40} color="#9CA3AF" />
+        </View>
+        {{else}}
+        <View {{#if (eq styling "nativewind")}}className="h-24 w-24 items-center justify-center rounded-full bg-gray-100"{{else}}style={styles.iconCircle}{{/if}}>
+          <Text {{#if (eq styling "nativewind")}}className="text-4xl text-gray-400"{{else}}style={styles.iconText}{{/if}}>∅</Text>
+        </View>
+        {{/if}}
+        <Text {{#if (eq styling "nativewind")}}className="mt-6 text-xl font-bold text-gray-900"{{else}}style={styles.title}{{/if}}>
+          Nothing here yet
+        </Text>
+        <Text {{#if (eq styling "nativewind")}}className="mt-2 text-center text-base text-gray-500"{{else}}style={styles.subtitle}{{/if}}>
+          When you add items they'll show up here. Get started to see your content.
+        </Text>
+        <Pressable
+          onPress={() => console.log('action')}
+          {{#if (eq styling "nativewind")}}className="mt-8 items-center rounded-xl bg-blue-600 px-8 py-4"{{else}}style={styles.button}{{/if}}
+        >
+          <Text {{#if (eq styling "nativewind")}}className="text-base font-semibold text-white"{{else}}style={styles.buttonText}{{/if}}>
+            Get Started
+          </Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 32,
+  },
+  iconCircle: {
+    height: 96,
+    width: 96,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 48,
+    backgroundColor: '#F3F4F6',
+  },
+  iconText: {
+    fontSize: 36,
+    color: '#9CA3AF',
+  },
+  title: {
+    marginTop: 24,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  subtitle: {
+    marginTop: 8,
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#6B7280',
+  },
+  button: {
+    marginTop: 32,
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: '#2563EB',
+    paddingHorizontal: 32,
+    paddingVertical: 16,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+});
+{{/if}}

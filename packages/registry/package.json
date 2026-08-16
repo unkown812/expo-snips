@@ -1,0 +1,17 @@
+{
+  "name": "@expo-snips/registry",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "build:bundle": "node scripts/build-bundle.mjs"
+  },
+  "dependencies": {
+    "@expo-snips/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.5.0"
+  }
+}

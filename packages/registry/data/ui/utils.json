@@ -1,0 +1,26 @@
+{
+  "id": "ui/utils",
+  "name": "cn utility",
+  "description": "Class name merge helper (clsx + tailwind-merge) used by shadcn-style primitives.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind"],
+    "router": ["expo-router"],
+    "ui": ["shadcn"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": ["clsx", "tailwind-merge"],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "lib/utils.ts",
+      "when": { "styling": ["nativewind"], "ui": ["shadcn"], "typescript": true },
+      "templateFile": "ui/lib.utils.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["ui", "util"]
+}

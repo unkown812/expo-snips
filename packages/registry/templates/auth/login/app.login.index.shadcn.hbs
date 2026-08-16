@@ -1,0 +1,27 @@
+import { KeyboardAvoidingView, Platform, View, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { LoginForm } from "../../components/LoginForm";
+
+export default function LoginScreen() {
+  return (
+    <SafeAreaView className="flex-1 bg-background">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        className="flex-1"
+      >
+        <View className="flex-1 justify-center px-6">
+          <View>
+            <Text className="text-3xl font-bold text-foreground">Welcome back</Text>
+            <Text className="mt-2 text-muted-foreground">
+              Sign in to your account to continue
+            </Text>
+          </View>
+
+          <View className="mt-8">
+            <LoginForm />
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+}
