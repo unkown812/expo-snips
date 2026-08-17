@@ -1,0 +1,537 @@
+[
+  {
+    "id": "app/home",
+    "name": "Home Dashboard Screen",
+    "description": "Home screen with greeting, stats cards and upcoming tasks list.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "app",
+      "home",
+      "dashboard"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "app/notifications",
+    "name": "Notifications Screen",
+    "description": "Notifications list with unread indicators and mark all read action.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "app",
+      "notifications",
+      "list"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "app/profile",
+    "name": "Profile Screen",
+    "description": "User profile with avatar, ratings and account menu.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "app",
+      "profile",
+      "account"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "app/search",
+    "name": "Search Screen",
+    "description": "Search screen with recent searches, query input and results list.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "app",
+      "search"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "app/settings",
+    "name": "Settings Screen",
+    "description": "Settings screen with grouped items, toggles and back navigation.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "app",
+      "settings",
+      "preferences"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "auth/forgot-password",
+    "name": "Forgot Password Screen",
+    "description": "Email submission to reset a forgotten password.",
+    "version": "0.2.0",
+    "typescript": true,
+    "tags": [
+      "auth",
+      "forgot-password",
+      "form"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native",
+        "shadcn"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "auth/login",
+    "name": "Login Screen",
+    "description": "Email/password login with validation, loading states and error handling.",
+    "version": "0.3.0",
+    "typescript": true,
+    "tags": [
+      "auth",
+      "login",
+      "form"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native",
+        "shadcn"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "auth/otp-verification",
+    "name": "OTP Verification Screen",
+    "description": "One-time passcode entry with auto-submit and error handling.",
+    "version": "0.2.0",
+    "typescript": true,
+    "tags": [
+      "auth",
+      "otp",
+      "verification"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native",
+        "shadcn"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "auth/register",
+    "name": "Register Screen",
+    "description": "Email/password registration with name, validation and error handling.",
+    "version": "0.2.0",
+    "typescript": true,
+    "tags": [
+      "auth",
+      "register",
+      "signup",
+      "form"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native",
+        "shadcn"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "ecommerce/product-details",
+    "name": "Product Details Screen",
+    "description": "Product detail view with image, rating, description, quantity selector and add to cart.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "ecommerce",
+      "product",
+      "details"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "ecommerce/products",
+    "name": "Product Listing Screen",
+    "description": "Two-column product grid with prices, ratings and filter button.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "ecommerce",
+      "products",
+      "list",
+      "catalog"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "onboarding/features",
+    "name": "Features Onboarding Screen",
+    "description": "Onboarding screen with selectable feature cards and continue action.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "onboarding",
+      "features",
+      "intro"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "onboarding/permissions",
+    "name": "Permissions Screen",
+    "description": "Request notification permissions with allow/deny actions.",
+    "version": "0.2.0",
+    "typescript": true,
+    "tags": [
+      "onboarding",
+      "permissions",
+      "notifications"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native",
+        "shadcn"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "onboarding/welcome",
+    "name": "Welcome Screen",
+    "description": "Onboarding welcome screen with feature highlights and call to action.",
+    "version": "0.2.0",
+    "typescript": true,
+    "tags": [
+      "onboarding",
+      "welcome",
+      "intro"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native",
+        "shadcn"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "ui/button",
+    "name": "Button primitive",
+    "description": "shadcn-style Button built on Pressable with cva variants.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "ui",
+      "button",
+      "primitive"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "shadcn"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "ui/input",
+    "name": "Input primitive",
+    "description": "shadcn-style Input built on TextInput with cva styling.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "ui",
+      "input",
+      "primitive"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "shadcn"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "ui/utils",
+    "name": "cn utility",
+    "description": "Class name merge helper (clsx + tailwind-merge) used by shadcn-style primitives.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "ui",
+      "util"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "shadcn"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "utility/empty",
+    "name": "Empty State Screen",
+    "description": "Empty state with icon, message and primary action button.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "utility",
+      "empty",
+      "state"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "utility/error",
+    "name": "Error State Screen",
+    "description": "Error state with warning icon, message and retry action.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "utility",
+      "error",
+      "state"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  }
+]

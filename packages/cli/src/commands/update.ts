@@ -8,6 +8,7 @@ import {
   getFilesForRecipe,
   IconOption,
   RouterOption,
+  ScreenRecipe,
   StylingOption,
   UIOption,
 } from "@expo-snips/core";
@@ -18,7 +19,8 @@ import {
 } from "../utils/manifest";
 import { writeFiles } from "../utils/writeFiles";
 import { getPrimitives } from "../utils/primitives";
-import { makeRecipeLookup, resolveRegistry } from "../utils/resolveRegistry";
+import { getRecipeById } from "../utils/registry";
+import { resolveRegistry } from "../utils/resolveRegistry";
 import { hasChanges, printDiff } from "../utils/diff";
 
 function buildContext(entry: ManifestEntry, projectRoot: string): GenerationContext {
@@ -38,7 +40,7 @@ function buildContext(entry: ManifestEntry, projectRoot: string): GenerationCont
 export const updateCommand = new Command("update")
   .description("Update generated screens to the latest registry version")
   .argument("[screenId]", "Screen ID to update (e.g. auth/login); updates all if omitted")
-  .option("--registry <url>", "Remote registry URL (falls back to local on failure)")
+  .option("--registry <url>", "Remote registry URL (defaults to EXPO_SNIPS_REGISTRY)")
   .option("--yes", "Apply updates without asking for confirmation")
   .action(async (screenId: string | undefined, options) => {
     const projectRoot = process.cwd();
@@ -50,7 +52,8 @@ export const updateCommand = new Command("update")
       if (entries.length === 0) {
         console.error(chalk.red(`No installed screens match "${screenId}".`));
         console.log("Run `expo-snips status` to see tracked screens.");
-        process.exit(1);
+        process.exitCode = 1;
+        return;
       }
     }
 
@@ -60,8 +63,9 @@ export const updateCommand = new Command("update")
       return;
     }
 
-    const { recipes } = await resolveRegistry(options.registry);
-    const findRecipe = makeRecipeLookup(recipes);
+    await resolveRegistry(options.registry);
+    const findRecipe = async (id: string): Promise<ScreenRecipe | undefined> =>
+      (await getRecipeById(id, options.registry)) ?? undefined;
 
     const updates: Array<{
       entry: ManifestEntry;
@@ -70,7 +74,7 @@ export const updateCommand = new Command("update")
     const diffs: Array<{ path: string; oldContent: string; newContent: string }> = [];
 
     for (const entry of entries) {
-      const recipe = findRecipe(entry.recipeId);
+      const recipe = await findRecipe(entry.recipeId);
       if (!recipe) {
         console.warn(
           chalk.yellow(`Skipping ${entry.recipeId}: not found in registry (may have been removed or renamed).`)
@@ -83,7 +87,7 @@ export const updateCommand = new Command("update")
 
       let allFiles = files;
       if (context.options.ui === "shadcn") {
-        const primitives = getPrimitives(recipe, context, projectRoot, findRecipe);
+        const primitives = await getPrimitives(recipe, context, projectRoot, findRecipe);
         allFiles = [...files, ...primitives.files];
       }
 
@@ -132,11 +136,13 @@ export const updateCommand = new Command("update")
     }
 
     updateEntryVersions(
-      updates.map((u) => ({
-        recipeId: u.entry.recipeId,
-        variant: u.entry.variant,
-        recipeVersion: findRecipe(u.entry.recipeId)?.version ?? u.entry.recipeVersion,
-      })),
+      await Promise.all(
+        updates.map(async (u) => ({
+          recipeId: u.entry.recipeId,
+          variant: u.entry.variant,
+          recipeVersion: (await findRecipe(u.entry.recipeId))?.version ?? u.entry.recipeVersion,
+        }))
+      ),
       projectRoot
     );
 

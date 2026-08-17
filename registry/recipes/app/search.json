@@ -1,0 +1,49 @@
+{
+  "id": "app/search",
+  "name": "Search Screen",
+  "description": "Search screen with recent searches, query input and results list.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": [
+      "nativewind",
+      "stylesheet"
+    ],
+    "router": [
+      "expo-router"
+    ],
+    "ui": [
+      "native"
+    ],
+    "icons": [
+      "lucide",
+      "none"
+    ]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/search/index.tsx",
+      "when": {
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { useState } from 'react';\nimport { \n  View, \n  Text, \n  TextInput, \n  Pressable, \n  FlatList{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{#if (eq icons \"lucide\")}}\nimport { Search as SearchIcon, X, Clock } from 'lucide-react-native';\n{{/if}}\n\nconst recentSearches = ['camera', 'wireless earbuds', 'running shoes', 'usb-c hub'];\n\nconst results = [\n  { id: '1', title: 'Wireless Earbuds Pro', category: 'Electronics' },\n  { id: '2', title: 'Running Shoes', category: 'Sports' },\n  { id: '3', title: 'Smart Camera', category: 'Electronics' },\n  { id: '4', title: 'USB-C Hub 7-in-1', category: 'Accessories' },\n];\n\nexport default function SearchScreen() {\n  const [query, setQuery] = useState('');\n  const [submitted, setSubmitted] = useState(false);\n\n  const submit = (value: string) => {\n    const text = value.trim();\n    if (!text) return;\n    setQuery(text);\n    setSubmitted(true);\n  };\n\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>\n      <View {{#if (eq styling \"nativewind\")}}className=\"px-5 pt-4\"{{else}}style={styles.header}{{/if}}>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-2xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n          Search\n        </Text>\n        <View {{#if (eq styling \"nativewind\")}}className=\"mt-4 flex-row items-center rounded-xl bg-gray-100 px-4\"{{else}}style={styles.searchBar}{{/if}}>\n          {{#if (eq icons \"lucide\")}}\n          <SearchIcon size={20} color=\"#6B7280\" />\n          {{/if}}\n          <TextInput\n            value={query}\n            onChangeText={setQuery}\n            onSubmitEditing={() => submit(query)}\n            returnKeyType=\"search\"\n            placeholder=\"Search products\"\n            placeholderTextColor=\"#9CA3AF\"\n            autoCapitalize=\"none\"\n            {{#if (eq styling \"nativewind\")}}className=\"ml-3 flex-1 py-3 text-gray-900\"{{else}}style={styles.searchInput}{{/if}}\n          />\n          {query.length > 0 && (\n            <Pressable onPress={() => { setQuery(''); setSubmitted(false); }}>\n              {{#if (eq icons \"lucide\")}}\n              <X size={18} color=\"#6B7280\" />\n              {{else}}\n              <Text {{#if (eq styling \"nativewind\")}}className=\"text-lg text-gray-500\"{{else}}style={styles.clearText}{{/if}}>×</Text>\n              {{/if}}\n            </Pressable>\n          )}\n        </View>\n      </View>\n\n      {!submitted ? (\n        <View {{#if (eq styling \"nativewind\")}}className=\"px-5 pt-6\"{{else}}style={styles.recentSection}{{/if}}>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-gray-900\"{{else}}style={styles.sectionTitle}{{/if}}>\n            Recent\n          </Text>\n          <View {{#if (eq styling \"nativewind\")}}className=\"mt-3 flex-row flex-wrap gap-2\"{{else}}style={styles.chips}{{/if}}>\n            {recentSearches.map((term) => (\n              <Pressable\n                key={term}\n                onPress={() => submit(term)}\n                {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center rounded-full bg-gray-100 px-4 py-2\"{{else}}style={styles.chip}{{/if}}\n              >\n                {{#if (eq icons \"lucide\")}}\n                <Clock size={14} color=\"#6B7280\" />\n                {{/if}}\n                <Text {{#if (eq styling \"nativewind\")}}className=\"ml-1.5 text-sm text-gray-700\"{{else}}style={styles.chipText}{{/if}}>{term}</Text>\n              </Pressable>\n            ))}\n          </View>\n        </View>\n      ) : (\n        <FlatList\n          data={results}\n          keyExtractor={(item) => item.id}\n          contentContainerStyle={styles.resultsContent}\n          ListHeaderComponent={\n            <Text {{#if (eq styling \"nativewind\")}}className=\"px-5 pb-3 text-base font-semibold text-gray-900\"{{else}}style={styles.sectionTitle}{{/if}}>\n              Results for \"{query}\"\n            </Text>\n          }\n          renderItem={({ item }) => (\n            <Pressable {{#if (eq styling \"nativewind\")}}className=\"border-b border-gray-100 px-5 py-4\"{{else}}style={styles.resultItem}{{/if}}>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"text-base text-gray-900\"{{else}}style={styles.resultTitle}{{/if}}>{item.title}</Text>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"mt-0.5 text-sm text-gray-400\"{{else}}style={styles.resultCategory}{{/if}}>{item.category}</Text>\n            </Pressable>\n          )}\n        />\n      )}\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  header: {\n    paddingHorizontal: 20,\n    paddingTop: 16,\n  },\n  title: {\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  searchBar: {\n    marginTop: 16,\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#F3F4F6',\n    paddingHorizontal: 16,\n  },\n  searchInput: {\n    marginLeft: 12,\n    flex: 1,\n    paddingVertical: 12,\n    color: '#111827',\n  },\n  clearText: {\n    fontSize: 18,\n    color: '#6B7280',\n  },\n  recentSection: {\n    paddingHorizontal: 20,\n    paddingTop: 24,\n  },\n  sectionTitle: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#111827',\n  },\n  chips: {\n    marginTop: 12,\n    flexDirection: 'row',\n    flexWrap: 'wrap',\n    gap: 8,\n  },\n  chip: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    borderRadius: 20,\n    backgroundColor: '#F3F4F6',\n    paddingHorizontal: 16,\n    paddingVertical: 8,\n  },\n  chipText: {\n    marginLeft: 6,\n    fontSize: 14,\n    color: '#374151',\n  },\n  resultsContent: {\n    paddingTop: 24,\n    paddingBottom: 24,\n  },\n  resultItem: {\n    borderBottomWidth: 1,\n    borderBottomColor: '#F3F4F6',\n    paddingHorizontal: 20,\n    paddingVertical: 16,\n  },\n  resultTitle: {\n    fontSize: 16,\n    color: '#111827',\n  },\n  resultCategory: {\n    marginTop: 2,\n    fontSize: 14,\n    color: '#9CA3AF',\n  },\n});\n{{/if}}"
+    }
+  ],
+  "variants": [],
+  "tags": [
+    "app",
+    "search"
+  ],
+  "primitives": []
+}

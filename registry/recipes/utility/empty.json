@@ -1,0 +1,50 @@
+{
+  "id": "utility/empty",
+  "name": "Empty State Screen",
+  "description": "Empty state with icon, message and primary action button.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": [
+      "nativewind",
+      "stylesheet"
+    ],
+    "router": [
+      "expo-router"
+    ],
+    "ui": [
+      "native"
+    ],
+    "icons": [
+      "lucide",
+      "none"
+    ]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/empty.tsx",
+      "when": {
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { \n  View, \n  Text, \n  Pressable{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{#if (eq icons \"lucide\")}}\nimport { PackageOpen } from 'lucide-react-native';\n{{/if}}\n\nexport default function EmptyScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-1 items-center justify-center px-8\"{{else}}style={styles.container}{{/if}}>\n        {{#if (eq icons \"lucide\")}}\n        <View {{#if (eq styling \"nativewind\")}}className=\"h-24 w-24 items-center justify-center rounded-full bg-gray-100\"{{else}}style={styles.iconCircle}{{/if}}>\n          <PackageOpen size={40} color=\"#9CA3AF\" />\n        </View>\n        {{else}}\n        <View {{#if (eq styling \"nativewind\")}}className=\"h-24 w-24 items-center justify-center rounded-full bg-gray-100\"{{else}}style={styles.iconCircle}{{/if}}>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-4xl text-gray-400\"{{else}}style={styles.iconText}{{/if}}>∅</Text>\n        </View>\n        {{/if}}\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mt-6 text-xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n          Nothing here yet\n        </Text>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-center text-base text-gray-500\"{{else}}style={styles.subtitle}{{/if}}>\n          When you add items they'll show up here. Get started to see your content.\n        </Text>\n        <Pressable\n          onPress={() => console.log('action')}\n          {{#if (eq styling \"nativewind\")}}className=\"mt-8 items-center rounded-xl bg-blue-600 px-8 py-4\"{{else}}style={styles.button}{{/if}}\n        >\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-white\"{{else}}style={styles.buttonText}{{/if}}>\n            Get Started\n          </Text>\n        </Pressable>\n      </View>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  container: {\n    flex: 1,\n    alignItems: 'center',\n    justifyContent: 'center',\n    paddingHorizontal: 32,\n  },\n  iconCircle: {\n    height: 96,\n    width: 96,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 48,\n    backgroundColor: '#F3F4F6',\n  },\n  iconText: {\n    fontSize: 36,\n    color: '#9CA3AF',\n  },\n  title: {\n    marginTop: 24,\n    fontSize: 20,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    textAlign: 'center',\n    fontSize: 16,\n    color: '#6B7280',\n  },\n  button: {\n    marginTop: 32,\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#2563EB',\n    paddingHorizontal: 32,\n    paddingVertical: 16,\n  },\n  buttonText: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#FFFFFF',\n  },\n});\n{{/if}}"
+    }
+  ],
+  "variants": [],
+  "tags": [
+    "utility",
+    "empty",
+    "state"
+  ],
+  "primitives": []
+}

@@ -1,0 +1,91 @@
+{
+  "id": "auth/otp-verification",
+  "name": "OTP Verification Screen",
+  "description": "One-time passcode entry with auto-submit and error handling.",
+  "version": "0.2.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": [
+      "nativewind",
+      "stylesheet"
+    ],
+    "router": [
+      "expo-router"
+    ],
+    "ui": [
+      "native",
+      "shadcn"
+    ],
+    "icons": [
+      "lucide",
+      "none"
+    ]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/otp-verification/index.tsx",
+      "when": {
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { \n  View, \n  Text, \n  KeyboardAvoidingView, \n  Platform, \n  SafeAreaView, \n  ScrollView{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\n{{#if (eq icons \"lucide\")}}\nimport { ArrowLeft } from 'lucide-react-native';\n{{/if}}\nimport { Link } from 'expo-router';\nimport { OtpInput } from '../../components/OtpInput';\n\nexport default function OtpVerificationScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <KeyboardAvoidingView\n        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}\n        {{#if (eq styling \"nativewind\")}}className=\"flex-1\"{{else}}style={styles.flex1}{{/if}}\n      >\n        <ScrollView\n          contentContainerStyle={styles.scrollContent}\n          keyboardShouldPersistTaps=\"handled\"\n        >\n          {{#if (eq icons \"lucide\")}}\n          <Link href=\"/\" {{#if (eq styling \"nativewind\")}}className=\"mb-6\"{{else}}style={styles.backButton}{{/if}}>\n            <ArrowLeft size={24} color=\"#111827\" />\n          </Link>\n          {{/if}}\n\n          <View {{#if (eq styling \"nativewind\")}}className=\"mb-8\"{{else}}style={styles.header}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-3xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n              Verify code\n            </Text>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-base text-gray-600\"{{else}}style={styles.subtitle}{{/if}}>\n              Enter the 6-digit code we sent to your email.\n            </Text>\n          </View>\n\n          <OtpInput />\n        </ScrollView>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  flex1: {\n    flex: 1,\n  },\n  scrollContent: {\n    flexGrow: 1,\n    padding: 24,\n    justifyContent: 'center',\n  },\n  backButton: {\n    marginBottom: 24,\n  },\n  header: {\n    marginBottom: 32,\n  },\n  title: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    fontSize: 16,\n    color: '#4B5563',\n  },\n});\n{{/if}}"
+    },
+    {
+      "path": "app/otp-verification/index.tsx",
+      "when": {
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "shadcn"
+        ],
+        "icons": [
+          "lucide"
+        ]
+      },
+      "template": "import { KeyboardAvoidingView, Platform, View, Text } from \"react-native\";\nimport { SafeAreaView } from \"react-native-safe-area-context\";\nimport { OtpInput } from \"../../components/OtpInput\";\n\nexport default function OtpVerificationScreen() {\n  return (\n    <SafeAreaView className=\"flex-1 bg-background\">\n      <KeyboardAvoidingView\n        behavior={Platform.OS === \"ios\" ? \"padding\" : \"height\"}\n        className=\"flex-1\"\n      >\n        <View className=\"flex-1 justify-center px-6\">\n          <View>\n            <Text className=\"text-3xl font-bold text-foreground\">Verify code</Text>\n            <Text className=\"mt-2 text-muted-foreground\">\n              Enter the 6-digit code we sent to your email.\n            </Text>\n          </View>\n\n          <View className=\"mt-8\">\n            <OtpInput />\n          </View>\n        </View>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}"
+    },
+    {
+      "path": "components/OtpInput.tsx",
+      "when": {
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { useRef, useState } from 'react';\nimport { \n  Pressable, \n  Text, \n  TextInput, \n  View{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\n{{#if (eq icons \"lucide\")}}\nimport { RefreshCw } from 'lucide-react-native';\n{{/if}}\n\nconst OTP_LENGTH = 6;\n\nexport function OtpInput() {\n  const [code, setCode] = useState('');\n  {{#if typescript}}\n  const [error, setError] = useState<string | null>(null);\n  {{else}}\n  const [error, setError] = useState(null);\n  {{/if}}\n  const inputRef = useRef<TextInput>(null);\n\n  const handleChange = (value: string) => {\n    const digits = value.replace(/[^0-9]/g, '').slice(0, OTP_LENGTH);\n    setCode(digits);\n    setError(null);\n  };\n\n  const handleVerify = () => {\n    if (code.length < OTP_LENGTH) {\n      setError(`Enter the ${OTP_LENGTH}-digit code.`);\n      return;\n    }\n    // Replace with your actual verification logic\n    console.log('OTP submitted:', code);\n  };\n\n  const handleResend = () => {\n    setCode('');\n    inputRef.current?.focus();\n  };\n\n  return (\n    <View {{#if (eq styling \"nativewind\")}}className=\"gap-4\"{{else}}style={styles.container}{{/if}}>\n      <Pressable onPress={() => inputRef.current?.focus()}>\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-row justify-between\"{{else}}style={styles.boxesRow}{{/if}}>\n          {Array.from({ length: OTP_LENGTH }).map((_, i) => {\n            const active = code.length === i;\n            const filled = Boolean(code[i]);\n            return (\n              <View\n                key={i}\n                {{#if (eq styling \"nativewind\")}}className={`h-14 w-12 items-center justify-center rounded-xl border-2 ${\n                  active || filled\n                    ? 'border-blue-500 bg-blue-50'\n                    : 'border-gray-300 bg-gray-50'\n                }`}{{else}}style={[styles.box, (active || filled) && styles.boxActive]}{{/if}}\n              >\n                <Text {{#if (eq styling \"nativewind\")}}className=\"text-xl font-semibold text-gray-900\"{{else}}style={styles.boxText}{{/if}}>\n                  {code[i] ?? ''}\n                </Text>\n              </View>\n            );\n          })}\n        </View>\n        <TextInput\n          ref={inputRef}\n          value={code}\n          onChangeText={handleChange}\n          keyboardType=\"number-pad\"\n          maxLength={OTP_LENGTH}\n          {{#if (eq styling \"nativewind\")}}className=\"absolute h-1 w-full opacity-0\"{{else}}style={styles.hiddenInput}{{/if}}\n          accessibilityLabel=\"One-time code\"\n        />\n      </Pressable>\n\n      {error && (\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-red-500\"{{else}}style={styles.errorText}{{/if}}>\n          {error}\n        </Text>\n      )}\n\n      <Pressable\n        onPress={handleVerify}\n        {{#if (eq styling \"nativewind\")}}className=\"mt-2 items-center rounded-xl bg-blue-600 py-4\"{{else}}style={styles.button}{{/if}}\n      >\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-white\"{{else}}style={styles.buttonText}{{/if}}>\n          Verify\n        </Text>\n      </Pressable>\n\n      <Pressable\n        onPress={handleResend}\n        {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-center gap-2 py-2\"{{else}}style={styles.resend}{{/if}}\n      >\n        {{#if (eq icons \"lucide\")}}\n        <RefreshCw size={16} color=\"#6B7280\" />\n        {{/if}}\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-gray-500\"{{else}}style={styles.resendText}{{/if}}>\n          Resend code\n        </Text>\n      </Pressable>\n    </View>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  container: {\n    gap: 16,\n  },\n  boxesRow: {\n    flexDirection: 'row',\n    justifyContent: 'space-between',\n  },\n  box: {\n    height: 56,\n    width: 48,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderWidth: 2,\n    borderColor: '#D1D5DB',\n    backgroundColor: '#F9FAFB',\n    borderRadius: 12,\n  },\n  boxActive: {\n    borderColor: '#3B82F6',\n    backgroundColor: '#EFF6FF',\n  },\n  boxText: {\n    fontSize: 20,\n    fontWeight: '600',\n    color: '#111827',\n  },\n  hiddenInput: {\n    position: 'absolute',\n    height: 4,\n    width: '100%',\n    opacity: 0,\n  },\n  errorText: {\n    fontSize: 14,\n    color: '#EF4444',\n  },\n  button: {\n    marginTop: 8,\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#2563EB',\n    paddingVertical: 16,\n  },\n  buttonText: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#FFFFFF',\n  },\n  resend: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'center',\n    gap: 8,\n    paddingVertical: 8,\n  },\n  resendText: {\n    fontSize: 14,\n    color: '#6B7280',\n  },\n});\n{{/if}}"
+    },
+    {
+      "path": "components/OtpInput.tsx",
+      "when": {
+        "ui": [
+          "shadcn"
+        ],
+        "icons": [
+          "lucide"
+        ]
+      },
+      "template": "import { useRef, useState } from \"react\";\nimport { Pressable, Text, TextInput, View } from \"react-native\";\nimport { RefreshCw } from \"lucide-react-native\";\nimport { Button } from \"../components/ui/button\";\n\nconst OTP_LENGTH = 6;\n\nexport function OtpInput() {\n  const [code, setCode] = useState(\"\");\n  const [error, setError] = useState<string | null>(null);\n  const inputRef = useRef<TextInput>(null);\n\n  const handleChange = (value: string) => {\n    const digits = value.replace(/[^0-9]/g, \"\").slice(0, OTP_LENGTH);\n    setCode(digits);\n    setError(null);\n  };\n\n  const handleVerify = () => {\n    if (code.length < OTP_LENGTH) {\n      setError(`Enter the ${OTP_LENGTH}-digit code.`);\n      return;\n    }\n    console.log(\"OTP submitted:\", code);\n  };\n\n  const handleResend = () => {\n    setCode(\"\");\n    inputRef.current?.focus();\n  };\n\n  return (\n    <View className=\"gap-4\">\n      <Pressable onPress={() => inputRef.current?.focus()}>\n        <View className=\"flex-row justify-between\">\n          {Array.from({ length: OTP_LENGTH }).map((_, i) => {\n            const active = code.length === i;\n            const filled = Boolean(code[i]);\n            return (\n              <View\n                key={i}\n                className={`h-14 w-12 items-center justify-center rounded-md border-2 ${\n                  active || filled\n                    ? \"border-primary bg-primary/10\"\n                    : \"border-input bg-background\"\n                }`}\n              >\n                <Text className=\"text-xl font-semibold text-foreground\">\n                  {code[i] ?? \"\"}\n                </Text>\n              </View>\n            );\n          })}\n        </View>\n        <TextInput\n          ref={inputRef}\n          value={code}\n          onChangeText={handleChange}\n          keyboardType=\"number-pad\"\n          maxLength={OTP_LENGTH}\n          className=\"absolute h-1 w-full opacity-0\"\n          accessibilityLabel=\"One-time code\"\n        />\n      </Pressable>\n\n      {error && <Text className=\"text-sm text-destructive\">{error}</Text>}\n\n      <Button onPress={handleVerify} size=\"lg\" className=\"mt-2\">\n        Verify\n      </Button>\n\n      <Pressable onPress={handleResend} className=\"flex-row items-center justify-center gap-2 py-2\">\n        <RefreshCw size={16} className=\"text-muted-foreground\" />\n        <Text className=\"text-sm text-muted-foreground\">Resend code</Text>\n      </Pressable>\n    </View>\n  );\n}"
+    }
+  ],
+  "variants": [],
+  "tags": [
+    "auth",
+    "otp",
+    "verification"
+  ],
+  "primitives": [
+    "ui/utils",
+    "ui/button",
+    "ui/input"
+  ]
+}

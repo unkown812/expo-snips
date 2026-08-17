@@ -6,6 +6,7 @@ import {
   getFilesForRecipe,
   IconOption,
   RouterOption,
+  ScreenRecipe,
   StylingOption,
   UIOption,
 } from "@expo-snips/core";
@@ -13,7 +14,8 @@ import { detectProject } from "../utils/detectProject";
 import { writeFiles } from "../utils/writeFiles";
 import { installDependencies } from "../utils/installDeps";
 import { getPrimitives } from "../utils/primitives";
-import { makeRecipeLookup, resolveRegistry } from "../utils/resolveRegistry";
+import { getRecipeById } from "../utils/registry";
+import { resolveRegistry } from "../utils/resolveRegistry";
 import { upsertEntry } from "../utils/manifest";
 
 const stylingChoices: Array<{ title: string; value: StylingOption }> = [
@@ -61,13 +63,20 @@ export const addCommand = new Command("add")
   .option("--typescript", "Force TypeScript (default true)")
   .option("--javascript", "Use JavaScript instead of TypeScript")
   .option("--no-install", "Skip dependency installation")
-  .option("--registry <url>", "Remote registry URL (falls back to local on failure)")
+  .option("--registry <url>", "Remote registry URL (defaults to EXPO_SNIPS_REGISTRY)")
   .action(async (screenId: string | undefined, options) => {
-    const { recipes } = await resolveRegistry(options.registry);
-    const findRecipe = makeRecipeLookup(recipes);
+    const { index } = await resolveRegistry(options.registry);
+    const findRecipe = async (id: string): Promise<ScreenRecipe | undefined> =>
+      (await getRecipeById(id, options.registry)) ?? undefined;
 
     if (!screenId) {
-      const choices = recipes.map((r) => ({ title: r.name, value: r.id }));
+      if (index.length === 0) {
+        console.error(chalk.red("No screens found in the registry."));
+        console.error("Set EXPO_SNIPS_REGISTRY or use --registry <url> to point at a registry.");
+        process.exitCode = 1;
+        return;
+      }
+      const choices = index.map((r) => ({ title: r.name, value: r.id }));
       const response = await prompts({
         type: "select",
         name: "screenId",
@@ -75,14 +84,18 @@ export const addCommand = new Command("add")
         choices,
       });
       screenId = response.screenId;
-      if (!screenId) process.exit(1);
+      if (!screenId) {
+        process.exitCode = 1;
+        return;
+      }
     }
 
-    const recipe = findRecipe(screenId);
+    const recipe = await findRecipe(screenId);
     if (!recipe) {
       console.error(chalk.red(`Screen not found: ${screenId}`));
       console.error(`Run "expo-snips list" to see available screens.`);
-      process.exit(1);
+      process.exitCode = 1;
+      return;
     }
 
     const detected = await detectProject();
@@ -90,7 +103,8 @@ export const addCommand = new Command("add")
     let styling = options.styling as StylingOption | undefined;
     if (styling && !recipe.supported.styling.includes(styling)) {
       console.error(chalk.red(`Recipe "${recipe.id}" does not support styling "${styling}".`));
-      process.exit(1);
+      process.exitCode = 1;
+      return;
     }
 
     if (!styling) {
@@ -111,7 +125,8 @@ export const addCommand = new Command("add")
 
     if (router && !recipe.supported.router.includes(router)) {
       console.error(chalk.red(`Recipe "${recipe.id}" does not support router "${router}".`));
-      process.exit(1);
+      process.exitCode = 1;
+      return;
     }
 
     let ui =
@@ -124,7 +139,8 @@ export const addCommand = new Command("add")
 
     if (ui && !recipe.supported.ui.includes(ui)) {
       console.error(chalk.red(`Recipe "${recipe.id}" does not support ui "${ui}".`));
-      process.exit(1);
+      process.exitCode = 1;
+      return;
     }
 
     let icons =
@@ -137,7 +153,8 @@ export const addCommand = new Command("add")
 
     if (icons && !recipe.supported.icons.includes(icons)) {
       console.error(chalk.red(`Recipe "${recipe.id}" does not support icons "${icons}".`));
-      process.exit(1);
+      process.exitCode = 1;
+      return;
     }
 
     const typescript = options.javascript ? false : options.typescript ?? detected.typescript ?? true;
@@ -207,7 +224,8 @@ export const addCommand = new Command("add")
 
     if (files.length === 0) {
       console.error(chalk.red("No files matched the selected options. Nothing generated."));
-      process.exit(1);
+      process.exitCode = 1;
+      return;
     }
 
     console.log(chalk.cyan(`\nGenerating "${recipe.name}" (${recipe.id})...`));
@@ -223,7 +241,7 @@ export const addCommand = new Command("add")
     const writtenFiles = files.map((f) => f.path);
 
     if (ui === "shadcn") {
-      const primitives = getPrimitives(recipe, context, process.cwd(), findRecipe);
+      const primitives = await getPrimitives(recipe, context, process.cwd(), findRecipe);
       if (primitives.files.length > 0) {
         console.log(chalk.cyan("\nGenerating UI primitives..."));
         await writeFiles(primitives.files, process.cwd());

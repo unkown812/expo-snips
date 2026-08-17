@@ -1,0 +1,52 @@
+{
+  "id": "ui/button",
+  "name": "Button primitive",
+  "description": "shadcn-style Button built on Pressable with cva variants.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": [
+      "nativewind"
+    ],
+    "router": [
+      "expo-router"
+    ],
+    "ui": [
+      "shadcn"
+    ],
+    "icons": [
+      "lucide",
+      "none"
+    ]
+  },
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "components/ui/button.tsx",
+      "when": {
+        "styling": [
+          "nativewind"
+        ],
+        "ui": [
+          "shadcn"
+        ],
+        "typescript": true
+      },
+      "template": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport * as React from \"react\";\nimport { Pressable, Text, type PressableProps } from \"react-native\";\n\nimport { cn } from \"../../lib/utils\";\n\nconst buttonVariants = cva(\n  \"group flex items-center justify-center rounded-md web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-primary web:hover:opacity-90 active:opacity-90\",\n        destructive: \"bg-destructive web:hover:opacity-90 active:opacity-90\",\n        outline: \"border border-input bg-background web:hover:bg-accent web:text-accent-foreground\",\n        secondary: \"bg-secondary web:hover:opacity-80 active:opacity-80\",\n        ghost: \"web:hover:bg-accent web:hover:text-accent-foreground\",\n        link: \"web:underline-offset-4 web:hover:underline web:focus:underline\",\n      },\n      size: {\n        default: \"h-10 px-4 py-2 native:h-12 native:px-5 native:py-3\",\n        sm: \"h-9 rounded-md px-3\",\n        lg: \"h-11 rounded-md px-8\",\n        icon: \"h-10 w-10\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n);\n\nconst buttonTextVariants = cva(\n  \"native:text-base text-sm font-medium text-foreground web:whitespace-nowrap\",\n  {\n    variants: {\n      variant: {\n        default: \"text-primary-foreground\",\n        destructive: \"text-destructive-foreground\",\n        outline: \"group-active:text-accent-foreground\",\n        secondary: \"text-secondary-foreground\",\n        ghost: \"group-active:text-accent-foreground\",\n        link: \"text-primary group-active:underline\",\n      },\n      size: {\n        default: \"\",\n        sm: \"text-sm\",\n        lg: \"native:text-lg\",\n        icon: \"\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n);\n\ntype ButtonProps = PressableProps &\n  VariantProps<typeof buttonVariants> & {\n    className?: string;\n    textClass?: string;\n  };\n\nconst Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>(\n  ({ className, textClass, variant = \"default\", size = \"default\", ...props }, ref) => {\n    return (\n      <Pressable\n        className={cn(buttonVariants({ variant, size }), className)}\n        ref={ref}\n        {...props}\n      >\n        {typeof props.children === \"string\" ? (\n          <Text className={cn(buttonTextVariants({ variant, size }), textClass)}>\n            {props.children}\n          </Text>\n        ) : (\n          props.children\n        )}\n      </Pressable>\n    );\n  }\n);\nButton.displayName = \"Button\";\n\nexport { Button, buttonVariants };\nexport type { ButtonProps };"
+    }
+  ],
+  "variants": [],
+  "tags": [
+    "ui",
+    "button",
+    "primitive"
+  ],
+  "primitives": [
+    "ui/utils"
+  ]
+}

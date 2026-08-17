@@ -1,8 +1,16 @@
 {
   "name": "@expo-snips/core",
   "version": "0.1.0",
+  "description": "Shared types and generation engine for Expo Snips screens.",
+  "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json"
   },

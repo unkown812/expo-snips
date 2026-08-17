@@ -1,0 +1,50 @@
+{
+  "id": "app/notifications",
+  "name": "Notifications Screen",
+  "description": "Notifications list with unread indicators and mark all read action.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": [
+      "nativewind",
+      "stylesheet"
+    ],
+    "router": [
+      "expo-router"
+    ],
+    "ui": [
+      "native"
+    ],
+    "icons": [
+      "lucide",
+      "none"
+    ]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/notifications/index.tsx",
+      "when": {
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { \n  View, \n  Text, \n  Pressable, \n  ScrollView{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\nimport { Link } from 'expo-router';\n{{#if (eq icons \"lucide\")}}\nimport { ChevronLeft } from 'lucide-react-native';\n{{/if}}\n\nconst notifications = [\n  {\n    id: '1',\n    type: 'order',\n    title: 'Order delivered',\n    message: 'Your order #2841 has been delivered. Enjoy!',\n    time: '2m ago',\n    read: false,\n  },\n  {\n    id: '2',\n    type: 'update',\n    title: 'New feature available',\n    message: 'Check out the new dark mode in settings.',\n    time: '1h ago',\n    read: false,\n  },\n  {\n    id: '3',\n    type: 'reminder',\n    title: 'Weekly summary',\n    message: 'Here is what you accomplished this week.',\n    time: '1d ago',\n    read: true,\n  },\n  {\n    id: '4',\n    type: 'promo',\n    title: '20% off your next order',\n    message: 'Limited time offer. Use code SAVE20.',\n    time: '3d ago',\n    read: true,\n  },\n];\n\nexport default function NotificationsScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-gray-50\"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>\n      <ScrollView contentContainerStyle={styles.content}>\n        {/* Header */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between px-5 pt-4 pb-6\"{{else}}style={styles.header}{{/if}}>\n          <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center\"{{else}}style={styles.headerLeft}{{/if}}>\n            {{#if (eq icons \"lucide\")}}\n            <Link href=\"/\" {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-white\"{{else}}style={styles.backButton}{{/if}}>\n              <ChevronLeft size={22} color=\"#111827\" />\n            </Link>\n            {{/if}}\n            <Text {{#if (eq styling \"nativewind\")}}className=\"ml-3 text-2xl font-bold text-gray-900\"{{else}}style={styles.headerTitle}{{/if}}>\n              Notifications\n            </Text>\n          </View>\n          <Pressable onPress={() => console.log('mark all read')}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-blue-600\"{{else}}style={styles.markAll}{{/if}}>Mark all read</Text>\n          </Pressable>\n        </View>\n\n        {/* List */}\n        <View {{#if (eq styling \"nativewind\")}}className=\"gap-3 px-5\"{{else}}style={styles.list}{{/if}}>\n          {notifications.map((notification) => (\n            <Pressable\n              key={notification.id}\n              {{#if (eq styling \"nativewind\")}}className={`rounded-2xl p-4 ${notification.read ? 'bg-white' : 'bg-blue-50'}`}{{else}}style={[styles.card, !notification.read && styles.cardUnread]}{{/if}}\n            >\n              <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between\"{{else}}style={styles.cardHeader}{{/if}}>\n                <Text\n                  {{#if (eq styling \"nativewind\")}}className={`flex-1 text-base font-semibold ${notification.read ? 'text-gray-900' : 'text-blue-900'}`}{{else}}style={styles.cardTitle}{{/if}}\n                >\n                  {notification.title}\n                </Text>\n                {!notification.read && (\n                  <View {{#if (eq styling \"nativewind\")}}className=\"ml-2 h-2 w-2 rounded-full bg-blue-600\"{{else}}style={styles.unreadDot}{{/if}} />\n                )}\n              </View>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-sm text-gray-600\"{{else}}style={styles.cardMessage}{{/if}}>\n                {notification.message}\n              </Text>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-xs text-gray-400\"{{else}}style={styles.cardTime}{{/if}}>\n                {notification.time}\n              </Text>\n            </Pressable>\n          ))}\n        </View>\n      </ScrollView>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#F9FAFB',\n  },\n  content: {\n    paddingBottom: 24,\n  },\n  header: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n    paddingHorizontal: 20,\n    paddingTop: 16,\n    paddingBottom: 24,\n  },\n  headerLeft: {\n    flexDirection: 'row',\n    alignItems: 'center',\n  },\n  backButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#FFFFFF',\n  },\n  headerTitle: {\n    marginLeft: 12,\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  markAll: {\n    fontSize: 14,\n    color: '#2563EB',\n  },\n  list: {\n    gap: 12,\n    paddingHorizontal: 20,\n  },\n  card: {\n    borderRadius: 16,\n    padding: 16,\n    backgroundColor: '#FFFFFF',\n  },\n  cardUnread: {\n    backgroundColor: '#EFF6FF',\n  },\n  cardHeader: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n  },\n  cardTitle: {\n    flex: 1,\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#111827',\n  },\n  unreadDot: {\n    marginLeft: 8,\n    height: 8,\n    width: 8,\n    borderRadius: 4,\n    backgroundColor: '#2563EB',\n  },\n  cardMessage: {\n    marginTop: 4,\n    fontSize: 14,\n    color: '#4B5563',\n  },\n  cardTime: {\n    marginTop: 8,\n    fontSize: 12,\n    color: '#9CA3AF',\n  },\n});\n{{/if}}"
+    }
+  ],
+  "variants": [],
+  "tags": [
+    "app",
+    "notifications",
+    "list"
+  ],
+  "primitives": []
+}
