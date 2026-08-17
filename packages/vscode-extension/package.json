@@ -1,0 +1,108 @@
+{
+  "name": "expo-snips",
+  "displayName": "Expo Snips",
+  "description": "Generate complete React Native screens with a single abbreviation.",
+  "version": "0.1.0",
+  "publisher": "expo-snips",
+  "license": "MIT",
+  "keywords": [
+    "react-native",
+    "expo",
+    "screen",
+    "snippet",
+    "generator"
+  ],
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Snippets",
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:expo-snips.addScreen",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact",
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact"
+  ],
+  "main": "./out/extension.js",
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "package": "node esbuild.mjs && vsce package"
+  },
+  "devDependencies": {
+    "@expo-snips/core": "workspace:*",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^2.24.0",
+    "esbuild": "^0.21.5",
+    "fs-extra": "^11.2.0",
+    "typescript": "^5.5.0"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "expo-snips.addScreen",
+        "title": "Expo Snips: Add Screen..."
+      }
+    ],
+    "configuration": {
+      "title": "Expo Snips",
+      "properties": {
+        "expo-snips.registryUrl": {
+          "type": "string",
+          "default": "https://registry.expo-snips.dev",
+          "description": "URL of the screen registry"
+        },
+        "expo-snips.defaultStyling": {
+          "type": "string",
+          "enum": [
+            "nativewind",
+            "stylesheet",
+            "tamagui"
+          ],
+          "default": "nativewind",
+          "description": "Default styling framework used when it cannot be detected from the project"
+        },
+        "expo-snips.defaultRouter": {
+          "type": "string",
+          "enum": [
+            "expo-router",
+            "react-navigation"
+          ],
+          "default": "expo-router",
+          "description": "Default router used when it cannot be detected from the project"
+        },
+        "expo-snips.defaultUi": {
+          "type": "string",
+          "enum": [
+            "native",
+            "shadcn",
+            "custom"
+          ],
+          "default": "native",
+          "description": "Default UI primitives used when they cannot be detected from the project"
+        },
+        "expo-snips.defaultIcons": {
+          "type": "string",
+          "enum": [
+            "lucide",
+            "vector-icons",
+            "none"
+          ],
+          "default": "lucide",
+          "description": "Default icon library used when it cannot be detected from the project"
+        },
+        "expo-snips.installDependencies": {
+          "type": "boolean",
+          "default": true,
+          "description": "Install recipe dependencies in a terminal after generating a screen"
+        }
+      }
+    }
+  }
+}
