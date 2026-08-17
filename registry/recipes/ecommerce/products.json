@@ -1,0 +1,51 @@
+{
+  "id": "ecommerce/products",
+  "name": "Product Listing Screen",
+  "description": "Two-column product grid with prices, ratings and filter button.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": [
+      "nativewind",
+      "stylesheet"
+    ],
+    "router": [
+      "expo-router"
+    ],
+    "ui": [
+      "native"
+    ],
+    "icons": [
+      "lucide",
+      "none"
+    ]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/products/index.tsx",
+      "when": {
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { \n  View, \n  Text, \n  Pressable, \n  FlatList{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{#if (eq icons \"lucide\")}}\nimport { Star, SlidersHorizontal } from 'lucide-react-native';\n{{/if}}\n\nconst products = [\n  { id: '1', title: 'Wireless Earbuds Pro', price: '$129.00', rating: 4.8, color: '#DBEAFE' },\n  { id: '2', title: 'Smart Watch Series 5', price: '$249.00', rating: 4.6, color: '#FCE7F3' },\n  { id: '3', title: 'Portable Speaker Mini', price: '$59.00', rating: 4.4, color: '#D1FAE5' },\n  { id: '4', title: 'USB-C Fast Charger', price: '$39.00', rating: 4.7, color: '#FEF3C7' },\n  { id: '5', title: 'Bluetooth Keyboard', price: '$79.00', rating: 4.5, color: '#E0E7FF' },\n  { id: '6', title: 'Noise-Cancelling Headphones', price: '$199.00', rating: 4.9, color: '#FEE2E2' },\n];\n\nexport default function ProductsScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-gray-50\"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>\n      {/* Header */}\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between px-5 pt-4 pb-4\"{{else}}style={styles.header}{{/if}}>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-2xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n          Shop\n        </Text>\n        {{#if (eq icons \"lucide\")}}\n        <Pressable {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-white\"{{else}}style={styles.filterButton}{{/if}}>\n          <SlidersHorizontal size={20} color=\"#4B5563\" />\n        </Pressable>\n        {{/if}}\n      </View>\n\n      <FlatList\n        data={products}\n        keyExtractor={(item) => item.id}\n        numColumns={2}\n        contentContainerStyle={styles.grid}\n        columnWrapperStyle={styles.gridRow}\n        renderItem={({ item }) => (\n          <Pressable {{#if (eq styling \"nativewind\")}}className=\"mb-4 flex-1 rounded-2xl bg-white p-4\"{{else}}style={styles.card}{{/if}}>\n            <View\n              {{#if (eq styling \"nativewind\")}}className=\"h-36 w-full items-center justify-center rounded-xl\"{{else}}style={styles.imagePlaceholder}{{/if}}\n            >\n              <View {{#if (eq styling \"nativewind\")}}className=\"h-20 w-20 rounded-2xl\"{{else}}style={[styles.imageBlock, { backgroundColor: item.color }]}{{/if}} />\n            </View>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"mt-3 text-sm font-medium text-gray-900\"{{else}}style={styles.cardTitle}{{/if}} numberOfLines={2}>\n              {item.title}\n            </Text>\n            <View {{#if (eq styling \"nativewind\")}}className=\"mt-2 flex-row items-center justify-between\"{{else}}style={styles.cardFooter}{{/if}}>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-bold text-gray-900\"{{else}}style={styles.price}{{/if}}>{item.price}</Text>\n              <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center gap-1\"{{else}}style={styles.rating}{{/if}}>\n                {{#if (eq icons \"lucide\")}}\n                <Star size={14} color=\"#F59E0B\" fill=\"#F59E0B\" />\n                {{/if}}\n                <Text {{#if (eq styling \"nativewind\")}}className=\"text-xs text-gray-500\"{{else}}style={styles.ratingText}{{/if}}>{item.rating}</Text>\n              </View>\n            </View>\n          </Pressable>\n        )}\n      />\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#F9FAFB',\n  },\n  header: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n    paddingHorizontal: 20,\n    paddingTop: 16,\n    paddingBottom: 16,\n  },\n  title: {\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  filterButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#FFFFFF',\n  },\n  grid: {\n    paddingHorizontal: 20,\n    paddingBottom: 24,\n  },\n  gridRow: {\n    gap: 12,\n  },\n  card: {\n    marginBottom: 16,\n    flex: 1,\n    borderRadius: 16,\n    backgroundColor: '#FFFFFF',\n    padding: 16,\n  },\n  imagePlaceholder: {\n    height: 144,\n    width: '100%',\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 12,\n    backgroundColor: '#F3F4F6',\n  },\n  imageBlock: {\n    height: 80,\n    width: 80,\n    borderRadius: 16,\n  },\n  cardTitle: {\n    marginTop: 12,\n    fontSize: 14,\n    fontWeight: '500',\n    color: '#111827',\n  },\n  cardFooter: {\n    marginTop: 8,\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n  },\n  price: {\n    fontSize: 16,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  rating: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    gap: 4,\n  },\n  ratingText: {\n    fontSize: 12,\n    color: '#6B7280',\n  },\n});\n{{/if}}"
+    }
+  ],
+  "variants": [],
+  "tags": [
+    "ecommerce",
+    "products",
+    "list",
+    "catalog"
+  ],
+  "primitives": []
+}

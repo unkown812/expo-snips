@@ -1,0 +1,52 @@
+{
+  "id": "ui/input",
+  "name": "Input primitive",
+  "description": "shadcn-style Input built on TextInput with cva styling.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": [
+      "nativewind"
+    ],
+    "router": [
+      "expo-router"
+    ],
+    "ui": [
+      "shadcn"
+    ],
+    "icons": [
+      "lucide",
+      "none"
+    ]
+  },
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "components/ui/input.tsx",
+      "when": {
+        "styling": [
+          "nativewind"
+        ],
+        "ui": [
+          "shadcn"
+        ],
+        "typescript": true
+      },
+      "template": "import * as React from \"react\";\nimport { TextInput, type TextInputProps } from \"react-native\";\n\nimport { cn } from \"../../lib/utils\";\n\nconst Input = React.forwardRef<React.ElementRef<typeof TextInput>, TextInputProps>(\n  ({ className, placeholderTextColor = \"#9ca3af\", ...props }, ref) => {\n    return (\n      <TextInput\n        ref={ref}\n        placeholderTextColor={placeholderTextColor}\n        className={cn(\n          \"web:flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base text-foreground placeholder:text-muted-foreground native:h-12 native:px-4 native:text-lg web:py-2\",\n          className\n        )}\n        {...props}\n      />\n    );\n  }\n);\nInput.displayName = \"Input\";\n\nexport { Input };"
+    }
+  ],
+  "variants": [],
+  "tags": [
+    "ui",
+    "input",
+    "primitive"
+  ],
+  "primitives": [
+    "ui/utils"
+  ]
+}

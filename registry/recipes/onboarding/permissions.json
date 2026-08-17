@@ -1,0 +1,70 @@
+{
+  "id": "onboarding/permissions",
+  "name": "Permissions Screen",
+  "description": "Request notification permissions with allow/deny actions.",
+  "version": "0.2.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": [
+      "nativewind",
+      "stylesheet"
+    ],
+    "router": [
+      "expo-router"
+    ],
+    "ui": [
+      "native",
+      "shadcn"
+    ],
+    "icons": [
+      "lucide",
+      "none"
+    ]
+  },
+  "dependencies": [
+    "lucide-react-native",
+    "expo-notifications"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/permissions/index.tsx",
+      "when": {
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { useState } from 'react';\nimport { \n  Pressable, \n  Text, \n  View{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\nimport * as Notifications from 'expo-notifications';\n{{#if (eq icons \"lucide\")}}\nimport { Bell, Check, X } from 'lucide-react-native';\n{{/if}}\n\nexport default function PermissionsScreen() {\n  {{#if typescript}}\n  const [status, setStatus] = useState<'pending' | 'granted' | 'denied'>('pending');\n  {{else}}\n  const [status, setStatus] = useState('pending');\n  {{/if}}\n\n  const requestPermission = async () => {\n    const { status: permissionStatus } = await Notifications.requestPermissionsAsync();\n    setStatus(permissionStatus === 'granted' ? 'granted' : 'denied');\n  };\n\n  if (status !== 'pending') {\n    return (\n      <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-1 items-center justify-center px-6\"{{else}}style={styles.center}{{/if}}>\n          <View\n            {{#if (eq styling \"nativewind\")}}className={`h-20 w-20 items-center justify-center rounded-3xl ${\n              status === 'granted' ? 'bg-green-100' : 'bg-gray-100'\n            }`}{{else}}style={[styles.statusIcon, status === 'granted' && styles.statusIconGranted]}{{/if}}\n          >\n            {{#if (eq icons \"lucide\")}}\n            {status === 'granted' ? (\n              <Check size={36} color=\"#16A34A\" />\n            ) : (\n              <X size={36} color=\"#6B7280\" />\n            )}\n            {{else}}\n            <Text {{#if (eq styling \"nativewind\")}}className={`text-3xl font-bold ${status === 'granted' ? 'text-green-600' : 'text-gray-500'}`}{{else}}style={styles.statusText}{{/if}}>\n              {status === 'granted' ? '✓' : '×'}\n            </Text>\n            {{/if}}\n          </View>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-6 text-center text-2xl font-bold text-gray-900\"{{else}}style={styles.statusTitle}{{/if}}>\n            {status === 'granted' ? 'Notifications enabled' : 'Notifications disabled'}\n          </Text>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-center text-gray-500\"{{else}}style={styles.statusSubtitle}{{/if}}>\n            {status === 'granted'\n              ? \"You'll stay up to date with everything important.\"\n              : 'You can change this anytime in your device settings.'}\n          </Text>\n        </View>\n      </SafeAreaView>\n    );\n  }\n\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-1 justify-center px-6\"{{else}}style={styles.container}{{/if}}>\n        <View {{#if (eq styling \"nativewind\")}}className=\"items-center\"{{else}}style={styles.hero}{{/if}}>\n          {{#if (eq icons \"lucide\")}}\n          <View {{#if (eq styling \"nativewind\")}}className=\"h-20 w-20 items-center justify-center rounded-3xl bg-blue-100\"{{else}}style={styles.icon}{{/if}}>\n            <Bell size={36} color=\"#2563EB\" />\n          </View>\n          {{else}}\n          <View {{#if (eq styling \"nativewind\")}}className=\"h-20 w-20 items-center justify-center rounded-3xl bg-blue-100\"{{else}}style={styles.icon}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-3xl font-bold text-blue-600\"{{else}}style={styles.iconText}{{/if}}>!</Text>\n          </View>\n          {{/if}}\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-6 text-center text-3xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n            Stay in the loop\n          </Text>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-center text-gray-500\"{{else}}style={styles.subtitle}{{/if}}>\n            Allow notifications to get important updates, reminders, and news.\n          </Text>\n        </View>\n\n        <View {{#if (eq styling \"nativewind\")}}className=\"mt-12 gap-3\"{{else}}style={styles.actions}{{/if}}>\n          <Pressable\n            onPress={requestPermission}\n            {{#if (eq styling \"nativewind\")}}className=\"items-center rounded-xl bg-blue-600 py-4\"{{else}}style={styles.primaryButton}{{/if}}\n          >\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-semibold text-white\"{{else}}style={styles.primaryButtonText}{{/if}}>\n              Allow Notifications\n            </Text>\n          </Pressable>\n          <Pressable\n            onPress={() => setStatus('denied')}\n            {{#if (eq styling \"nativewind\")}}className=\"items-center rounded-xl py-3\"{{else}}style={styles.secondaryButton}{{/if}}\n          >\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-base font-medium text-gray-500\"{{else}}style={styles.secondaryButtonText}{{/if}}>\n              Not now\n            </Text>\n          </Pressable>\n        </View>\n      </View>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  container: {\n    flex: 1,\n    justifyContent: 'center',\n    paddingHorizontal: 24,\n  },\n  hero: {\n    alignItems: 'center',\n  },\n  icon: {\n    height: 80,\n    width: 80,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 24,\n    backgroundColor: '#DBEAFE',\n  },\n  iconText: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#2563EB',\n  },\n  title: {\n    marginTop: 24,\n    textAlign: 'center',\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    textAlign: 'center',\n    color: '#6B7280',\n  },\n  actions: {\n    marginTop: 48,\n    gap: 12,\n  },\n  primaryButton: {\n    alignItems: 'center',\n    borderRadius: 12,\n    backgroundColor: '#2563EB',\n    paddingVertical: 16,\n  },\n  primaryButtonText: {\n    fontSize: 16,\n    fontWeight: '600',\n    color: '#FFFFFF',\n  },\n  secondaryButton: {\n    alignItems: 'center',\n    borderRadius: 12,\n    paddingVertical: 12,\n  },\n  secondaryButtonText: {\n    fontSize: 16,\n    fontWeight: '500',\n    color: '#6B7280',\n  },\n  center: {\n    flex: 1,\n    alignItems: 'center',\n    justifyContent: 'center',\n    paddingHorizontal: 24,\n  },\n  statusIcon: {\n    height: 80,\n    width: 80,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 24,\n    backgroundColor: '#F3F4F6',\n  },\n  statusIconGranted: {\n    backgroundColor: '#DCFCE7',\n  },\n  statusText: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#6B7280',\n  },\n  statusTitle: {\n    marginTop: 24,\n    textAlign: 'center',\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  statusSubtitle: {\n    marginTop: 8,\n    textAlign: 'center',\n    color: '#6B7280',\n  },\n});\n{{/if}}"
+    },
+    {
+      "path": "app/permissions/index.tsx",
+      "when": {
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "shadcn"
+        ],
+        "icons": [
+          "lucide"
+        ]
+      },
+      "template": "import { useState } from \"react\";\nimport { Text, View } from \"react-native\";\nimport { SafeAreaView } from \"react-native-safe-area-context\";\nimport * as Notifications from \"expo-notifications\";\nimport { Bell, Check, X } from \"lucide-react-native\";\nimport { Button } from \"../../components/ui/button\";\n\nexport default function PermissionsScreen() {\n  const [status, setStatus] = useState<\"pending\" | \"granted\" | \"denied\">(\"pending\");\n\n  const requestPermission = async () => {\n    const { status: permissionStatus } = await Notifications.requestPermissionsAsync();\n    setStatus(permissionStatus === \"granted\" ? \"granted\" : \"denied\");\n  };\n\n  if (status !== \"pending\") {\n    return (\n      <SafeAreaView className=\"flex-1 bg-background\">\n        <View className=\"flex-1 items-center justify-center px-6\">\n          <View\n            className={`h-20 w-20 items-center justify-center rounded-3xl ${\n              status === \"granted\" ? \"bg-green-100\" : \"bg-muted\"\n            }`}\n          >\n            {status === \"granted\" ? (\n              <Check size={36} className=\"text-green-600\" />\n            ) : (\n              <X size={36} className=\"text-muted-foreground\" />\n            )}\n          </View>\n          <Text className=\"mt-6 text-center text-2xl font-bold text-foreground\">\n            {status === \"granted\" ? \"Notifications enabled\" : \"Notifications disabled\"}\n          </Text>\n          <Text className=\"mt-2 text-center text-muted-foreground\">\n            {status === \"granted\"\n              ? \"You'll stay up to date with everything important.\"\n              : \"You can change this anytime in your device settings.\"}\n          </Text>\n        </View>\n      </SafeAreaView>\n    );\n  }\n\n  return (\n    <SafeAreaView className=\"flex-1 bg-background\">\n      <View className=\"flex-1 justify-center px-6\">\n        <View className=\"items-center\">\n          <View className=\"h-20 w-20 items-center justify-center rounded-3xl bg-primary/10\">\n            <Bell size={36} className=\"text-primary\" />\n          </View>\n          <Text className=\"mt-6 text-center text-3xl font-bold text-foreground\">\n            Stay in the loop\n          </Text>\n          <Text className=\"mt-2 text-center text-muted-foreground\">\n            Allow notifications to get important updates, reminders, and news.\n          </Text>\n        </View>\n\n        <View className=\"mt-12 gap-3\">\n          <Button size=\"lg\" onPress={requestPermission}>\n            Allow Notifications\n          </Button>\n          <Button variant=\"ghost\" size=\"lg\" onPress={() => setStatus(\"denied\")}>\n            Not now\n          </Button>\n        </View>\n      </View>\n    </SafeAreaView>\n  );\n}"
+    }
+  ],
+  "variants": [],
+  "tags": [
+    "onboarding",
+    "permissions",
+    "notifications"
+  ],
+  "primitives": [
+    "ui/utils",
+    "ui/button"
+  ]
+}
