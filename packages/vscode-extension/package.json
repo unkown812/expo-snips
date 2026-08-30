@@ -4,7 +4,12 @@
   "description": "Generate complete React Native screens with a single abbreviation.",
   "version": "0.1.0",
   "publisher": "expo-snips",
-  "license": "MIT",
+  "author": "Expo Snips contributors",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unkown812/expo-snips.git"
+  },
   "keywords": [
     "react-native",
     "expo",

@@ -7,3 +7,4 @@ esbuild.mjs
 .vscodeignore
 .gitignore
 pnpm-lock.yaml
+LICENSE.txt

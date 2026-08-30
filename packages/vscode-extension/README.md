@@ -58,4 +58,4 @@ pnpm --filter expo-snips package   # produces expo-snips-<version>.vsix
 
 ## License
 
-MIT
+Proprietary. All rights reserved. See [LICENSE](LICENSE) for full terms.
