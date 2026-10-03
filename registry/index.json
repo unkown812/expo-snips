@@ -184,7 +184,8 @@
         "stylesheet"
       ],
       "router": [
-        "expo-router"
+        "expo-router",
+        "react-navigation"
       ],
       "ui": [
         "native",
@@ -243,11 +244,130 @@
         "stylesheet"
       ],
       "router": [
-        "expo-router"
+        "expo-router",
+        "react-navigation"
       ],
       "ui": [
         "native",
         "shadcn"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "calendar/schedule",
+    "name": "Calendar Schedule Screen",
+    "description": "Monthly calendar grid with event dots and a scrollable event list below.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "calendar",
+      "schedule",
+      "events",
+      "planner"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "chat/conversations",
+    "name": "Chat Conversations List",
+    "description": "Conversation list with avatars, last message preview, timestamps and unread badges.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "chat",
+      "messages",
+      "conversations",
+      "list"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "content/article-reader",
+    "name": "Article Reader Screen",
+    "description": "Article detail view with hero image, author byline, and rich text content.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "content",
+      "article",
+      "reader",
+      "blog",
+      "detail"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "dashboard/analytics",
+    "name": "Analytics Dashboard Screen",
+    "description": "Dashboard with stat cards, chart placeholders, and recent activity list.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "dashboard",
+      "analytics",
+      "stats",
+      "charts",
+      "metrics"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
       ],
       "icons": [
         "lucide",
@@ -294,6 +414,35 @@
       "products",
       "list",
       "catalog"
+    ],
+    "supported": {
+      "styling": [
+        "nativewind",
+        "stylesheet"
+      ],
+      "router": [
+        "expo-router"
+      ],
+      "ui": [
+        "native"
+      ],
+      "icons": [
+        "lucide",
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "map/location",
+    "name": "Map Location Screen",
+    "description": "Full-screen map with markers and a bottom sheet showing location details.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": [
+      "map",
+      "location",
+      "navigation",
+      "places"
     ],
     "supported": {
       "styling": [

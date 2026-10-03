@@ -12,7 +12,8 @@
       "stylesheet"
     ],
     "router": [
-      "expo-router"
+      "expo-router",
+      "react-navigation"
     ],
     "ui": [
       "native",
@@ -57,6 +58,18 @@
         ]
       },
       "template": "import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from \"react-native\";\nimport { SafeAreaView } from \"react-native-safe-area-context\";\nimport { RegisterForm } from \"../../components/RegisterForm\";\n\nexport default function RegisterScreen() {\n  return (\n    <SafeAreaView className=\"flex-1 bg-background\">\n      <KeyboardAvoidingView\n        behavior={Platform.OS === \"ios\" ? \"padding\" : \"height\"}\n        className=\"flex-1\"\n      >\n        <ScrollView\n          contentContainerClassName=\"flex-grow justify-center px-6 py-8\"\n          keyboardShouldPersistTaps=\"handled\"\n        >\n          <View>\n            <Text className=\"text-3xl font-bold text-foreground\">Create account</Text>\n            <Text className=\"mt-2 text-muted-foreground\">\n              Join us and get started in minutes.\n            </Text>\n          </View>\n\n          <View className=\"mt-8\">\n            <RegisterForm />\n          </View>\n        </ScrollView>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}"
+    },
+    {
+      "path": "screens/RegisterScreen.tsx",
+      "when": {
+        "router": [
+          "react-navigation"
+        ],
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { \n  View, \n  Text, \n  KeyboardAvoidingView, \n  Platform, \n  SafeAreaView, \n  ScrollView{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { useNavigation } from '@react-navigation/native';\n{{#if (eq icons \"lucide\")}}\nimport { ArrowLeft } from 'lucide-react-native';\n{{/if}}\nimport { RegisterForm } from '../components/RegisterForm';\n\nexport default function RegisterScreen() {\n  const navigation = useNavigation();\n\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-white\"{{else}}style={styles.safeArea}{{/if}}>\n      <KeyboardAvoidingView\n        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}\n        {{#if (eq styling \"nativewind\")}}className=\"flex-1\"{{else}}style={styles.flex1}{{/if}}\n      >\n        <ScrollView\n          contentContainerStyle={styles.scrollContent}\n          keyboardShouldPersistTaps=\"handled\"\n        >\n          {{#if (eq icons \"lucide\")}}\n          <Pressable onPress={() => navigation.goBack()} {{#if (eq styling \"nativewind\")}}className=\"mb-6\"{{else}}style={styles.backButton}{{/if}}>\n            <ArrowLeft size={24} color=\"#111827\" />\n          </Pressable>\n          {{/if}}\n\n          <View {{#if (eq styling \"nativewind\")}}className=\"mb-8\"{{else}}style={styles.header}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-3xl font-bold text-gray-900\"{{else}}style={styles.title}{{/if}}>\n              Create account\n            </Text>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"mt-2 text-base text-gray-600\"{{else}}style={styles.subtitle}{{/if}}>\n              Join us and get started in minutes\n            </Text>\n          </View>\n\n          <RegisterForm />\n\n          <View {{#if (eq styling \"nativewind\")}}className=\"mt-6 flex-row justify-center\"{{else}}style={styles.footer}{{/if}}>\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-gray-600\"{{else}}style={styles.footerText}{{/if}}>\n              Already have an account?{' '}\n            </Text>\n            <Pressable onPress={() => navigation.navigate('Login')}>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"text-blue-600 font-semibold\"{{else}}style={styles.link}{{/if}}>\n                Sign in\n              </Text>\n            </Pressable>\n          </View>\n        </ScrollView>\n      </KeyboardAvoidingView>\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#FFFFFF',\n  },\n  flex1: {\n    flex: 1,\n  },\n  scrollContent: {\n    flexGrow: 1,\n    padding: 24,\n    justifyContent: 'center',\n  },\n  backButton: {\n    marginBottom: 24,\n  },\n  header: {\n    marginBottom: 32,\n  },\n  title: {\n    fontSize: 30,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  subtitle: {\n    marginTop: 8,\n    fontSize: 16,\n    color: '#4B5563',\n  },\n  footer: {\n    marginTop: 24,\n    flexDirection: 'row',\n    justifyContent: 'center',\n  },\n  footerText: {\n    color: '#4B5563',\n  },\n  link: {\n    color: '#2563EB',\n    fontWeight: '600',\n  },\n});\n{{/if}}\n"
     },
     {
       "path": "components/RegisterForm.tsx",

@@ -1,0 +1,60 @@
+{
+  "id": "chat/conversations",
+  "name": "Chat Conversations List",
+  "description": "Conversation list with avatars, last message preview, timestamps and unread badges.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": [
+      "nativewind",
+      "stylesheet"
+    ],
+    "router": [
+      "expo-router"
+    ],
+    "ui": [
+      "native"
+    ],
+    "icons": [
+      "lucide",
+      "none"
+    ]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/chat/index.tsx",
+      "when": {
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { \n  View, \n  Text, \n  FlatList, \n  Pressable, \n  RefreshControl{{#if (eq styling \"stylesheet\")}}, \n  StyleSheet{{/if}} \n} from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\n{{#if (eq icons \"lucide\")}}\nimport { Search, Edit } from 'lucide-react-native';\n{{/if}}\nimport { ConversationItem } from '../../components/ConversationItem';\n\nconst conversations = [\n  {\n    id: '1',\n    name: 'Sarah Wilson',\n    lastMessage: 'Hey! Are you coming to the meetup tomorrow?',\n    time: '2m ago',\n    unread: 3,\n    avatar: 'https://i.pravatar.cc/150?img=1',\n  },\n  {\n    id: '2',\n    name: 'Design Team',\n    lastMessage: 'Alex: I pushed the latest mockups to Figma',\n    time: '15m ago',\n    unread: 0,\n    avatar: 'https://i.pravatar.cc/150?img=2',\n  },\n  {\n    id: '3',\n    name: 'Mike Chen',\n    lastMessage: 'Thanks for the code review!',\n    time: '1h ago',\n    unread: 1,\n    avatar: 'https://i.pravatar.cc/150?img=3',\n  },\n  {\n    id: '4',\n    name: 'Project Alpha',\n    lastMessage: 'You: Sounds good, let me know when ready',\n    time: '3h ago',\n    unread: 0,\n    avatar: 'https://i.pravatar.cc/150?img=4',\n  },\n  {\n    id: '5',\n    name: 'Emma Davis',\n    lastMessage: 'See you at 3pm!',\n    time: 'Yesterday',\n    unread: 0,\n    avatar: 'https://i.pravatar.cc/150?img=5',\n  },\n];\n\nexport default function ChatScreen() {\n  return (\n    <SafeAreaView {{#if (eq styling \"nativewind\")}}className=\"flex-1 bg-gray-50\"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>\n      {/* Header */}\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between px-5 pt-4 pb-3\"{{else}}style={styles.header}{{/if}}>\n        <Text {{#if (eq styling \"nativewind\")}}className=\"text-2xl font-bold text-gray-900\"{{else}}style={styles.headerTitle}{{/if}}>\n          Messages\n        </Text>\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-row gap-3\"{{else}}style={styles.headerActions}{{/if}}>\n          {{#if (eq icons \"lucide\")}}\n          <Pressable {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-white\"{{else}}style={styles.iconButton}{{/if}}>\n            <Search size={20} color=\"#4B5563\" />\n          </Pressable>\n          <Pressable {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-blue-600\"{{else}}style={styles.primaryButton}{{/if}}>\n            <Edit size={20} color=\"#FFFFFF\" />\n          </Pressable>\n          {{/if}}\n        </View>\n      </View>\n\n      {/* Conversation List */}\n      <FlatList\n        data={conversations}\n        keyExtractor={(item) => item.id}\n        renderItem={({ item }) => (\n          <ConversationItem\n            name={item.name}\n            lastMessage={item.lastMessage}\n            time={item.time}\n            unread={item.unread}\n            avatar={item.avatar}\n          />\n        )}\n        contentContainerStyle={styles.list}\n        ItemSeparatorComponent={() => <View {{#if (eq styling \"nativewind\")}}className=\"h-px bg-gray-100 ml-[76px]\"{{else}}style={styles.separator}{{/if}} />}\n        refreshControl={\n          <RefreshControl refreshing={false} onRefresh={() => console.log('refresh')} />\n        }\n      />\n    </SafeAreaView>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  safeArea: {\n    flex: 1,\n    backgroundColor: '#F9FAFB',\n  },\n  header: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n    paddingHorizontal: 20,\n    paddingTop: 16,\n    paddingBottom: 12,\n  },\n  headerTitle: {\n    fontSize: 24,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  headerActions: {\n    flexDirection: 'row',\n    gap: 12,\n  },\n  iconButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#FFFFFF',\n  },\n  primaryButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#2563EB',\n  },\n  list: {\n    paddingBottom: 24,\n  },\n  separator: {\n    height: 1,\n    backgroundColor: '#F3F4F6',\n    marginLeft: 76,\n  },\n});\n{{/if}}\n"
+    },
+    {
+      "path": "components/ConversationItem.tsx",
+      "when": {
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { View, Text, Pressable, Image{{#if (eq styling \"stylesheet\")}}, StyleSheet{{/if}} } from 'react-native';\n\nexport function ConversationItem({ name, lastMessage, time, unread, avatar }) {\n  return (\n    <Pressable {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center px-5 py-4\"{{else}}style={styles.container}{{/if}}>\n      <Image\n        source={{ uri: avatar }}\n        {{#if (eq styling \"nativewind\")}}className=\"h-12 w-12 rounded-full\"{{else}}style={styles.avatar}{{/if}}\n      />\n      <View {{#if (eq styling \"nativewind\")}}className=\"ml-3 flex-1\"{{else}}style={styles.content}{{/if}}>\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-between\"{{else}}style={styles.header}{{/if}}>\n          <Text \n            {{#if (eq styling \"nativewind\")}}className={`text-base font-semibold ${unread > 0 ? 'text-gray-900' : 'text-gray-700'}`}{{else}}style={[styles.name, unread > 0 && styles.nameBold]}{{/if}}\n            numberOfLines={1}\n          >\n            {name}\n          </Text>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-xs text-gray-400\"{{else}}style={styles.time}{{/if}}>\n            {time}\n          </Text>\n        </View>\n        <View {{#if (eq styling \"nativewind\")}}className=\"mt-1 flex-row items-center\"{{else}}style={styles.messageRow}{{/if}}>\n          <Text \n            {{#if (eq styling \"nativewind\")}}className={`flex-1 text-sm ${unread > 0 ? 'text-gray-700' : 'text-gray-500'}`}{{else}}style={[styles.message, unread > 0 && styles.messageBold]}{{/if}}\n            numberOfLines={1}\n          >\n            {lastMessage}\n          </Text>\n          {unread > 0 && (\n            <View {{#if (eq styling \"nativewind\")}}className=\"ml-2 h-5 min-w-[20px] items-center justify-center rounded-full bg-blue-600 px-1.5\"{{else}}style={styles.badge}{{/if}}>\n              <Text {{#if (eq styling \"nativewind\")}}className=\"text-xs font-medium text-white\"{{else}}style={styles.badgeText}{{/if}}>\n                {unread}\n              </Text>\n            </View>\n          )}\n        </View>\n      </View>\n    </Pressable>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  container: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    paddingHorizontal: 20,\n    paddingVertical: 16,\n  },\n  avatar: {\n    height: 48,\n    width: 48,\n    borderRadius: 24,\n  },\n  content: {\n    marginLeft: 12,\n    flex: 1,\n  },\n  header: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n  },\n  name: {\n    fontSize: 16,\n    fontWeight: '500',\n    color: '#374151',\n  },\n  nameBold: {\n    fontWeight: '600',\n    color: '#111827',\n  },\n  time: {\n    fontSize: 12,\n    color: '#9CA3AF',\n  },\n  messageRow: {\n    marginTop: 4,\n    flexDirection: 'row',\n    alignItems: 'center',\n  },\n  message: {\n    flex: 1,\n    fontSize: 14,\n    color: '#6B7280',\n  },\n  messageBold: {\n    color: '#374151',\n  },\n  badge: {\n    marginLeft: 8,\n    height: 20,\n    minWidth: 20,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 10,\n    backgroundColor: '#2563EB',\n    paddingHorizontal: 6,\n  },\n  badgeText: {\n    fontSize: 12,\n    fontWeight: '500',\n    color: '#FFFFFF',\n  },\n});\n{{/if}}\n"
+    }
+  ],
+  "variants": [],
+  "tags": [
+    "chat",
+    "messages",
+    "conversations",
+    "list"
+  ],
+  "primitives": []
+}
