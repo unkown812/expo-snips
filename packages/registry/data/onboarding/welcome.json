@@ -20,7 +20,10 @@
     {
       "path": "app/welcome/index.tsx",
       "when": { "router": ["expo-router"], "ui": ["native"] },
-      "templateFile": "onboarding/welcome/app.welcome.index.hbs"
+      "templateFile": "onboarding/welcome/app.welcome.index.hbs",
+      "variants": {
+        "glass": "onboarding/welcome/app.welcome.index.glass.hbs"
+      }
     },
     {
       "path": "app/welcome/index.tsx",
@@ -28,7 +31,13 @@
       "templateFile": "onboarding/welcome/app.welcome.index.shadcn.hbs"
     }
   ],
-  "variants": [],
+  "variants": [
+    {
+      "id": "glass",
+      "label": "Glassmorphism",
+      "description": "Frosted glass effect with translucent surfaces and backdrop blur."
+    }
+  ],
   "tags": ["onboarding", "welcome", "intro"],
   "primitives": ["ui/utils", "ui/button"]
 }

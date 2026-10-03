@@ -8,7 +8,7 @@
   "typescript": true,
   "supported": {
     "styling": ["nativewind", "stylesheet"],
-    "router": ["expo-router"],
+    "router": ["expo-router", "react-navigation"],
     "ui": ["native", "shadcn"],
     "icons": ["lucide", "none"]
   },
@@ -23,12 +23,20 @@
     {
       "path": "app/login/index.tsx",
       "when": { "router": ["expo-router"], "ui": ["native"] },
-      "templateFile": "auth/login/app.login.index.hbs"
+      "templateFile": "auth/login/app.login.index.hbs",
+      "variants": {
+        "glass": "auth/login/app.login.index.glass.hbs"
+      }
     },
     {
       "path": "app/login/index.tsx",
       "when": { "router": ["expo-router"], "ui": ["shadcn"], "icons": ["lucide"] },
       "templateFile": "auth/login/app.login.index.shadcn.hbs"
+    },
+    {
+      "path": "screens/LoginScreen.tsx",
+      "when": { "router": ["react-navigation"], "ui": ["native"] },
+      "templateFile": "auth/login/screens.loginscreen.react-navigation.hbs"
     },
     {
       "path": "components/LoginForm.tsx",
@@ -51,7 +59,13 @@
       "templateFile": "auth/login/hooks.use-login.hbs"
     }
   ],
-  "variants": [],
+  "variants": [
+    {
+      "id": "glass",
+      "label": "Glassmorphism",
+      "description": "Frosted glass effect with translucent surfaces and backdrop blur."
+    }
+  ],
   "tags": ["auth", "login", "form"],
   "primitives": ["ui/utils", "ui/button", "ui/input"]
 }

@@ -1,0 +1,149 @@
+import { 
+  View, 
+  Text, 
+  FlatList, 
+  Pressable, 
+  RefreshControl{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+{{#if (eq icons "lucide")}}
+import { Search, Edit } from 'lucide-react-native';
+{{/if}}
+import { ConversationItem } from '../../components/ConversationItem';
+
+const conversations = [
+  {
+    id: '1',
+    name: 'Sarah Wilson',
+    lastMessage: 'Hey! Are you coming to the meetup tomorrow?',
+    time: '2m ago',
+    unread: 3,
+    avatar: 'https://i.pravatar.cc/150?img=1',
+  },
+  {
+    id: '2',
+    name: 'Design Team',
+    lastMessage: 'Alex: I pushed the latest mockups to Figma',
+    time: '15m ago',
+    unread: 0,
+    avatar: 'https://i.pravatar.cc/150?img=2',
+  },
+  {
+    id: '3',
+    name: 'Mike Chen',
+    lastMessage: 'Thanks for the code review!',
+    time: '1h ago',
+    unread: 1,
+    avatar: 'https://i.pravatar.cc/150?img=3',
+  },
+  {
+    id: '4',
+    name: 'Project Alpha',
+    lastMessage: 'You: Sounds good, let me know when ready',
+    time: '3h ago',
+    unread: 0,
+    avatar: 'https://i.pravatar.cc/150?img=4',
+  },
+  {
+    id: '5',
+    name: 'Emma Davis',
+    lastMessage: 'See you at 3pm!',
+    time: 'Yesterday',
+    unread: 0,
+    avatar: 'https://i.pravatar.cc/150?img=5',
+  },
+];
+
+export default function ChatScreen() {
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-gray-50"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>
+      {/* Header */}
+      <View {{#if (eq styling "nativewind")}}className="flex-row items-center justify-between px-5 pt-4 pb-3"{{else}}style={styles.header}{{/if}}>
+        <Text {{#if (eq styling "nativewind")}}className="text-2xl font-bold text-gray-900"{{else}}style={styles.headerTitle}{{/if}}>
+          Messages
+        </Text>
+        <View {{#if (eq styling "nativewind")}}className="flex-row gap-3"{{else}}style={styles.headerActions}{{/if}}>
+          {{#if (eq icons "lucide")}}
+          <Pressable {{#if (eq styling "nativewind")}}className="h-10 w-10 items-center justify-center rounded-full bg-white"{{else}}style={styles.iconButton}{{/if}}>
+            <Search size={20} color="#4B5563" />
+          </Pressable>
+          <Pressable {{#if (eq styling "nativewind")}}className="h-10 w-10 items-center justify-center rounded-full bg-blue-600"{{else}}style={styles.primaryButton}{{/if}}>
+            <Edit size={20} color="#FFFFFF" />
+          </Pressable>
+          {{/if}}
+        </View>
+      </View>
+
+      {/* Conversation List */}
+      <FlatList
+        data={conversations}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <ConversationItem
+            name={item.name}
+            lastMessage={item.lastMessage}
+            time={item.time}
+            unread={item.unread}
+            avatar={item.avatar}
+          />
+        )}
+        contentContainerStyle={styles.list}
+        ItemSeparatorComponent={() => <View {{#if (eq styling "nativewind")}}className="h-px bg-gray-100 ml-[76px]"{{else}}style={styles.separator}{{/if}} />}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={() => console.log('refresh')} />
+        }
+      />
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 12,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  headerActions: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  iconButton: {
+    height: 40,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  primaryButton: {
+    height: 40,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#2563EB',
+  },
+  list: {
+    paddingBottom: 24,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#F3F4F6',
+    marginLeft: 76,
+  },
+});
+{{/if}}

@@ -1,0 +1,222 @@
+import { 
+  View, 
+  Text, 
+  Pressable, 
+  ScrollView, 
+  FlatList{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+{{#if (eq icons "lucide")}}
+import { ChevronLeft, ChevronRight, Plus } from 'lucide-react-native';
+{{/if}}
+import { EventItem } from '../../components/EventItem';
+
+const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+const events = [
+  { id: '1', title: 'Team Standup', time: '9:00 AM - 9:30 AM', color: '#2563EB', location: 'Zoom' },
+  { id: '2', title: 'Design Review', time: '11:00 AM - 12:00 PM', color: '#8B5CF6', location: 'Room A' },
+  { id: '3', title: 'Lunch with Sarah', time: '12:30 PM - 1:30 PM', color: '#10B981', location: 'Cafe' },
+  { id: '4', title: 'Sprint Planning', time: '3:00 PM - 4:00 PM', color: '#F59E0B', location: 'Conference Room' },
+];
+
+function getDaysInMonth(year, month) {
+  return new Date(year, month + 1, 0).getDate();
+}
+
+function getFirstDayOfMonth(year, month) {
+  return new Date(year, month, 1).getDay();
+}
+
+export default function CalendarScreen() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const todayDate = today.getDate();
+  const daysInMonth = getDaysInMonth(year, month);
+  const firstDay = getFirstDayOfMonth(year, month);
+
+  const calendarDays = [];
+  for (let i = 0; i < firstDay; i++) {
+    calendarDays.push(null);
+  }
+  for (let i = 1; i <= daysInMonth; i++) {
+    calendarDays.push(i);
+  }
+
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-gray-50"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>
+      <ScrollView>
+        {/* Header */}
+        <View {{#if (eq styling "nativewind")}}className="flex-row items-center justify-between px-5 pt-4 pb-3"{{else}}style={styles.header}{{/if}}>
+          <Text {{#if (eq styling "nativewind")}}className="text-2xl font-bold text-gray-900"{{else}}style={styles.headerTitle}{{/if}}>
+            Calendar
+          </Text>
+          {{#if (eq icons "lucide")}}
+          <Pressable {{#if (eq styling "nativewind")}}className="h-10 w-10 items-center justify-center rounded-full bg-blue-600"{{else}}style={styles.addButton}{{/if}}>
+            <Plus size={20} color="#FFFFFF" />
+          </Pressable>
+          {{/if}}
+        </View>
+
+        {/* Month Navigation */}
+        <View {{#if (eq styling "nativewind")}}className="flex-row items-center justify-between px-5 py-3"{{else}}style={styles.monthNav}{{/if}}>
+          {{#if (eq icons "lucide")}}
+          <Pressable {{#if (eq styling "nativewind")}}className="h-8 w-8 items-center justify-center rounded-full bg-white"{{else}}style={styles.navButton}{{/if}}>
+            <ChevronLeft size={20} color="#374151" />
+          </Pressable>
+          {{/if}}
+          <Text {{#if (eq styling "nativewind")}}className="text-lg font-semibold text-gray-900"{{else}}style={styles.monthTitle}{{/if}}>
+            {MONTHS[month]} {year}
+          </Text>
+          {{#if (eq icons "lucide")}}
+          <Pressable {{#if (eq styling "nativewind")}}className="h-8 w-8 items-center justify-center rounded-full bg-white"{{else}}style={styles.navButton}{{/if}}>
+            <ChevronRight size={20} color="#374151" />
+          </Pressable>
+          {{/if}}
+        </View>
+
+        {/* Day Names */}
+        <View {{#if (eq styling "nativewind")}}className="flex-row px-5"{{else}}style={styles.dayNames}{{/if}}>
+          {DAYS.map((day) => (
+            <View key={day} {{#if (eq styling "nativewind")}}className="flex-1 items-center"{{else}}style={styles.dayNameContainer}{{/if}}>
+              <Text {{#if (eq styling "nativewind")}}className="text-xs font-medium text-gray-400"{{else}}style={styles.dayName}{{/if}}>
+                {day}
+              </Text>
+            </View>
+          ))}
+        </View>
+
+        {/* Calendar Grid */}
+        <View {{#if (eq styling "nativewind")}}className="flex-row flex-wrap px-5"{{else}}style={styles.grid}{{/if}}>
+          {calendarDays.map((day, index) => (
+            <Pressable
+              key={index}
+              {{#if (eq styling "nativewind")}}className={`w-[14.28%] aspect-square items-center justify-center ${day === todayDate ? 'bg-blue-600 rounded-full' : ''}`}{{else}}style={[styles.dayCell, day === todayDate && styles.dayCellActive]}{{/if}}
+            >
+              {day && (
+                <Text {{#if (eq styling "nativewind")}}className={`text-sm ${day === todayDate ? 'font-semibold text-white' : 'text-gray-700'}`}{{else}}style={[styles.dayText, day === todayDate && styles.dayTextActive]}{{/if}}>
+                  {day}
+                </Text>
+              )}
+            </Pressable>
+          ))}
+        </View>
+
+        {/* Events */}
+        <View {{#if (eq styling "nativewind")}}className="mt-6"{{else}}style={styles.eventsSection}{{/if}}>
+          <Text {{#if (eq styling "nativewind")}}className="px-5 text-lg font-bold text-gray-900"{{else}}style={styles.eventsTitle}{{/if}}>
+            Today's Events
+          </Text>
+          <View {{#if (eq styling "nativewind")}}className="mt-3 gap-3 px-5"{{else}}style={styles.eventsList}{{/if}}>
+            {events.map((event) => (
+              <EventItem key={event.id} event={event} />
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 12,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  addButton: {
+    height: 40,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#2563EB',
+  },
+  monthNav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+  },
+  navButton: {
+    height: 32,
+    width: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+  },
+  monthTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#111827',
+  },
+  dayNames: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+  },
+  dayNameContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  dayName: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#9CA3AF',
+  },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 20,
+  },
+  dayCell: {
+    width: '14.28%',
+    aspectRatio: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  dayCellActive: {
+    backgroundColor: '#2563EB',
+    borderRadius: 20,
+  },
+  dayText: {
+    fontSize: 14,
+    color: '#374151',
+  },
+  dayTextActive: {
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+  eventsSection: {
+    marginTop: 24,
+  },
+  eventsTitle: {
+    paddingHorizontal: 20,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  eventsList: {
+    marginTop: 12,
+    gap: 12,
+    paddingHorizontal: 20,
+  },
+});
+{{/if}}

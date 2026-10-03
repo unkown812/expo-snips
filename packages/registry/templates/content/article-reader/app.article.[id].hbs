@@ -1,0 +1,168 @@
+import { 
+  View, 
+  Text, 
+  ScrollView, 
+  Image, 
+  Pressable{{#if (eq styling "stylesheet")}}, 
+  StyleSheet{{/if}} 
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+{{#if (eq icons "lucide")}}
+import { ArrowLeft, Heart, Share2, Bookmark } from 'lucide-react-native';
+{{/if}}
+
+const article = {
+  title: 'Building Better Mobile Apps with Expo and React Native',
+  author: 'Sarah Wilson',
+  authorAvatar: 'https://i.pravatar.cc/150?img=1',
+  date: 'Aug 15, 2026',
+  readTime: '5 min read',
+  image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800',
+  content: [
+    'React Native has become the go-to framework for building cross-platform mobile applications. With Expo streamlined development experience, creating production-ready apps has never been easier.',
+    'In this article, we explore the key benefits of using Expo with React Native, including rapid prototyping, easy deployment, and access to a rich ecosystem of libraries.',
+    'Expo provides a set of tools and services that make React Native development more accessible. It handles the complex parts of building, testing, and deploying your app, so you can focus on writing great code.',
+    'Starting a new Expo project is simple. Run npx create-expo-app my-app, then cd my-app and npx expo start. This sets up a new project with all the necessary configuration.',
+    'Expo and React Native together provide a powerful platform for mobile app development. Whether you are building a prototype or a production app, the tools and ecosystem support your journey from concept to store.',
+  ],
+};
+
+export default function ArticleScreen() {
+  return (
+    <SafeAreaView {{#if (eq styling "nativewind")}}className="flex-1 bg-white"{{else}}style={styles.safeArea}{{/if}} edges={['top']}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Hero Image */}
+        <Image
+          source={{ uri: article.image }}
+          {{#if (eq styling "nativewind")}}className="h-64 w-full"{{else}}style={styles.heroImage}{{/if}}
+        />
+
+        {/* Content */}
+        <View {{#if (eq styling "nativewind")}}className="px-5 pt-5 pb-10"{{else}}style={styles.content}{{/if}}>
+          {/* Title */}
+          <Text {{#if (eq styling "nativewind")}}className="text-2xl font-bold text-gray-900"{{else}}style={styles.title}{{/if}}>
+            {article.title}
+          </Text>
+
+          {/* Author */}
+          <View {{#if (eq styling "nativewind")}}className="mt-4 flex-row items-center"{{else}}style={styles.authorRow}{{/if}}>
+            <Image
+              source={{ uri: article.authorAvatar }}
+              {{#if (eq styling "nativewind")}}className="h-10 w-10 rounded-full"{{else}}style={styles.authorAvatar}{{/if}}
+            />
+            <View {{#if (eq styling "nativewind")}}className="ml-3"{{else}}style={styles.authorInfo}{{/if}}>
+              <Text {{#if (eq styling "nativewind")}}className="text-sm font-medium text-gray-900"{{else}}style={styles.authorName}{{/if}}>
+                {article.author}
+              </Text>
+              <Text {{#if (eq styling "nativewind")}}className="text-xs text-gray-500"{{else}}style={styles.articleMeta}{{/if}}>
+                {article.date} · {article.readTime}
+              </Text>
+            </View>
+          </View>
+
+          {/* Actions */}
+          <View {{#if (eq styling "nativewind")}}className="mt-4 flex-row gap-4 border-b border-gray-100 pb-4"{{else}}style={styles.actions}{{/if}}>
+            <Pressable {{#if (eq styling "nativewind")}}className="flex-row items-center gap-1"{{else}}style={styles.actionButton}{{/if}}>
+              {{#if (eq icons "lucide")}}
+              <Heart size={18} color="#6B7280" />
+              {{/if}}
+              <Text {{#if (eq styling "nativewind")}}className="text-sm text-gray-600"{{else}}style={styles.actionText}{{/if}}>24</Text>
+            </Pressable>
+            <Pressable {{#if (eq styling "nativewind")}}className="flex-row items-center gap-1"{{else}}style={styles.actionButton}{{/if}}>
+              {{#if (eq icons "lucide")}}
+              <Share2 size={18} color="#6B7280" />
+              {{/if}}
+              <Text {{#if (eq styling "nativewind")}}className="text-sm text-gray-600"{{else}}style={styles.actionText}{{/if}}>Share</Text>
+            </Pressable>
+            <Pressable {{#if (eq styling "nativewind")}}className="flex-row items-center gap-1"{{else}}style={styles.actionButton}{{/if}}>
+              {{#if (eq icons "lucide")}}
+              <Bookmark size={18} color="#6B7280" />
+              {{/if}}
+              <Text {{#if (eq styling "nativewind")}}className="text-sm text-gray-600"{{else}}style={styles.actionText}{{/if}}>Save</Text>
+            </Pressable>
+          </View>
+
+          {/* Article Body */}
+          <View {{#if (eq styling "nativewind")}}className="mt-6 gap-4"{{else}}style={styles.articleBody}{{/if}}>
+            {article.content.map((paragraph, index) => (
+              <Text key={index} {{#if (eq styling "nativewind")}}className="text-base leading-6 text-gray-700"{{else}}style={styles.paragraph}{{/if}}>
+                {paragraph}
+              </Text>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  heroImage: {
+    height: 256,
+    width: '100%',
+  },
+  content: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 40,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  authorRow: {
+    marginTop: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  authorAvatar: {
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+  },
+  authorInfo: {
+    marginLeft: 12,
+  },
+  authorName: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#111827',
+  },
+  articleMeta: {
+    fontSize: 12,
+    color: '#6B7280',
+  },
+  actions: {
+    marginTop: 16,
+    flexDirection: 'row',
+    gap: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F3F4F6',
+    paddingBottom: 16,
+  },
+  actionButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  actionText: {
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  articleBody: {
+    marginTop: 24,
+    gap: 16,
+  },
+  paragraph: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#374151',
+  },
+});
+{{/if}}

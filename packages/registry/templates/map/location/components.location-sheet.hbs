@@ -1,0 +1,171 @@
+import { View, Text, Pressable{{#if (eq styling "stylesheet")}}, StyleSheet{{/if}} } from 'react-native';
+{{#if (eq icons "lucide")}}
+import { Star, Navigation, Phone, Bookmark } from 'lucide-react-native';
+{{/if}}
+
+export function LocationSheet({ name, address, rating, distance }) {
+  return (
+    <View {{#if (eq styling "nativewind")}}className="absolute bottom-0 left-0 right-0 rounded-t-3xl bg-white px-5 pt-4 pb-8"{{else}}style={styles.container}{{/if}}>
+      {/* Handle */}
+      <View {{#if (eq styling "nativewind")}}className="mb-4 items-center"{{else}}style={styles.handleContainer}{{/if}}>
+        <View {{#if (eq styling "nativewind")}}className="h-1 w-10 rounded-full bg-gray-300"{{else}}style={styles.handle}{{/if}} />
+      </View>
+
+      {/* Content */}
+      <View {{#if (eq styling "nativewind")}}className="flex-row items-start justify-between"{{else}}style={styles.header}{{/if}}>
+        <View {{#if (eq styling "nativewind")}}className="flex-1"{{else}}style={styles.headerContent}{{/if}}>
+          <Text {{#if (eq styling "nativewind")}}className="text-xl font-bold text-gray-900"{{else}}style={styles.name}{{/if}}>
+            {name}
+          </Text>
+          <Text {{#if (eq styling "nativewind")}}className="mt-1 text-sm text-gray-500"{{else}}style={styles.address}{{/if}}>
+            {address}
+          </Text>
+          <View {{#if (eq styling "nativewind")}}className="mt-2 flex-row items-center gap-4"{{else}}style={styles.meta}{{/if}}>
+            {{#if (eq icons "lucide")}}
+            <View {{#if (eq styling "nativewind")}}className="flex-row items-center"{{else}}style={styles.ratingRow}{{/if}}>
+              <Star size={14} color="#F59E0B" fill="#F59E0B" />
+              <Text {{#if (eq styling "nativewind")}}className="ml-1 text-sm font-medium text-gray-700"{{else}}style={styles.rating}{{/if}}>
+                {rating}
+              </Text>
+            </View>
+            {{/if}}
+            <Text {{#if (eq styling "nativewind")}}className="text-sm text-gray-400"{{else}}style={styles.distance}{{/if}}>
+              {distance}
+            </Text>
+          </View>
+        </View>
+        {{#if (eq icons "lucide")}}
+        <Pressable {{#if (eq styling "nativewind")}}className="h-10 w-10 items-center justify-center rounded-full bg-gray-100"{{else}}style={styles.bookmarkButton}{{/if}}>
+          <Bookmark size={20} color="#6B7280" />
+        </Pressable>
+        {{/if}}
+      </View>
+
+      {/* Actions */}
+      <View {{#if (eq styling "nativewind")}}className="mt-5 flex-row gap-3"{{else}}style={styles.actions}{{/if}}>
+        <Pressable {{#if (eq styling "nativewind")}}className="flex-1 flex-row items-center justify-center gap-2 rounded-xl bg-blue-600 py-3"{{else}}style={styles.primaryButton}{{/if}}>
+          {{#if (eq icons "lucide")}}
+          <Navigation size={18} color="#FFFFFF" />
+          {{/if}}
+          <Text {{#if (eq styling "nativewind")}}className="font-semibold text-white"{{else}}style={styles.primaryButtonText}{{/if}}>
+            Directions
+          </Text>
+        </Pressable>
+        <Pressable {{#if (eq styling "nativewind")}}className="flex-row items-center justify-center gap-2 rounded-xl border border-gray-200 px-5 py-3"{{else}}style={styles.secondaryButton}{{/if}}>
+          {{#if (eq icons "lucide")}}
+          <Phone size={18} color="#374151" />
+          {{/if}}
+          <Text {{#if (eq styling "nativewind")}}className="font-medium text-gray-700"{{else}}style={styles.secondaryButtonText}{{/if}}>
+            Call
+          </Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 32,
+  },
+  handleContainer: {
+    alignItems: 'center',
+  },
+  handle: {
+    height: 4,
+    width: 40,
+    borderRadius: 2,
+    backgroundColor: '#D1D5DB',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+  },
+  headerContent: {
+    flex: 1,
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#111827',
+  },
+  address: {
+    marginTop: 4,
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  meta: {
+    marginTop: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+  },
+  ratingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rating: {
+    marginLeft: 4,
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#374151',
+  },
+  distance: {
+    fontSize: 14,
+    color: '#9CA3AF',
+  },
+  bookmarkButton: {
+    height: 40,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#F3F4F6',
+  },
+  actions: {
+    marginTop: 20,
+    flexDirection: 'row',
+    gap: 12,
+  },
+  primaryButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    borderRadius: 12,
+    backgroundColor: '#2563EB',
+    paddingVertical: 12,
+  },
+  primaryButtonText: {
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+  secondaryButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+  },
+  secondaryButtonText: {
+    fontWeight: '500',
+    color: '#374151',
+  },
+});
+{{/if}}

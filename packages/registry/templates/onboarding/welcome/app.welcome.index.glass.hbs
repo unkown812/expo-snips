@@ -1,0 +1,183 @@
+import { 
+  View, 
+  Text, 
+  Pressable,
+  StyleSheet 
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { BlurView } from 'expo-blur';
+{{#if (eq icons "lucide")}}
+import { Sparkles, Zap, Shield } from 'lucide-react-native';
+{{/if}}
+
+{{#if (eq icons "lucide")}}
+const features = [
+  { icon: Zap, title: 'Fast', description: 'Lightning-quick performance on any device.' },
+  { icon: Shield, title: 'Secure', description: 'Your data is protected with industry-grade security.' },
+  { icon: Sparkles, title: 'Beautiful', description: "A clean, modern interface you'll love using." },
+];
+{{else}}
+const features = [
+  { title: 'Fast', description: 'Lightning-quick performance on any device.' },
+  { title: 'Secure', description: 'Your data is protected with industry-grade security.' },
+  { title: 'Beautiful', description: "A clean, modern interface you'll love using." },
+];
+{{/if}}
+
+export default function WelcomeScreen() {
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <View style={styles.hero}>
+          {{#if (eq icons "lucide")}}
+          <View style={styles.logo}>
+            <Sparkles size={36} color="#FFFFFF" />
+          </View>
+          {{else}}
+          <View style={styles.logo}>
+            <Text style={styles.logoText}>S</Text>
+          </View>
+          {{/if}}
+          <Text style={styles.title}>
+            Welcome to Snips
+          </Text>
+          <Text style={styles.subtitle}>
+            Everything you need, beautifully simple.
+          </Text>
+        </View>
+
+        <View style={styles.features}>
+          {features.map(({{#if (eq icons "lucide")}}{ icon: Icon, title, description }{{else}}{ title, description }{{/if}}) => (
+            <BlurView key={title} intensity={15} tint="dark" style={styles.glassFeature}>
+              <View style={styles.featureRow}>
+                {{#if (eq icons "lucide")}}
+                <View style={styles.featureIcon}>
+                  <Icon size={22} color="#60A5FA" />
+                </View>
+                {{/if}}
+                <View style={styles.featureBody}>
+                  <Text style={styles.featureTitle}>{title}</Text>
+                  <Text style={styles.featureDescription}>{description}</Text>
+                </View>
+              </View>
+            </BlurView>
+          ))}
+        </View>
+
+        <View style={styles.actions}>
+          <Pressable style={styles.primaryButton}>
+            <Text style={styles.primaryButtonText}>
+              Get Started
+            </Text>
+          </Pressable>
+          <Pressable style={styles.secondaryButton}>
+            <Text style={styles.secondaryButtonText}>
+              I already have an account
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#0F172A',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+  },
+  hero: {
+    alignItems: 'center',
+  },
+  logo: {
+    height: 80,
+    width: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 24,
+    backgroundColor: 'rgba(37, 99, 235, 0.3)',
+  },
+  logoText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  title: {
+    marginTop: 24,
+    textAlign: 'center',
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  subtitle: {
+    marginTop: 8,
+    textAlign: 'center',
+    color: 'rgba(255, 255, 255, 0.7)',
+  },
+  features: {
+    marginTop: 48,
+    gap: 12,
+  },
+  glassFeature: {
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    overflow: 'hidden',
+  },
+  featureRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    gap: 16,
+  },
+  featureIcon: {
+    height: 48,
+    width: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    backgroundColor: 'rgba(96, 165, 250, 0.15)',
+  },
+  featureBody: {
+    flex: 1,
+  },
+  featureTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+  featureDescription: {
+    marginTop: 2,
+    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.6)',
+  },
+  actions: {
+    marginTop: 48,
+    gap: 12,
+  },
+  primaryButton: {
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: '#2563EB',
+    paddingVertical: 16,
+  },
+  primaryButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
+  },
+  secondaryButton: {
+    alignItems: 'center',
+    borderRadius: 12,
+    paddingVertical: 12,
+  },
+  secondaryButtonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: 'rgba(255, 255, 255, 0.6)',
+  },
+});

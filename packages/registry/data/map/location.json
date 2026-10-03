@@ -1,0 +1,35 @@
+{
+  "id": "map/location",
+  "name": "Map Location Screen",
+  "description": "Full-screen map with markers and a bottom sheet showing location details.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "react-native-maps",
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/map/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "map/location/app.map.index.hbs"
+    },
+    {
+      "path": "components/LocationSheet.tsx",
+      "when": { "ui": ["native"] },
+      "templateFile": "map/location/components.location-sheet.hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["map", "location", "navigation", "places"],
+  "primitives": []
+}

@@ -1,0 +1,66 @@
+import { View, Text, Pressable{{#if (eq styling "stylesheet")}}, StyleSheet{{/if}} } from 'react-native';
+{{#if (eq icons "lucide")}}
+import { MapPin } from 'lucide-react-native';
+{{/if}}
+
+export function EventItem({ event }) {
+  return (
+    <Pressable {{#if (eq styling "nativewind")}}className="flex-row rounded-xl bg-white p-4"{{else}}style={styles.container}{{/if}}>
+      <View {{#if (eq styling "nativewind")}}className="mr-3 w-1 rounded-full"{{else}}style={[styles.colorBar, { backgroundColor: event.color }]}{{/if}} />
+      <View {{#if (eq styling "nativewind")}}className="flex-1"{{else}}style={styles.content}{{/if}}>
+        <Text {{#if (eq styling "nativewind")}}className="text-base font-semibold text-gray-900"{{else}}style={styles.title}{{/if}}>
+          {event.title}
+        </Text>
+        <Text {{#if (eq styling "nativewind")}}className="mt-1 text-sm text-gray-500"{{else}}style={styles.time}{{/if}}>
+          {event.time}
+        </Text>
+        {{#if (eq icons "lucide")}}
+        <View {{#if (eq styling "nativewind")}}className="mt-2 flex-row items-center"{{else}}style={styles.locationRow}{{/if}}>
+          <MapPin size={14} color="#9CA3AF" />
+          <Text {{#if (eq styling "nativewind")}}className="ml-1 text-xs text-gray-400"{{else}}style={styles.location}{{/if}}>
+            {event.location}
+          </Text>
+        </View>
+        {{/if}}
+      </View>
+    </Pressable>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+  },
+  colorBar: {
+    width: 4,
+    borderRadius: 2,
+  },
+  content: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#111827',
+  },
+  time: {
+    marginTop: 4,
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  locationRow: {
+    marginTop: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  location: {
+    marginLeft: 4,
+    fontSize: 12,
+    color: '#9CA3AF',
+  },
+});
+{{/if}}

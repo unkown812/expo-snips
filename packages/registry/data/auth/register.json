@@ -8,7 +8,7 @@
   "typescript": true,
   "supported": {
     "styling": ["nativewind", "stylesheet"],
-    "router": ["expo-router"],
+    "router": ["expo-router", "react-navigation"],
     "ui": ["native", "shadcn"],
     "icons": ["lucide", "none"]
   },
@@ -29,6 +29,11 @@
       "path": "app/register/index.tsx",
       "when": { "router": ["expo-router"], "ui": ["shadcn"], "icons": ["lucide"] },
       "templateFile": "auth/register/app.register.index.shadcn.hbs"
+    },
+    {
+      "path": "screens/RegisterScreen.tsx",
+      "when": { "router": ["react-navigation"], "ui": ["native"] },
+      "templateFile": "auth/register/screens.registerscreen.react-navigation.hbs"
     },
     {
       "path": "components/RegisterForm.tsx",

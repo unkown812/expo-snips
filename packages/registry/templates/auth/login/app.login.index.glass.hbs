@@ -1,0 +1,108 @@
+import { 
+  View, 
+  Text, 
+  KeyboardAvoidingView, 
+  Platform, 
+  SafeAreaView, 
+  ScrollView,
+  StyleSheet 
+} from 'react-native';
+import { BlurView } from 'expo-blur';
+import { Link } from 'expo-router';
+{{#if (eq icons "lucide")}}
+import { ArrowLeft } from 'lucide-react-native';
+{{/if}}
+import { LoginForm } from '../../components/LoginForm';
+
+export default function LoginScreen() {
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.flex1}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+        >
+          {{#if (eq icons "lucide")}}
+          <Link href="/" style={styles.backButton}>
+            <ArrowLeft size={24} color="#FFFFFF" />
+          </Link>
+          {{/if}}
+
+          <BlurView intensity={20} tint="dark" style={styles.glassCard}>
+            <View style={styles.header}>
+              <Text style={styles.title}>
+                Welcome back
+              </Text>
+              <Text style={styles.subtitle}>
+                Sign in to your account to continue
+              </Text>
+            </View>
+
+            <LoginForm />
+
+            <View style={styles.footer}>
+              <Text style={styles.footerText}>
+                Don't have an account?{' '}
+              </Text>
+              <Link href="/register" style={styles.link}>
+                Sign up
+              </Link>
+            </View>
+          </BlurView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#0F172A',
+  },
+  flex1: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    padding: 24,
+    justifyContent: 'center',
+  },
+  backButton: {
+    marginBottom: 24,
+  },
+  glassCard: {
+    borderRadius: 24,
+    padding: 32,
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    overflow: 'hidden',
+  },
+  header: {
+    marginBottom: 32,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  subtitle: {
+    marginTop: 8,
+    fontSize: 16,
+    color: 'rgba(255, 255, 255, 0.7)',
+  },
+  footer: {
+    marginTop: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  footerText: {
+    color: 'rgba(255, 255, 255, 0.7)',
+  },
+  link: {
+    color: '#60A5FA',
+    fontWeight: '600',
+  },
+});

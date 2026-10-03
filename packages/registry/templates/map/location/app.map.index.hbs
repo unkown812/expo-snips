@@ -1,0 +1,94 @@
+import { View, Text, Pressable{{#if (eq styling "stylesheet")}}, StyleSheet{{/if}} } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import MapView, { Marker } from 'react-native-maps';
+{{#if (eq icons "lucide")}}
+import { Navigation, Layers, Crosshair } from 'lucide-react-native';
+{{/if}}
+import { LocationSheet } from '../../components/LocationSheet';
+
+const markers = [
+  { id: '1', title: 'Coffee Shop', coordinate: { latitude: 37.78825, longitude: -122.4324 }, description: 'Best espresso in town' },
+  { id: '2', title: 'Park', coordinate: { latitude: 37.78925, longitude: -122.4344 }, description: 'Morning jogging spot' },
+  { id: '3', title: 'Office', coordinate: { latitude: 37.78725, longitude: -122.4304 }, description: 'Main workspace' },
+];
+
+export default function MapScreen() {
+  return (
+    <View {{#if (eq styling "nativewind")}}className="flex-1"{{else}}style={styles.container}{{/if}}>
+      <MapView
+        style={{ flex: 1 }}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }}
+        showsUserLocation
+      >
+        {markers.map((marker) => (
+          <Marker
+            key={marker.id}
+            coordinate={marker.coordinate}
+            title={marker.title}
+            description={marker.description}
+          />
+        ))}
+      </MapView>
+
+      {/* Floating Controls */}
+      <SafeAreaView style={styles.controls} edges={['top']}>
+        <View {{#if (eq styling "nativewind")}}className="absolute right-4 top-4 gap-3"{{else}}style={styles.floatingControls}{{/if}}>
+          {{#if (eq icons "lucide")}}
+          <Pressable {{#if (eq styling "nativewind")}}className="h-10 w-10 items-center justify-center rounded-full bg-white shadow-lg"{{else}}style={styles.controlButton}{{/if}}>
+            <Layers size={20} color="#374151" />
+          </Pressable>
+          <Pressable {{#if (eq styling "nativewind")}}className="h-10 w-10 items-center justify-center rounded-full bg-white shadow-lg"{{else}}style={styles.controlButton}{{/if}}>
+            <Crosshair size={20} color="#374151" />
+          </Pressable>
+          {{/if}}
+        </View>
+      </SafeAreaView>
+
+      {/* Bottom Sheet */}
+      <LocationSheet
+        name="Coffee Shop"
+        address="123 Main St, San Francisco, CA"
+        rating={4.8}
+        distance="0.3 mi"
+      />
+    </View>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  controls: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+  floatingControls: {
+    position: 'absolute',
+    right: 16,
+    top: 16,
+    gap: 12,
+  },
+  controlButton: {
+    height: 40,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+});
+{{/if}}

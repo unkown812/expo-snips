@@ -1,0 +1,61 @@
+{
+  "id": "map/location",
+  "name": "Map Location Screen",
+  "description": "Full-screen map with markers and a bottom sheet showing location details.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": [
+      "nativewind",
+      "stylesheet"
+    ],
+    "router": [
+      "expo-router"
+    ],
+    "ui": [
+      "native"
+    ],
+    "icons": [
+      "lucide",
+      "none"
+    ]
+  },
+  "dependencies": [
+    "react-native-maps",
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/map/index.tsx",
+      "when": {
+        "router": [
+          "expo-router"
+        ],
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { View, Text, Pressable{{#if (eq styling \"stylesheet\")}}, StyleSheet{{/if}} } from 'react-native';\nimport { SafeAreaView } from 'react-native-safe-area-context';\nimport MapView, { Marker } from 'react-native-maps';\n{{#if (eq icons \"lucide\")}}\nimport { Navigation, Layers, Crosshair } from 'lucide-react-native';\n{{/if}}\nimport { LocationSheet } from '../../components/LocationSheet';\n\nconst markers = [\n  { id: '1', title: 'Coffee Shop', coordinate: { latitude: 37.78825, longitude: -122.4324 }, description: 'Best espresso in town' },\n  { id: '2', title: 'Park', coordinate: { latitude: 37.78925, longitude: -122.4344 }, description: 'Morning jogging spot' },\n  { id: '3', title: 'Office', coordinate: { latitude: 37.78725, longitude: -122.4304 }, description: 'Main workspace' },\n];\n\nexport default function MapScreen() {\n  return (\n    <View {{#if (eq styling \"nativewind\")}}className=\"flex-1\"{{else}}style={styles.container}{{/if}}>\n      <MapView\n        style={{ flex: 1 }}\n        initialRegion={{\n          latitude: 37.78825,\n          longitude: -122.4324,\n          latitudeDelta: 0.01,\n          longitudeDelta: 0.01,\n        }}\n        showsUserLocation\n      >\n        {markers.map((marker) => (\n          <Marker\n            key={marker.id}\n            coordinate={marker.coordinate}\n            title={marker.title}\n            description={marker.description}\n          />\n        ))}\n      </MapView>\n\n      {/* Floating Controls */}\n      <SafeAreaView style={styles.controls} edges={['top']}>\n        <View {{#if (eq styling \"nativewind\")}}className=\"absolute right-4 top-4 gap-3\"{{else}}style={styles.floatingControls}{{/if}}>\n          {{#if (eq icons \"lucide\")}}\n          <Pressable {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-white shadow-lg\"{{else}}style={styles.controlButton}{{/if}}>\n            <Layers size={20} color=\"#374151\" />\n          </Pressable>\n          <Pressable {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-white shadow-lg\"{{else}}style={styles.controlButton}{{/if}}>\n            <Crosshair size={20} color=\"#374151\" />\n          </Pressable>\n          {{/if}}\n        </View>\n      </SafeAreaView>\n\n      {/* Bottom Sheet */}\n      <LocationSheet\n        name=\"Coffee Shop\"\n        address=\"123 Main St, San Francisco, CA\"\n        rating={4.8}\n        distance=\"0.3 mi\"\n      />\n    </View>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  container: {\n    flex: 1,\n  },\n  controls: {\n    position: 'absolute',\n    top: 0,\n    left: 0,\n    right: 0,\n  },\n  floatingControls: {\n    position: 'absolute',\n    right: 16,\n    top: 16,\n    gap: 12,\n  },\n  controlButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#FFFFFF',\n    shadowColor: '#000',\n    shadowOffset: { width: 0, height: 2 },\n    shadowOpacity: 0.1,\n    shadowRadius: 4,\n    elevation: 3,\n  },\n});\n{{/if}}\n"
+    },
+    {
+      "path": "components/LocationSheet.tsx",
+      "when": {
+        "ui": [
+          "native"
+        ]
+      },
+      "template": "import { View, Text, Pressable{{#if (eq styling \"stylesheet\")}}, StyleSheet{{/if}} } from 'react-native';\n{{#if (eq icons \"lucide\")}}\nimport { Star, Navigation, Phone, Bookmark } from 'lucide-react-native';\n{{/if}}\n\nexport function LocationSheet({ name, address, rating, distance }) {\n  return (\n    <View {{#if (eq styling \"nativewind\")}}className=\"absolute bottom-0 left-0 right-0 rounded-t-3xl bg-white px-5 pt-4 pb-8\"{{else}}style={styles.container}{{/if}}>\n      {/* Handle */}\n      <View {{#if (eq styling \"nativewind\")}}className=\"mb-4 items-center\"{{else}}style={styles.handleContainer}{{/if}}>\n        <View {{#if (eq styling \"nativewind\")}}className=\"h-1 w-10 rounded-full bg-gray-300\"{{else}}style={styles.handle}{{/if}} />\n      </View>\n\n      {/* Content */}\n      <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-start justify-between\"{{else}}style={styles.header}{{/if}}>\n        <View {{#if (eq styling \"nativewind\")}}className=\"flex-1\"{{else}}style={styles.headerContent}{{/if}}>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"text-xl font-bold text-gray-900\"{{else}}style={styles.name}{{/if}}>\n            {name}\n          </Text>\n          <Text {{#if (eq styling \"nativewind\")}}className=\"mt-1 text-sm text-gray-500\"{{else}}style={styles.address}{{/if}}>\n            {address}\n          </Text>\n          <View {{#if (eq styling \"nativewind\")}}className=\"mt-2 flex-row items-center gap-4\"{{else}}style={styles.meta}{{/if}}>\n            {{#if (eq icons \"lucide\")}}\n            <View {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center\"{{else}}style={styles.ratingRow}{{/if}}>\n              <Star size={14} color=\"#F59E0B\" fill=\"#F59E0B\" />\n              <Text {{#if (eq styling \"nativewind\")}}className=\"ml-1 text-sm font-medium text-gray-700\"{{else}}style={styles.rating}{{/if}}>\n                {rating}\n              </Text>\n            </View>\n            {{/if}}\n            <Text {{#if (eq styling \"nativewind\")}}className=\"text-sm text-gray-400\"{{else}}style={styles.distance}{{/if}}>\n              {distance}\n            </Text>\n          </View>\n        </View>\n        {{#if (eq icons \"lucide\")}}\n        <Pressable {{#if (eq styling \"nativewind\")}}className=\"h-10 w-10 items-center justify-center rounded-full bg-gray-100\"{{else}}style={styles.bookmarkButton}{{/if}}>\n          <Bookmark size={20} color=\"#6B7280\" />\n        </Pressable>\n        {{/if}}\n      </View>\n\n      {/* Actions */}\n      <View {{#if (eq styling \"nativewind\")}}className=\"mt-5 flex-row gap-3\"{{else}}style={styles.actions}{{/if}}>\n        <Pressable {{#if (eq styling \"nativewind\")}}className=\"flex-1 flex-row items-center justify-center gap-2 rounded-xl bg-blue-600 py-3\"{{else}}style={styles.primaryButton}{{/if}}>\n          {{#if (eq icons \"lucide\")}}\n          <Navigation size={18} color=\"#FFFFFF\" />\n          {{/if}}\n          <Text {{#if (eq styling \"nativewind\")}}className=\"font-semibold text-white\"{{else}}style={styles.primaryButtonText}{{/if}}>\n            Directions\n          </Text>\n        </Pressable>\n        <Pressable {{#if (eq styling \"nativewind\")}}className=\"flex-row items-center justify-center gap-2 rounded-xl border border-gray-200 px-5 py-3\"{{else}}style={styles.secondaryButton}{{/if}}>\n          {{#if (eq icons \"lucide\")}}\n          <Phone size={18} color=\"#374151\" />\n          {{/if}}\n          <Text {{#if (eq styling \"nativewind\")}}className=\"font-medium text-gray-700\"{{else}}style={styles.secondaryButtonText}{{/if}}>\n            Call\n          </Text>\n        </Pressable>\n      </View>\n    </View>\n  );\n}\n\n{{#if (eq styling \"stylesheet\")}}\nconst styles = StyleSheet.create({\n  container: {\n    position: 'absolute',\n    bottom: 0,\n    left: 0,\n    right: 0,\n    borderTopLeftRadius: 24,\n    borderTopRightRadius: 24,\n    backgroundColor: '#FFFFFF',\n    paddingHorizontal: 20,\n    paddingTop: 16,\n    paddingBottom: 32,\n  },\n  handleContainer: {\n    alignItems: 'center',\n  },\n  handle: {\n    height: 4,\n    width: 40,\n    borderRadius: 2,\n    backgroundColor: '#D1D5DB',\n  },\n  header: {\n    flexDirection: 'row',\n    alignItems: 'flex-start',\n    justifyContent: 'space-between',\n  },\n  headerContent: {\n    flex: 1,\n  },\n  name: {\n    fontSize: 20,\n    fontWeight: 'bold',\n    color: '#111827',\n  },\n  address: {\n    marginTop: 4,\n    fontSize: 14,\n    color: '#6B7280',\n  },\n  meta: {\n    marginTop: 8,\n    flexDirection: 'row',\n    alignItems: 'center',\n    gap: 16,\n  },\n  ratingRow: {\n    flexDirection: 'row',\n    alignItems: 'center',\n  },\n  rating: {\n    marginLeft: 4,\n    fontSize: 14,\n    fontWeight: '500',\n    color: '#374151',\n  },\n  distance: {\n    fontSize: 14,\n    color: '#9CA3AF',\n  },\n  bookmarkButton: {\n    height: 40,\n    width: 40,\n    alignItems: 'center',\n    justifyContent: 'center',\n    borderRadius: 20,\n    backgroundColor: '#F3F4F6',\n  },\n  actions: {\n    marginTop: 20,\n    flexDirection: 'row',\n    gap: 12,\n  },\n  primaryButton: {\n    flex: 1,\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'center',\n    gap: 8,\n    borderRadius: 12,\n    backgroundColor: '#2563EB',\n    paddingVertical: 12,\n  },\n  primaryButtonText: {\n    fontWeight: '600',\n    color: '#FFFFFF',\n  },\n  secondaryButton: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'center',\n    gap: 8,\n    borderRadius: 12,\n    borderWidth: 1,\n    borderColor: '#E5E7EB',\n    paddingHorizontal: 20,\n    paddingVertical: 12,\n  },\n  secondaryButtonText: {\n    fontWeight: '500',\n    color: '#374151',\n  },\n});\n{{/if}}\n"
+    }
+  ],
+  "variants": [],
+  "tags": [
+    "map",
+    "location",
+    "navigation",
+    "places"
+  ],
+  "primitives": []
+}

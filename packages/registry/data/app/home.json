@@ -20,10 +20,19 @@
     {
       "path": "app/home/index.tsx",
       "when": { "router": ["expo-router"], "ui": ["native"] },
-      "templateFile": "app/home/app.home.index.hbs"
+      "templateFile": "app/home/app.home.index.hbs",
+      "variants": {
+        "glass": "app/home/app.home.index.glass.hbs"
+      }
     }
   ],
-  "variants": [],
+  "variants": [
+    {
+      "id": "glass",
+      "label": "Glassmorphism",
+      "description": "Frosted glass effect with translucent surfaces and backdrop blur."
+    }
+  ],
   "tags": ["app", "home", "dashboard"],
   "primitives": []
 }

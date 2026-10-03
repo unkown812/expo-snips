@@ -5,6 +5,9 @@
   "scripts": {
     "build": "pnpm -r build",
     "dev": "pnpm -r dev",
-    "test": "pnpm -r test"
+    "test": "pnpm -r test",
+    "validate": "node scripts/validate.mjs",
+    "build:registry": "node scripts/build-registry.mjs",
+    "serve": "node scripts/serve.mjs"
   }
 }

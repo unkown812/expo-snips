@@ -1,0 +1,29 @@
+{
+  "id": "content/article-reader",
+  "name": "Article Reader Screen",
+  "description": "Article detail view with hero image, author byline, and rich text content.",
+  "version": "0.1.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router"],
+    "ui": ["native"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": [
+    "lucide-react-native"
+  ],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "app/article/[id].tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "templateFile": "content/article-reader/app.article.[id].hbs"
+    }
+  ],
+  "variants": [],
+  "tags": ["content", "article", "reader", "blog", "detail"],
+  "primitives": []
+}

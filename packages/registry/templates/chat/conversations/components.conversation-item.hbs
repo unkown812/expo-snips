@@ -1,0 +1,106 @@
+import { View, Text, Pressable, Image{{#if (eq styling "stylesheet")}}, StyleSheet{{/if}} } from 'react-native';
+
+export function ConversationItem({ name, lastMessage, time, unread, avatar }) {
+  return (
+    <Pressable {{#if (eq styling "nativewind")}}className="flex-row items-center px-5 py-4"{{else}}style={styles.container}{{/if}}>
+      <Image
+        source={{ uri: avatar }}
+        {{#if (eq styling "nativewind")}}className="h-12 w-12 rounded-full"{{else}}style={styles.avatar}{{/if}}
+      />
+      <View {{#if (eq styling "nativewind")}}className="ml-3 flex-1"{{else}}style={styles.content}{{/if}}>
+        <View {{#if (eq styling "nativewind")}}className="flex-row items-center justify-between"{{else}}style={styles.header}{{/if}}>
+          <Text 
+            {{#if (eq styling "nativewind")}}className={`text-base font-semibold ${unread > 0 ? 'text-gray-900' : 'text-gray-700'}`}{{else}}style={[styles.name, unread > 0 && styles.nameBold]}{{/if}}
+            numberOfLines={1}
+          >
+            {name}
+          </Text>
+          <Text {{#if (eq styling "nativewind")}}className="text-xs text-gray-400"{{else}}style={styles.time}{{/if}}>
+            {time}
+          </Text>
+        </View>
+        <View {{#if (eq styling "nativewind")}}className="mt-1 flex-row items-center"{{else}}style={styles.messageRow}{{/if}}>
+          <Text 
+            {{#if (eq styling "nativewind")}}className={`flex-1 text-sm ${unread > 0 ? 'text-gray-700' : 'text-gray-500'}`}{{else}}style={[styles.message, unread > 0 && styles.messageBold]}{{/if}}
+            numberOfLines={1}
+          >
+            {lastMessage}
+          </Text>
+          {unread > 0 && (
+            <View {{#if (eq styling "nativewind")}}className="ml-2 h-5 min-w-[20px] items-center justify-center rounded-full bg-blue-600 px-1.5"{{else}}style={styles.badge}{{/if}}>
+              <Text {{#if (eq styling "nativewind")}}className="text-xs font-medium text-white"{{else}}style={styles.badgeText}{{/if}}>
+                {unread}
+              </Text>
+            </View>
+          )}
+        </View>
+      </View>
+    </Pressable>
+  );
+}
+
+{{#if (eq styling "stylesheet")}}
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+  },
+  avatar: {
+    height: 48,
+    width: 48,
+    borderRadius: 24,
+  },
+  content: {
+    marginLeft: 12,
+    flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#374151',
+  },
+  nameBold: {
+    fontWeight: '600',
+    color: '#111827',
+  },
+  time: {
+    fontSize: 12,
+    color: '#9CA3AF',
+  },
+  messageRow: {
+    marginTop: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  message: {
+    flex: 1,
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  messageBold: {
+    color: '#374151',
+  },
+  badge: {
+    marginLeft: 8,
+    height: 20,
+    minWidth: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: '#2563EB',
+    paddingHorizontal: 6,
+  },
+  badgeText: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#FFFFFF',
+  },
+});
+{{/if}}

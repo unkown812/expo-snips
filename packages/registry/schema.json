@@ -1,0 +1,151 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://registry.expo-snips.dev/schema.json",
+  "title": "Expo Snips Screen Recipe",
+  "description": "Schema for a screen recipe in the Expo Snips registry.",
+  "type": "object",
+  "required": ["id", "name", "description", "version", "framework", "runtime", "supported", "dependencies", "files"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+/[a-z0-9-]+$",
+      "description": "Unique identifier in <category>/<name> format."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Human-readable screen name."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Short description for list/preview."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semver of the recipe itself."
+    },
+    "framework": {
+      "type": "string",
+      "enum": ["react-native"],
+      "description": "Target framework."
+    },
+    "runtime": {
+      "type": "string",
+      "enum": ["expo"],
+      "description": "Target runtime."
+    },
+    "typescript": {
+      "type": "boolean",
+      "description": "Whether the recipe is TypeScript-first."
+    },
+    "supported": {
+      "type": "object",
+      "required": ["styling", "router", "ui", "icons"],
+      "properties": {
+        "styling": {
+          "type": "array",
+          "items": { "enum": ["nativewind", "stylesheet", "tamagui"] },
+          "minItems": 1,
+          "description": "Supported styling solutions."
+        },
+        "router": {
+          "type": "array",
+          "items": { "enum": ["expo-router", "react-navigation"] },
+          "minItems": 1,
+          "description": "Supported routing solutions."
+        },
+        "ui": {
+          "type": "array",
+          "items": { "enum": ["native", "shadcn", "custom"] },
+          "minItems": 1,
+          "description": "Supported UI component libraries."
+        },
+        "icons": {
+          "type": "array",
+          "items": { "enum": ["lucide", "vector-icons", "none"] },
+          "minItems": 1,
+          "description": "Supported icon libraries."
+        }
+      },
+      "additionalProperties": false
+    },
+    "dependencies": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "npm packages to auto-install."
+    },
+    "devDependencies": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Dev npm packages to auto-install."
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "templateFile"],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Output file path relative to project root."
+          },
+          "templateFile": {
+            "type": "string",
+            "description": "Relative path to a .hbs template file."
+          },
+          "when": {
+            "type": "object",
+            "properties": {
+              "styling": { "type": "array", "items": { "enum": ["nativewind", "stylesheet", "tamagui"] } },
+              "router": { "type": "array", "items": { "enum": ["expo-router", "react-navigation"] } },
+              "ui": { "type": "array", "items": { "enum": ["native", "shadcn", "custom"] } },
+              "icons": { "type": "array", "items": { "enum": ["lucide", "vector-icons", "none"] } },
+              "typescript": { "type": "boolean" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "description": "Files to generate with template references."
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "Variant identifier."
+          },
+          "label": {
+            "type": "string",
+            "description": "Human-readable variant name."
+          },
+          "description": {
+            "type": "string",
+            "description": "Short description of the variant."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Alternative style variants for this screen."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Search keywords."
+    },
+    "primitives": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "UI primitive recipe ids required when ui === 'shadcn'."
+    }
+  },
+  "additionalProperties": false
+}
