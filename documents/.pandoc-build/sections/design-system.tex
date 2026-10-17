@@ -1,0 +1,292 @@
+\chapter{Design System}
+\label{ch:design-system}
+
+\section{Scope}
+
+Expo Snips ships design decisions in the form of generated screens rather than as a
+documented design system. This chapter extracts the system that is actually encoded
+in the 48 Handlebars templates. Every value below is a literal found in
+\texttt{packages/registry/templates/**/*.hbs}.
+
+\textbf{Status:} IMPLEMENTED (values) / INFERRED (organisation into a system).
+
+\section{Colour palette}
+
+The generated screens use a Tailwind-derived, light, neutral palette with a blue
+accent. Counts are the number of occurrences across all templates.
+
+\begin{longtable}{p{2.3cm}p{2.2cm}p{1.7cm}p{1.2cm}p{5.8cm}}
+\caption{Colour palette derived from template literals}\\
+\toprule
+\textbf{Hex} & \textbf{Tailwind} & \textbf{Count} & \textbf{Role} & \textbf{Usage} \\
+\midrule
+
+\texttt{\#2563EB} & blue-600 & 40 & Primary & Accent links, active states, primary
+buttons, check marks, key icons. \\
+\texttt{\#FFFFFF} & white & 74 & Surface & Cards, inputs, icon buttons, sheets. \\
+\texttt{\#F9FAFB} & gray-50 & 10 & Canvas & App background behind cards. \\
+\texttt{\#F3F4F6} & gray-100 & 16 & Divider & List separators, chart placeholders. \\
+\texttt{\#E5E7EB} & gray-200 & 2 & Border & Secondary borders. \\
+\texttt{\#D1D5DB} & gray-300 & 7 & Border & Input and checkbox borders. \\
+\texttt{\#9CA3AF} & gray-400 & 28 & Muted text & Timestamps, placeholders, chevrons. \\
+\texttt{\#6B7280} & gray-500 & 45 & Secondary text & Body copy, labels, secondary icons. \\
+\texttt{\#4B5563} & gray-600 & 19 & Icon & Default icon colour. \\
+\texttt{\#374151} & gray-700 & 18 & Strong body & Article body, menu labels. \\
+\texttt{\#111827} & gray-900 & 65 & Primary text & Headings and titles. \\
+\texttt{\#EFF6FF} & blue-50 & 5 & Tint & Selected rows, light blue fills. \\
+\texttt{\#DBEAFE} & blue-100 & 3 & Tint & Avatar placeholder background. \\
+\texttt{\#BFDBFE} & blue-200 & 1 & Tint & Product placeholder block. \\
+\texttt{\#93C5FD} & blue-300 & 3 & Accent & Decorative accents. \\
+\texttt{\#60A5FA} & blue-400 & 7 & Accent & Chart bars, highlights. \\
+\texttt{\#3B82F6} & blue-500 & 1 & Accent & Scheduled event colour. \\
+\texttt{\#0F172A} & slate-900 & 3 & Dark surface & Glass-variant background only. \\
+\texttt{\#10B981} & emerald-500 & 4 & Success & Positive trend indicators. \\
+\texttt{\#16A34A} & green-600 & 1 & Success & Success status. \\
+\texttt{\#15803D} & green-700 & 1 & Success text & Success copy. \\
+\texttt{\#D1FAE5} & emerald-100 & 1 & Success fill & Success background. \\
+\texttt{\#DCFCE7} & green-100 & 1 & Success fill & Success background. \\
+\texttt{\#F0FDF4} & green-50 & 1 & Success fill & Success background. \\
+\texttt{\#F59E0B} & amber-500 & 9 & Rating / warning & Star ratings. \\
+\texttt{\#FEF3C7} & amber-100 & 1 & Warning fill & Warning background. \\
+\texttt{\#EF4444} & red-500 & 21 & Error & Error text, destructive icons, negative
+trends. \\
+\texttt{\#DC2626} & red-600 & 1 & Error text & Destructive action label. \\
+\texttt{\#FEE2E2} & red-100 & 1 & Error fill & Error background. \\
+\texttt{\#FEF2F2} & red-50 & 1 & Error fill & Error surface. \\
+\texttt{\#8B5CF6} & violet-500 & 2 & Data accent & Secondary chart series and event
+colour. \\
+\texttt{\#E0E7FF} & indigo-100 & 1 & Data accent & Placeholder block. \\
+\texttt{\#FCE7F3} & pink-100 & 1 & Data accent & Placeholder block. \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Semantic mapping (recommended)}
+
+For a future brand or product site, the following mapping is consistent with the
+templates' own usage. \textbf{Status:} RECOMMENDED.
+
+\begin{table}[H]
+\centering
+\caption{Recommended semantic colour mapping}
+\begin{tabular}{p{4cm}p{2.6cm}p{7.4cm}}
+\toprule
+\textbf{Role} & \textbf{Value} & \textbf{Tokens observed in templates} \\
+\midrule
+Primary / accent & \texttt{\#2563EB} & \texttt{bg-primary}, \texttt{text-primary} \\
+Primary on accent & \texttt{\#FFFFFF} & \texttt{text-primary-foreground} \\
+Canvas & \texttt{\#F9FAFB} & \texttt{bg-gray-50} \\
+Surface & \texttt{\#FFFFFF} & \texttt{bg-white}, \texttt{bg-background} \\
+Text primary & \texttt{\#111827} & \texttt{text-gray-900}, \texttt{text-foreground} \\
+Text secondary & \texttt{\#6B7280} & \texttt{text-gray-500}, \texttt{text-muted-foreground} \\
+Border & \texttt{\#D1D5DB} & \texttt{border-input}, \texttt{border-gray-300} \\
+Destructive & \texttt{\#EF4444} & \texttt{bg-destructive}, \texttt{text-destructive} \\
+Success & \texttt{\#10B981} & trend indicators \\
+Warning & \texttt{\#F59E0B} & rating stars \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{shadcn-style design tokens}
+
+When \texttt{ui=shadcn} is selected, templates switch from literal colour values to
+semantic utility tokens. The tokens actually referenced in templates are:
+
+\begin{table}[H]
+\centering
+\caption{Tokens referenced by shadcn-style templates}
+\begin{tabular}{p{4.4cm}p{9.4cm}}
+\toprule
+\textbf{Token} & \textbf{Where used} \\
+\midrule
+\texttt{bg-background}, \texttt{text-foreground} & Screen containers and titles in
+\ttfamily app.*.index.shadcn.hbs \\
+\texttt{text-muted-foreground} & Subtitles and secondary text \\
+\texttt{text-destructive} & Validation error messages \\
+\texttt{bg-primary}, \texttt{text-primary-foreground} & Default button variant \\
+\texttt{bg-primary/10} & Selected OTP cell fill \\
+\texttt{border-input} & Input and outline-button borders \\
+\texttt{bg-secondary}, \texttt{text-secondary-foreground} & Secondary button variant \\
+\texttt{bg-accent}, \texttt{text-accent-foreground} & Outline/ghost hover states \\
+\texttt{ring-ring} & Web focus ring on buttons \\
+\texttt{rounded-md} (inputs, buttons) & Control radius \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Important gap.} No Tailwind or NativeWind theme configuration is present in
+the repository (\texttt{no tailwind.config.*} or NativeWind theme file exists).
+The tokens above require such a configuration to resolve to concrete colours. This
+is recorded as a known issue and a high-priority technical-debt item
+(Chapters~\ref{ch:known-issues} and~\ref{ch:technical-debt}).
+
+\section{Typography}
+
+\begin{itemize}
+  \item \textbf{Font family:} none is specified. All templates inherit the React
+        Native platform default (system font). No \texttt{fontFamily} appears in any
+        template.
+  \item \textbf{Weights:} \texttt{font-bold} for titles and statistic values,
+        \texttt{font-medium} for labels and button text, regular for body copy.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Type scale (Frontend)}
+\begin{tabular}{p{3.2cm}p{2.2cm}p{2.2cm}p{6.2cm}}
+\toprule
+\textbf{Style} & \textbf{Class} & \textbf{px} & \textbf{Use} \\
+\midrule
+Page title & \texttt{text-3xl} & 30 & Auth and onboarding headings (shadcn variant) \\
+Page title & \texttt{text-2xl} & 24 & Home greeting, header titles \\
+Section title & \texttt{text-lg} & 18 & Section headings, card titles \\
+Body & \texttt{text-base} & 16 & Form values, list titles \\
+Body small & \texttt{text-sm} & 14 & Labels, secondary copy, buttons \\
+Meta & \texttt{text-xs} & 12 & Timestamps, deltas, captions \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+StyleSheet variants encode the same scale numerically (\texttt{fontSize: 12, 14,
+16, 18, 24}) with the same weight conventions.
+
+\section{Spacing}
+
+Spacing is a multiple-of-four scale, expressed either as utility classes or as
+numeric StyleSheet values.
+
+\begin{table}[H]
+\centering
+\caption{Spacing scale observed in templates}
+\begin{tabular}{p{3cm}p{2.6cm}p{8.2cm}}
+\toprule
+\textbf{Value (px)} & \textbf{Class} & \textbf{Typical use} \\
+\midrule
+4 & \texttt{gap-1}, \texttt{mt-1} & Label-to-error spacing \\
+8 & \texttt{gap-2}, \texttt{mb-2} & Icon-to-text gaps \\
+12 & \texttt{gap-3}, \texttt{ml-3} & List item internal spacing \\
+16 & \texttt{gap-4}, \texttt{p-4} & Card padding, form field gaps \\
+20 & \texttt{px-5} & Screen horizontal padding \\
+24 & \texttt{p-6}, \texttt{mt-6} & Section separation, screen padding \\
+32 & \texttt{mt-8} & Major section separation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Screen padding is consistently 20\,px horizontally for list/dashboard screens and
+24\,px for auth and onboarding screens.
+
+\section{Border radius}
+
+\begin{table}[H]
+\centering
+\caption{Radius scale}
+\begin{tabular}{p{3.4cm}p{2.2cm}p{8.2cm}}
+\toprule
+\textbf{Class} & \textbf{px} & \textbf{Use} \\
+\midrule
+\texttt{rounded-2xl} & 16 & Cards, stat tiles, task rows \\
+\texttt{rounded-xl} & 12 & Secondary containers \\
+\texttt{rounded-lg} & 8 & Inputs and buttons (native variant) \\
+\texttt{rounded-md} & 6 & Inputs and buttons (shadcn variant) \\
+\texttt{rounded-full} & --- & Icon buttons (40$\times$40 with radius 20), avatars,
+checkbox dots \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Elevation, borders and shadows}
+
+\begin{itemize}
+  \item \textbf{No shadow or elevation properties appear in any template.} Depth is
+        conveyed by white surfaces on a grey canvas rather than by shadows.
+  \item Borders are used sparingly: \texttt{borderWidth: 2} for checkboxes and OTP
+        cells, single-pixel top/bottom borders for list dividers
+        (\texttt{\#F3F4F6}).
+  \item The glass variant substitutes translucency
+        (\texttt{rgba(255,255,255,0.08)}) for elevation.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED (absence of shadows is verifiable).
+
+\section{Component inventory}
+
+\begin{longtable}{p{3.6cm}p{10.6cm}}
+\caption{Design-system components demonstrated by recipes}\\
+\toprule
+\textbf{Component} & \textbf{Characteristic styling} \\
+\midrule
+
+Card & White, 16\,px radius, 16\,px padding. \\
+Stat tile & Card with a small icon-plus-label row, a 24\,px bold value and a 12\,px
+delta line. \\
+Button (native) & Full-width pressable with an accent fill and white label. \\
+Button (shadcn) & \texttt{cva}-driven variants: default, destructive, outline,
+secondary, ghost, link; sizes default/sm/lg/icon; forwardRef wrapper around
+\texttt{Pressable} with automatic \texttt{Text} child wrapping. \\
+Input (native) & Label above field, bordered row, optional leading icon, error text
+below. \\
+Input (shadcn) & \texttt{TextInput} with tokenised classes, placeholder colour
+\texttt{\#9ca3af}, native height override. \\
+Icon button & 40$\times$40 circle, white, centred icon (20--24\,px). \\
+OTP input & Segmented cells, selected cell tinted, auto-advance, auto-submit. \\
+List row & Icon or avatar, title, subtitle, chevron or badge. \\
+Search bar & Rounded input with a leading search icon. \\
+Toggle row & Label plus a \texttt{Switch}, grouped in a white block with dividers. \\
+Chip & Recent-search pill; category filter. \\
+Rating & Amber star row with a numeric value. \\
+Avatar & Circle with initials or a tinted background. \\
+Bottom sheet & Location detail sheet over a map. \\
+Empty state & Centred muted icon, title, message and a primary action. \\
+\bottomrule
+\end{longtable}
+
+\section{Icons}
+
+\begin{itemize}
+  \item \textbf{Library:} \texttt{lucide-react-native}, declared as a dependency by
+        almost every recipe.
+  \item \textbf{Sizes:} 12--24\,px, with 16 and 20 most common; colour is set
+        explicitly, usually \texttt{\#4B5563} for inactive icons, \texttt{\#9CA3AF}
+        for chevrons and \texttt{\#2563EB} for active state.
+  \item \textbf{Degradation:} template conditionals remove icon imports and icon
+        elements entirely when \texttt{icons} is \texttt{none}, leaving text-only
+        layouts.
+\end{itemize}
+
+\section{Breakpoints and responsive units}
+
+There is no breakpoint system. Layouts are flex-based and therefore inherently
+fluid. The only explicit responsiveness mechanism is NativeWind's \texttt{web:}
+prefix, used in the shadcn primitives for web-only hover, focus and sizing
+behaviour (for example \texttt{web:focus-visible:ring-2} and
+\texttt{native:h-12}).
+
+\section{Animation}
+
+No template uses an animation library, transition or layout animation. Press
+feedback is provided by the platform's \texttt{Pressable}. The button primitive
+adds opacity transitions on press. This is the extent of the motion design.
+
+\section{Design-system gap summary}
+
+\begin{table}[H]
+\centering
+\caption{Design-system gaps}
+\begin{tabular}{p{4.6cm}p{9.2cm}}
+\toprule
+\textbf{Gap} & \textbf{Detail} \\
+\midrule
+No theme configuration & shadcn tokens are referenced but no Tailwind/NativeWind
+theme defines them. \\
+No atomic primitives for the native path & Native-variant screens hand-roll inputs
+and buttons instead of drawing on shared primitives. \\
+No accessibility props & See Section~\ref{ch:ui-ux}. \\
+No dark mode & Only the glass variant is dark, and it is a one-off template. \\
+No icon abstraction & lucide icons are imported directly per template. \\
+Spacing tokens not centralised & Values are repeated literally, not defined once. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Status:} IMPLEMENTED (gaps are verifiable) / RECOMMENDED (centralising the
+system in a theme file).

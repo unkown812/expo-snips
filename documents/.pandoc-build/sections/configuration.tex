@@ -1,0 +1,229 @@
+\chapter{Configuration}
+\label{ch:configuration}
+
+\section{Configuration surfaces}
+
+Expo Snips has no configuration file of its own and no server-side
+configuration. Configuration exists at four points:
+
+\begin{enumerate}
+  \item \textbf{CLI flags and environment variables} (command line / process
+        environment).
+  \item \textbf{VS Code settings} (editor settings, per user or workspace).
+  \item \textbf{Recipe definitions} (JSON data that configures generation
+        behaviour per screen).
+  \item \textbf{Per-project state} (the \texttt{.expo-snips.json} manifest and
+        the detected stack of the user's project).
+\end{enumerate}
+
+There is no \texttt{.env} file in the repository and none is read by the code.
+
+\section{Environment variables}
+
+\begin{longtable}{p{4.4cm}p{2.2cm}p{7.6cm}}
+\caption{Environment variables}\\
+\toprule
+\textbf{Variable} & \textbf{Default} & \textbf{Effect} \\
+\midrule
+
+\texttt{EXPO\_SNIPS\_REGISTRY} & empty (embedded catalog) & Overrides the
+registry base URL used by the CLI. An empty value selects the embedded catalog. \\
+\texttt{PORT} & \texttt{3000} & Port for the development registry server
+(\texttt{scripts/serve.mjs}). \\
+\texttt{NPM\_TOKEN} & --- & CI only. Authenticates npm publishing in
+\texttt{publish.yml}. Never read by application code. \\
+\texttt{GITHUB\_TOKEN} & --- & CI only. Used by the Pages deploy action. Never
+read by application code. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Precedence (CLI):} an explicit \texttt{--registry} flag takes precedence
+over \texttt{EXPO\_SNIPS\_REGISTRY}; when neither is set, the built-in default
+registry constant applies. An empty string in either place means ``use the
+catalog bundled with the package''.
+
+\section{CLI options}
+
+Global and per-command options are defined with \texttt{commander}. The
+generation-relevant options are:
+
+\begin{longtable}{p{3.4cm}p{3.4cm}p{6.8cm}}
+\caption{CLI generation options}\\
+\toprule
+\textbf{Option} & \textbf{Values} & \textbf{Effect} \\
+\midrule
+
+\texttt{--styling} & \texttt{nativewind}, \texttt{stylesheet},
+\texttt{tamagui} & Selects the styling template branch; validated against the
+recipe's \texttt{supported.styling}. \\
+\texttt{--router} & \texttt{expo-router}, \texttt{react-navigation} & Selects the
+navigation template branch; validated against
+\texttt{supported.router}. \\
+\texttt{--ui} & \texttt{native}, \texttt{shadcn}, \texttt{custom} & Selects the UI
+primitive branch; \texttt{shadcn} additionally forces
+\texttt{styling=nativewind} and \texttt{icons=lucide} and pulls in primitive
+recipes. \\
+\texttt{--icons} & \texttt{lucide}, \texttt{vector-icons}, \texttt{none} &
+Selects the icon template branch. \\
+\texttt{--variant} & \textit{recipe-defined} & Selects a named template variant.
+Not validated against the recipe. \\
+\texttt{--typescript} / \texttt{--javascript} & flag & Forces the language branch
+(overrides detection). \\
+\texttt{--no-install} & flag & Skips dependency installation. \\
+\texttt{--registry <url>} & URL & Overrides the registry base URL. \\
+\bottomrule
+\end{longtable}
+
+When an option is omitted, the value is inferred from the project (see below),
+then falls back to a default, then to an interactive prompt if the terminal is
+interactive.
+
+\section{VS Code settings}
+
+The extension contributes a configuration section titled ``Expo Snips'' with
+these properties:
+
+\begin{longtable}{p{4.2cm}p{1.8cm}p{2.4cm}p{5.8cm}}
+\caption{VS Code settings}\\
+\toprule
+\textbf{Setting} & \textbf{Type} & \textbf{Default} & \textbf{Effect} \\
+\midrule
+
+\texttt{expo-snips.registryUrl} & string & \textit{empty} & Remote registry base.
+Empty uses the embedded catalog. \\
+\texttt{expo-snips.defaultStyling} & enum & \texttt{nativewind} & Fallback styling
+when detection fails. Values: \texttt{nativewind}, \texttt{stylesheet},
+\texttt{tamagui}. \\
+\texttt{expo-snips.defaultRouter} & enum & \texttt{expo-router} & Fallback router.
+Values: \texttt{expo-router}, \texttt{react-navigation}. \\
+\texttt{expo-snips.defaultUi} & enum & \texttt{native} & Fallback UI primitives.
+Values: \texttt{native}, \texttt{shadcn}, \texttt{custom}. \\
+\texttt{expo-snips.defaultIcons} & enum & \texttt{lucide} & Fallback icon library.
+Values: \texttt{lucide}, \texttt{vector-icons}, \texttt{none}. \\
+\texttt{expo-snips.installDependencies} & boolean & \texttt{true} & Install
+recipe dependencies in a terminal after generation. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Configuration mismatch to note:} the settings enums advertise
+\texttt{tamagui}, \texttt{vector-icons} and \texttt{custom}, but no recipe in the
+catalog currently implements them (every recipe's \texttt{supported} array
+excludes them). Selecting such a fallback would have no recipe to match. The
+extension README acknowledges this. This is a documentation/configuration
+inconsistency rather than a runtime defect, but it can mislead users.
+
+\section{Project detection (configuration by inference)}
+
+The tool configures itself from the target project rather than requiring input.
+Detection reads:
+
+\begin{longtable}{p{4.6cm}p{9.6cm}}
+\caption{Detection probes}\\
+\toprule
+\textbf{Setting} & \textbf{Probe} \\
+\midrule
+
+Router & \texttt{expo-router} present in dependencies selects
+\texttt{expo-router}; otherwise \texttt{@react-navigation/native} selects
+\texttt{react-navigation}. \\
+Styling & \texttt{nativewind} in dependencies selects \texttt{nativewind};
+otherwise \texttt{stylesheet}. \\
+UI primitives & \texttt{@shadcn/ui} or \texttt{react-native-reusables} selects
+\texttt{shadcn}; otherwise \texttt{native}. \\
+Icons & \texttt{lucide-react-native} selects \texttt{lucide}; otherwise
+\texttt{none}. \\
+TypeScript & Presence of \texttt{tsconfig.json}. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Status:} IMPLEMENTED. Detected values are used as defaults; explicit
+flags (CLI) or settings fallbacks (extension) take precedence.
+
+\section{Recipe-level configuration}
+
+Recipes are the richest configuration surface. A recipe declares:
+
+\begin{itemize}
+  \item its identity and version (\texttt{id}, \texttt{name}, \texttt{description},
+        \texttt{version});
+  \item the options it \emph{supports} (\texttt{supported.styling/router/ui/icons})
+        --- the tool will only generate combinations a recipe declares;
+  \item its \texttt{dependencies} and \texttt{devDependencies};
+  \item its \texttt{files}, each with a target \texttt{path}, a
+        \texttt{templateFile}, an optional \texttt{when} condition, and optional
+        \texttt{variants} and \texttt{perStyling} template overrides;
+  \item optional \texttt{variants} (named style alternatives),
+        \texttt{tags} (search keywords) and \texttt{primitives} (UI primitive
+        recipes required when \texttt{ui=shadcn}).
+\end{itemize}
+
+The authoritative machine-readable definition is
+\texttt{packages/registry/schema.json} (JSON Schema Draft-07), reproduced in
+Chapter~\ref{ch:registry-and-recipes}.
+
+\section{Project state: the manifest}
+
+\begin{lstlisting}[language=JavaScript]
+// .expo-snips.json  (written into the user's project root)
+interface Manifest {
+  version: number;
+  screens: Array<{
+    recipeId: string;
+    recipeVersion: string;
+    variant?: string;
+    options: GenerationOptions;
+    files: string[];
+    installedAt: string;
+  }>;
+}
+\end{lstlisting}
+
+The manifest is created by the tool, written with two-space indentation, and
+tolerates absent or unreadable content by treating the project as having no
+tracked screens. The upsert key for a screen is the recipe id \emph{plus} the
+variant, so the same recipe can be tracked once per variant.
+
+\section{Build and development configuration}
+
+\begin{longtable}{p{4.4cm}p{9.8cm}}
+\caption{Build-related configuration}\\
+\toprule
+\textbf{File} & \textbf{Purpose} \\
+\midrule
+
+\texttt{pnpm-workspace.yaml} & Declares \texttt{packages/*} and an
+\texttt{allowBuilds} policy that enables build scripts for \texttt{esbuild} and
+\texttt{@vscode/vsce-sign} and disables them for \texttt{keytar}. \\
+\texttt{tsconfig.base.json} & Shared TypeScript compiler options extended by each
+package. \\
+Per-package \texttt{tsconfig.json} & Package-specific compilation settings. \\
+\texttt{esbuild.mjs} & Bundle configuration for the extension (CJS, Node 18
+target, \texttt{vscode} external, sourcemap on). \\
+\texttt{.vscodeignore} & Excludes sources and dev material from the packaged
+VSIX. \\
+\texttt{.gitignore} & Excludes build output and generated files from version
+control. \\
+\bottomrule
+\end{longtable}
+
+There is no \texttt{eslint}, \texttt{prettier} or \texttt{editorconfig}
+configuration in the repository.
+
+\section{Configuration summary}
+
+\begin{table}[H]
+\centering
+\caption{Configuration posture}
+\begin{tabular}{p{4.4cm}p{9.8cm}}
+\toprule
+\textbf{Surface} & \textbf{Assessment} \\
+\midrule
+CLI flags / env & IMPLEMENTED; documented in Chapter~\ref{ch:cli-reference}. \\
+Editor settings & IMPLEMENTED; three values advertise unimplemented options. \\
+Recipe data & IMPLEMENTED; schema-governed. \\
+Detection & IMPLEMENTED; four probes plus a TypeScript probe. \\
+Config files & NOT APPLICABLE (none exists). \\
+Secrets & None in the application; CI secrets only. \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,29 @@
+# Git attributes — https://git-scm.com/docs/gitattributes
+#
+# This file is intentionally conservative: it only declares binary file types
+# so Git does not attempt text diffs/merges on them. It deliberately does NOT
+# force line-ending normalization, because the repository currently contains a
+# mix of LF and CRLF files and normalizing them would create large, unrelated
+# diffs. If the maintainers want enforced LF normalization later, add
+# `* text=auto eol=lf` and renormalize in a dedicated commit.
+
+# Binary assets
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.webp binary
+
+# Compiled documentation output (committed as release artifacts)
+*.pdf  binary
+*.docx binary
+
+# Packaged VS Code extension builds (local artifacts)
+*.vsix binary
+
+# Generated catalog + build outputs kept in the tree
+registry/**        linguist-generated=true
+**/dist/**         linguist-generated=true
+**/out/**          linguist-generated=true
+**/src/generated/** linguist-generated=true

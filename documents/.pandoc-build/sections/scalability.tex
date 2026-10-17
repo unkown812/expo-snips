@@ -1,0 +1,131 @@
+\chapter{Scalability}
+\label{ch:scalability}
+
+\section{Scope of the question}
+
+Expo Snips is a developer tool distributed to individual workstations and an
+editor. It is not a multi-tenant online service, so conventional
+\emph{horizontal} web-scale concerns (load balancing, database sharding, request
+fan-out) are \textbf{NOT APPLICABLE}. Scalability here means three concrete
+things:
+
+\begin{enumerate}
+  \item \textbf{Catalog growth} --- does the product still work as the number of
+        recipes and templates grows?
+  \item \textbf{Consumer base growth} --- does the delivery mechanism (npm,
+        GitHub Pages, VS Code Marketplace) absorb many users?
+  \item \textbf{Team growth} --- can more contributors add recipes without
+        conflicts?
+\end{enumerate}
+
+\section{Catalog growth}
+
+\begin{longtable}{p{3.8cm}p{1.9cm}p{8.5cm}}
+\caption{Catalog growth analysis}\\
+\toprule
+\textbf{Dimension} & \textbf{Assessment} & \textbf{Reasoning} \\
+\midrule
+
+Lookup & Good & In-memory array; negligible at hundreds of entries. \\
+Build time & Good & Linear in recipe count; \texttt{build:registry} walks the
+data directory once. \\
+Offline bundle size & Concern & Each client inlines the whole catalog. At 24
+recipes the CLI's catalog module is $\approx$240\,KB; it grows linearly, so a
+catalog of several hundred recipes would bloat the npm package and the extension
+bundle proportionally. \\
+Template duplication & Concern & shadcn and per-styling overrides duplicate
+template text per recipe rather than sharing components. \\
+Delivery size limits & Risk & npm enforces package size guidance; very large
+catalogs would need to move to the remote-registry path by default. \\
+\bottomrule
+\end{longtable}
+
+\textbf{INFERRED:} the current architecture scales comfortably to a few dozen
+recipes but the inline-everything decision becomes the limiting factor at
+scale. The product already contains the escape hatch (the remote registry and
+\texttt{--registry}/\texttt{registryUrl}), but it is off by default.
+
+\textbf{RECOMMENDED:} if the catalog is expected to exceed roughly one hundred
+recipes, move the default to a lighter client that fetches an index and loads
+individual recipes on demand, and keep the full bundle only as an offline
+fallback.
+
+\section{Consumer base growth}
+
+\begin{itemize}
+  \item \textbf{npm distribution:} the public registry is designed for very high
+        read concurrency; the two published packages (\texttt{@expo-snips/core},
+        \texttt{@expo-snips/cli}) impose no server-side burden on the project.
+  \item \textbf{Registry hosting:} the registry is a set of static JSON files
+        deployed to GitHub Pages, which is a CDN-backed static host. Serving
+        \texttt{index.json} and per-recipe documents scales without any
+        application server. There is no dynamic backend to saturate.
+  \item \textbf{VS Code extension:} distribution and updates are handled entirely
+        by the Marketplace; the extension makes no call to project-owned
+        infrastructure unless the user configures a registry URL.
+  \item \textbf{No telemetry:} because nothing reports back, traffic growth has no
+        analytics or write path to contend with.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED. The product's delivery model is effectively
+infinitely scalable for its purpose because it is static and distributed.
+
+\section{Team growth}
+
+\begin{itemize}
+  \item Recipes are independent JSON documents under
+        \texttt{packages/registry/data/}; two contributors adding different
+        recipes touch different files, which is a low-conflict shape for git.
+  \item The \texttt{validate} script enforces structure per recipe, and the
+        \texttt{build:registry} script fails on a missing template, giving
+        contributors fast feedback.
+  \item There is no shared registry lock file or generated index committed per
+        change beyond the build output, so merge conflicts on the index are
+        avoided.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED. \textbf{Gap:} the absence of automated tests and
+the absence of a root \texttt{README} or contribution guide make onboarding
+rely on reading source (see Chapter~\ref{ch:technical-debt}).
+
+\section{Known scalability limits}
+
+\begin{longtable}{p{1.5cm}p{9.3cm}p{3.3cm}}
+\caption{Scalability limits and risks}\\
+\toprule
+\textbf{ID} & \textbf{Limit} & \textbf{Trigger} \\
+\midrule
+
+SCALE-01 & Entire catalog inlined into every client bundle. & Catalog grows past
+a few dozen recipes. \\
+SCALE-02 & No pagination or search index for the remote registry; the client
+fetches and filters the whole index. & Very large catalogs over a remote
+registry. \\
+SCALE-03 & Single static registry host with no versioning strategy documented for
+breaking recipe changes. & Multiple concurrent catalog versions in the wild. \\
+SCALE-04 & Dependency installation is serial and user-visible. & Recipes with many
+or heavy dependencies. \\
+\bottomrule
+\end{longtable}
+
+\section{Summary}
+
+\begin{table}[H]
+\centering
+\caption{Scalability posture}
+\begin{tabular}{p{4.4cm}p{9.8cm}}
+\toprule
+\textbf{Axis} & \textbf{Verdict} \\
+\midrule
+Runtime concurrency & NOT APPLICABLE (single-user local tool). \\
+Delivery / distribution & IMPLEMENTED and inherently scalable (static CDN + npm +
+Marketplace). \\
+Catalog growth & INFERRED to be the real constraint; bounded by the inline
+bundle. \\
+Team growth & IMPLEMENTED (independent recipe files) with onboarding gaps. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Status:} IMPLEMENTED (delivery) / INFERRED (catalog limit) / RECOMMENDED
+(remote-first default at scale).

@@ -1,0 +1,17 @@
+sequenceDiagram
+  participant U as Developer
+  participant C as CLI / VS Code
+  participant R as Registry (static JSON)
+  participant L as Bundled catalog
+  U->>C: expo-snips add auth/login
+  C->>C: getRegistryBase(override)
+  alt remote base configured
+    C->>R: GET {base}/index.json (timeout 10s)
+    R-->>C: RecipeIndexEntry[]
+    C->>R: GET {base}/recipes/auth%2Flogin.json
+    R-->>C: ScreenRecipe (templates inlined)
+  else no base or fetch failed
+    C->>L: getLocalRecipeById(id)
+    L-->>C: ScreenRecipe
+  end
+  C-->>U: Generated files

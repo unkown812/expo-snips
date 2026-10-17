@@ -1,0 +1,286 @@
+\chapter{Functional Requirements}
+\label{ch:functional-requirements}
+
+Each requirement states observable behaviour, the implementing code, and a status
+label. All requirements below are IMPLEMENTED unless stated otherwise.
+
+\section{FR-1 --- Catalog resolution}
+
+\begin{longtable}{p{3cm}p{11cm}}
+\toprule
+\textbf{Aspect} & \textbf{Detail} \\
+\midrule
+\endhead
+Description & The tool resolves the screen catalog from a remote registry when one is
+configured, otherwise from the catalog bundled at build time. \\
+Precedence & Explicit \texttt{--registry} flag, then \texttt{EXPO\_SNIPS\_REGISTRY}
+(CLI), or the \texttt{expo-snips.registryUrl} setting (extension); an empty value
+selects the bundled catalog. \\
+Remote fetch & \texttt{GET \{base\}/index.json} for the index and
+\texttt{GET \{base\}/recipes/\{id\}.json} for a single recipe. \\
+Timeout & 10\,000\,ms via \texttt{AbortController}. \\
+Fallback & Any failure, empty array or non-OK response falls back to the bundled catalog. \\
+Evidence & \texttt{packages/cli/src/utils/registry.ts} (\texttt{getRegistryBase},
+\texttt{resolveRecipeIndex}, \texttt{getRecipeById});
+\texttt{packages/vscode-extension/src/registry.ts}. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Requirement FR-1.1} --- \texttt{getRegistryBase} must normalise trailing
+slashes and trim whitespace.
+\textbf{Requirement FR-1.2} --- the extension must cache a successful remote index
+for 5 minutes and back off from an unreachable registry for the same period.
+
+\section{FR-2 --- Project stack detection}
+
+\begin{longtable}{p{5.2cm}p{8.8cm}}
+\toprule
+\textbf{Detected value} & \textbf{Rule} \\
+\midrule
+\endhead
+Router & \texttt{expo-router} dependency $\rightarrow$ \texttt{expo-router};
+else \texttt{@react-navigation/native} $\rightarrow$ \texttt{react-navigation}. \\
+Styling & \texttt{nativewind} dependency $\rightarrow$ \texttt{nativewind};
+otherwise \texttt{stylesheet}. \\
+UI primitives & \texttt{@shadcn/ui} or \texttt{react-native-reusables} dependency
+$\rightarrow$ \texttt{shadcn}; otherwise \texttt{native}. \\
+Icons & \texttt{lucide-react-native} dependency $\rightarrow$ \texttt{lucide};
+otherwise \texttt{none}. \\
+Language & Presence of \texttt{tsconfig.json} $\rightarrow$ TypeScript. \\
+\bottomrule
+\end{longtable}
+
+Evidence: \texttt{packages/cli/src/utils/detectProject.ts} (all rules) and the
+duplicated implementation in \texttt{packages/vscode-extension/src/project.ts}.
+Note that detection reads \texttt{dependencies} only --- \texttt{devDependencies}
+are not inspected.
+
+\textbf{Requirement FR-2.1} --- detection must return a partial result rather than
+throw when \texttt{package.json} is absent; the CLI then falls back to prompting
+and the extension to settings.
+
+\section{FR-3 --- Option resolution and validation}
+
+Resolution order for each option (styling, router, UI, icons):
+
+\begin{enumerate}
+  \item an explicit CLI flag, if provided;
+  \item if the recipe supports exactly one value, that value;
+  \item the detected value, if the recipe supports it;
+  \item otherwise (CLI) an interactive prompt listing only supported values, or
+        (extension) a configurable default filtered through
+        \texttt{pickSupported()}.
+\end{enumerate}
+
+Any explicitly supplied value that the recipe does not support aborts the command
+with a coloured error message and sets the process exit code to 1
+(\texttt{add.ts} lines 104--159).
+
+Language resolution: \texttt{--javascript} forces JavaScript;
+otherwise \texttt{--typescript} or the detected value, defaulting to
+TypeScript. If a TypeScript-authored recipe is generated as JavaScript a warning
+is printed (\texttt{add.ts} lines 161--165).
+
+\textbf{Requirement FR-3.1} --- selecting \texttt{ui=shadcn} must force
+\texttt{styling=nativewind} and \texttt{icons=lucide}, printing an explanatory
+notice (\texttt{add.ts} lines 202--214; \texttt{generator.ts} lines 82--85).
+
+\section{FR-4 --- Conditional template rendering}
+
+\begin{longtable}{p{4.4cm}p{9.6cm}}
+\toprule
+\textbf{Behaviour} & \textbf{Detail} \\
+\midrule
+\endhead
+File filtering & A file entry with a \texttt{when} clause is skipped unless every
+specified condition matches the generation options. \\
+Template precedence & \texttt{variants[variant]} $\rightarrow$
+\texttt{perStyling[styling]} $\rightarrow$ \texttt{template}. \\
+Compilation & Handlebars compiles each template string with \texttt{eq} and
+\texttt{neq} helpers registered once at module load. \\
+Render context & \texttt{options}, \texttt{styling}, \texttt{router}, \texttt{ui},
+\texttt{icons}, \texttt{typescript}, \texttt{variant}. \\
+Evidence & \texttt{packages/core/src/generate.ts};
+\texttt{packages/core/src/context.ts}. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Requirement FR-4.1} --- a file entry with no resolvable template string
+must be silently skipped rather than throwing.
+
+\section{FR-5 --- File writing}
+
+Files are written relative to the project root (CLI: the current working
+directory; extension: the first workspace folder). Parent directories are created
+on demand. The CLI logs each created path; the extension logs them in a progress
+notification and offers to open the first file.
+
+Evidence: \texttt{packages/cli/src/utils/writeFiles.ts};
+\texttt{packages/vscode-extension/src/generator.ts} lines 214--251.
+
+\section{FR-6 --- UI primitive resolution}
+
+When the effective UI option is \texttt{shadcn}, the engine walks the recipe's
+\texttt{primitives} array recursively, marking ids already seen to avoid cycles,
+forcing \texttt{styling=nativewind} and \texttt{ui=shadcn} on the primitive
+generation context, skipping any file whose path already exists, and merging the
+primitives' dependencies into the install set.
+
+Evidence: \texttt{packages/cli/src/utils/primitives.ts} and the mirrored
+implementation in \texttt{packages/vscode-extension/src/generator.ts}
+(lines 127--179).
+
+The shipped primitive chain is \texttt{ui/button} $\rightarrow$ \texttt{ui/utils}
+and \texttt{ui/input} $\rightarrow$ \texttt{ui/utils}
+(\texttt{packages/registry/data/ui/*.json}).
+
+\section{FR-7 --- Dependency installation}
+
+\begin{itemize}
+  \item Package manager detection: \texttt{pnpm-lock.yaml} $\rightarrow$ pnpm;
+        \texttt{yarn.lock} $\rightarrow$ yarn; \texttt{bun.lockb} $\rightarrow$ bun;
+        otherwise npm.
+  \item Production dependencies are installed with \texttt{<manager> add}; dev
+        dependencies with \texttt{<manager> add -D}.
+  \item The CLI executes synchronously with inherited stdio
+        (\texttt{execSync}, \texttt{stdio: "inherit"}).
+  \item The extension sends the commands to a dedicated ``Expo Snips'' terminal,
+        and only when \texttt{expo-snips.installDependencies} is true (default).
+  \item Duplicate dependencies are removed with a \texttt{Set} before installation.
+\end{itemize}
+
+Evidence: \texttt{installDeps.ts}; \texttt{generator.ts} lines 108--125 and
+265--267.
+
+\textbf{Requirement FR-7.1} --- when \texttt{--no-install} is passed, no
+package-manager command may run.
+
+\section{FR-8 --- Manifest maintenance}
+
+\begin{longtable}{p{3.4cm}p{10.6cm}}
+\toprule
+\textbf{Aspect} & \textbf{Detail} \\
+\midrule
+\endhead
+File name & \texttt{.expo-snips.json}, written at the project root with two-space indentation. \\
+Schema & \texttt{\{ version: number, installs: ManifestEntry[] \}}. \\
+Entry fields & \texttt{recipeId}, \texttt{recipeVersion}, \texttt{installedAt}
+(ISO timestamp), \texttt{options} \{styling, router, ui, icons, typescript\},
+optional \texttt{variant}, \texttt{files[]}. \\
+Upsert key & \texttt{recipeId} together with \texttt{variant} --- reinstalling the
+same recipe/variant replaces the entry. \\
+Corrupt file handling & Invalid JSON yields an empty manifest rather than an error. \\
+Evidence & \texttt{packages/cli/src/utils/manifest.ts};
+\texttt{packages/vscode-extension/src/project.ts} lines 46--103. \\
+\bottomrule
+\end{longtable}
+
+\section{FR-9 --- Update with diff preview}
+
+\texttt{expo-snips update [screenId] [--registry <url>] [--yes]}:
+
+\begin{enumerate}
+  \item read the manifest; if a \texttt{screenId} is supplied, filter to it and
+        error if nothing matches;
+  \item re-fetch each recipe (skipping and warning on recipes no longer present in
+        the catalog);
+  \item re-render using the stored options and variant, including shadcn primitives
+        when applicable;
+  \item compare rendered content against files on disk; a missing file is treated
+        as fully new content;
+  \item if nothing changed, report that everything is up to date;
+  \item otherwise print a line-level diff (longest-common-subsequence) and ask for
+        confirmation unless \texttt{--yes} was given;
+  \item on confirmation, write the files and update each entry's
+        \texttt{recipeVersion}.
+\end{enumerate}
+
+Evidence: \texttt{packages/cli/src/commands/update.ts};
+\texttt{packages/cli/src/utils/diff.ts}.
+
+\section{FR-10 --- Interactive selection}
+
+With no screen argument, the CLI displays a select prompt built from the resolved
+index (id $\rightarrow$ name). Cancelling sets exit code 1. An empty index prints
+guidance and exits non-zero.
+
+Evidence: \texttt{packages/cli/src/commands/add.ts} lines 72--92.
+
+\section{FR-11 --- Project bootstrap}
+
+\texttt{expo-snips init --name <name> --template <template>} runs
+\texttt{npx create-expo-app@latest <name|.> --template <template> --yes}. It
+refuses to proceed when \texttt{app.json} already exists in the current directory.
+
+Evidence: \texttt{packages/cli/src/commands/init.ts}.
+
+\textbf{Status:} IMPLEMENTED. Note the caveat in
+Chapter~\ref{ch:security} regarding shell-string construction.
+
+\section{FR-12 --- CLI information commands}
+
+\texttt{list} prints the count and source of the catalog plus one line per recipe
+(id, name, tags). \texttt{status} prints each manifest entry with its version and
+optional variant, or a message when nothing is tracked.
+
+Evidence: \texttt{packages/cli/src/commands/list.ts};
+\texttt{packages/cli/src/commands/status.ts}.
+
+\section{FR-13 --- Editor integration}
+
+\begin{longtable}{p{3.6cm}p{10.4cm}}
+\toprule
+\textbf{Capability} & \textbf{Detail} \\
+\midrule
+\endhead
+Inline completion & Registered for TypeScript, TSX, JavaScript and JSX, triggered on
+\texttt{:}, matching \texttt{snip:} or \texttt{expo-snips:} immediately before the
+cursor. Each item inserts empty text and runs the generation command with the
+recipe id. \\
+Command palette & \texttt{expo-snips.addScreen} shows a Quick Pick of the catalog. \\
+Status bar & A right-aligned item showing \texttt{\$(sparkle) Expo Snips} bound to
+the add-screen command. \\
+Post-generation & An information message reports the file count and offers
+``Open main file''. \\
+Evidence & \texttt{completionProvider.ts}, \texttt{commands.ts},
+\texttt{extension.ts}, \texttt{generator.ts}. \\
+\bottomrule
+\end{longtable}
+
+\section{FR-14 --- Variant selection}
+
+A recipe may declare variants. Three recipes do:
+\texttt{app/home}, \texttt{auth/login} and \texttt{onboarding/welcome}, each with a
+single \texttt{glass} variant. The CLI accepts \texttt{--variant <id>}; the
+extension shows a Quick Pick when a recipe declares one or more variants.
+Templates can override output per variant through the \texttt{variants} map on a
+file entry.
+
+Evidence: \texttt{packages/core/src/types.ts} (\texttt{ScreenVariant});
+\texttt{packages/registry/data/app/home.json}, \texttt{auth/login.json},
+\texttt{onboarding/welcome.json}; \texttt{generator.ts} lines 92--106.
+
+\section{Requirements traceability}
+
+\begin{longtable}{p{1.6cm}p{5.4cm}p{7.4cm}}
+\caption{Traceability from requirements to source files}\\
+\toprule
+\textbf{Req.} & \textbf{Name} & \textbf{Primary source} \\
+\midrule
+
+FR-1 & Catalog resolution & \texttt{cli/src/utils/registry.ts} \\
+FR-2 & Stack detection & \texttt{cli/src/utils/detectProject.ts} \\
+FR-3 & Option resolution & \texttt{cli/src/commands/add.ts} \\
+FR-4 & Template rendering & \texttt{core/src/generate.ts} \\
+FR-5 & File writing & \texttt{cli/src/utils/writeFiles.ts} \\
+FR-6 & Primitive resolution & \texttt{cli/src/utils/primitives.ts} \\
+FR-7 & Dependency install & \texttt{cli/src/utils/installDeps.ts} \\
+FR-8 & Manifest & \texttt{cli/src/utils/manifest.ts} \\
+FR-9 & Update & \texttt{cli/src/commands/update.ts} \\
+FR-10 & Interactive selection & \texttt{cli/src/commands/add.ts} \\
+FR-11 & Bootstrap & \texttt{cli/src/commands/init.ts} \\
+FR-12 & Info commands & \texttt{cli/src/commands/list.ts}, \texttt{status.ts} \\
+FR-13 & Editor integration & \texttt{vscode-extension/src/*.ts} \\
+FR-14 & Variants & \texttt{core/src/types.ts}, recipe data \\
+\bottomrule
+\end{longtable}

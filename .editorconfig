@@ -1,0 +1,28 @@
+# EditorConfig — https://editorconfig.org
+# Matches the conventions already used in this repository (2-space indent, UTF-8, LF).
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.md]
+# Trailing whitespace is significant for hard line breaks in Markdown.
+trim_trailing_whitespace = false
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.json]
+indent_size = 2
+
+# Handlebars templates mirror their output (TS/RN — 2 spaces).
+[*.hbs]
+indent_size = 2
+
+# The PowerShell build script in documents/ uses LF + 2 spaces, matching [*].

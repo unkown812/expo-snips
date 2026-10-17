@@ -1,0 +1,15 @@
+flowchart TD
+  O["Open Expo project in VS Code"] --> T{"Trigger"}
+  T -- "inline" --> C["Type snip: or expo-snips:<br/>in .ts/.tsx/.js/.jsx"]
+  T -- "palette" --> P["Expo Snips: Add Screen..."]
+  T -- "status bar" --> B["Click sparkle status bar item"]
+  C --> Q["Quick Pick: select screen id"]
+  P --> Q
+  B --> Q
+  Q --> G["detectProject(workspaceRoot)<br/>resolve options from settings"]
+  G --> V{"Recipe defines variants?"}
+  V -- "yes" --> VP["Variant Quick Pick"]
+  V -- "no" --> W
+  VP --> W["Write files + update manifest<br/>progress notification"]
+  W --> N["Notification with Open main file"]
+  N --> D["Optional terminal dependency install"]
