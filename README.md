@@ -214,36 +214,6 @@ No database, no server application, no AI/ML, and no external SaaS are used. The
 
 The CLI and the VS Code extension are thin surfaces over a single shared engine, so a screen generated from the editor is identical to one generated from the terminal.
 
-```mermaid
-flowchart TB
-    Dev["Developer"]
-    CLI["expo-snips CLI<br/>@expo-snips/cli"]
-    VSC["VS Code Extension<br/>expo-snippets"]
-    CORE["@expo-snips/core<br/>Handlebars engine + shared types"]
-    CAT["Bundled offline catalog<br/>generated/registry-data.ts"]
-    REG["Registry HTTP<br/>index.json + recipes/&#123;id&#125;.json"]
-    PROJ["Target Expo / React Native project<br/>generated files + .expo-snips.json"]
-    PM["Package manager<br/>npm / pnpm / yarn / bun"]
-    SRC["packages/registry<br/>24 recipes + 48 templates"]
-
-    Dev --> CLI
-    Dev --> VSC
-    CLI --> CORE
-    VSC --> CORE
-    CLI --> CAT
-    VSC --> CAT
-    CLI -. "optional fetch" .-> REG
-    VSC -. "optional fetch (5 min cache)" .-> REG
-    CORE --> PROJ
-    CLI --> PM
-    VSC --> PM
-    SRC --> CAT
-    SRC --> REG
-```
-
-<details>
-<summary><strong>More architecture diagrams</strong> (from <code>documents/latex/diagrams</code>)</summary>
-
 <br/>
 
 <p align="center">
