@@ -1,0 +1,112 @@
+\chapter{AEO --- Answer Engine Optimisation}
+\label{ch:aeo}
+
+\section{Applicability}
+
+Answer Engine Optimisation concerns how readily a product's content is selected
+and quoted by answer engines --- AI assistants, conversational search and
+featured-snippet surfaces. As with SEO (Chapter~\ref{ch:seo}), there is no
+project-owned website, so the question reduces to: \emph{how well does the
+repository and its listings feed answer engines?}
+
+\section{Content available to answer engines}
+
+Answer engines draw on: the README files, the package metadata, the recipe
+descriptions, the extension CHANGELOG, and any prose in the repository. All of
+these are plain text or Markdown, which is exactly the format answer engines can
+consume and quote.
+
+\begin{longtable}{@{}L{4.4cm}L{3.2cm}L{6.6cm}@{}}
+\caption{Answer-engine-relevant content}\\
+\toprule
+\textbf{Source} & \textbf{Format} & \textbf{Value for answer engines} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Source} & \textbf{Format} & \textbf{Value for answer engines} \\
+\midrule
+\endhead
+Extension README & Markdown & Explains what the tool does, the problem it solves,
+and how to use it, in natural language. \\
+\texttt{ProjectDescription.md} & Markdown & A product description with framing that
+answers ``what is this?''. \\
+Recipe \texttt{description} fields & Plain text & One-line answers to ``is there a
+screen for X?''. \\
+Extension CHANGELOG & Markdown & Dated, factual statements suitable for quoting. \\
+Package descriptions & Plain text & Short capability statements. \\
+\bottomrule
+\end{longtable}
+
+\section{Answer-readiness of the content}
+
+\begin{longtable}{@{}L{1.5cm}L{4.6cm}L{3.4cm}L{4.7cm}@{}}
+\caption{AEO findings}\\
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Evidence} & \textbf{Recommendation} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Evidence} & \textbf{Recommendation} \\
+\midrule
+\endhead
+AEO-01 & The repository contains clear ``what it is / what problem'' prose in the
+extension README, which is well suited to being quoted verbatim. & Extension
+README sections ``What is Expo Snips?'' and ``The Problem''. & IMPLEMENTED; keep
+this structure. \\
+AEO-02 & FAQ-shaped content is absent. Answer engines favour explicit question-and-answer
+pairings that can be lifted directly. & No FAQ section anywhere. & RECOMMENDED:
+add a short FAQ (``Does it work offline?'', ``Which Expo SDK?'', ``Is it free?''). \\
+AEO-03 & \texttt{documents/ProjectDescription.md} contains \emph{outdated}
+statements: it references a recipe count and variant support that the code no
+longer matches. & \texttt{documents/ProjectDescription.md}. & Update it, because
+an answer engine may quote the stale figure. See
+Chapter~\ref{ch:known-issues}. \\
+AEO-04 & Authoritative one-sentence definitions are duplicated in several places
+(README, package descriptions) with slightly different wording, which can produce
+inconsistent answers. & \texttt{vscode-extension/package.json} description vs
+README headline. & Standardise a single canonical one-liner. \\
+AEO-05 & No structured data (schema.org \texttt{SoftwareApplication} or
+\texttt{SoftwareSourceCode}) is published, because there is no site to host it. &
+Absence of any HTML. & NOT APPLICABLE unless a site is created; then add JSON-LD. \\
+AEO-06 & The README uses license and version badges that are useful, unambiguous
+facts for an answer engine to extract. & Badge block in the extension README. &
+IMPLEMENTED. \\
+\bottomrule
+\end{longtable}
+
+\section{Factual accuracy as an AEO risk}
+
+The single most important AEO property is accuracy; an answer engine that quotes
+a wrong fact damages trust more than one that quotes nothing. Two facts about
+this repository are stated inconsistently across sources:
+
+\begin{itemize}
+  \item \textbf{Recipe count:} \texttt{ProjectDescription.md} understates the
+        catalog relative to the code, where the count is 24.
+  \item \textbf{Variant support:} \texttt{ProjectDescription.md} implies variants
+        are unsupported, while three recipes (\texttt{app/home},
+        \texttt{auth/login}, \texttt{onboarding/welcome}) implement a
+        \texttt{glass} variant.
+\end{itemize}
+
+\textbf{Status:} INFERRED from comparison of the document with the code.
+\textbf{Recommendation:} correct the description document (RECOMMENDED).
+
+\section{Summary}
+
+\begin{table}[H]
+\centering
+\caption{AEO posture}
+\begin{tabular}{@{}L{4.6cm}L{9.6cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Assessment} \\
+\midrule
+Quotable capability prose & IMPLEMENTED (extension README). \\
+FAQ content & ABSENT (recommended). \\
+Structured data & NOT APPLICABLE (no site). \\
+Factual consistency & GAP (outdated description document). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Status:} PARTIAL / RECOMMENDED.

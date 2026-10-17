@@ -1,0 +1,150 @@
+\chapter{Project Overview}
+\label{ch:project-overview}
+
+\section{Introduction}
+
+\textbf{Expo Snips} is a developer tooling product that generates complete
+React Native / Expo screens from a short identifier. It ships as two independent
+developer surfaces that share a single generation engine:
+
+\begin{itemize}
+  \item a command-line interface published as \texttt{@expo-snips/cli};
+  \item a Visual Studio Code extension published as \texttt{expo-snippets}
+        (display name ``Expo Snips'').
+\end{itemize}
+
+Both surfaces render versioned ``screen recipes'' from a registry into the
+developer's existing project, then optionally install the recipe's npm
+dependencies and record the installation in a project-level manifest file.
+
+\textbf{Status:} IMPLEMENTED --- see \texttt{packages/cli/package.json},
+\texttt{packages/vscode-extension/package.json} and \texttt{packages/core/src}.
+
+\section{Repository at a glance}
+
+\begin{table}[H]
+\centering
+\caption{Repository identity and metrics (all values verified from the working tree)}
+\begin{tabular}{@{}L{5.4cm}L{9cm}@{}}
+\toprule
+\textbf{Attribute} & \textbf{Value} \\
+\midrule
+Root package name & \texttt{expo-snips} (private workspace root) \\
+Workspace root version & 0.1.0 \\
+Package manager & pnpm 11.9 (workspace declared in \texttt{pnpm-workspace.yaml}) \\
+Workspace packages & 4 (\texttt{packages/*}) \\
+Languages & TypeScript (all packages), JavaScript (build scripts, \texttt{.mjs}) \\
+Node.js requirement & $\geq$ 18 (\texttt{engines.node}) \\
+TypeScript version & 5.5 \\
+Screen recipes & 24 (\texttt{packages/registry/data}) \\
+Handlebars templates & 48 (\texttt{packages/registry/templates}) \\
+Automated test files & 0 \\
+CI workflows & 2 (\texttt{deploy-registry.yml}, \texttt{publish.yml}) \\
+Root README & none \\
+Default branch & \texttt{master} (plus \texttt{origin/gh-pages}) \\
+Commit count at analysis time & 10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Product category}
+
+\textbf{Development tooling / code generation.} Expo Snips is not a SaaS
+application, not a hosted platform and not a component library. It is a local
+developer tool that writes files into the user's own repository.
+
+\textbf{Status:} IMPLEMENTED --- the CLI writes to \texttt{process.cwd()} and the
+extension writes to the VS Code workspace root; there is no server component
+(\texttt{packages/cli/src/utils/writeFiles.ts},
+\texttt{packages/vscode-extension/src/generator.ts}).
+
+\section{Problems addressed}
+
+The repository's own documentation (\texttt{packages/vscode-extension/README.md},
+lines 27--39) states the problem: building Expo / React Native apps requires
+re-writing the same screens repeatedly --- authentication flows, app chrome,
+e-commerce views, onboarding and empty/error states --- each requiring multiple
+files, careful styling and several library integrations.
+
+The templates in the repository confirm this scope: recipes generate a screen
+file, form/child components and hooks, with validation, loading states, error
+handling and keyboard/safe-area handling
+(\texttt{packages/registry/templates/auth/login/*}).
+
+\section{Solution}
+
+A versioned catalog of screen recipes, rendered by a shared Handlebars engine
+that adapts output to the target project's detected stack (styling, router,
+UI primitives, icon library, TypeScript or JavaScript).
+
+\textbf{Status:} IMPLEMENTED --- \texttt{packages/core/src/generate.ts}
+(\texttt{getFilesForRecipe}, conditional \texttt{when} filtering) and
+\texttt{packages/cli/src/utils/detectProject.ts}.
+
+\section{Primary users}
+
+\begin{itemize}
+  \item Expo / React Native application developers building mobile apps.
+  \item Developers who prefer a terminal workflow (CLI) or an editor-native
+        workflow (VS Code completion, command palette, status bar).
+  \item Teams that want a consistent, version-tracked catalog of screen
+        implementations (via the manifest and the \texttt{update} command).
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED (developer as the only actor) /
+INFERRED (team and agency usage, which the repository supports technically but
+does not demonstrate).
+
+\section{High-level capabilities}
+
+\begin{longtable}{@{}L{4.6cm}L{9.8cm}@{}}
+\caption{Capability summary}\\
+\toprule
+\textbf{Capability} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Capability} & \textbf{Description} \\
+\midrule
+\endhead
+Screen generation & Render a recipe into one or more project files. \\
+Stack adaptation & Detect router, styling, UI, icons and TS/JS; render conditionally. \\
+Interactive selection & Prompt for unresolved options (CLI) or fall back to settings (VS Code). \\
+Dependency installation & Run the project's package manager to add recipe dependencies. \\
+Primitive resolution & Recursively add shadcn-style UI primitives when \texttt{ui=shadcn}. \\
+Manifest tracking & Record installs in \texttt{.expo-snips.json}. \\
+Versioned updates & Re-render tracked screens and preview a line diff before writing. \\
+Catalog distribution & Build and serve the registry as static JSON; bundle the catalog offline. \\
+Editor integration & Inline \texttt{snip:} completion, command palette entry and status bar item. \\
+Project bootstrap & Create a new Expo project through \texttt{create-expo-app}. \\
+\bottomrule
+\end{longtable}
+
+\section{What this product is not}
+
+To prevent misreading of later sections, the following are explicitly \textbf{not}
+present in the repository:
+
+\begin{itemize}
+  \item No backend service and no REST/GraphQL API server
+        (\textbf{NOT APPLICABLE}).
+  \item No database, ORM, migrations or schema files
+        (\textbf{NOT APPLICABLE}). The only persisted state is the
+        \texttt{.expo-snips.json} manifest.
+  \item No user accounts, authentication, authorization or sessions in the product
+        itself (\textbf{NOT APPLICABLE}). Authentication \emph{templates} are
+        generated for the user's app; see Chapter~\ref{ch:authentication}.
+  \item No web application, marketing site or dashboard.
+  \item No tests, linters or formatter configuration.
+  \item No Docker, Terraform or other infrastructure-as-code.
+\end{itemize}
+
+\section{Navigating this document}
+
+Chapter~\ref{ch:executive-summary} is written for non-technical stakeholders.
+Chapters~\ref{ch:brd}--\ref{ch:prd} cover business and product requirements.
+Chapters~\ref{ch:system-architecture}--\ref{ch:frontend-architecture} cover
+architecture and design. Chapter~\ref{ch:cli-reference} is the operational
+command reference, Chapter~\ref{ch:api-documentation} documents every callable
+interface, and Chapters~\ref{ch:known-issues}--\ref{ch:technical-debt} record
+verified problems and debt.

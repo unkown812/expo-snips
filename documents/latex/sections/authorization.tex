@@ -1,0 +1,88 @@
+\chapter{Authorization}
+\label{ch:authorization}
+
+\section{Product authorization}
+
+\textbf{Status:} NOT APPLICABLE.
+
+Expo Snips implements no authorization model. There are no roles, permissions,
+policies, access-control lists, middleware guards or protected resources in the
+product. Relevant evidence:
+
+\begin{itemize}
+  \item The CLI has no notion of a user or a role; all subcommands are available to
+        anyone who can execute the binary.
+  \item The extension has no \texttt{when} activation clauses beyond command and
+        language activation, and no user-dependent behaviour.
+  \item The registry is public, read-only static hosting; every recipe and every
+        template is readable by anyone who can reach the host.
+  \item There is no role/permission data model, no RLS (the product has no
+        database) and no policy engine. All \textbf{NOT APPLICABLE}.
+\end{itemize}
+
+\section{Effective privilege boundaries}
+
+Although there is no authorization \emph{model}, the system does have privilege
+boundaries that matter operationally:
+
+\begin{longtable}{@{}L{4.4cm}L{5.4cm}L{4.6cm}@{}}
+\caption{Effective privilege boundaries}\\
+\toprule
+\textbf{Boundary} & \textbf{What is possible} & \textbf{What is not} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Boundary} & \textbf{What is possible} & \textbf{What is not} \\
+\midrule
+\endhead
+Local file writes & Generate files at any path declared by a recipe, relative to the
+project root. & Read arbitrary files (the tool only reads \texttt{package.json},
+\texttt{tsconfig.json}, the manifest and files it is about to overwrite). \\
+Child process execution & Run the detected package manager; run \texttt{npx
+create-expo-app} during \texttt{init}. & Run arbitrary commands from recipe data ---
+recipe \texttt{dependencies} strings are inserted into the install command line. \\
+Network access & Fetch JSON from the configured registry base. & Upload data;
+transmit credentials; authenticate. \\
+Registry content & Any published recipe is trusted and rendered verbatim. & Verify
+provenance or signature. \\
+\bottomrule
+\end{longtable}
+
+\section{A UI access consideration worth recording}
+
+The catalog contains three recipes that are \emph{not} end-user screens but shared
+UI primitives (\texttt{ui/button}, \texttt{ui/input}, \texttt{ui/utils}). They are
+listed by \texttt{expo-snips list} and are selectable from the CLI picker and the
+VS Code Quick Pick exactly like application screens. Nothing in the CLI prevents a
+user from running:
+
+\begin{lstlisting}[language=bash]
+expo-snips add ui/button
+\end{lstlisting}
+
+which writes \texttt{components/ui/button.tsx} (and, because \texttt{ui/button}
+declares \texttt{primitives: ["ui/utils"]}, also \texttt{lib/utils.ts}) directly
+into the project, with \texttt{styling} forced to \texttt{nativewind} and
+\texttt{ui} forced to \texttt{shadcn} by the primitive-resolution logic.
+
+\textbf{Assessment (INFERRED).} This is not a security problem, but it is a
+usability and presentation concern: internal primitives are indistinguishable from
+application screens in every discovery surface. A future revision could filter
+\texttt{ui/*} ids from the user-facing pickers or mark them as internal.
+
+\section{Recommendation}
+
+If a hosted, curated registry is ever offered, authorization will become relevant
+in at least two places:
+
+\begin{enumerate}
+  \item \textbf{Write access} to publish recipes --- currently anyone with write
+        access to the repository (and therefore the CI token) can publish, and
+        there is no review gate beyond pull-request review.
+  \item \textbf{Read access} to private/company catalogs --- the configurable
+        registry has no support for authentication headers or tokens, so a private
+        registry must currently be reachable without credentials (for example, on a
+        trusted network or behind a proxy).
+\end{enumerate}
+
+\textbf{Status:} RECOMMENDED. Neither behaviour exists today.

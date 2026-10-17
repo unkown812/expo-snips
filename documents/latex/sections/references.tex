@@ -1,0 +1,175 @@
+\chapter{References}
+\label{ch:references}
+
+\section{Purpose}
+
+This chapter lists the primary evidence used to produce this documentation. It
+is not a bibliography of external literature; it is a manifest of the repository
+files and configuration that each claim is grounded in. All paths are relative
+to the repository root \texttt{C:\textbackslash Dev\textbackslash expo-snips}.
+
+\section{Primary repository sources}
+
+\begin{longtable}{@{}L{6.2cm}L{8cm}@{}}
+\caption{Manifest and configuration sources}\\
+\toprule
+\textbf{Source} & \textbf{Used for} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Source} & \textbf{Used for} \\
+\midrule
+\endhead
+\texttt{package.json} & Root scripts and workspace name/version. \\
+\texttt{pnpm-workspace.yaml} & Workspace layout and \texttt{allowBuilds} policy. \\
+\texttt{tsconfig.base.json} & Shared TypeScript compiler settings. \\
+\texttt{.gitignore} & Which artefacts are excluded from version control. \\
+\texttt{packages/*/package.json} & Per-package identity, versions, licences,
+dependencies, build scripts. \\
+\texttt{packages/*/tsconfig.json} & Per-package compilation settings. \\
+\texttt{packages/vscode-extension/esbuild.mjs} & Extension bundling configuration. \\
+\texttt{packages/vscode-extension/.vscodeignore} & VSIX exclusion rules. \\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{@{}L{6.2cm}L{8cm}@{}}
+\caption{Source code sources}\\
+\toprule
+\textbf{Source} & \textbf{Used for} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Source} & \textbf{Used for} \\
+\midrule
+\endhead
+\texttt{packages/core/src/types.ts} & Shared type definitions. \\
+\texttt{packages/core/src/context.ts} & Generation context shapes. \\
+\texttt{packages/core/src/generate.ts} & Rendering engine, conditions, helpers,
+variant resolution. \\
+\texttt{packages/core/src/index.ts} & Public surface of the core package. \\
+\texttt{packages/cli/src/index.ts} & CLI command registration and version string. \\
+\texttt{packages/cli/src/commands/*.ts} & \texttt{init}, \texttt{list},
+\texttt{add}, \texttt{update}, \texttt{status} behaviour. \\
+\texttt{packages/cli/src/utils/*.ts} & Detection, diff, install, manifest,
+primitives, registry resolution, write files. \\
+\texttt{packages/vscode-extension/src/*.ts} & Extension activation, commands,
+completion, generation, project detection, registry client. \\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{@{}L{6.2cm}L{8cm}@{}}
+\caption{Data, scripts and automation sources}\\
+\toprule
+\textbf{Source} & \textbf{Used for} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Source} & \textbf{Used for} \\
+\midrule
+\endhead
+\texttt{packages/registry/schema.json} & Recipe JSON Schema (structure, enums,
+required fields). \\
+\texttt{packages/registry/data/**} & The 24 recipes. \\
+\texttt{packages/registry/templates/**} & The 48 Handlebars templates. \\
+\texttt{packages/registry/bundle.json} & Offline catalog bundle and its size. \\
+\texttt{registry/index.json} and \texttt{registry/recipes/**} & Built catalog
+output (tracked). \\
+\texttt{scripts/build-registry.mjs} & Registry build behaviour. \\
+\texttt{scripts/validate.mjs} & Recipe validation rules. \\
+\texttt{scripts/serve.mjs} & Development server, CORS, path-traversal protection,
+\texttt{PORT}. \\
+\texttt{scripts/lib/build-recipes.mjs} & Template inlining and index-entry
+derivation. \\
+\texttt{packages/registry/scripts/build-bundle.mjs} & Bundle construction. \\
+\texttt{packages/*/scripts/prepare-registry.mjs} & Offline catalog generation for
+clients. \\
+\texttt{.github/workflows/publish.yml} & npm release pipeline. \\
+\texttt{.github/workflows/deploy-registry.yml} & Registry deployment pipeline. \\
+\bottomrule
+\end{longtable}
+
+\section{Documentation sources}
+
+\begin{longtable}{@{}L{6.2cm}L{8cm}@{}}
+\caption{Existing documentation consulted}\\
+\toprule
+\textbf{Source} & \textbf{Used for} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Source} & \textbf{Used for} \\
+\midrule
+\endhead
+\texttt{packages/vscode-extension/README.md} & Feature description, settings,
+project structure, roadmap, known limitations. \\
+\texttt{packages/vscode-extension/CHANGELOG.md} & Release history and recent
+fixes. \\
+\texttt{packages/vscode-extension/LICENSE} & Extension licensing. \\
+\texttt{documents/ProjectDescription.md} & Pre-existing product description
+(found to contain outdated claims; see Chapter~\ref{ch:known-issues}). \\
+\bottomrule
+\end{longtable}
+
+\section{External references}
+
+These are the ecosystems the product targets. They are referenced for context
+only; no external content was used as a source of claims about the repository.
+
+\begin{longtable}{@{}L{5cm}L{9.2cm}@{}}
+\caption{External references}\\
+\toprule
+\textbf{Reference} & \textbf{Relevance} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Reference} & \textbf{Relevance} \\
+\midrule
+\endhead
+Expo documentation & The target runtime of generated screens. \\
+React Native documentation & The target platform. \\
+Handlebars documentation & The template engine. \\
+JSON Schema (Draft-07) & The specification the recipe schema follows. \\
+VS Code Extension API & The host API for the extension. \\
+Keep a Changelog / Semantic Versioning & The conventions named in the extension
+CHANGELOG. \\
+\bottomrule
+\end{longtable}
+
+\section{Verified facts ledger}
+
+The following figures appear throughout this document and were verified directly
+from the repository. They are listed here so they can be re-checked.
+
+\begin{longtable}{@{}L{6cm}L{8.2cm}@{}}
+\caption{Verified figures}\\
+\toprule
+\textbf{Figure} & \textbf{Value and source} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Figure} & \textbf{Value and source} \\
+\midrule
+\endhead
+Recipes in the catalog & 24 (\texttt{packages/registry/data}, \texttt{registry/index.json}). \\
+Handlebars templates & 48 (\texttt{packages/registry/templates}). \\
+Packages in the workspace & 4 (\texttt{packages/*}). \\
+Recipes defining a variant & 3 (\texttt{app/home}, \texttt{auth/login},
+\texttt{onboarding/welcome}; the \texttt{glass} variant). \\
+Recipes with no variants & 21. \\
+Offline bundle size & 242{,}775 bytes (\texttt{packages/registry/bundle.json}). \\
+Published index size & 12{,}748 bytes (\texttt{registry/index.json}). \\
+Extension bundle size & 568{,}423 bytes
+(\texttt{packages/vscode-extension/out/extension.js}). \\
+CLI catalog module size & 249{,}874 bytes
+(\texttt{packages/cli/dist/generated/registry-data.js}). \\
+CLI commands & 5 (\texttt{init}, \texttt{list}, \texttt{add}, \texttt{update},
+\texttt{status}). \\
+Core and CLI version & 0.1.0 (MIT). \\
+Registry package & private, version 0.1.0, no licence field. \\
+Extension version & 0.1.3 (\texttt{expo-snippets}, publisher \texttt{ukown812},
+``Private License''). \\
+Commits / branch & 10 commits on \texttt{master} at time of analysis. \\
+Registry endpoints & \texttt{GET \{base\}/index.json},
+\texttt{GET \{base\}/recipes/\{id\}.json}. \\
+\bottomrule
+\end{longtable}

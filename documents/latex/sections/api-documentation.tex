@@ -1,0 +1,308 @@
+\chapter{API Documentation}
+\label{ch:api-documentation}
+
+The system exposes three classes of interface:
+
+\begin{enumerate}
+  \item the \textbf{registry HTTP interface} (read-only static JSON);
+  \item the \textbf{programmatic interfaces} of the published packages;
+  \item the \textbf{CLI interface}, documented in Chapter~\ref{ch:cli-reference}.
+\end{enumerate}
+
+There is no authenticated API, no write API and no server-side application.
+
+\section{Registry HTTP interface}
+
+\subsection*{Base URL resolution}
+
+\begin{longtable}{@{}L{4.2cm}L{10cm}@{}}
+\caption{Registry base URL resolution}\\
+\toprule
+\textbf{Consumer} & \textbf{Resolution chain} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Consumer} & \textbf{Resolution chain} \\
+\midrule
+\endhead
+CLI & \texttt{--registry <url>} flag $\rightarrow$ \texttt{EXPO\_SNIPS\_REGISTRY}
+environment variable $\rightarrow$ empty (embedded catalog). \\
+Extension & \texttt{expo-snips.registryUrl} setting $\rightarrow$ empty (embedded
+catalog). \\
+Declared default constant & \texttt{https://registry.expo-snips.dev}
+(\texttt{DEFAULT\_REGISTRY} in both clients) --- exported but not used as an
+implicit default; an empty base selects the embedded catalog. \\
+Dev server & \texttt{pnpm serve} $\rightarrow$ \texttt{http://localhost:3000}. \\
+\bottomrule
+\end{longtable}
+
+The base is normalised by trimming whitespace and removing trailing slashes.
+
+\subsection*{\texttt{GET /index.json}}
+
+\begin{longtable}{@{}L{3.4cm}L{10.8cm}@{}}
+\toprule
+\textbf{Aspect} & \textbf{Detail} \\
+\midrule
+\textbf{Purpose} & Return the catalog index used for browsing and selection. \\
+\textbf{Method} & GET \\
+\textbf{Authentication} & None. \\
+\textbf{Authorization} & None (public read). \\
+\textbf{Headers} & None required. \\
+\textbf{Parameters} & None. \\
+\textbf{Request body} & None. \\
+\textbf{Response} & JSON array of index entries. \\
+\textbf{Timeout} & Client-side abort after 10\,000\,ms. \\
+\textbf{Status codes} & Any non-2xx is treated as failure by the client
+(\texttt{response.ok} check); the client then falls back to the embedded catalog. \\
+\textbf{Validation} & The client accepts the payload only when it is an array with
+at least one element. \\
+\textbf{Source} & Produced by \texttt{scripts/build-registry.mjs} via
+\texttt{toIndexEntry}. \\
+\bottomrule
+\end{longtable}
+
+Index entry shape:
+
+\begin{lstlisting}[language=JavaScript]
+interface RecipeIndexEntry {
+  id: string;          // e.g. "auth/login"
+  name: string;        // e.g. "Login Screen"
+  description: string;
+  version: string;     // semver, e.g. "0.3.0"
+  typescript: boolean;
+  tags: string[];
+  supported: {
+    styling: string[];
+    router: string[];
+    ui: string[];
+    icons: string[];
+  };
+}
+\end{lstlisting}
+
+Example response fragment (from \texttt{registry/index.json}):
+
+\begin{lstlisting}[language=JavaScript]
+[
+  {
+    "id": "app/home",
+    "name": "Home Dashboard Screen",
+    "description": "Home screen with greeting, stats cards and upcoming tasks list.",
+    "version": "0.1.0",
+    "typescript": true,
+    "tags": ["app", "home", "dashboard"],
+    "supported": {
+      "styling": ["nativewind", "stylesheet"],
+      "router": ["expo-router"],
+      "ui": ["native"],
+      "icons": ["lucide", "none"]
+    }
+  }
+]
+\end{lstlisting}
+
+\textbf{Note.} The index omits \texttt{variants}, so clients browsing only the
+index cannot tell whether a recipe offers variants. Only the full recipe document
+carries them.
+
+\subsection*{\texttt{GET /recipes/\{id\}.json}}
+
+\begin{longtable}{@{}L{3.4cm}L{10.8cm}@{}}
+\toprule
+\textbf{Aspect} & \textbf{Detail} \\
+\midrule
+\textbf{Purpose} & Return one complete recipe with templates inlined. \\
+\textbf{Method} & GET \\
+\textbf{Path parameter} & Recipe id, URL-encoded by the client
+(\texttt{encodeURIComponent}); note that the on-disk path uses a slash
+(\texttt{recipes/auth/login.json}) while the client encodes the slash as
+\texttt{\%2F}. \\
+\textbf{Authentication} & None. \\
+\textbf{Response} & A \texttt{ScreenRecipe} object with \texttt{files[].template}
+strings. \\
+\textbf{Client acceptance} & Accepted only when the payload is an object with a
+truthy \texttt{id}. \\
+\textbf{Fallback} & Embedded catalog lookup by id. \\
+\textbf{Source} & Written by \texttt{scripts/build-registry.mjs} to
+\texttt{registry/recipes/<id>.json}. \\
+\bottomrule
+\end{longtable}
+
+Example (abridged) response:
+
+\begin{lstlisting}[language=JavaScript]
+{
+  "id": "auth/login",
+  "name": "Login Screen",
+  "version": "0.3.0",
+  "framework": "react-native",
+  "runtime": "expo",
+  "typescript": true,
+  "supported": {
+    "styling": ["nativewind", "stylesheet"],
+    "router": ["expo-router", "react-navigation"],
+    "ui": ["native", "shadcn"],
+    "icons": ["lucide", "none"]
+  },
+  "dependencies": ["react-hook-form", "zod", "@hookform/resolvers", "lucide-react-native"],
+  "files": [
+    {
+      "path": "app/login/index.tsx",
+      "when": { "router": ["expo-router"], "ui": ["native"] },
+      "variants": { "glass": "import { ... } from 'react-native'; ..." },
+      "template": "import { View, Text, ... } from 'react-native'; ..."
+    }
+  ],
+  "variants": [{ "id": "glass", "label": "Glassmorphism", "description": "..." }],
+  "tags": ["auth", "login", "form"],
+  "primitives": ["ui/utils", "ui/button", "ui/input"]
+}
+\end{lstlisting}
+
+\subsection*{Local development server}
+
+\texttt{scripts/serve.mjs} starts a Node \texttt{http} server that serves the built
+\texttt{registry/} folder as static files (default port 3000, overridable with the
+\texttt{PORT} environment variable). It:
+
+\begin{itemize}
+  \item answers \texttt{OPTIONS} with \texttt{204} and permissive CORS headers
+        (\texttt{Access-Control-Allow-Origin: *}, methods \texttt{GET, OPTIONS});
+  \item resolves the URL path against the registry root and rejects any path that
+        escapes it, preventing traversal;
+  \item maps directories and trailing slashes to \texttt{index.json};
+  \item returns \texttt{404} with \texttt{\{"error":"Not found"\}} for unknown paths;
+  \item sets a content type from a small extension map (JSON, HBS, PNG, JPG, GIF,
+        SVG) and otherwise \texttt{application/octet-stream}.
+\end{itemize}
+
+It refuses to start when \texttt{registry/index.json} is missing and instructs the
+operator to run \texttt{pnpm build:registry} first.
+
+\section{Programmatic interfaces}
+
+\subsection*{\texttt{@expo-snips/core} (MIT, published)}
+
+\begin{longtable}{@{}L{6.4cm}L{7.8cm}@{}}
+\caption{Public exports of the core package}\\
+\toprule
+\textbf{Export} & \textbf{Purpose} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Export} & \textbf{Purpose} \\
+\midrule
+\endhead
+\texttt{renderTemplate(templateStr, context)} & Render one template to a string. \\
+\texttt{getFilesForRecipe(recipe, context, resolveFile?)} & Render a recipe into
+\texttt{\{path, content\}[]}. \\
+\texttt{GenerationContext}, \texttt{GenerationOptions}, \texttt{RenderContext} & Input
+types for rendering. \\
+\texttt{ScreenRecipe}, \texttt{FileTemplate}, \texttt{ScreenVariant},
+\texttt{Conditions} & Data model types. \\
+\texttt{StylingOption}, \texttt{RouterOption}, \texttt{UIOption}, \texttt{IconOption} &
+Option unions. \\
+\bottomrule
+\end{longtable}
+
+Usage example:
+
+\begin{lstlisting}[language=JavaScript]
+import { getFilesForRecipe, GenerationContext, ScreenRecipe } from "@expo-snips/core";
+
+const context: GenerationContext = {
+  projectRoot: process.cwd(),
+  options: { styling: "nativewind", router: "expo-router", ui: "native", icons: "lucide", typescript: true },
+};
+
+const files = getFilesForRecipe(recipe as ScreenRecipe, context);
+// => [{ path: "app/login/index.tsx", content: "..." }, ...]
+\end{lstlisting}
+
+\subsection*{\texttt{@expo-snips/cli} (MIT, published)}
+
+The CLI package exposes no documented programmatic API. Its
+\texttt{main} points to \texttt{dist/index.js}, which executes the commander
+program as a side effect when imported, so it is intended for use as a binary
+rather than as a library.
+
+\subsection*{\texttt{@expo-snips/registry} (private)}
+
+\begin{longtable}{@{}L{6.4cm}L{7.8cm}@{}}
+\caption{Exports of the registry package}\\
+\toprule
+\textbf{Export} & \textbf{Purpose} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Export} & \textbf{Purpose} \\
+\midrule
+\endhead
+\texttt{loadRecipeFromFile(filePath)} & Parse a recipe and inline \texttt{templateFile},
+variant and per-styling references. \\
+\texttt{getAllRecipes()} & Recursively load and inline every recipe under
+\texttt{data/}. \\
+\texttt{getRecipeById(id)} & Load and match a single recipe. \\
+\texttt{searchRecipes(query)} & Case-insensitive match on id, name or tags. \\
+\texttt{fetchRecipes(url)} & Fetch a remote registry document; accepts a bare array,
+a \texttt{\{recipes\}} bundle, or a single recipe object; throws on a non-OK
+response or an unrecognised body. \\
+\bottomrule
+\end{longtable}
+
+Its filesystem functions resolve paths relative to the package directory using
+\texttt{\_\_dirname}, so they are only meaningful inside the repository or a
+distribution that includes \texttt{data/} and \texttt{templates/}.
+
+\subsection*{\texttt{expo-snippets} (VS Code extension, proprietary)}
+
+Contributes one command and registers a second at runtime.
+
+\begin{longtable}{@{}L{5.6cm}L{8.6cm}@{}}
+\caption{Extension commands and settings contributions}\\
+\toprule
+\textbf{Interface} & \textbf{Definition} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Interface} & \textbf{Definition} \\
+\midrule
+\endhead
+Command & \texttt{expo-snips.addScreen} --- title ``Expo Snips: Add Screen...''. \\
+Command (runtime) & \texttt{expo-snips.generateFromCompletion(recipeId?)}. \\
+Setting & \texttt{expo-snips.registryUrl} (string, default empty). \\
+Setting & \texttt{expo-snips.defaultStyling} (enum, default \texttt{nativewind}). \\
+Setting & \texttt{expo-snips.defaultRouter} (enum, default \texttt{expo-router}). \\
+Setting & \texttt{expo-snips.defaultUi} (enum, default \texttt{native}). \\
+Setting & \texttt{expo-snips.defaultIcons} (enum, default \texttt{lucide}). \\
+Setting & \texttt{expo-snips.installDependencies} (boolean, default \texttt{true}). \\
+Activation & \texttt{onCommand:expo-snips.addScreen} and
+\texttt{onLanguage:\{typescript,\allowbreak typescriptreact,\allowbreak javascript,\allowbreak javascriptreact\}}. \\
+\bottomrule
+\end{longtable}
+
+\section{Failure and error semantics summary}
+
+\begin{longtable}{@{}L{4.4cm}L{3.4cm}L{6.4cm}@{}}
+\caption{Error semantics across interfaces}\\
+\toprule
+\textbf{Failure} & \textbf{Signal} & \textbf{Client behaviour} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Failure} & \textbf{Signal} & \textbf{Client behaviour} \\
+\midrule
+\endhead
+Registry unreachable & Fetch rejects or aborts & Fall back to the embedded catalog;
+CLI prints a warning when a base was configured. \\
+Registry returns non-OK & \texttt{response.ok} false & Same fallback. \\
+Registry returns empty array & Array length 0 & Same fallback. \\
+Recipe missing & \texttt{getRecipeById} returns null & CLI: error and exit 1.
+Extension: error message. \\
+Manifest unreadable & JSON parse throws & Treated as empty manifest. \\
+Unknown primitive id & Recipe lookup returns null & Warning; primitive skipped. \\
+Install failure & Child process error & CLI aborts with the process error; files
+are already written. \\
+\bottomrule
+\end{longtable}

@@ -1,0 +1,204 @@
+\chapter{Business Requirements Document (BRD)}
+\label{ch:brd}
+
+\section{Purpose}
+
+This chapter records the business context that the repository supports. The
+repository is a developer tool with no commercial surface, so business
+requirements are necessarily modest and are stated only where the code provides
+evidence or where an assumption is clearly labelled.
+
+\section{Business problem}
+
+\begin{longtable}{@{}L{3.4cm}L{11cm}@{}}
+\caption{Business problems and repository evidence}\\
+\toprule
+\textbf{Problem} & \textbf{Evidence} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Problem} & \textbf{Evidence} \\
+\midrule
+\endhead
+Repetitive screen construction consumes developer time & Recipe catalog exists precisely to remove repeated screen authoring; \texttt{packages/registry/data/**}. \\
+Inconsistent screen quality across a team & A single shared registry plus deterministic rendering produces identical output; \texttt{packages/core/src/generate.ts}. \\
+Dependency setup drift & Automated install using the project's package manager; \texttt{packages/cli/src/utils/installDeps.ts}. \\
+Screens fall behind catalogue improvements & Versioned recipes, manifest tracking and diff-previewed updates; \texttt{packages/cli/src/commands/update.ts}. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Status:} INFERRED --- these are the business consequences the design
+implies. The repository contains no business case document, no market analysis
+and no customer research.
+
+\section{Business objectives}
+
+Each objective below is expressed as something the current code can already do,
+so that no objective is aspirational:
+
+\begin{enumerate}
+  \item Ship a reusable catalog of best-practice Expo / React Native screens
+        (24 recipes present).
+  \item Make adding a screen a single, reversible action
+        (\texttt{expo-snips add}, with no overwrite of unrelated files).
+  \item Adapt generated code to the developer's existing stack rather than
+        requiring the developer to adapt (stack detection and conditional
+        templates).
+  \item Keep installed screens maintainable over time (manifest, \texttt{status},
+        \texttt{update}).
+  \item Distribute the catalog and packages without manual release steps
+        (GitHub Actions workflows).
+\end{enumerate}
+
+\textbf{Status:} IMPLEMENTED (objectives 1--5 are all realised in code).
+
+\section{Stakeholders}
+
+\begin{longtable}{@{}L{4.2cm}L{10.2cm}@{}}
+\caption{Stakeholders}\\
+\toprule
+\textbf{Stakeholder} & \textbf{Interest} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Stakeholder} & \textbf{Interest} \\
+\midrule
+\endhead
+End users (developers) & Adding complete, correct screens quickly and consistently. \\
+Recipe authors / contributors & An unambiguous way to define screens (JSON Schema, validation script). \\
+Maintainers & Publishing the registry and npm packages reliably; keeping the catalog correct. \\
+Organisation / copyright holder & Declared in \texttt{packages/vscode-extension/LICENSE} as ``Jay Jogane'' (2026). No other organisational information exists in the repository. \\
+\bottomrule
+\end{longtable}
+
+\section{User groups}
+
+\begin{itemize}
+  \item \textbf{CLI users} --- interact through \texttt{init}, \texttt{list},
+        \texttt{add}, \texttt{status}, \texttt{update}.
+  \item \textbf{VS Code users} --- interact through the completion trigger, the
+        command palette and the status bar.
+  \item \textbf{Catalog consumers} --- anyone fetching \texttt{index.json} or
+        individual recipe JSON documents from the registry.
+  \item \textbf{Catalog producers} --- maintainers adding recipes and running
+        \texttt{pnpm validate} and \texttt{pnpm build:registry}.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{Business processes}
+
+\begin{longtable}{@{}L{4cm}L{10.4cm}@{}}
+\caption{Business processes and how they are performed}\\
+\toprule
+\textbf{Process} & \textbf{Implementation} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Process} & \textbf{Implementation} \\
+\midrule
+\endhead
+Publish the screen catalog & Push to \texttt{main}/\texttt{master} $\rightarrow$ \texttt{node scripts/build-registry.mjs} $\rightarrow$ deploy the \texttt{registry/} folder to GitHub Pages (\texttt{deploy-registry.yml}). \\
+Publish the packages & Push a \texttt{v*} tag $\rightarrow$ \texttt{pnpm install} $\rightarrow$ \texttt{pnpm build} $\rightarrow$ publish \texttt{@expo-snips/core} and \texttt{@expo-snips/cli} to npm (\texttt{publish.yml}). \\
+Add a screen recipe & Author a JSON file under \texttt{packages/registry/data/} plus \texttt{.hbs} templates; validate with \texttt{scripts/validate.mjs}; rebuild. \\
+Distribute to users & Users install the CLI from npm or the extension from a \texttt{.vsix}; the catalog is bundled at build time and is also fetched from the registry when configured. \\
+\bottomrule
+\end{longtable}
+
+\section{Business requirements}
+
+\begin{longtable}{@{}L{1.6cm}L{5.4cm}L{7.4cm}@{}}
+\caption{Business requirements}\\
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Evidence / status} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Evidence / status} \\
+\midrule
+\endhead
+BR-01 & The catalog must be distributable independently of the clients. & IMPLEMENTED --- the registry is a folder of static JSON published to GitHub Pages; clients fall back to a bundled copy. \\
+BR-02 & Clients must work without network access. & IMPLEMENTED --- bundled \texttt{REGISTRY\_RECIPES} in both the CLI and the extension. \\
+BR-03 & Generated code must not overwrite unrelated files. & IMPLEMENTED --- only recipe file paths are written; primitives skip files that already exist (\texttt{primitives.ts}). \\
+BR-04 & Installs must be inventoried per project. & IMPLEMENTED --- \texttt{.expo-snips.json} with recipe id, version, options, variant, files and timestamp. \\
+BR-05 & Users must be able to review changes before applying updates. & IMPLEMENTED --- \texttt{update} prints a line diff and requires confirmation unless \texttt{--yes}. \\
+BR-06 & The catalog must be extensible by third parties. & IMPLEMENTED --- JSON Schema plus a self-hosted registry option (\texttt{--registry}, \texttt{EXPO\_SNIPS\_REGISTRY}, \texttt{expo-snips.registryUrl}). \\
+BR-07 & Release of packages must be automated. & IMPLEMENTED --- \texttt{publish.yml} runs on \texttt{v*} tags. \\
+BR-08 & The VS Code extension should also be released automatically. & NOT IMPLEMENTED --- the extension is packaged manually with \texttt{vsce} (\texttt{package.json} script ``package''); no workflow builds it. \\
+BR-09 & No usage telemetry or analytics. & IMPLEMENTED (by absence) --- no analytics, telemetry or tracking code exists. \\
+\bottomrule
+\end{longtable}
+
+\section{Expected outcomes}
+
+\begin{itemize}
+  \item Developers can add a complete screen with one command.
+  \item Generated code matches the project's router, styling, UI primitives, icon
+        library and language.
+  \item Screens remain updateable from the catalog.
+  \item Maintainers can add recipes without changing engine code.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{Success metrics}
+
+\textbf{UNKNOWN.} The repository contains no analytics, telemetry, usage counters,
+issue templates, download badges or any other measurable signal. No success
+metric can be reported without invention, and none is proposed here as fact.
+
+\textbf{Status:} RECOMMENDED (a future measurement programme would be needed to
+establish metrics such as number of generations, recipe coverage or update
+adoption --- but this document does not invent targets).
+
+\section{Constraints}
+
+\begin{itemize}
+  \item Node.js $\geq$ 18 is required (\texttt{engines.node} in the CLI).
+  \item Generated screens consume Expo Router by default; the catalog's
+        react-navigation coverage is limited to \texttt{auth/login} and
+        \texttt{auth/register}.
+  \item The shadcn UI path forces \texttt{styling=nativewind} and
+        \texttt{icons=lucide} (\texttt{add.ts}, lines 202--214 and
+        \texttt{generator.ts}, lines 82--85).
+  \item The registry is unauthenticated static hosting; there is no access
+        control on published recipes.
+  \item The VS Code extension targets VS Code $\geq$ 1.80.0.
+\end{itemize}
+
+\section{Assumptions}
+
+\begin{itemize}
+  \item Users have an existing Expo / React Native project and a working package
+        manager.
+  \item Users will review generated code and replace placeholder business logic
+        before shipping.
+  \item ``Icons = none'' is an acceptable degradation path; templates guard icon
+        imports with \texttt{\{\#if (eq icons "lucide")\}}.
+\end{itemize}
+
+\textbf{Status:} INFERRED.
+
+\section{Risks}
+
+\begin{longtable}{@{}L{1.5cm}L{5.2cm}L{1.9cm}L{5.8cm}@{}}
+\caption{Business risks}\\
+\toprule
+\textbf{ID} & \textbf{Risk} & \textbf{Severity} & \textbf{Mitigation / note} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Risk} & \textbf{Severity} & \textbf{Mitigation / note} \\
+\midrule
+\endhead
+R-01 & Users treat placeholder auth hooks as production logic. & High & Templates carry a \texttt{// Replace with your actual authentication logic} comment and a commented \texttt{supabase} example; user-facing docs should state this plainly. \\
+R-02 & A remote registry is fully trusted: arbitrary recipe templates are rendered to disk and their npm dependencies are executed. & High & No signature or checksum verification exists. Mitigated only by defaulting to the bundled catalog. \\
+R-03 & Declared-but-unimplemented options (\texttt{tamagui}, \texttt{vector-icons}, \texttt{custom}) cause user confusion. & Medium & Document explicitly; see Chapter~\ref{ch:known-issues}. \\
+R-04 & No automated tests means regressions in the engine or CLI are detectable only manually. & Medium & Add a test suite; see Chapter~\ref{ch:testing}. \\
+R-05 & Licensing inconsistency (MIT in two packages, proprietary elsewhere; two different repository URLs). & Medium & Reconcile licence and repository metadata before public distribution. \\
+R-06 & A user's existing files at recipe paths are overwritten by \texttt{add}. & Medium & \texttt{add} writes unconditionally via \texttt{fs.writeFile}; only primitives are skip-aware. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Status:} INFERRED (severity and mitigation are this document's assessment,
+grounded in the cited code).

@@ -1,0 +1,17 @@
+flowchart TD
+  A["expo-snips update [screenId] [--yes]"] --> B["readManifest(projectRoot)"]
+  B --> C{"entries empty?"}
+  C -- "yes" --> Z["Nothing tracked - exit"]
+  C -- "no" --> D["resolveRegistry()"]
+  D --> E["For each manifest entry:<br/>getRecipeById(id)"]
+  E -- "not found" --> SK["warn and skip"]
+  E -- "found" --> F["buildContext(entry)<br/>getFilesForRecipe()"]
+  F --> G["Compare rendered vs on-disk<br/>hasChanges()"]
+  G --> H["diffs[]"]
+  H --> I{"diffs empty?"}
+  I -- "yes" --> Y["All up to date"]
+  I -- "no" --> J["printDiff() per file"]
+  J --> K{"--yes or confirm?"}
+  K -- "no" --> X["Update cancelled"]
+  K -- "yes" --> L["writeFiles()"]
+  L --> M["updateEntryVersions()"]

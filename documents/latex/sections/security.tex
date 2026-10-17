@@ -1,0 +1,303 @@
+\chapter{Security}
+\label{ch:security}
+
+\section{Method and scope}
+
+The review covers the repository's own source, templates, build scripts and CI
+configuration. Findings are stated in a fixed format: finding, severity, evidence,
+impact and recommendation. Severity reflects impact in the product's real deployment
+model --- a locally executed developer tool that writes files into the user's
+project and may fetch content from a configurable registry.
+
+\section{Secrets}
+
+\begin{longtable}{@{}L{1.3cm}L{3.4cm}L{1.9cm}L{6.1cm}L{1.5cm}@{}}
+\caption{Secret-related findings}\\
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Severity} & \textbf{Evidence} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Severity} & \textbf{Evidence} & \textbf{Status} \\
+\midrule
+\endhead
+SEC-01 & No secrets are committed. A recursive search for \texttt{.env} files found
+none, and no credential literals appear in source, templates or workflows. & --- &
+Absence verified across the tree. & PASS \\
+SEC-02 & CI uses repository secrets for publishing
+(\texttt{NPM\_TOKEN}) and the workflow default token
+(\texttt{GITHUB\_TOKEN}), both referenced indirectly rather than inlined. &
+--- & \texttt{publish.yml}, \texttt{deploy-registry.yml}. & PASS \\
+SEC-03 & The CLI has no mechanism to store credentials; it therefore cannot leak
+them. & --- & \texttt{registry.ts} performs unauthenticated GET only. & PASS \\
+\bottomrule
+\end{longtable}
+
+\section{Injection}
+
+\begin{longtable}{@{}L{1.3cm}L{3.6cm}L{1.9cm}L{5.8cm}L{1.6cm}@{}}
+\caption{Injection findings}\\
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Severity} & \textbf{Evidence} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Severity} & \textbf{Evidence} & \textbf{Status} \\
+\midrule
+\endhead
+SEC-04 & \textbf{Shell command construction from unvalidated user input} in
+\texttt{init}. The project name is interpolated directly into a shell string that
+is executed with inherited stdio. A name containing shell metacharacters or quote
+breakout would be interpreted by the shell. & High &
+\texttt{packages/cli/src/commands/init.ts}, lines 20--23. & OPEN \\
+SEC-05 & \textbf{Dependency names are interpolated into an executed shell
+command.} Recipe \texttt{dependencies} strings are joined and passed to
+\texttt{execSync}. With a bundled catalog this is trusted data; with a remote
+registry, recipe content becomes an execution vector (see SEC-08). & High &
+\texttt{packages/cli/src/utils/installDeps.ts}, lines 25 and 35. & OPEN \\
+SEC-06 & No SQL, NoSQL or ORM access exists, so SQL injection is
+\textbf{NOT APPLICABLE}. & --- & No database in the project. & N/A \\
+SEC-07 & Template rendering is not a code-execution path: Handlebars is used in
+default (non-helper-registering) mode with only the \texttt{eq} and \texttt{neq}
+helpers added, and generated output is written to files rather than evaluated. & Low &
+\texttt{packages/core/src/generate.ts}, lines 5--6. & ACCEPTED \\
+\bottomrule
+\end{longtable}
+
+\subsection*{SEC-04 / SEC-05 --- details and recommendation}
+
+\begin{lstlisting}[language=JavaScript]
+// packages/cli/src/commands/init.ts (excerpt)
+const nameArg = name ? `${name}` : ".";
+const cmd = `npx create-expo-app@latest ${nameArg} --template ${template} --yes`;
+execSync(cmd, { cwd: process.cwd(), stdio: "inherit" });
+\end{lstlisting}
+
+Both \texttt{name} and \texttt{template} come from argv. Neither is validated or
+quoted.
+
+\textbf{Impact:} a crafted project name (for example one containing
+\texttt{;}, \texttt{\&\&} or a backtick) executes arbitrary commands with the user's
+privileges. The risk is partly self-inflicted (the user types their own name), but
+the command may also be supplied by a script, CI job or documentation snippet.
+
+\textbf{Recommendation:} use \texttt{execFileSync} (or
+\texttt{spawnSync}) with an argument array so no shell is involved, and validate
+the project name against a conservative pattern
+(\texttt{\^{}[A-Za-z0-9.\_-]+\$}). Apply the same treatment to the dependency
+installer, and validate dependency strings against npm package-name grammar.
+
+\section{Trust boundary: the registry}
+
+\begin{longtable}{@{}L{1.3cm}L{3.6cm}L{1.9cm}L{5.8cm}L{1.6cm}@{}}
+\caption{Remote-content findings}\\
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Severity} & \textbf{Evidence} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Severity} & \textbf{Evidence} & \textbf{Status} \\
+\midrule
+\endhead
+SEC-08 & \textbf{Remote recipes are rendered and written verbatim, with no
+verification.} A configured registry can return any \texttt{files[].path} and any
+template content; the client writes those paths into the user's project and
+installs declared dependencies. & High &
+\texttt{getRecipeById} (both clients) plus \texttt{writeFiles},
+\texttt{installDeps}. & OPEN \\
+SEC-09 & Path traversal is not validated on generated paths. A recipe path
+containing \texttt{..} would resolve outside the project root because paths are
+joined without containment checks. & High &
+\texttt{writeFiles.ts} line 14; \texttt{generator.ts} line 215. & OPEN \\
+SEC-10 & HTTPS is not enforced. A registry base of \texttt{http://} is accepted
+without warning. & Medium & \texttt{getRegistryBase} accepts any string. & OPEN \\
+SEC-11 & There is no integrity check (hash or signature) on fetched recipe
+documents. & Medium & \texttt{fetchJSON} returns parsed JSON directly. & OPEN \\
+\bottomrule
+\end{longtable}
+
+\textbf{Overall assessment.} Because the default configuration uses the embedded
+catalog, the system is safe out of the box. The moment a remote registry is
+configured --- which the product actively documents and supports --- the registry
+becomes a trusted code-distribution channel with none of the controls a package
+manager applies (no signature, no hash, no review, no path containment). This is
+the single most important security consideration in the product.
+
+\textbf{Recommendation (RECOMMENDED):}
+\begin{itemize}
+  \item reject or normalise any generated path that escapes the project root;
+  \item validate dependency strings against the npm name grammar;
+  \item warn or refuse when a non-HTTPS registry is configured;
+  \item consider publishing a manifest of recipes with content hashes and
+        verifying it client-side;
+  \item document the trust implications of \texttt{--registry} prominently.
+\end{itemize}
+
+\section{Generated-code findings}
+
+\begin{longtable}{@{}L{1.3cm}L{3.6cm}L{1.9cm}L{5.8cm}L{1.6cm}@{}}
+\caption{Findings in generated screens}\\
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Severity} & \textbf{Evidence} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Severity} & \textbf{Evidence} & \textbf{Status} \\
+\midrule
+\endhead
+SEC-12 & \textbf{Credentials are logged to the console.} The generated login and
+register hooks execute \texttt{console.log('Login attempt', \{ email, password
+\})}, and the shadcn form logs the whole form payload. & Medium &
+\texttt{hooks.use-login.hbs}; \texttt{components.login-form.shadcn.hbs}. & OPEN \\
+SEC-13 & \textbf{Authentication is a placeholder.} Submission always succeeds after
+a fixed delay and shows a success alert. If a developer ships without replacing it,
+the app reports successful login for any credentials. & High &
+\texttt{hooks.use-login.hbs}, \texttt{hooks.use-register.hbs}. & OPEN (documented) \\
+SEC-14 & No secure storage is generated for any session token; the templates
+perform no session persistence. This is a gap rather than a vulnerability, but it
+means a developer following the scaffolding must add secure storage themselves. &
+Low & Absence across auth templates. & INFO \\
+SEC-15 & Sample data is embedded (statistics, product lists, notification lists,
+placeholder names). No real data or personal data is present. & --- &
+\texttt{packages/registry/templates/**}. & PASS \\
+\bottomrule
+\end{longtable}
+
+\textbf{Recommendation:} remove the credential logging from the auth hook templates
+(or gate it behind a development-only check), and state in the generated file's
+leading comment and in user-facing documentation that the hook must be replaced
+before the screen is functional.
+
+\section{Input validation}
+
+\begin{longtable}{@{}L{4.4cm}L{9.8cm}@{}}
+\caption{Input validation posture}\\
+\toprule
+\textbf{Input} & \textbf{Validation} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Input} & \textbf{Validation} \\
+\midrule
+\endhead
+CLI option values (styling, router, ui, icons) & Checked against the recipe's
+\texttt{supported} arrays; rejected with an error. \\
+CLI screen id & Looked up in the catalog; rejected when absent. \\
+CLI variant id & \emph{Not} validated. An unknown variant is silently ignored and the
+default template is used. \\
+CLI project name and template (\texttt{init}) & None. See SEC-04. \\
+Registry URL & Trimmed and de-slash-normalised; otherwise unvalidated. \\
+Remote response shape & Partially validated: index must be a non-empty array;
+recipe must be an object with a truthy \texttt{id}. No field-level validation. \\
+Recipe field values & Validated only by the build-time validator, not by clients. \\
+Generated file paths & Not validated for containment. See SEC-09. \\
+Recipe dependency strings & Not validated. See SEC-05. \\
+\bottomrule
+\end{longtable}
+
+\section{Cross-site, CORS and web concerns}
+
+\textbf{NOT APPLICABLE} for the product. There is no browser application, no HTML
+rendering of remote content, no cookies and no session-bearing endpoints.
+
+Related observations:
+\begin{itemize}
+  \item The development server sets
+        \texttt{Access-Control-Allow-Origin: *}. This is appropriate for a
+        localhost JSON fixture server but would be inappropriate if it were ever
+        exposed publicly with sensitive content. It serves read-only static JSON, so
+        the exposure is limited.
+  \item The development server implements path-traversal protection by resolving
+        the request against the registry root and rejecting escapes --- a good
+        control, and notably absent from the file-writing path.
+  \item The extension renders recipe descriptions in a
+        \texttt{MarkdownString} in the completion list. VS Code sanitises
+        documentation markdown by default; a malicious registry could still attempt
+        content injection through that channel. Severity low, and only reachable
+        with a configured untrusted registry.
+\end{itemize}
+
+\section{Dependency posture}
+
+\begin{itemize}
+  \item No dependency vulnerability scanning, audit step, Dependabot configuration
+        or lockfile-integrity check exists in CI.
+  \item Versions are declared with caret ranges (for example \texttt{commander
+        \^{}12}, \texttt{handlebars \^{}4.7.8}, \texttt{esbuild \^{}0.21.5}), and a
+        \texttt{pnpm-lock.yaml} is committed.
+  \item \texttt{pnpm-workspace.yaml} explicitly allows build scripts for
+        \texttt{esbuild} and \texttt{@vscode/vsce-sign}, and disables them for
+        \texttt{keytar} --- a positive, deliberate posture-control measure.
+\end{itemize}
+
+\textbf{Status:} PARTIAL. \textbf{Recommendation:} add \texttt{pnpm audit} (or an
+equivalent) to CI and enable dependency update automation.
+
+\section{Positive security controls}
+
+\begin{itemize}
+  \item Network fetches are time-bounded (10\,s), so a hostile or hung endpoint
+        cannot stall the client indefinitely.
+  \item The development server defends against path traversal.
+  \item Regeneration is diff-previewed and confirmation-gated by default.
+  \item Primitives skip existing files, reducing accidental overwrites.
+  \item Recipe validation runs before publication and checks structure and template
+        existence.
+  \item No telemetry means no unintended data egress.
+  \item The offline-by-default design means most users never touch the trust
+        boundary described in Section~\ref{ch:security}.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{Data integrity finding}
+
+\begin{longtable}{@{}L{1.3cm}L{3.6cm}L{1.9cm}L{5.8cm}L{1.6cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Severity} & \textbf{Evidence} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Severity} & \textbf{Evidence} & \textbf{Status} \\
+\midrule
+\endhead
+SEC-16 & \texttt{add} overwrites any existing file at a recipe path without warning
+or backup (only primitives are skip-aware). & Medium &
+\texttt{writeFiles.ts} line 16. & OPEN \\
+SEC-17 & If dependency installation fails, files have already been written and the
+manifest is not updated, leaving a project whose files and manifest disagree. &
+Low & \texttt{add.ts}, lines 238--272 order. & OPEN \\
+\bottomrule
+\end{longtable}
+
+\textbf{Recommendation (RECOMMENDED):} prompt before overwriting a file that was
+not written by a previous generation (that is, one not listed in the manifest), and
+record the manifest entry before installing dependencies (or roll back file writes
+on install failure).
+
+\section{Security summary}
+
+\begin{table}[H]
+\centering
+\caption{Findings by severity}
+\begin{tabular}{@{}L{2.6cm}L{11.6cm}@{}}
+\toprule
+\textbf{Severity} & \textbf{Findings} \\
+\midrule
+High & SEC-04 (init command injection), SEC-05 (dependency-name interpolation),
+SEC-08 (unverified remote recipes), SEC-09 (no path containment), SEC-13 (placeholder
+authentication). \\
+Medium & SEC-10 (HTTPS not enforced), SEC-11 (no integrity check), SEC-12
+(credential logging in generated code), SEC-16 (silent overwrite). \\
+Low & SEC-07 (template execution surface --- accepted), SEC-14 (no secure storage
+generated), SEC-17 (partial-failure consistency). \\
+Pass & SEC-01, SEC-02, SEC-03, SEC-15 and the absence of SQL/CSRF/XSS surfaces. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Status:} RECOMMENDED (all remediations). None of the high-severity findings
+is exploitable without a deliberate action by the user (supplying a crafted project
+name, or configuring an untrusted registry), except SEC-12 and SEC-13, which are
+properties of the code that the tool \emph{generates} and will reach users by
+default.

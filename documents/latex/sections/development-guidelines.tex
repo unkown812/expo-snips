@@ -1,0 +1,189 @@
+\chapter{Development Guidelines}
+\label{ch:development-guidelines}
+
+\section{Purpose}
+
+No formal style guide, linter configuration or \texttt{CONTRIBUTING} file exists
+in the repository. This chapter records the \emph{implicit} conventions that the
+existing code follows, so that new code can be consistent with it. Conventions
+derived from the code are labelled INFERRED; those stated by the authors are
+labelled IMPLEMENTED.
+
+\section{Repository layout and tooling}
+
+\begin{itemize}
+  \item The repository is a pnpm workspace monorepo with packages under
+        \texttt{packages/*} (\texttt{core}, \texttt{cli}, \texttt{registry},
+        \texttt{vscode-extension}).
+  \item Node $\geq$ 18 is required; CI uses Node 20; pnpm 9 is pinned in CI.
+  \item Shared root scripts: \texttt{build}, \texttt{dev}, \texttt{test},
+        \texttt{validate}, \texttt{build:registry}, \texttt{serve}
+        (all recursive where applicable).
+  \item Build output directories (\texttt{dist}, \texttt{out}) and the generated
+        registry modules are excluded by \texttt{.gitignore}.
+\end{itemize}
+
+\section{TypeScript conventions}
+
+The shared compiler configuration (\texttt{tsconfig.base.json}) is the primary
+contract:
+
+\begin{longtable}{@{}L{4.4cm}L{2.6cm}L{7.2cm}@{}}
+\caption{TypeScript settings and their implications}\\
+\toprule
+\textbf{Setting} & \textbf{Value} & \textbf{Implication for contributors} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Setting} & \textbf{Value} & \textbf{Implication for contributors} \\
+\midrule
+\endhead
+\texttt{strict} & \texttt{true} & No implicit \texttt{any}; null checks enforced.
+Code must be fully typed. \\
+\texttt{target} / \texttt{module} & ES2020 / CommonJS & Use ES2020 syntax; output is
+CommonJS for the Node packages. \\
+\texttt{moduleResolution} & \texttt{node} & Classic Node resolution; import
+workspace packages by name. \\
+\texttt{esModuleInterop} & \texttt{true} & Default imports from CommonJS modules
+are permitted. \\
+\texttt{declaration} / \texttt{declarationMap} & \texttt{true} & Public
+\texttt{core} API is published with types. \\
+\texttt{resolveJsonModule} & \texttt{true} & JSON can be imported as a module. \\
+\bottomrule
+\end{longtable}
+
+\textbf{INFERRED coding style:} interfaces and type aliases are preferred for
+public shapes (\texttt{ScreenRecipe}, \texttt{GenerationOptions},
+\texttt{DetectionResult}); functions are small and single-purpose; utilities live
+in a \texttt{utils/} folder within a package; the core exposes a small public
+surface via \texttt{index.ts}. No barrel files beyond the package entry points
+are used.
+
+\section{Extension conventions (INFERRED)}
+
+\begin{itemize}
+  \item The extension is bundled with esbuild to CommonJS, targeting Node 18,
+        with \texttt{vscode} marked external and source maps enabled.
+  \item Runtime libraries the extension needs are bundled, so they are declared
+        as \texttt{devDependencies} rather than \texttt{dependencies}.
+  \item The extension entry point is \texttt{src/extension.ts}; commands,
+        completion provider, generation and project logic are separated into
+        their own modules.
+  \item The offline catalog is regenerated at build time by
+        \texttt{scripts/prepare-registry.mjs}; the generated file is never edited
+        by hand.
+\end{itemize}
+
+\section{Recipe and template conventions (INFERRED + IMPLEMENTED)}
+
+Recipes are the project's main "content" authoring surface, and the conventions
+here are strong and consistent.
+
+\subsection*{Recipe identity}
+
+\begin{itemize}
+  \item An id is \texttt{<category>/<name>}, lowercase, hyphen-separated
+        (\texttt{\^{}[a-z0-9-]+/[a-z0-9-]+}) --- for example \texttt{auth/login}.
+  \item The recipe file must live at a path that matches the id:
+        \texttt{packages/registry/data/auth/login.json}. The validator enforces
+        this.
+  \item The recipe \texttt{version} is semver of the recipe itself
+        (\texttt{auth/login} is at 0.3.0).
+\end{itemize}
+
+\subsection*{Recipe content}
+
+\begin{itemize}
+  \item \texttt{supported} must list only options the recipe actually
+        implements; the clients reject unsupported combinations.
+  \item Every output file is a separate entry in \texttt{files}, with a target
+        \texttt{path} and a \texttt{templateFile}. Multiple entries can target the
+        same path under different \texttt{when} conditions (for example TypeScript
+        vs JavaScript, or native vs shadcn).
+  \item \texttt{when} selects a file entry by styling, router, ui, icons and/or
+        TypeScript.
+  \item \texttt{variants} at the recipe level names alternative styles; a file
+        maps a variant to its template via \texttt{files[].variants}.
+  \item \texttt{primitives} lists UI primitive recipe ids required when
+        \texttt{ui=shadcn} (for example \texttt{ui/utils}, \texttt{ui/button},
+        \texttt{ui/input}).
+  \item \texttt{dependencies} must include every third-party package the
+        templates import. (The \texttt{glass} variants currently violate this;
+        see Chapter~\ref{ch:known-issues}.)
+\end{itemize}
+
+\subsection*{Template naming}
+
+Templates live under \texttt{packages/registry/templates/<category>/<name>/} and
+follow a dotted convention that mirrors the output location, with optional
+modifier segments before the extension:
+
+\begin{longtable}{@{}L{6cm}L{8.2cm}@{}}
+\caption{Template naming examples}\\
+\toprule
+\textbf{Template file} & \textbf{Meaning} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Template file} & \textbf{Meaning} \\
+\midrule
+\endhead
+\texttt{auth/login/app.login.index.hbs} & Expo Router \texttt{index} screen
+(default). \\
+\texttt{auth/login/app.login.index.shadcn.hbs} & shadcn variant of the same
+screen. \\
+\texttt{auth/login/app.login.index.glass.hbs} & \texttt{glass} variant of the same
+screen. \\
+\texttt{auth/login/components.login-form.hbs} & A component file. \\
+\texttt{auth/login/hooks.use-login.hbs} & A hook file (shared by TS and JS
+outputs). \\
+\texttt{auth/login/screens.loginscreen.react-navigation.hbs} &
+\texttt{react-navigation} screen variant. \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Template content rules (INFERRED)}
+
+\begin{itemize}
+  \item Templates are TypeScript/JavaScript source, not markup; they render to
+        \texttt{.tsx}, \texttt{.ts} or \texttt{.js} files.
+  \item Handlebars is used only with the two registered helpers
+        (\texttt{eq}, \texttt{neq}); contributors should not assume custom helpers
+        exist.
+  \item New recipe files must be referenced by path from a recipe document;
+        an orphaned \texttt{.hbs} file is not shipped.
+\end{itemize}
+
+\section{Versioning and change control (INFERRED)}
+
+\begin{itemize}
+  \item The public packages are versioned in their \texttt{package.json} and
+        released by pushing a \texttt{v*} tag.
+  \item The extension follows the CHANGELOG convention (Keep a Changelog plus
+        Semantic Versioning), as stated at the top of its \texttt{CHANGELOG.md}.
+  \item Recipe changes are versioned per recipe, independently of the packages.
+\end{itemize}
+
+\section{Recommended additions to these guidelines}
+
+\textbf{Status:} RECOMMENDED.
+
+\begin{itemize}
+  \item Add a linter and formatter (for example ESLint and Prettier) with a
+        committed configuration, and run them in CI.
+  \item Add an \texttt{.editorconfig} to fix indentation and line endings across
+        editors.
+  \item Document the separation of concerns explicitly: rendering belongs in
+        \texttt{core}; orchestration should also be shared (see
+        Chapter~\ref{ch:technical-debt}); clients should hold only
+        environment-specific code.
+  \item Require a recipe to declare every package its templates import, with an
+        automated check.
+\end{itemize}
+
+\section{Summary}
+
+\textbf{Status:} INFERRED (most conventions) / IMPLEMENTED (recipe identity,
+schema, TypeScript settings, extension bundling). The codebase is internally
+consistent and easy to imitate; the gap is that none of this is written down and
+none of it is enforced automatically.

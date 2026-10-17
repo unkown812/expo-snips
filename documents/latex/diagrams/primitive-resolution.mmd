@@ -1,0 +1,14 @@
+flowchart TD
+  A["Recipe with ui=shadcn<br/>e.g. auth/login"] --> B["primitives:<br/>ui/utils, ui/button, ui/input"]
+  B --> C{"id already in seen set?"}
+  C -- "yes" --> Z["skip"]
+  C -- "no" --> D["mark seen, findRecipe(id)"]
+  D -- "not found" --> W["warn: skipping unknown primitive"]
+  D -- "found" --> E["recurse into primitive.primitives"]
+  E --> F["render primitive with forced<br/>styling=nativewind, ui=shadcn"]
+  F --> G{"file already exists on disk?"}
+  G -- "yes" --> H["record as skipped"]
+  G -- "no" --> I["add to generated files"]
+  I --> J["collect primitive dependencies"]
+  H --> J
+  J --> K["dedupe dependencies + devDependencies"]

@@ -1,0 +1,130 @@
+\chapter{SEO --- Search Engine Optimisation}
+\label{ch:seo}
+
+\section{Applicability}
+
+\textbf{Classic web SEO:} NOT APPLICABLE. The project publishes no website, no
+landing page, no HTML documentation site and no marketing URL. There is no
+\texttt{index.html}, no \texttt{robots.txt}, no \texttt{sitemap.xml} and no
+rendered content for a search engine to index. The only HTTP surface the project
+owns is the recipe registry, which serves machine-readable JSON.
+
+\textbf{Discoverability SEO:} APPLICABLE. The product is discovered through three
+\textbf{listing} channels that function as its search surface, and these are
+where optimisation is meaningful:
+
+\begin{enumerate}
+  \item the npm registry (for \texttt{@expo-snips/core} and
+        \texttt{@expo-snips/cli});
+  \item the VS Code Marketplace listing (for the \texttt{expo-snippets}
+        extension);
+  \item GitHub repository search and general web search of repository content.
+\end{enumerate}
+
+This chapter therefore analyses the metadata that governs discovery in those
+channels.
+
+\section{In-repository SEO signals}
+
+\begin{longtable}{@{}L{3.6cm}L{3.2cm}L{7.4cm}@{}}
+\caption{SEO-relevant metadata found in the repository}\\
+\toprule
+\textbf{Artefact} & \textbf{Signal} & \textbf{Content} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Artefact} & \textbf{Signal} & \textbf{Content} \\
+\midrule
+\endhead
+Extension \texttt{package.json} & \texttt{displayName} & ``Expo Snippets''. \\
+Extension \texttt{package.json} & \texttt{description} & ``Generate complete React
+Native screens with a single abbreviation.'' \\
+Extension \texttt{package.json} & \texttt{keywords} & Over 40 keywords covering
+\texttt{react-native}, \texttt{expo}, \texttt{screen}, \texttt{template},
+\texttt{codegen}, \texttt{expo-router}, \texttt{nativewind}, \texttt{shadcn},
+\texttt{vscode}, \texttt{expo-snips} and more. \\
+Extension \texttt{package.json} & \texttt{categories} & \texttt{Snippets},
+\texttt{Other}. \\
+Extension \texttt{package.json} & \texttt{repository.url} & Links to
+\texttt{github.com/unkown812/expo-snips}. \\
+Extension \texttt{package.json} & \texttt{icon} & \texttt{assets/logo.png}. \\
+Extension README & Rich Markdown & Headings, tables, feature lists, quick-start
+instructions, badges. \\
+CLI \texttt{package.json} & \texttt{description} & ``Beautiful React Native
+screens, one command away.'' \\
+Core \texttt{package.json} & \texttt{description} & ``Shared types and generation
+engine for Expo Snips screens.'' \\
+Repository & Topic titles & Recipe names and descriptions provide natural-language
+keywords (\texttt{auth/login}, \texttt{onboarding/welcome}, \dots). \\
+\bottomrule
+\end{longtable}
+
+\section{Strengths}
+
+\begin{itemize}
+  \item The extension keyword list is unusually broad and covers the phrases a
+        developer would actually search (\texttt{react-native screen generator},
+        \texttt{expo template}, \texttt{codegen}, framework names). Keyword
+        coverage is the strongest discovery asset the project has.
+  \item The extension README is substantial and structured, which is favourable
+        both to the Marketplace listing and to GitHub search.
+  \item The \texttt{repository} field and README links create a coherent
+        cross-channel trail from listing to source.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{Gaps}
+
+\begin{longtable}{@{}L{1.5cm}L{4.6cm}L{3.4cm}L{4.7cm}@{}}
+\caption{SEO findings}\\
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Evidence} & \textbf{Recommendation} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Evidence} & \textbf{Recommendation} \\
+\midrule
+\endhead
+SEO-01 & No website or landing page exists, so every search result resolves to a
+repository or a listing rather than a product page. & Absence of any HTML in the
+repo. & If a product identity is intended, publish a small static site with
+descriptive copy. \\
+SEO-02 & No root README. The top-level repository view shows no descriptive text,
+which weakens GitHub search relevance and first impressions. & Absence of
+\texttt{README.md} at the repository root. & Add a root README that describes the
+monorepo and links the packages. \\
+SEO-03 & npm packages carry only the \texttt{description} field as prose; there is
+no \texttt{README} referenced from the npm listing and no keywords field on the
+npm packages. & \texttt{packages/*/package.json}. & Add \texttt{keywords} and
+ensure a README is published with each npm package. \\
+SEO-04 & Listing metadata is inconsistent: the extension's repository/author
+(\texttt{unkown812}) differs from the owner host implied by some README links
+(\texttt{github.com/expo-snips/expo-snips}). & \texttt{package.json} vs README
+links. & Standardise the canonical repository URL everywhere. \\
+SEO-05 & The registry serves JSON only; nothing about the recipes is
+human-browsable or indexable. & \texttt{scripts/serve.mjs}, \texttt{registry/}. &
+Optionally publish a human-readable catalog page generated from the index. \\
+\bottomrule
+\end{longtable}
+
+\section{Summary}
+
+\begin{table}[H]
+\centering
+\caption{SEO posture}
+\begin{tabular}{@{}L{4.6cm}L{9.6cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Assessment} \\
+\midrule
+Website SEO & NOT APPLICABLE (no website). \\
+Listing keyword coverage & IMPLEMENTED and strong (extension keywords). \\
+npm discoverability & PARTIAL (descriptions only). \\
+Repository discoverability & PARTIAL (no root README). \\
+Cross-channel consistency & Needs work (repository URL mismatch). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Status:} NOT APPLICABLE (web SEO) / PARTIAL (listing SEO) / RECOMMENDED
+(root README, canonical URLs).

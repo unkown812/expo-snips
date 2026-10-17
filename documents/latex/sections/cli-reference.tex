@@ -1,0 +1,271 @@
+\chapter{CLI Reference}
+\label{ch:cli-reference}
+
+\section{Invocation}
+
+\begin{lstlisting}[language=bash]
+expo-snips <command> [options]
+\end{lstlisting}
+
+The binary is declared as \texttt{expo-snips} in
+\texttt{packages/cli/package.json} (\texttt{bin}), and the program name and
+description are set in \texttt{packages/cli/src/index.ts}:
+
+\begin{lstlisting}[language=JavaScript]
+program
+  .name("expo-snips")
+  .description("Beautiful React Native screens, one command away.")
+  .version("0.1.0");
+\end{lstlisting}
+
+\textbf{Note.} The version string is hard-coded in the source rather than read from
+\texttt{package.json}, so it must be kept in sync manually (see
+Chapter~\ref{ch:technical-debt}).
+
+\section{Command summary}
+
+\begin{longtable}{@{}L{2.1cm}L{3.1cm}L{8.6cm}@{}}
+\caption{Command summary}\\
+\toprule
+\textbf{Command} & \textbf{Argument} & \textbf{Purpose} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Command} & \textbf{Argument} & \textbf{Purpose} \\
+\midrule
+\endhead
+\texttt{init} & none & Create a new Expo project using \texttt{create-expo-app}. \\
+\texttt{list} & none & List all available screens from the resolved catalog. \\
+\texttt{add} & \texttt{[screenId]} & Generate a screen into the current project. \\
+\texttt{update} & \texttt{[screenId]} & Update tracked screens to the latest recipe versions. \\
+\texttt{status} & none & Show screens tracked by \texttt{.expo-snips.json}. \\
+\bottomrule
+\end{longtable}
+
+\section{\texttt{expo-snips init}}
+
+\begin{lstlisting}[language=bash]
+expo-snips init [--name <name>] [--template <template>]
+\end{lstlisting}
+
+\begin{longtable}{@{}L{2.6cm}L{1.6cm}L{10.4cm}@{}}
+\caption{\texttt{init} options}\\
+\toprule
+\textbf{Option} & \textbf{Default} & \textbf{Behaviour} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Option} & \textbf{Default} & \textbf{Behaviour} \\
+\midrule
+\endhead
+\texttt{--name <name>} & unset & Project directory name; when unset the argument
+\texttt{.} is used (current directory). \\
+\texttt{--template <template>} & \texttt{default} & Passed to
+\texttt{create-expo-app} as \texttt{--template <template>}. \\
+\bottomrule
+\end{longtable}
+
+Behaviour: if \texttt{app.json} already exists in the current working directory the
+command prints ``An Expo project already exists in this directory.'' and returns
+without doing anything. Otherwise it executes:
+
+\begin{lstlisting}[language=bash]
+npx create-expo-app@latest <name|.> --template <template> --yes
+\end{lstlisting}
+
+with inherited stdio, then prints next-step guidance. No exit code other than 0 is
+set by this command; a failure inside \texttt{create-expo-app} propagates as a
+process error from \texttt{execSync}.
+
+\section{\texttt{expo-snips list}}
+
+\begin{lstlisting}[language=bash]
+expo-snips list [--registry <url>]
+\end{lstlisting}
+
+Resolves the catalog, reports the source (``remote''/``local''), and prints one
+line per recipe: the id padded to 24 characters, the display name, and the tags in
+square brackets when present.
+
+\begin{lstlisting}[language=bash]
+Available screens (24) from local registry:
+
+  app/home                 Home Dashboard Screen [app, home, dashboard]
+  auth/login               Login Screen [auth, login, form]
+  ...
+\end{lstlisting}
+
+Printing an empty catalog prints ``No screens found in the registry.'' and returns
+success. See Section~\ref{sec:list-empty} for the discrepancy between this
+behaviour and the interactive picker's behaviour.
+
+\section{\texttt{expo-snips add}}
+
+\begin{lstlisting}[language=bash]
+expo-snips add [screenId] [options]
+\end{lstlisting}
+
+\begin{longtable}{@{}L{3.4cm}L{2.9cm}L{8.5cm}@{}}
+\caption{\texttt{add} options}\\
+\toprule
+\textbf{Option} & \textbf{Value set} & \textbf{Behaviour} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Option} & \textbf{Value set} & \textbf{Behaviour} \\
+\midrule
+\endhead
+\texttt{--styling <styling>} & nativewind, stylesheet, tamagui & Explicit styling; rejected when the recipe does not support it. \\
+\texttt{--router <router>} & expo-router, react-navigation & Explicit router; rejected when unsupported. \\
+\texttt{--ui <ui>} & native, shadcn, custom & Explicit UI primitives; rejected when unsupported. \\
+\texttt{--icons <icons>} & lucide, vector-icons, none & Explicit icon library; rejected when unsupported. \\
+\texttt{--variant <variant>} & recipe-defined & Screen variant id (for example \texttt{glass}). \\
+\texttt{--typescript} & flag & Force TypeScript. \\
+\texttt{--javascript} & flag & Force JavaScript (takes precedence over \texttt{--typescript}). \\
+\texttt{--no-install} & flag & Skip dependency installation. \\
+\texttt{--registry <url>} & URL & Remote registry base; defaults to \texttt{EXPO\_SNIPS\_REGISTRY}. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Rejected values.} A value that the recipe does not list in
+\texttt{supported} aborts with a red error and exit code 1. This applies to
+\texttt{--styling}, \texttt{--router}, \texttt{--ui} and \texttt{--icons}.
+
+\textbf{Effective-value notices.} Selecting \texttt{--ui shadcn} prints a note and
+overrides \texttt{styling} to \texttt{nativewind} and \texttt{icons} to
+\texttt{lucide}, whether or not those were supplied explicitly. A TypeScript
+recipe generated with \texttt{--javascript} prints a warning but proceeds.
+
+\subsection*{Examples}
+
+\begin{lstlisting}[language=bash]
+# Interactive: pick a screen from a list
+expo-snips add
+
+# Named screen, defaults from project detection
+expo-snips add auth/login
+
+# Force NativeWind and no dependency installation
+expo-snips add app/home --styling nativewind --no-install
+
+# shadcn-style UI (forces nativewind + lucide; adds ui primitives)
+expo-snips add auth/register --ui shadcn
+
+# Glassmorphism variant
+expo-snips add app/home --variant glass
+
+# JavaScript output
+expo-snips add auth/login --javascript
+
+# Point at a locally served registry
+expo-snips add app/home --registry http://localhost:3000
+\end{lstlisting}
+
+\textbf{Variant availability.} \texttt{--variant glass} has an effect only for
+recipes that declare a \texttt{glass} variant: \texttt{app/home},
+\texttt{auth/login} and \texttt{onboarding/welcome}. For any other recipe the flag
+is accepted but produces default output, because the variant override map is empty.
+
+\section{\texttt{expo-snips update}}
+
+\begin{lstlisting}[language=bash]
+expo-snips update [screenId] [--registry <url>] [--yes]
+\end{lstlisting}
+
+\begin{longtable}{@{}L{3.4cm}L{2.9cm}L{8.5cm}@{}}
+\caption{\texttt{update} options}\\
+\toprule
+\textbf{Option} & \textbf{Value set} & \textbf{Behaviour} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Option} & \textbf{Value set} & \textbf{Behaviour} \\
+\midrule
+\endhead
+\texttt{[screenId]} & recipe id & Update only this recipe; error when no tracked
+entry matches. \\
+\texttt{--registry <url>} & URL & Remote registry base. \\
+\texttt{--yes} & flag & Apply without the confirmation prompt. \\
+\bottomrule
+\end{longtable}
+
+Behaviour:
+
+\begin{itemize}
+  \item No tracked screens: prints guidance to use \texttt{add} and returns.
+  \item Nothing changed: prints ``All tracked screens are up to date.''
+  \item Changes found: prints the file count, a coloured diff per changed file, then
+        a confirmation prompt defaulting to \emph{no}; declining prints ``Update
+        cancelled.''
+  \item Applied: rewrites the files and prints the number of updated screens.
+  \item A tracked recipe missing from the registry is skipped with a warning.
+\end{itemize}
+
+\begin{lstlisting}[language=bash]
+expo-snips update
+expo-snips update auth/login
+expo-snips update --yes
+\end{lstlisting}
+
+\textbf{Important behaviour.} \texttt{update} compares the newly rendered content
+with the file currently on disk. If the developer has edited a generated file, the
+update will overwrite those edits once applied. The diff is the only safeguard.
+
+\section{\texttt{expo-snips status}}
+
+\begin{lstlisting}[language=bash]
+expo-snips status
+\end{lstlisting}
+
+Reads \texttt{.expo-snips.json} from the current working directory and prints each
+entry as \texttt{<recipeId padded to 24> v<recipeVersion>} with an optional
+\texttt{(variant: <id>)} suffix, followed by a hint to run
+\texttt{expo-snips update}.
+
+\begin{lstlisting}[language=bash]
+Tracked screens (2):
+
+  auth/login               v0.3.0
+  app/home                 v0.1.0 (variant: glass)
+
+Run expo-snips update to update them to the latest version.
+\end{lstlisting}
+
+With no tracked screens it prints ``No screens tracked in this project yet.''
+
+\section{Exit codes and error messages}
+
+\begin{longtable}{@{}L{4.4cm}L{9.6cm}@{}}
+\caption{Failure conditions and messages}\\
+\toprule
+\textbf{Condition} & \textbf{Message and exit code} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Condition} & \textbf{Message and exit code} \\
+\midrule
+\endhead
+Interactive selection cancelled & no message; exit code 1. \\
+Screen id not found (\texttt{add}) & ``Screen not found: <id>'' plus a pointer to
+\texttt{list}; exit code 1. \\
+Option unsupported by recipe & ``Recipe "..." does not support <option> "...".''
+exit code 1. \\
+No files matched the options & ``No files matched the selected options. Nothing
+generated.''; exit code 1. \\
+No tracked entries for a given \texttt{update <id>} & ``No installed screens match
+"<id>".'' plus pointer to \texttt{status}; exit code 1. \\
+Empty catalog during interactive \texttt{add} & guidance to reinstall the CLI or
+configure a registry; exit code 1. \\
+Empty catalog during \texttt{list} & ``No screens found in the registry.''; exit code 0. \\
+\bottomrule
+\end{longtable}
+
+\label{sec:list-empty}
+
+\section{Version discrepancy note}
+
+The CLI's \texttt{--version} output is the literal string \texttt{0.1.0} defined in
+\texttt{src/index.ts}. The \texttt{package.json} also declares \texttt{0.1.0}, so
+they currently agree; however, changing one without the other would silently
+diverge. The VS Code extension avoids this class of problem by letting the editor
+read the version from its manifest.

@@ -1,0 +1,163 @@
+\chapter{Classification and Coverage}
+\label{app:classification}
+
+\section{Evidence labels}
+
+Every substantive claim in this documentation carries one of five labels. The
+labels are used literally as \textbf{Status:} markers throughout.
+
+\begin{longtable}{@{}L{3.4cm}L{11cm}@{}}
+\caption{Evidence labels}\\
+\toprule
+\textbf{Label} & \textbf{Meaning} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Label} & \textbf{Meaning} \\
+\midrule
+\endhead
+IMPLEMENTED & The behaviour exists in the repository and the claim is supported by
+a specific file, configuration or artefact. \\
+INFERRED & A conclusion drawn from structure or behaviour that is not stated
+explicitly. The reasoning is given. \\
+RECOMMENDED & A proposed improvement that is \emph{not} present. Never presented
+as if it existed. \\
+UNKNOWN & The claim cannot be determined from the repository (for example
+external hosting state). \\
+NOT APPLICABLE & The concept does not exist in this product. Never used to hide a
+gap --- gaps are labelled as such. \\
+\bottomrule
+\end{longtable}
+
+Supporting conventions: security findings use \emph{Finding / Severity / Evidence
+/ Impact / Recommendation}; maintenance items use \emph{Open / Accepted / Pass}
+or \emph{Open / Unknown}; maintenance registers use identifiers (SEC, KI, TD,
+PERF, SCALE, SEO, AEO, GEO, RM, RN).
+
+\section{Coverage of requested document types}
+
+The table below records every document type that was requested and states how it
+was handled. Section types marked \textbf{NOT APPLICABLE} were deliberately
+\emph{not} written as standalone chapters, because writing them would mean
+padding a chapter with no repository evidence. Their non-applicability is stated
+explicitly so nothing is silently omitted.
+
+\begin{longtable}{@{}L{4.6cm}L{2.7cm}L{7.1cm}@{}}
+\caption{Requested document types and their handling}\\
+\toprule
+\textbf{Requested type} & \textbf{Handling} & \textbf{Location / reason} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Requested type} & \textbf{Handling} & \textbf{Location / reason} \\
+\midrule
+\endhead
+Project overview & Written & Chapter~\ref{ch:project-overview} \\
+Project description & Written & Chapter~\ref{ch:project-description} \\
+Executive summary & Written & Chapter~\ref{ch:executive-summary} \\
+Business requirements (BRD) & Written & Chapter~\ref{ch:brd} \\
+Product requirements (PRD) & Written & Chapter~\ref{ch:prd} \\
+Functional requirements & Written & Chapter~\ref{ch:functional-requirements} \\
+Non-functional requirements & Written & Chapter~\ref{ch:non-functional-requirements} \\
+Technical requirements & Written & Chapter~\ref{ch:technical-requirements} \\
+Software architecture & Written & Chapter~\ref{ch:software-architecture} \\
+System architecture & Written & Chapter~\ref{ch:system-architecture} \\
+High-level design & Written & Chapter~\ref{ch:high-level-design} \\
+Low-level design & Written & Chapter~\ref{ch:low-level-design} \\
+Frontend architecture & Written & Chapter~\ref{ch:frontend-architecture} \\
+Backend architecture & NOT APPLICABLE & No backend or server application exists
+in the repository; the only server is a local static JSON fixture
+(\texttt{scripts/serve.mjs}). \\
+Database design & NOT APPLICABLE & There is no database, ORM or persistence layer.
+The only persisted state is a JSON manifest in the user's project. \\
+API documentation & Written & Chapter~\ref{ch:api-documentation} (registry HTTP
+contract and the core TypeScript API). \\
+Authentication & Written & Chapter~\ref{ch:authentication} (no real auth in the
+product; the \emph{generated} auth is analysed). \\
+Authorization & Written & Chapter~\ref{ch:authorization} (largely not applicable;
+records the absence of roles/permissions). \\
+User flows & Written & Chapter~\ref{ch:user-flows} \\
+Data flows & Written & Chapter~\ref{ch:data-flows} \\
+UI/UX & Written & Chapter~\ref{ch:ui-ux} \\
+Design system & Written & Chapter~\ref{ch:design-system} \\
+Security & Written & Chapter~\ref{ch:security} \\
+Performance & Written & Chapter~\ref{ch:performance} \\
+Scalability & Written & Chapter~\ref{ch:scalability} \\
+Testing & Written & Chapter~\ref{ch:testing} \\
+Deployment & Written & Chapter~\ref{ch:deployment} \\
+CI/CD & Written & Chapter~\ref{ch:cicd} \\
+Integrations & Written & Chapter~\ref{ch:integrations} \\
+Configuration & Written & Chapter~\ref{ch:configuration} \\
+SEO & Written & Chapter~\ref{ch:seo} \\
+AEO & Written & Chapter~\ref{ch:aeo} \\
+GEO & Written & Chapter~\ref{ch:geo} \\
+Known issues & Written & Chapter~\ref{ch:known-issues} \\
+Technical debt & Written & Chapter~\ref{ch:technical-debt} \\
+Roadmap & Written & Chapter~\ref{ch:roadmap} \\
+Development guidelines & Written & Chapter~\ref{ch:development-guidelines} \\
+Contribution guide & Written & Chapter~\ref{ch:contribution-guide} \\
+Glossary & Written & Chapter~\ref{ch:glossary} \\
+\bottomrule
+\end{longtable}
+
+\section{Additional chapters written}
+
+Two additional chapters were written because the repository contains material
+that the requested list did not cover explicitly and that would otherwise go
+undocumented:
+
+\begin{itemize}
+  \item \textbf{CLI reference} (Chapter~\ref{ch:cli-reference}) --- the CLI is a
+        primary product surface with five commands and a precise option set.
+  \item \textbf{Registry and recipes}
+        (Chapter~\ref{ch:registry-and-recipes}) --- the recipe schema and catalog
+        are the product's core data model.
+\end{itemize}
+
+Three appendices were added: the catalog reference
+(Chapter~\ref{app:catalog}), the environment and toolchain
+(Chapter~\ref{app:environment}), and this classification appendix. A file index
+follows (Chapter~\ref{app:file-index}).
+
+\section{Applicability summary}
+
+\begin{longtable}{@{}L{4.4cm}L{2.4cm}L{7.6cm}@{}}
+\caption{Areas that are not applicable to this product}\\
+\toprule
+\textbf{Area} & \textbf{Verdict} & \textbf{Basis} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Area} & \textbf{Verdict} & \textbf{Basis} \\
+\midrule
+\endhead
+Backend / server application & NOT APPLICABLE & No server code. \\
+Database / migrations & NOT APPLICABLE & No database. \\
+User accounts / tenancy & NOT APPLICABLE & No accounts. \\
+Role-based access control & NOT APPLICABLE & No roles or permissions. \\
+Web / browser UI & NOT APPLICABLE & No web application. \\
+Public website / landing page & NOT APPLICABLE & No site; registry is JSON. \\
+Telemetry / analytics & NOT APPLICABLE & None present (and none is a gap to fill). \\
+Payment / billing & NOT APPLICABLE & Product is free/open-source packages plus a
+privately licensed extension; no transactions in code. \\
+Containerisation / IaC & NOT APPLICABLE & Static hosting only. \\
+Real-time / streaming & NOT APPLICABLE & No such feature. \\
+\bottomrule
+\end{longtable}
+
+\section{Reading guide}
+
+\begin{itemize}
+  \item For a business reader: Chapters~\ref{ch:project-overview}--\ref{ch:prd},
+        plus this appendix and Chapter~\ref{ch:known-issues}.
+  \item For an engineer integrating or extending: Chapters
+        \ref{ch:software-architecture}--\ref{ch:frontend-architecture},
+        \ref{ch:cli-reference}--\ref{ch:data-flows}, and
+        Chapters~\ref{ch:development-guidelines}--\ref{ch:contribution-guide}.
+  \item For an assessor: Chapters~\ref{ch:security}, \ref{ch:performance},
+        \ref{ch:scalability}, \ref{ch:testing}, \ref{ch:cicd}, and
+        Chapters~\ref{ch:known-issues}--\ref{ch:roadmap}.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED (this appendix describes the documentation itself and
+the applicability of each area, all verifiable from the repository).

@@ -1,0 +1,122 @@
+\chapter{GEO --- Generative Engine Optimisation}
+\label{ch:geo}
+
+\section{Applicability and scope}
+
+Generative Engine Optimisation concerns whether a product is represented and
+cited accurately by generative systems: large language models and the assistants
+built on them, including code-generating assistants. For a developer tool, GEO
+matters because a common way a developer learns about a library is to ask an
+assistant ``how do I scaffold an Expo login screen?''.
+
+There is no project-owned website to optimise, so classic GEO tactics
+(rich pages, citations, entity markup) are \textbf{NOT APPLICABLE}. What is
+applicable is the \emph{corpus footprint}: whether the project's own material is
+present, self-consistent and machine-consumable where generative systems look.
+
+\section{Corpus footprint}
+
+\begin{longtable}{@{}L{4.4cm}L{2.8cm}L{7cm}@{}}
+\caption{Sources a generative system could learn from}\\
+\toprule
+\textbf{Source} & \textbf{Availability} & \textbf{Content} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Source} & \textbf{Availability} & \textbf{Content} \\
+\midrule
+\endhead
+Public GitHub repository & Public (master branch) & Source, recipes, templates,
+workflows, READMEs. \\
+npm packages & Public & \texttt{@expo-snips/core}, \texttt{@expo-snips/cli}
+metadata and (if a README is published) documentation. \\
+VS Code Marketplace listing & Public (when listed) & Extension metadata, README,
+keywords. \\
+Recipe registry JSON & Public & Structured catalog with descriptions and tags. \\
+Answering-assistant context & Not controlled & Unknown whether any model has been
+trained on or cites this project. \\
+\bottomrule
+\end{longtable}
+
+\section{Generative-readiness properties}
+
+\begin{itemize}
+  \item \textbf{Structured, self-describing data:} the recipe catalog is JSON
+        Schema-conformant, with \texttt{id}, \texttt{name}, \texttt{description}
+        and \texttt{tags} per recipe. This is precisely the shape a generative
+        system can reason over, and it is a genuine strength.
+  \item \textbf{Machine-readable API documentation:} the \texttt{@expo-snips/core}
+        package ships TypeScript declarations, and the generated
+        \texttt{registry-data.ts} is typed, giving models accurate signatures.
+  \item \textbf{Versioned, dated history:} the extension CHANGELOG is dated and
+        factual.
+  \item \textbf{No telemetry or private corpus:} nothing about the tool's usage is
+        captured, so there is no private signal to leak or misrepresent.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{Representation risks}
+
+\begin{longtable}{@{}L{1.5cm}L{4.6cm}L{3.4cm}L{4.7cm}@{}}
+\caption{GEO findings}\\
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Evidence} & \textbf{Recommendation} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Evidence} & \textbf{Recommendation} \\
+\midrule
+\endhead
+GEO-01 & Inconsistent identity across sources: the extension publishes under
+publisher \texttt{ukown812} and repository \texttt{github.com/unkown812/expo-snips},
+while some README links point at \texttt{github.com/expo-snips/expo-snips}. A
+generative system may conflate these into a wrong citation. & Extension
+\texttt{package.json} vs README links. & Canonicalise one repository URL and apply
+it everywhere. \\
+GEO-02 & Name collision risk: the extension is published as \texttt{expo-snippets},
+the CLI as \texttt{@expo-snips/cli}, and the product as ``Expo Snips''. Models may
+treat these as three products. & \texttt{package.json} names. & Keep the
+``Expo Snips'' brand string adjacent to each package name in its description. \\
+GEO-03 & Stale prose in \texttt{ProjectDescription.md} can propagate an
+incorrect fact (recipe count, variant support) into a generated answer. &
+\texttt{documents/ProjectDescription.md}. & Correct the document; keep a single
+source of truth for counts. \\
+GEO-04 & No license clarity for the extension beyond ``Private License'', which a
+generative system cannot interpret as a known SPDX license. & Extension
+\texttt{package.json} \texttt{license} field. & Use an explicit, recognisable
+license expression if the intent allows. \\
+GEO-05 & No canonical, quotable ``what is this'' one-liner shared across sources. &
+Three differing descriptions. & Publish one canonical sentence and reuse it. \\
+\bottomrule
+\end{longtable}
+
+\section{Why GEO matters for this product specifically}
+
+The product's value proposition --- ``generate a complete, correct screen for a
+given stack'' --- is exactly the kind of question developers pose to coding
+assistants. If a model has never seen the project or cites it inconsistently, the
+assistant will instead suggest generic manual boilerplate, which is the
+alternative the tool exists to replace. GEO is therefore economically meaningful
+even without a website: the goal is that a generative system, asked for an Expo
+screen, can name the tool and be correct about what it does.
+
+\section{Summary}
+
+\begin{table}[H]
+\centering
+\caption{GEO posture}
+\begin{tabular}{@{}L{4.6cm}L{9.6cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Assessment} \\
+\midrule
+Website/entity optimisation & NOT APPLICABLE (no site). \\
+Structured corpus & IMPLEMENTED (schema-valid JSON, typed declarations). \\
+Identity consistency & GAP (publisher/repo/brand mismatch). \\
+Factual consistency & GAP (stale description document). \\
+Model citations & UNKNOWN (not observable from the repository). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Status:} PARTIAL / RECOMMENDED (canonical identity, accurate descriptions).

@@ -1,0 +1,144 @@
+% =====================================================================
+%  preamble.tex
+%  Shared configuration for the Expo Snips documentation suite.
+%
+%  Design goals:
+%    * Compiles cleanly with pdfLaTeX (MiKTeX/TeX Live).
+%    * Converts cleanly to Microsoft Word with Pandoc.
+%    * Uses only broadly compatible, well-supported packages.
+%    * Avoids custom macros so that Pandoc's LaTeX reader can map
+%      headings, tables, lists, figures and code blocks to Word styles.
+% =====================================================================
+
+% ---- Encoding and fonts ---------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+
+% Allow long \texttt paths (e.g. packages/cli/src/utils/...) to hyphenate
+% inside narrow table columns, and give TeX extra stretch before it reports
+% an overfull box. Without this, unbreakable file paths overflow columns.
+\usepackage[htt]{hyphenat}
+\emergencystretch=3em
+\hyphenpenalty=200
+\tolerance=2000
+
+% ---- Page layout ----------------------------------------------------
+\usepackage[a4paper,top=2.6cm,bottom=2.6cm,left=2.5cm,right=2.5cm,headheight=15pt]{geometry}
+\usepackage{parskip}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+
+% ---- Graphics, colour and floats ------------------------------------
+\usepackage{graphicx}
+% Never let a diagram exceed the text block: scale to fit within the
+% line width and 92% of the text height, preserving aspect ratio. Some
+% flowcharts are portrait-oriented and would otherwise overflow the page.
+\setkeys{Gin}{width=\linewidth,height=0.92\textheight,keepaspectratio}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage[font=small,labelfont=bf,skip=6pt]{caption}
+
+% ---- Tables ---------------------------------------------------------
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\renewcommand{\arraystretch}{1.22}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% ---- Lists ----------------------------------------------------------
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt,itemsep=2pt,parsep=0pt}
+\setlist[enumerate]{topsep=2pt,itemsep=2pt,parsep=0pt}
+
+% ---- Mathematics ----------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% ---- Code listings --------------------------------------------------
+\usepackage{listings}
+\definecolor{codebg}{HTML}{F7F7F9}
+\definecolor{codeframe}{HTML}{D8D8DE}
+\definecolor{codecomment}{HTML}{6B7280}
+\definecolor{codekeyword}{HTML}{2563EB}
+\definecolor{codestring}{HTML}{B45309}
+
+% The listings package does not ship JavaScript or YAML definitions.
+\lstdefinelanguage{JavaScript}{
+  keywords={break,case,catch,const,continue,default,delete,do,else,export,
+    extends,finally,for,function,if,import,in,instanceof,let,new,return,static,
+    super,switch,this,throw,try,typeof,var,void,while,with,yield,async,await,of,
+    interface,type,enum,implements,readonly,public,private,protected,declare,
+    namespace,abstract,as,any,boolean,number,string,symbol,undefined,null,true,
+    false},
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]`
+}
+\lstdefinelanguage{YAML}{
+  keywords={true,false,null,yes,no,on,off},
+  sensitive=false,
+  comment=[l]{\#},
+  morestring=[b]',
+  morestring=[b]"
+}
+\lstalias{javascript}{JavaScript}
+\lstalias{yaml}{YAML}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  tabsize=2,
+  commentstyle=\color{codecomment}\itshape,
+  keywordstyle=\color{codekeyword}\bfseries,
+  stringstyle=\color{codestring},
+  captionpos=b,
+  upquote=true
+}
+
+% ---- Section formatting ---------------------------------------------
+\usepackage{titlesec}
+\definecolor{headingcolor}{HTML}{111827}
+\definecolor{accentcolor}{HTML}{2563EB}
+\titleformat{\chapter}[hang]{\normalfont\huge\bfseries\color{headingcolor}}{\thechapter}{14pt}{}
+\titleformat{\section}{\normalfont\Large\bfseries\color{accentcolor}}{\thesection}{10pt}{}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{headingcolor}}{\thesubsection}{9pt}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\color{headingcolor}}{\thesubsubsection}{8pt}{}
+\titlespacing*{\chapter}{0pt}{6pt}{16pt}
+
+% ---- Headers and footers --------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{codecomment}{Expo Snips --- Technical Documentation}}
+\fancyhead[R]{\small\textcolor{codecomment}{\leftmark}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\small\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+% ---- Hyperlinks -----------------------------------------------------
+\usepackage[hidelinks,breaklinks=true,pdfusetitle]{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=accentcolor,
+  urlcolor=accentcolor,
+  citecolor=accentcolor,
+  bookmarksnumbered=true
+}

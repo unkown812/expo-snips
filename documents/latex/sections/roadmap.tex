@@ -1,0 +1,160 @@
+\chapter{Roadmap}
+\label{ch:roadmap}
+
+\section{Basis}
+
+This roadmap is reconstructed from three sources in the repository: the
+extension README's ``Roadmap'' checklist, the extension CHANGELOG's
+\texttt{[Unreleased]} section, and gaps established elsewhere in this document.
+Where an item is drawn from the repository it is labelled accordingly; items
+this analysis proposes are labelled RECOMMENDED. Nothing in this chapter should
+be read as a commitment by the authors.
+
+\section{Repository-stated roadmap}
+
+The extension README lists these items as outstanding (unchecked):
+
+\begin{longtable}{@{}L{1.4cm}L{5.4cm}L{2.4cm}L{5.2cm}@{}}
+\caption{Items the repository itself lists as future work}\\
+\toprule
+\textbf{ID} & \textbf{Item} & \textbf{Source} & \textbf{Reality check} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Item} & \textbf{Source} & \textbf{Reality check} \\
+\midrule
+\endhead
+RM-01 & \texttt{expo-snips update} --- update installed screens to the latest
+recipe versions. & Extension README & \textbf{Already implemented} in the CLI
+(\texttt{commands/update.ts}). The README checklist is stale. \\
+RM-02 & \texttt{expo-snips status} --- inspect installed screens and available
+updates. & Extension README & \textbf{Already implemented} in the CLI
+(\texttt{commands/status.ts}). Stale. \\
+RM-03 & Tamagui styling support. & README & Genuinely outstanding; appears in the
+schema and settings but has no recipe. \\
+RM-04 & Vector Icons support. & README & Genuinely outstanding; enum exists, no
+recipe uses it. \\
+RM-05 & Custom UI primitive support. & README & Genuinely outstanding; enum
+exists, no recipe uses it. \\
+RM-06 & Expanded screen catalog. & README & Ongoing by nature. \\
+RM-07 & Testing infrastructure. & README & Outstanding. See
+Chapter~\ref{ch:testing}. \\
+RM-08 & CI/CD pipeline for the VS Code extension. & README & Outstanding. See
+Chapter~\ref{ch:cicd}. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Note:} RM-01 and RM-02 are already delivered, so the README roadmap
+should be corrected. This is a small but user-visible inaccuracy.
+
+\section{Near-term recommendations}
+
+\textbf{Status:} RECOMMENDED. These are the items with the highest ratio of
+value to effort, derived from the findings chapters.
+
+\begin{longtable}{@{}L{1.4cm}L{5.2cm}L{3cm}L{4.8cm}@{}}
+\caption{Near-term recommendations}\\
+\toprule
+\textbf{ID} & \textbf{Recommendation} & \textbf{Addresses} & \textbf{Rationale} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Recommendation} & \textbf{Addresses} & \textbf{Rationale} \\
+\midrule
+\endhead
+RN-01 & Add a pull-request CI workflow that runs recipe validation, build and
+(later) tests. & TD-03, TD-07 & Cheapest, highest-leverage safety net. \\
+RN-02 & Add golden-file tests for the core rendering engine. & TD-01, Chapter~\ref{ch:testing} &
+Protects the shared engine and all templates at once. \\
+RN-03 & Ship a NativeWind/Tailwind theme defining the shadcn tokens
+(\texttt{background}, \texttt{foreground}, \texttt{border}, \texttt{ring},
+\dots). & KI-01 & Without it, generated shadcn screens may not style correctly. \\
+RN-04 & Declare \texttt{expo-blur} on the three recipes that offer a glass
+variant. & KI-02 & One-line fixes that make the glass variants functional. \\
+RN-05 & Make generated auth hooks obviously stubbed and non-logging: remove
+credential \texttt{console.log}, and mark the hook as a placeholder in its
+comment. & KI-03, KI-11 & Reduces the chance of shipping non-functional auth. \\
+RN-06 & Add a root \texttt{README} and a contribution guide. & TD-09, Chapter~\ref{ch:contribution-guide} &
+Onboarding and discoverability. \\
+RN-07 & Canonicalise the repository/brand identity across all metadata. &
+SEO-04, GEO-01/02/05 & Removes citation ambiguity. \\
+RN-08 & Add extension packaging to CI (package on tag; optionally publish or
+attach the VSIX). & RM-08 & Removes the manual release step and the reliance on
+local builds. \\
+\bottomrule
+\end{longtable}
+
+\section{Mid-term recommendations}
+
+\begin{longtable}{@{}L{1.4cm}L{5.4cm}L{8.4cm}@{}}
+\caption{Mid-term recommendations}\\
+\toprule
+\textbf{ID} & \textbf{Recommendation} & \textbf{Rationale} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Recommendation} & \textbf{Rationale} \\
+\midrule
+\endhead
+RM-10 & Extract the shared orchestration layer (detection, option resolution,
+primitives, file writing, manifest) into the core package. & Removes the highest
+structural debt (TD-08); both clients call one implementation. \\
+RM-11 & Replace hand-written validation with a real JSON Schema validator, or
+generate validation from the schema. & Makes \texttt{schema.json} the single
+source of truth (TD-07). \\
+RM-12 & Implement one of the advertised-but-missing options end to end (Tamagui
+is the largest and most requested). & Closes a configuration inconsistency
+(KI-04, RM-03). \\
+RM-13 & Introduce a compiled-template cache. & Small, safe performance win
+(TD-05, PERF-01). \\
+RM-14 & Harden the registry trust boundary: path containment, dependency-name
+validation, HTTPS enforcement and content hashes. & Addresses high-severity
+security findings (SEC-05, SEC-08, SEC-09, SEC-10, SEC-11). \\
+RM-15 & Add dependency-update automation and an audit step. & Supply-chain hygiene
+(TD-14). \\
+\bottomrule
+\end{longtable}
+
+\section{Long-term / architectural directions}
+
+\textbf{Status:} RECOMMENDED (strategic; not required for the current product).
+
+\begin{itemize}
+  \item \textbf{Remote-first catalog option.} If the catalog grows well beyond
+        today's size, offer a client that fetches an index and loads recipes on
+        demand, keeping the full inline bundle as an offline fallback
+        (Chapter~\ref{ch:scalability}, SCALE-01/02).
+  \item \textbf{A human-readable catalog site.} Derive a browsable page from the
+        registry index to serve discoverability (SEO-05) and answer engines
+        (Chapter~\ref{ch:aeo}).
+  \item \textbf{Recipe authoring tooling.} A generator and preview for new
+        recipes would lower the barrier to expanding the catalog (RM-06).
+  \item \textbf{Cross-language reach.} The engine is TypeScript/Handlebars bound;
+        a documented registry contract already exists, so other front-ends could
+        consume it.
+\end{itemize}
+
+\section{Sequencing}
+
+\begin{table}[H]
+\centering
+\caption{Suggested sequencing}
+\begin{tabular}{@{}L{5.6cm}L{4.2cm}L{4.4cm}@{}}
+\toprule
+\textbf{Horizon} & \textbf{Focus} & \textbf{Items} \\
+\midrule
+Immediate & Correctness and safety nets & RN-01, RN-02, RN-03, RN-04, RN-05 \\
+Short & Onboarding and consistency & RN-06, RN-07, RN-08, TD-10 \\
+Mid & Architecture and features & RM-10, RM-11, RM-12, RM-13 \\
+Long & Reach and hardening & RM-14, RM-15, remote-first catalog, catalog site \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Summary}
+
+The repository's own roadmap is small and mostly honest, marred only by listing
+two already-implemented CLI features as outstanding. The highest-value work is
+not new features but the verification and correctness items above: a CI gate, a
+golden-file test suite, and the three output-correctness fixes that protect the
+product's core promise.

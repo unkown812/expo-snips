@@ -1,0 +1,160 @@
+\chapter{Glossary}
+\label{ch:glossary}
+
+\section{Purpose}
+
+This glossary defines terms as they are used \emph{in this document} and in the
+Expo Snips repository. Where a term is specific to the project it is marked
+\textbf{Project}; where it is an ecosystem term it is marked \textbf{General}.
+Definitions are grounded in the repository code.
+
+\section{Domain terms}
+
+\begin{longtable}{@{}L{3.8cm}L{1.6cm}L{8.8cm}@{}}
+\caption{Glossary of domain terms}\\
+\toprule
+\textbf{Term} & \textbf{Type} & \textbf{Definition} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Term} & \textbf{Type} & \textbf{Definition} \\
+\midrule
+\endhead
+Recipe & Project & A JSON document describing one screen: its identity, version,
+supported options, dependencies, output files, optional variants, tags and
+primitives. Lives in \texttt{packages/registry/data/}. \\
+Template & Project & A Handlebars (\texttt{.hbs}) file that renders to a source
+file in the target project. Lives in \texttt{packages/registry/templates/}. \\
+Registry & Project & The published catalog of recipes: \texttt{index.json} plus
+one JSON document per recipe. Static, hosted on GitHub Pages. \\
+Index entry & Project & The summary of a recipe used for browsing and quick
+picks: id, name, description, version, typescript flag, tags and the supported
+options. \\
+Catalog & Project & Collectively, all recipes. Shipped inside each client as an
+offline bundle. \\
+Offline bundle & Project & The inlined catalog (\texttt{bundle.json} or the
+generated \texttt{registry-data.ts}) that lets a client work with no network. \\
+Variant & Project & A named alternative style for a screen (for example
+\texttt{glass}). Declared at the recipe level; a file maps a variant to its
+template. \\
+Primitive & Project & A small reusable UI recipe (for example \texttt{ui/button},
+\texttt{ui/input}, \texttt{ui/utils}) required when \texttt{ui=shadcn}, resolved
+recursively and skipped if already present. \\
+Generation & Project & The act of turning a recipe plus options into written
+files. \\
+Generation options & Project & The resolved choices that shape output:
+\texttt{styling}, \texttt{router}, \texttt{ui}, \texttt{icons} and
+\texttt{typescript}. \\
+Detection & Project & Inferring options from the target project by probing
+\texttt{package.json} and \texttt{tsconfig.json}. \\
+Manifest & Project & \texttt{.expo-snips.json} in the target project, recording
+which recipes (and variants) have been generated, their versions, options and
+files. \\
+Upsert key & Project & The identity used to record a generated screen: recipe id
+plus variant. \\
+\bottomrule
+\end{longtable}
+
+\section{Ecosystem and technology terms}
+
+\begin{longtable}{@{}L{3.8cm}L{1.6cm}L{8.8cm}@{}}
+\caption{Glossary of technology terms}\\
+\toprule
+\textbf{Term} & \textbf{Type} & \textbf{Definition} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Term} & \textbf{Type} & \textbf{Definition} \\
+\midrule
+\endhead
+Expo & General & A framework and toolchain for building React Native applications;
+the runtime target of every generated screen. \\
+React Native & General & A framework for building native mobile apps with React;
+the platform target. \\
+Expo Router & General & File-based routing for Expo apps; the default router
+option. \\
+React Navigation & General & An alternative navigation library; the other router
+option. \\
+NativeWind & General & A Tailwind-style utility-class system for React Native; the
+default styling option. \\
+Tamagui & General & A UI and styling library; listed as a styling option but not
+yet implemented in any recipe. \\
+shadcn & General/Project & Here, a set of copy-in UI primitives (Button, Input,
+and a \texttt{cn} utility) and design tokens; selectable as a UI option and
+backed by primitive recipes. \\
+lucide / lucide-react-native & General & The default icon library. \\
+Vector Icons & General & An icon library listed as an option but not implemented in
+any recipe. \\
+safe area & General & The screen region not obscured by device notches, status
+bars or home indicators; generated screens handle it via
+\texttt{react-native-safe-area-context}. \\
+Handlebars & General & The template engine used by the shared core. \\
+esbuild & General & The bundler used for the VS Code extension. \\
+vsce / VSIX & General & The VS Code packaging tool and the packaged extension
+format. \\
+pnpm workspace & General & The monorepo tooling; packages are linked from
+\texttt{packages/*}. \\
+Monorepo & General & A single repository containing multiple packages. \\
+Longest-common-subsequence diff & General & The algorithm behind the update
+preview; compares two files line by line. \\
+Golden-file test & General & A test that compares generated output against a
+stored expected file; recommended for this project. \\
+\bottomrule
+\end{longtable}
+
+\section{Documentation and status terms}
+
+\begin{longtable}{@{}L{3.8cm}L{1.6cm}L{8.8cm}@{}}
+\caption{Glossary of documentation terms}\\
+\toprule
+\textbf{Term} & \textbf{Type} & \textbf{Definition} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Term} & \textbf{Type} & \textbf{Definition} \\
+\midrule
+\endhead
+IMPLEMENTED & This doc & The behaviour is present in the code, with evidence. \\
+INFERRED & This doc & A reasonable conclusion drawn from code or structure, not
+stated explicitly. \\
+RECOMMENDED & This doc & A proposed improvement; not present in the code. \\
+UNKNOWN & This doc & Cannot be determined from the repository. \\
+NOT APPLICABLE & This doc & The concept does not exist in this product. \\
+OPEN / ACCEPTED / PASS & This doc & Status of a finding: unaddressed, knowingly
+accepted, or satisfied. \\
+Finding / Severity / Evidence / Impact / Recommendation & This doc & The fixed
+format used for security findings in Chapter~\ref{ch:security}. \\
+BRD & This doc & Business Requirements Document. \\
+PRD & This doc & Product Requirements Document. \\
+SEO & This doc & Search Engine Optimisation. \\
+AEO & This doc & Answer Engine Optimisation. \\
+GEO & This doc & Generative Engine Optimisation. \\
+\bottomrule
+\end{longtable}
+
+\section{Abbreviations used in this document}
+
+\begin{longtable}{@{}L{2.6cm}L{11.6cm}@{}}
+\caption{Abbreviations}\\
+\toprule
+\textbf{Abbreviation} & \textbf{Expansion} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Abbreviation} & \textbf{Expansion} \\
+\midrule
+\endhead
+CLI & Command-Line Interface. \\
+CI / CD & Continuous Integration / Continuous Delivery. \\
+CORS & Cross-Origin Resource Sharing. \\
+DX & Developer Experience. \\
+IaC & Infrastructure as Code. \\
+JSON-LD & JavaScript Object Notation for Linked Data. \\
+LCS & Longest Common Subsequence. \\
+N/A & Not Applicable. \\
+PASS & A security control that is satisfied. \\
+RBAC & Role-Based Access Control (not applicable to this project). \\
+SPDX & Software Package Data Exchange (a licence identifier standard). \\
+VSIX & VS Code extension package format. \\
+\bottomrule
+\end{longtable}

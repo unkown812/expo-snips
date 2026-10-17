@@ -1,0 +1,168 @@
+\chapter{Testing}
+\label{ch:testing}
+
+\section{Current state}
+
+\textbf{Status:} NOT IMPLEMENTED (no automated tests exist).
+
+A recursive search of the working tree for test or specification files
+(\texttt{*.test.ts}, \texttt{*.spec.ts} and JavaScript equivalents) returns no
+results, and no test runner is declared in any package. The root
+\texttt{package.json} defines a \texttt{test} script (\texttt{pnpm -r test}),
+but no workspace package defines a \texttt{test} script for it to run. The VS
+Code extension README lists ``Testing infrastructure'' as an unfinished roadmap
+item and ``No tests'' under known limitations, and the CHANGELOG contains no
+test-related entries.
+
+What \emph{does} exist and acts as a lightweight correctness gate:
+
+\begin{itemize}
+  \item \texttt{scripts/validate.mjs} --- a recipe validator (see below).
+  \item \texttt{pnpm build} across all packages, which performs TypeScript
+        compilation under \texttt{strict} mode and therefore catches type
+        errors.
+  \item \texttt{pnpm --filter expo-snips typecheck}, an explicit no-emit type
+        check for the extension.
+  \item \texttt{scripts/build-registry.mjs}, which fails if a recipe references a
+        missing template.
+\end{itemize}
+
+These are build-time checks, not tests. They do not execute behaviour.
+
+\section{The validator as the de-facto quality gate}
+
+\texttt{scripts/validate.mjs} is the closest thing to an automated test. It is
+an inline, hand-written validator (it reproduces a subset of Draft-07 JSON
+Schema rather than using a schema library) and checks each recipe for:
+
+\begin{longtable}{@{}L{4.6cm}L{9.6cm}@{}}
+\caption{Checks performed by \texttt{validate.mjs}}\\
+\toprule
+\textbf{Check} & \textbf{Detail} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Check} & \textbf{Detail} \\
+\midrule
+\endhead
+Required fields & Every field in \texttt{schema.required} must be present and
+non-null. \\
+Id format & Must match \texttt{\^{}[a-z0-9-]+/[a-z0-9-]+\$}. \\
+Version format & Must match \texttt{\^{}\textbackslash d+\textbackslash.\textbackslash
+d+\textbackslash.\textbackslash d+\$}. \\
+Enums & \texttt{framework} must be \texttt{react-native}; \texttt{runtime} must be
+\texttt{expo}. \\
+Supported option values & Each entry of \texttt{supported.styling/router/ui/icons}
+must be one of the schema enums. \\
+Files present & \texttt{files} must be a non-empty array; each entry needs
+\texttt{path} and \texttt{templateFile}. \\
+Id matches path & The recipe id must equal its path relative to
+\texttt{data/} (cross-check between content and location). \\
+Template existence & Every referenced \texttt{.hbs} file must exist on disk. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Observations:}
+\begin{itemize}
+  \item The validator is genuinely useful: it enforces identity, structure and
+        referential integrity of the catalog.
+  \item It does \emph{not} validate the \texttt{variants}, \texttt{primitives},
+        \texttt{tags} or \texttt{dependencies} fields beyond their presence, and
+        it does not validate nested \texttt{when} conditions.
+  \item Because it re-implements schema validation by hand, it can drift from
+        \texttt{schema.json}; the schema itself is not executed.
+  \item It is invoked by the developer (or by the bake pipeline), not wired into
+        CI (see Chapter~\ref{ch:cicd}).
+\end{itemize}
+
+\section{Rendering is untested}
+
+The generation engine (\texttt{packages/core}) --- the part most likely to
+regress and the part both clients depend on --- has no tests. There is no
+assertion that a given recipe, options set and variant produce the expected
+file paths and content, no test of the \texttt{when} filtering logic, and no
+test of primitive recursion. A change to a template or to
+\texttt{getFilesForRecipe} is verified only by building and, at best, running the
+tool by hand.
+
+\section{Test coverage by area}
+
+\begin{longtable}{@{}L{4cm}L{2.6cm}L{7.6cm}@{}}
+\caption{Coverage assessment by area}\\
+\toprule
+\textbf{Area} & \textbf{Coverage} & \textbf{Comment} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Area} & \textbf{Coverage} & \textbf{Comment} \\
+\midrule
+\endhead
+Recipe data & Structural only & \texttt{validate.mjs} checks shape and template
+existence, not rendered output. \\
+Core engine & None & No unit tests for rendering, filtering or recursion. \\
+CLI commands & None & No command-level tests. \\
+CLI utilities & None & Diff, detection, manifest and install logic untested. \\
+VS Code extension & None & No integration or unit tests; no
+\texttt{@vscode/test-electron} harness. \\
+Scripts & None & The build, bake and serve scripts are not tested. \\
+Type safety & Partial & \texttt{strict} TypeScript catches type-level errors at
+build. \\
+\bottomrule
+\end{longtable}
+
+\section{Recommended test strategy}
+
+\textbf{Status:} RECOMMENDED. In order of value per unit of effort:
+
+\begin{enumerate}
+  \item \textbf{Golden-file tests for the core engine.} For a representative set
+        of recipes and option combinations, assert that \texttt{getFilesForRecipe}
+        returns a fixed set of paths and that rendered content matches a stored
+        snapshot. This is the highest-value test because it protects the shared
+        engine and the templates simultaneously.
+  \item \textbf{Variant and \texttt{when} matrix tests.} Assert that each
+        supported styling/router/ui/icons combination selects the intended
+        template, and that a variant overrides the default.
+  \item \textbf{Primitive recursion tests.} Assert that a shadcn recipe pulls in
+        the expected primitive files, that existing files are skipped, and that a
+        synthetic cycle terminates.
+  \item \textbf{Manifest tests.} Assert \texttt{upsertEntry} semantics for the
+        same recipe with different variants, and \texttt{updateEntryVersions}
+        behaviour.
+  \item \textbf{CLI smoke test.} Run \texttt{add} against a temporary directory
+        and assert the resulting file tree and manifest, using
+        \texttt{--no-install} to avoid network and package-manager side effects.
+  \item \textbf{Schema-driven validation.} Replace or supplement the hand-written
+        checks with a real JSON Schema validator so \texttt{schema.json} is the
+        single source of truth.
+  \item \textbf{Extension integration test.} A minimal
+        \texttt{@vscode/test-electron} run that activates the extension and
+        generates into a scratch workspace.
+\end{enumerate}
+
+A suitable stack is already implied by the codebase: \texttt{vitest} or the
+Node built-in test runner for the Node packages, and
+\texttt{@vscode/test-electron} plus Mocha for the extension (the VS Code
+convention). No test framework is currently installed, so this would be a new
+dependency.
+
+\section{Summary}
+
+\begin{table}[H]
+\centering
+\caption{Testing posture}
+\begin{tabular}{@{}L{4.4cm}L{9.8cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Assessment} \\
+\midrule
+Unit tests & None. \\
+Integration tests & None. \\
+Structural validation & IMPLEMENTED (\texttt{validate.mjs}). \\
+Type checking & IMPLEMENTED (\texttt{tsc --strict}, extension \texttt{typecheck}). \\
+CI test gate & None (see Chapter~\ref{ch:cicd}). \\
+Manual verification & The only current method for behaviour. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Status:} NOT IMPLEMENTED / RECOMMENDED.

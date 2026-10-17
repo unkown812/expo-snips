@@ -1,0 +1,175 @@
+\chapter{Contribution Guide}
+\label{ch:contribution-guide}
+
+\section{Basis and honesty note}
+
+The repository contains \textbf{no} \texttt{CONTRIBUTING.md}, no
+\texttt{CODE\_OF\_CONDUCT.md}, no issue or pull-request templates and no
+\texttt{GOVERNANCE} file. There is therefore no author-stated contribution
+process to document. What follows is derived from the repository's structure,
+scripts and workflows: it is a factual description of how work can be
+contributed, labelled INFERRED, followed by recommended additions labelled
+RECOMMENDED. It is not a substitute for a real contribution policy.
+
+\section{Prerequisites (INFERRED)}
+
+\begin{itemize}
+  \item Node.js 18 or newer (20 recommended; CI uses 20).
+  \item pnpm 9 or newer.
+  \item Git.
+  \item Optional: the VS Code Extension Development Host for working on the
+        extension.
+\end{itemize}
+
+\section{Getting started (INFERRED)}
+
+\begin{lstlisting}[language=bash]
+git clone <repository>
+cd expo-snips
+pnpm install
+pnpm build            # build all packages
+pnpm validate         # check every recipe against the schema
+\end{lstlisting}
+
+To run the registry locally:
+
+\begin{lstlisting}[language=bash]
+pnpm serve            # builds the registry and serves it on PORT (default 3000)
+\end{lstlisting}
+
+To work on the extension:
+
+\begin{lstlisting}[language=bash]
+pnpm --filter expo-snips build       # bundle to out/extension.js
+pnpm --filter expo-snips watch       # rebuild on change
+pnpm --filter expo-snips typecheck   # no-emit type check
+\end{lstlisting}
+
+Press F5 with the extension package open to launch an Extension Development
+Host.
+
+\section{Contribution paths}
+
+There are two natural kinds of contribution, and they differ substantially.
+
+\subsection*{1. Adding or changing a screen recipe (most common)}
+
+\begin{enumerate}
+  \item Create or edit a JSON document under
+        \texttt{packages/registry/data/<category>/<name>.json}. The file path must
+        match the recipe id, and the document must satisfy
+        \texttt{packages/registry/schema.json}.
+  \item Add the templates under
+        \texttt{packages/registry/templates/<category>/<name>/}, using the dotted
+        naming convention (see Chapter~\ref{ch:development-guidelines}).
+  \item Declare every third-party package the templates import in the recipe's
+        \texttt{dependencies}.
+  \item Run \texttt{pnpm validate} to confirm the recipe is well-formed and all
+        referenced templates exist.
+  \item Run \texttt{pnpm build:registry} (or \texttt{pnpm serve}) to confirm the
+        recipe builds and to update the committed \texttt{registry/} output.
+\end{enumerate}
+
+The validator gives fast, specific feedback (id format, version format, enum
+values, template existence, id/path agreement), so this workflow is contributor
+friendly.
+
+\subsection*{2. Changing engine or client code}
+
+\begin{enumerate}
+  \item Make the change in the relevant package (\texttt{core} for the shared
+        engine, \texttt{cli} or \texttt{vscode-extension} for a client).
+  \item Run \texttt{pnpm build} to type-check and compile.
+  \item Manually verify generation, since \textbf{no automated tests exist}
+        (Chapter~\ref{ch:testing}).
+  \item If the behaviour is user-visible, note that the same behaviour may need
+        to be applied in both clients, because orchestration is duplicated
+        (Chapter~\ref{ch:technical-debt}, TD-08).
+\end{enumerate}
+
+\section{Change and release process (INFERRED)}
+
+\begin{itemize}
+  \item Commits are made to \texttt{master}. Existing history shows small,
+        direct commits (ten commits at the time of analysis) rather than a
+        feature-branch/PR flow.
+  \item The registry is redeployed automatically on every push to
+        \texttt{main} or \texttt{master}.
+  \item The npm packages are released by pushing a tag matching \texttt{v*}.
+  \item Version numbers are edited by hand in the relevant
+        \texttt{package.json}.
+  \item The extension is packaged by hand
+        (\texttt{pnpm --filter expo-snips package}).
+\end{itemize}
+
+\textbf{Consequence:} contributing directly to the default branch is effectively
+the current practice, and there is no automated gate before a change reaches the
+deployed registry. A contributor should therefore run \texttt{pnpm validate} and
+\texttt{pnpm build} locally before pushing, because CI will not.
+
+\section{What to include in a contribution}
+
+\begin{longtable}{@{}L{4.2cm}L{10cm}@{}}
+\caption{Contribution expectations (INFERRED)}\\
+\toprule
+\textbf{Change type} & \textbf{Expected accompanying work} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Change type} & \textbf{Expected accompanying work} \\
+\midrule
+\endhead
+New recipe & JSON document, templates, dependency declarations, validator run,
+registry rebuild. \\
+Recipe change & Version bump of the recipe's own \texttt{version} if the change is
+behavioural; note whether existing projects need to regenerate. \\
+Core engine change & Manual verification across several recipes and both clients;
+consider a test once tests exist. \\
+Client change & Verify the same behaviour is not required in the other client. \\
+Extension release & Update \texttt{CHANGELOG.md}; the top of the file establishes
+Keep a Changelog and SemVer. \\
+Breaking change & No deprecation policy exists; document the impact explicitly
+(see below). \\
+\bottomrule
+\end{longtable}
+
+\section{Missing policy areas}
+
+\textbf{Status:} RECOMMENDED. The following should be created before the project
+invites external contributors:
+
+\begin{enumerate}
+  \item A \texttt{CONTRIBUTING.md} capturing the above, plus branch and PR
+        conventions.
+  \item A \texttt{CODE\_OF\_CONDUCT.md}.
+  \item Issue and pull-request templates.
+  \item A documented deprecation and recipe-migration policy, since recipes are
+        versioned independently and users may have generated screens from old
+        versions.
+  \item A root \texttt{README} that orients a newcomer (currently absent).
+  \item A licence decision for the extension: it currently ships under a
+        ``Private License'', which will deter external contribution. This is a
+        deliberate-looking author choice, but it should be stated plainly for
+        contributors.
+\end{enumerate}
+
+\section{Contribution-friendly features already present}
+
+\begin{itemize}
+  \item The recipe validator provides immediate, actionable feedback.
+  \item Recipes are independent files, so two contributors rarely conflict.
+  \item The offline build means a contributor can fully test generation without
+        any network access.
+  \item The extension CHANGELOG already follows a recognised convention.
+  \item The extension README documents the source layout and a build/debug
+        workflow.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{Summary}
+
+\textbf{Status:} INFERRED (all process descriptions) / RECOMMENDED (formal
+contribution policy). The technical workflow for adding a recipe is genuinely
+good; the social and policy scaffolding for outside contributors does not yet
+exist.

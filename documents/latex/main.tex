@@ -1,0 +1,173 @@
+% =====================================================================
+%  main.tex  ---  Master documentation document
+%
+%  Expo Snips --- Complete Software, Product and Architecture Documentation
+%
+%  Build (PDF):   pdflatex main  (run twice for the TOC and cross-references)
+%  Build (DOCX):  pandoc main.tex -o ../output/Expo-Snips-Documentation.docx
+%
+%  All content is derived strictly from the repository at
+%  C:\Dev\expo-snips. Statements are labelled IMPLEMENTED, INFERRED,
+%  RECOMMENDED, UNKNOWN or NOT APPLICABLE. See Appendix C.
+% =====================================================================
+
+\documentclass[11pt,a4paper,oneside]{report}
+
+\input{preamble}
+\input{metadata}
+
+\begin{document}
+
+% ---------------------------------------------------------------------
+%  Cover page
+% ---------------------------------------------------------------------
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\vspace*{1.2cm}
+
+{\color{accentcolor}\rule{\textwidth}{2.2pt}}\\[0.5cm]
+{\Huge\bfseries \ProjectName\par}
+\vspace{0.35cm}
+{\Large \ProjectSubtitle\par}
+\vspace{0.25cm}
+{\large React Native / Expo Screen Generator --- CLI, VS Code Extension and Registry\par}
+{\color{accentcolor}\rule{\textwidth}{2.2pt}}\\[1.4cm]
+
+\begin{tabular}{@{}L{4.6cm}L{9.6cm}@{}}
+\textbf{Document title} & Complete Software, Product and Architecture Documentation \\
+\textbf{Document version} & \DocumentVersion \\
+\textbf{Date} & \DocumentDate \\
+\textbf{Prepared by} & \DocumentAuthor \\
+\textbf{Repository} & \RepositoryPath \\
+\textbf{Repository remote} & \RepositoryRemote \\
+\end{tabular}
+
+\vspace{1.1cm}
+
+\textbf{\large Technology Stack}\\[0.3cm]
+\begin{tabular}{@{}L{4.6cm}L{9.6cm}@{}}
+Language & TypeScript 5.5 (strict, ES2020 target) \\
+Runtime & Node.js $\geq$ 18 \\
+Repository type & pnpm workspace monorepo (\texttt{packages/*}) \\
+Template engine & Handlebars 4.7 \\
+CLI framework & commander 12, prompts, chalk 4 \\
+Editor integration & VS Code Extension API $\geq$ 1.80.0 \\
+Visual Studio Code build & esbuild 0.21 (CJS, Node 18 target) \\
+Registry & Static JSON catalog (24 screen recipes) \\
+Hosting & GitHub Pages (registry), npm registry (packages) \\
+Databases / backend & None (no server application, no database) \\
+\end{tabular}
+
+\vfill
+
+{\small\textbf{Confidentiality notice.} This document was reverse-engineered from the
+repository source code. It contains no credentials, secrets or personal data.
+It describes the code exactly as found; where functionality is absent it is
+marked \textbf{NOT APPLICABLE} rather than omitted silently.}
+
+\vspace{0.6cm}
+{\small Document version \DocumentVersion\ --- generated \DocumentDate}
+\end{titlepage}
+
+% ---------------------------------------------------------------------
+%  Front matter
+% ---------------------------------------------------------------------
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\input{sections/document-control}
+
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+
+% ---------------------------------------------------------------------
+%  Main matter --- Part I: Product and business
+% ---------------------------------------------------------------------
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{sections/project-overview}
+\input{sections/executive-summary}
+\input{sections/project-description}
+\input{sections/brd}
+\input{sections/prd}
+
+% ---------------------------------------------------------------------
+%  Part II: Requirements
+% ---------------------------------------------------------------------
+\input{sections/functional-requirements}
+\input{sections/non-functional-requirements}
+\input{sections/technical-requirements}
+
+% ---------------------------------------------------------------------
+%  Part III: Architecture and design
+% ---------------------------------------------------------------------
+\input{sections/system-architecture}
+\input{sections/software-architecture}
+\input{sections/high-level-design}
+\input{sections/low-level-design}
+\input{sections/frontend-architecture}
+
+% ---------------------------------------------------------------------
+%  Part IV: Interfaces and behaviour
+% ---------------------------------------------------------------------
+\input{sections/cli-reference}
+\input{sections/registry-and-recipes}
+\input{sections/api-documentation}
+\input{sections/authentication}
+\input{sections/authorization}
+\input{sections/user-flows}
+\input{sections/data-flows}
+
+% ---------------------------------------------------------------------
+%  Part V: Experience and design system
+% ---------------------------------------------------------------------
+\input{sections/ui-ux}
+\input{sections/design-system}
+
+% ---------------------------------------------------------------------
+%  Part VI: Quality, security and operations
+% ---------------------------------------------------------------------
+\input{sections/security}
+\input{sections/performance}
+\input{sections/scalability}
+\input{sections/testing}
+\input{sections/deployment}
+\input{sections/cicd}
+\input{sections/integrations}
+\input{sections/configuration}
+
+% ---------------------------------------------------------------------
+%  Part VII: Discoverability
+% ---------------------------------------------------------------------
+\input{sections/seo}
+\input{sections/aeo}
+\input{sections/geo}
+
+% ---------------------------------------------------------------------
+%  Part VIII: Maintenance and evolution
+% ---------------------------------------------------------------------
+\input{sections/known-issues}
+\input{sections/technical-debt}
+\input{sections/roadmap}
+\input{sections/development-guidelines}
+\input{sections/contribution-guide}
+
+% ---------------------------------------------------------------------
+%  Part IX: Reference
+% ---------------------------------------------------------------------
+\input{sections/glossary}
+\input{sections/references}
+
+\appendix
+\input{sections/appendix-catalog}
+\input{sections/appendix-environment}
+\input{sections/appendix-classification}
+\input{sections/appendix-file-index}
+
+\end{document}

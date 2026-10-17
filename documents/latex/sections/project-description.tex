@@ -1,0 +1,262 @@
+\chapter{Project Description}
+\label{ch:project-description}
+
+\section{Product identity}
+
+\begin{longtable}{@{}L{4.4cm}L{10cm}@{}}
+\caption{Product identity}\\
+\toprule
+\textbf{Attribute} & \textbf{Value} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Attribute} & \textbf{Value} \\
+\midrule
+\endhead
+Product name & Expo Snips \\
+CLI package name & \texttt{@expo-snips/cli} \\
+CLI binary & \texttt{expo-snips} \\
+Extension package name & \texttt{expo-snippets} (display name ``Expo Snips'') \\
+Extension publisher & \texttt{ukown812} \\
+Engine package name & \texttt{@expo-snips/core} \\
+Tagline & ``Beautiful React Native screens, one command away.'' \\
+Category & Developer tooling --- screen generator / scaffolding \\
+License (core, cli) & MIT \\
+License (registry) & none declared; package is \texttt{private} \\
+License (extension) & ``Private License'' field with a proprietary \texttt{LICENSE} file \\
+\bottomrule
+\end{longtable}
+
+Sources: \texttt{packages/cli/package.json} (description, bin),
+\texttt{packages/cli/src/index.ts} (program name and description),
+\texttt{packages/vscode-extension/package.json} (name, displayName, publisher,
+license), \texttt{packages/vscode-extension/LICENSE}.
+
+\textbf{Note on licensing inconsistency.} The VS Code extension's
+\texttt{README.md} badge and footer describe the project as MIT-licensed and
+reference \texttt{github.com/expo-snips/expo-snips}, while
+\texttt{package.json} declares a ``Private License'', the bundled \texttt{LICENSE}
+file is proprietary, and the declared repository is
+\texttt{github.com/unkown812/expo-snips.git}. This contradiction is recorded as a
+known issue (Chapter~\ref{ch:known-issues}).
+
+\section{Product category and positioning}
+
+Expo Snips sits between a code-snippet library (which inserts a line or a block)
+and a full project starter (which creates an entire application). It generates
+\emph{whole screens} that fit into an existing project.
+
+\textbf{Status:} IMPLEMENTED (behaviour) / INFERRED (positioning statement, drawn
+from the tool's actual output granularity).
+
+\section{Problem statement}
+
+Developers building Expo / React Native apps repeatedly implement the same
+screens by hand. The repository's own README enumerates the affected categories
+(\texttt{packages/vscode-extension/README.md}, lines 27--39):
+
+\begin{itemize}
+  \item authentication screens --- login, registration, forgot password, OTP ---
+        each needing validation, error handling, loading states, secure inputs
+        and keyboard avoidance;
+  \item app chrome --- home dashboard, settings, profile, notifications, search;
+  \item e-commerce views --- product grids and product detail pages;
+  \item onboarding flows and permission requests;
+  \item empty, error and retry states.
+\end{itemize}
+
+\section{Solution}
+
+A registry of versioned recipes plus a conditional template engine. The engine
+selects the correct file variants for the detected stack and renders them.
+
+\textbf{Status:} IMPLEMENTED --- \texttt{packages/core/src/generate.ts}
+(\texttt{getFilesForRecipe}, \texttt{matchesCondition},
+\texttt{resolveTemplateString}).
+
+\section{Target audience}
+
+\begin{longtable}{@{}L{3.6cm}L{10.8cm}@{}}
+\caption{Target audience groups}\\
+\toprule
+\textbf{Group} & \textbf{Description and evidence} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Group} & \textbf{Description and evidence} \\
+\midrule
+\endhead
+Primary & Expo / React Native application developers. The tool writes Expo Router
+          routes under \texttt{app/} by default and detects Expo-specific
+          dependencies. \\
+Secondary & Teams and agencies standardising screens across projects. Supported by
+            the manifest, versioned recipes and the \texttt{update} command. \\
+Secondary & VS Code-centric developers. Supported by the completion provider,
+            command palette and status bar item. \\
+Contributor & Recipe authors. Supported by the JSON Schema
+              (\texttt{packages/registry/schema.json}) and the validation script
+              (\texttt{scripts/validate.mjs}). \\
+\bottomrule
+\end{longtable}
+
+\section{Personas}
+
+\subsection*{Persona 1 --- The Solo Expo Developer}
+\begin{itemize}
+  \item \textbf{Context:} building a new Expo app; needs auth, onboarding and core
+        screens quickly.
+  \item \textbf{Goal:} reach a working, consistent app without hand-writing
+        boilerplate.
+  \item \textbf{Relevant capability:} \texttt{expo-snips add auth/login}, stack
+        detection, automatic dependency install, the manifest.
+  \item \textbf{Status:} INFERRED (persona is a modelling device; the supporting
+        capability is IMPLEMENTED).
+\end{itemize}
+
+\subsection*{Persona 2 --- The Team / Agency Developer}
+\begin{itemize}
+  \item \textbf{Context:} multiple developers producing screens across projects.
+  \item \textbf{Goal:} identical, best-practice screens and a way to pull in
+        catalog improvements.
+  \item \textbf{Relevant capability:} deterministic rendering from the same
+        engine, \texttt{expo-snips status}, \texttt{expo-snips update} with diff
+        preview.
+  \item \textbf{Status:} INFERRED (persona) / IMPLEMENTED (capability).
+\end{itemize}
+
+\subsection*{Persona 3 --- The VS Code Power User}
+\begin{itemize}
+  \item \textbf{Context:} prefers to stay inside the editor.
+  \item \textbf{Goal:} generate screens without switching to a terminal.
+  \item \textbf{Relevant capability:} \texttt{snip:} completion, command palette
+        entry, status bar item, ``Open main file'' action.
+  \item \textbf{Status:} IMPLEMENTED.
+\end{itemize}
+
+\section{Value proposition}
+
+\emph{Generate complete, validated, keyboard-safe React Native screens in seconds,
+matched to the stack already in your project.}
+
+Supporting propositions, each evidenced:
+
+\begin{itemize}
+  \item Whole screens, not snippets --- recipes emit multiple files.
+  \item Stack-aware by construction --- conditional templates on styling, router,
+        UI, icons and language.
+  \item Best practices embedded --- \texttt{react-hook-form} + \texttt{zod}
+        validation, loading/error states, keyboard avoidance, safe areas.
+  \item Zero-config dependency setup --- package-manager detection and install.
+  \item Versioned and updateable --- \texttt{.expo-snips.json} manifest plus
+        diff-previewed updates.
+  \item Works from terminal or editor --- one shared engine.
+\end{itemize}
+
+\section{Feature inventory}
+
+\subsection*{Core features}
+\begin{longtable}{@{}L{4.4cm}L{10cm}@{}}
+\caption{Core features}\\
+\toprule
+\textbf{Feature} & \textbf{Evidence} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Feature} & \textbf{Evidence} \\
+\midrule
+\endhead
+Screen recipe catalog & \texttt{registry/index.json}; 24 recipes under \texttt{packages/registry/data/**}. \\
+One-command generation & \texttt{packages/cli/src/commands/add.ts}. \\
+Stack auto-detection & \texttt{packages/cli/src/utils/detectProject.ts}; \texttt{packages/vscode-extension/src/project.ts}. \\
+Conditional template rendering & \texttt{packages/core/src/generate.ts}; \texttt{packages/registry/templates/**}. \\
+Dependency installation & \texttt{packages/cli/src/utils/installDeps.ts}; \texttt{packages/vscode-extension/src/generator.ts}. \\
+Primitive resolution (\texttt{ui=shadcn}) & \texttt{packages/cli/src/utils/primitives.ts}. \\
+Manifest tracking & \texttt{packages/cli/src/utils/manifest.ts}; \texttt{.expo-snips.json}. \\
+Versioned update with diff & \texttt{packages/cli/src/commands/update.ts}; \texttt{packages/cli/src/utils/diff.ts}. \\
+VS Code integration & \texttt{packages/vscode-extension/src/extension.ts}, \texttt{commands.ts}, \texttt{completionProvider.ts}. \\
+Offline catalog & Bundled modules \texttt{src/generated/registry-data.ts} in both the CLI and the extension. \\
+Project bootstrap & \texttt{packages/cli/src/commands/init.ts}. \\
+Configurable registry & \texttt{packages/cli/src/utils/registry.ts}; \texttt{packages/vscode-extension/src/registry.ts}. \\
+Screen variants & \texttt{ScreenVariant} type; variants defined for \texttt{app/home}, \texttt{auth/login}, \texttt{onboarding/welcome} (id \texttt{glass}). \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Feature priority (this document's assessment)}
+\begin{table}[H]
+\centering
+\caption{Feature priority assignment}
+\begin{tabular}{@{}L{2.2cm}L{11.6cm}@{}}
+\toprule
+\textbf{Priority} & \textbf{Features} \\
+\midrule
+P0 --- Core & Recipe catalog, \texttt{add} generation, stack detection, conditional templates, dependency install, manifest, \texttt{status}/\texttt{update}, VS Code completion and commands. \\
+P1 --- Important & \texttt{init}, shadcn primitives, configurable registry, offline bundled catalog. \\
+P2 --- Secondary & Screen variants (implemented for 3 recipes, not exercised by default). \\
+P3 --- Maintainer & Registry build/deploy automation, npm publish workflow. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Status:} RECOMMENDED (the priority ranking is this document's
+interpretation, not a repository artefact).
+
+\section{Use cases}
+
+\begin{longtable}{@{}L{4.4cm}L{10cm}@{}}
+\caption{Use cases mapped to recipes}\\
+\toprule
+\textbf{Use case} & \textbf{Recipes} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Use case} & \textbf{Recipes} \\
+\midrule
+\endhead
+Authentication & \texttt{auth/login}, \texttt{auth/register}, \texttt{auth/forgot-password}, \texttt{auth/otp-verification} \\
+Onboarding & \texttt{onboarding/welcome}, \texttt{onboarding/features}, \texttt{onboarding/permissions} \\
+App chrome & \texttt{app/home}, \texttt{app/settings}, \texttt{app/profile}, \texttt{app/notifications}, \texttt{app/search} \\
+Commerce & \texttt{ecommerce/products}, \texttt{ecommerce/product-details} \\
+Content & \texttt{content/article-reader} \\
+Chat & \texttt{chat/conversations} \\
+Calendar & \texttt{calendar/schedule} \\
+Analytics & \texttt{dashboard/analytics} \\
+Maps & \texttt{map/location} \\
+Data states & \texttt{utility/empty}, \texttt{utility/error} \\
+UI primitives & \texttt{ui/button}, \texttt{ui/input}, \texttt{ui/utils} \\
+\bottomrule
+\end{longtable}
+
+\section{Primary workflow}
+
+Figures~\ref{fig:user-flow-cli} and~\ref{fig:user-flow-vscode} show the two
+journeys. In both, the sequence is: resolve catalog, detect project stack,
+resolve unresolved options, render templates, write files, install dependencies,
+update the manifest.
+
+\section{Call-to-action strategy (for a future product site)}
+
+The product has \emph{no} sign-up, trial, account, billing or demo flow anywhere
+in the repository. An honest conversion path therefore drives installation and
+first generation rather than registration.
+
+\textbf{Status:} RECOMMENDED (the CTA wording is a suggestion). The statement
+that no account or billing flow exists is IMPLEMENTED/verified --- a repository-wide
+search found no pricing, payment, subscription or account code.
+
+\section{Visual identity}
+
+The repository contains no brand assets (no logo files, SVGs, or colour
+variables) and no marketing site. The only brand mark is a VS Code status bar item
+labelled with the editor's \texttt{sparkle} codicon and the text ``Expo Snips''
+(\texttt{packages/vscode-extension/src/extension.ts}, line 10).
+
+Visual identity therefore has to be derived from the generated screens, which is
+what Chapter~\ref{ch:design-system} does.
+
+\section{SEO, AEO and GEO summary}
+
+Because there is no website, there is no sitemap, robots file, canonical URL,
+structured data or Open Graph metadata in the repository. Discoverability
+documentation in Chapters~\ref{ch:seo}--\ref{ch:geo} therefore separates
+\emph{current implementation} (essentially: package metadata and published
+READMEs) from \emph{recommended improvements}.

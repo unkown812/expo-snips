@@ -1,0 +1,24 @@
+flowchart TB
+  Dev["Developer"]
+  CLI["expo-snips CLI<br/>@expo-snips/cli 0.1.0"]
+  VSC["VS Code Extension<br/>expo-snippets 0.1.3"]
+  CORE["@expo-snips/core<br/>Handlebars engine + shared types"]
+  BUNDLE["Bundled offline catalog<br/>generated/registry-data.ts"]
+  REG["Registry HTTP endpoints<br/>index.json + recipes/{id}.json"]
+  PROJ["Target Expo / React Native project<br/>generated files + .expo-snips.json"]
+  PM["Package manager<br/>npm / pnpm / yarn / bun"]
+  DATA["packages/registry<br/>data/ (24 recipes) + templates/ (48 .hbs)"]
+
+  Dev --> CLI
+  Dev --> VSC
+  CLI --> CORE
+  VSC --> CORE
+  CLI --> BUNDLE
+  VSC --> BUNDLE
+  CLI -. "optional fetch" .-> REG
+  VSC -. "optional fetch (5 min cache)" .-> REG
+  CORE --> PROJ
+  CLI --> PM
+  VSC --> PM
+  DATA --> BUNDLE
+  DATA --> REG

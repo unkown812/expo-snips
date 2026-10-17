@@ -1,0 +1,17 @@
+flowchart TD
+  A["expo-snips add &lt;screenId&gt;<br/>or snip: in VS Code"] --> B{"Remote registry configured?<br/>--registry / EXPO_SNIPS_REGISTRY /<br/>expo-snips.registryUrl"}
+  B -- "yes" --> C["GET {base}/index.json and<br/>GET {base}/recipes/{id}.json"]
+  B -- "no" --> D["Use bundled catalog<br/>REGISTRY_RECIPES"]
+  C -- "unreachable / timeout (10s)" --> D
+  D --> E["detectProject()<br/>read package.json + tsconfig.json"]
+  C --> E
+  E --> F["Resolve styling / router / ui / icons<br/>CLI: prompt if unresolved<br/>VS Code: settings fallback"]
+  F --> G["Enforce: ui=shadcn implies<br/>nativewind + lucide"]
+  G --> H["getFilesForRecipe()<br/>filter by when, render Handlebars"]
+  H --> I["writeFiles()<br/>ensureDir + writeFile"]
+  I --> J{"ui == shadcn?"}
+  J -- "yes" --> K["getPrimitives() recursive<br/>ui/utils, ui/button, ui/input"]
+  K --> L["Install dependencies<br/>package manager detected"]
+  J -- "no" --> L
+  L --> M["upsertEntry()<br/>.expo-snips.json manifest"]
+  M --> N["Next steps / Open main file / status output"]

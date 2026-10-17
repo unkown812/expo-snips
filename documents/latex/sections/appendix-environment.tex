@@ -1,0 +1,153 @@
+\chapter{Environment and Toolchain}
+\label{app:environment}
+
+\section{Application runtime environment}
+
+\begin{longtable}{@{}L{5.4cm}L{8.8cm}@{}}
+\caption{Required runtime environment for the product}\\
+\toprule
+\textbf{Item} & \textbf{Requirement / value} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Item} & \textbf{Requirement / value} \\
+\midrule
+\endhead
+Node.js & $\geq$ 18 (declared in the CLI and core \texttt{engines}; esbuild target
+\texttt{node18}). \\
+Node.js in CI & 20 (\texttt{actions/setup-node}). \\
+pnpm & 9 (pinned in both workflows). \\
+VS Code & $\geq$ 1.80.0 (\texttt{engines.vscode}). \\
+Target framework & Expo / React Native. \\
+Operating systems & Not constrained by code; the CLI shells out to a package
+manager and the extension uses VS Code's terminal, so npm/pnpm/yarn/bun are all
+supported. \\
+\bottomrule
+\end{longtable}
+
+\section{TypeScript and build configuration}
+
+\begin{longtable}{@{}L{4.6cm}L{3.2cm}L{6.4cm}@{}}
+\caption{Compiler and bundler settings}\\
+\toprule
+\textbf{Setting} & \textbf{Value} & \textbf{Where} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Setting} & \textbf{Value} & \textbf{Where} \\
+\midrule
+\endhead
+Target & ES2020 & \texttt{tsconfig.base.json}; extension \texttt{tsconfig.json} \\
+Module & CommonJS & \texttt{tsconfig.base.json}; extension \\
+Module resolution & node & all \\
+Strict & true & \texttt{tsconfig.base.json}; extension \\
+Declarations & enabled (with maps) & \texttt{tsconfig.base.json} \\
+Source maps & enabled & \texttt{tsconfig.base.json}; esbuild \\
+esbuild target & node18 & \texttt{esbuild.mjs} \\
+esbuild format & CJS & \texttt{esbuild.mjs} \\
+esbuild externals & \texttt{vscode} & \texttt{esbuild.mjs} \\
+Extension output & \texttt{out/extension.js} & \texttt{esbuild.mjs} \\
+CLI/Core output & \texttt{dist/} & per-package \texttt{tsconfig.json} \\
+\bottomrule
+\end{longtable}
+
+\section{Declared dependency versions}
+
+\begin{longtable}{@{}L{4.6cm}L{2.8cm}L{6.8cm}@{}}
+\caption{Third-party dependencies by package}\\
+\toprule
+\textbf{Package} & \textbf{Version} & \textbf{Used by} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Package} & \textbf{Version} & \textbf{Used by} \\
+\midrule
+\endhead
+\texttt{handlebars} & \^{}4.7.8 & \texttt{@expo-snips/core} (runtime) \\
+\texttt{commander} & \^{}12.0.0 & \texttt{@expo-snips/cli} \\
+\texttt{prompts} & \^{}2.4.2 & \texttt{@expo-snips/cli} \\
+\texttt{chalk} & \^{}4.1.2 & \texttt{@expo-snips/cli} \\
+\texttt{fs-extra} & \^{}11.2.0 & \texttt{@expo-snips/cli};
+\texttt{vscode-extension} (dev) \\
+\texttt{typescript} & \^{}5.5.0 & all packages (dev) \\
+\texttt{@types/node} & \^{}20.0.0 & cli, registry, extension (dev) \\
+\texttt{@types/fs-extra} & \^{}11.0.4 & cli, extension (dev) \\
+\texttt{@types/prompts} & \^{}2.4.9 & cli (dev) \\
+\texttt{@types/vscode} & \^{}1.80.0 & extension (dev) \\
+\texttt{esbuild} & \^{}0.21.5 & extension (dev) \\
+\texttt{@vscode/vsce} & \^{}2.24.0 & extension (dev) \\
+\bottomrule
+\end{longtable}
+
+\section{Environment variables}
+
+\begin{longtable}{@{}L{4.2cm}L{2.4cm}L{7.6cm}@{}}
+\caption{Environment variables}\\
+\toprule
+\textbf{Variable} & \textbf{Scope} & \textbf{Meaning} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Variable} & \textbf{Scope} & \textbf{Meaning} \\
+\midrule
+\endhead
+\texttt{EXPO\_SNIPS\_REGISTRY} & CLI runtime & Override registry base URL. \\
+\texttt{PORT} & Dev server & Port for \texttt{scripts/serve.mjs} (default 3000). \\
+\texttt{NPM\_TOKEN} & CI & npm publish authentication. \\
+\texttt{GITHUB\_TOKEN} & CI & GitHub Pages deployment. \\
+\bottomrule
+\end{longtable}
+
+No \texttt{.env} file exists in the repository.
+
+\section{Documentation build environment}
+
+This documentation suite was produced and validated with the following tools.
+These are the tools used to generate the \emph{document}, not requirements of
+the product.
+
+\begin{longtable}{@{}L{4.6cm}L{9.6cm}@{}}
+\caption{Tooling used to produce this documentation}\\
+\toprule
+\textbf{Tool} & \textbf{Role} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Tool} & \textbf{Role} \\
+\midrule
+\endhead
+pdfLaTeX (MiKTeX) & Compiles \texttt{main.tex} to PDF and resolves references. \\
+Pandoc & Converts \texttt{main.tex} to Microsoft Word (\texttt{.docx}). \\
+Mermaid CLI (\texttt{mmdc}) & Renders the \texttt{.mmd} diagrams to PNG images. \\
+\bottomrule
+\end{longtable}
+
+The document is a single \LaTeX{} \texttt{report} with one chapter per document
+type, deliberately using only standard constructs (headings, tables, lists,
+figures, captions, code blocks) so that it converts cleanly to Word.
+
+\section{Version landscape (a source of confusion)}
+
+Three independent version lines coexist and should not be conflated:
+
+\begin{longtable}{@{}L{5cm}L{2.6cm}L{6.6cm}@{}}
+\caption{Version lines}\\
+\toprule
+\textbf{Artefact} & \textbf{Version} & \textbf{Notes} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Artefact} & \textbf{Version} & \textbf{Notes} \\
+\midrule
+\endhead
+Root workspace & 0.1.0 & private. \\
+\texttt{@expo-snips/core} & 0.1.0 & published, MIT. \\
+\texttt{@expo-snips/cli} & 0.1.0 & published, MIT. \\
+\texttt{@expo-snips/registry} & 0.1.0 & private. \\
+\texttt{expo-snippets} (extension) & 0.1.3 & published artefact, ``Private
+License''. \\
+Recipes & 0.1.0--0.3.0 & versioned per recipe. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Status:} IMPLEMENTED (all values read from the repository).

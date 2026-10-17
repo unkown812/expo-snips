@@ -1,0 +1,151 @@
+\chapter{Technical Debt}
+\label{ch:technical-debt}
+
+\section{Definition and method}
+
+Technical debt here means maintenance cost accepted in the current codebase:
+missing safety nets, duplication, hard-coded values, and structure that will
+resist change. Each item has an identifier, an estimate of the interest it
+accrues (how much it will slow future work), the evidence, and a recommended
+action. Items are ordered by the value of paying them down.
+
+This is distinct from Chapter~\ref{ch:known-issues}, which describes observable
+defects. Some findings appear in both where a defect is also a structural
+weakness.
+
+\section{Debt register}
+
+\begin{longtable}{@{}L{1.2cm}L{3.6cm}L{1.7cm}L{7.1cm}@{}}
+\caption{Technical debt register}\\
+\toprule
+\textbf{ID} & \textbf{Item} & \textbf{Interest} & \textbf{Evidence and consequence} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Item} & \textbf{Interest} & \textbf{Evidence and consequence} \\
+\midrule
+\endhead
+TD-01 & No automated tests anywhere. & High & Absence of any test file. Every
+change to the shared core engine or to a template is unverified except by hand;
+regressions reach users. The core engine is used by two clients, so a single
+mistake is amplified. \\
+TD-02 & No linting or formatting configuration. & Medium & No \texttt{eslint},
+\texttt{prettier} or \texttt{editorconfig}. Style is upheld by convention only;
+diffs carry incidental noise and code quality is inconsistent. \\
+TD-03 & No continuous integration on pull requests. & High & Neither workflow runs
+on \texttt{pull\_request}. Broken builds and invalid recipes are discovered late
+(on merge or at release). See Chapter~\ref{ch:cicd}. \\
+TD-04 & Catalog inlined into every client. & Medium & The catalog is duplicated as
+\texttt{bundle.json}, per-client generated TypeScript and code inside each bundle
+($\approx$240\,KB each). It grows linearly with the recipe count and inflates
+both the npm package and the extension. See Chapter~\ref{ch:scalability}. \\
+TD-05 & Templates are recompiled on each render. & Low & \texttt{renderTemplate}
+calls \texttt{Handlebars.compile} every time. A compiled-template cache is a
+small, safe improvement. \\
+TD-06 & Hard-coded CLI version string. & Low & Two authorities for the version
+number will diverge on release. Read from \texttt{package.json} instead. \\
+TD-07 & Hand-written schema validation. & Medium & \texttt{validate.mjs}
+re-implements a subset of JSON Schema, so it can drift from
+\texttt{schema.json} and it is not exercised in CI. Use a real validator. \\
+TD-08 & Duplicated generation logic across the two clients. & High & The CLI
+(\texttt{commands/add.ts} and utilities) and the extension
+(\texttt{generator.ts}) each implement detection, option resolution, file
+writing, manifest handling and primitive resolution independently. Fixes must be
+applied twice, and the two paths can diverge. \\
+TD-09 & No root README or contribution guide. & Medium & The repository root has
+no \texttt{README.md}. Onboarding a contributor requires reading source. See
+Chapter~\ref{ch:contribution-guide}. \\
+TD-10 & Generated artefacts tracked in version control. & Low & The built
+registry (\texttt{registry/}, 25 files) and the offline bundle
+(\texttt{packages/registry/bundle.json}) are committed even though they are
+derived from \texttt{packages/registry/data/}. The four local \texttt{.vsix}
+files are correctly excluded by \texttt{.gitignore} but remain in the working
+tree. Derived files in history invite drift and noisy diffs. \\
+TD-11 & Registry package lacks a licence declaration. & Low &
+\texttt{packages/registry/package.json} has no \texttt{license} field, while the
+other packages do. Ambiguous reuse terms. \\
+TD-12 & No error-classification or logging convention. & Medium & Errors are
+surfaced with ad-hoc strings; there is no shared logging layer or set of error
+types. Diagnostics are hard to improve consistently. \\
+TD-13 & Silent tolerance of corrupt state. & Low & An unreadable manifest is
+treated as empty. Convenient, but it hides corruption. \\
+TD-14 & No dependency-update automation or audit. & Medium & No Dependabot,
+Renovate or \texttt{pnpm audit} in CI; caret ranges mean drift without signal. \\
+TD-15 & Divergent shell execution across platforms. & Low & Generators shell out
+for installation; the approach is not wrapped behind a single abstraction,
+complicating testing and cross-platform reasoning. \\
+\bottomrule
+\end{longtable}
+
+\section{The dominant debt: two clients, one engine, duplicated orchestration}
+
+\texttt{@expo-snips/core} correctly centralises \emph{rendering}. What it does
+\emph{not} centralise is everything around rendering: project detection, option
+precedence, the shadcn enforcement rules, primitive resolution, file writing,
+manifest updates and dependency installation. Both the CLI and the extension
+implement these separately.
+
+The evidence:
+
+\begin{itemize}
+  \item \texttt{packages/cli/src/utils/detectProject.ts} and
+        \texttt{packages/vscode-extension/src/project.ts} both probe
+        \texttt{package.json} and \texttt{tsconfig.json}.
+  \item \texttt{packages/cli/src/utils/primitives.ts} and the download/primitive
+        logic in \texttt{packages/vscode-extension/src/generator.ts} both resolve
+        primitive recipes.
+  \item \texttt{packages/cli/src/utils/registry.ts} and
+        \texttt{packages/vscode-extension/src/registry.ts} both fetch and fall
+        back.
+  \item \texttt{packages/cli/src/utils/manifest.ts} and the manifest functions in
+        \texttt{project.ts} both read and write \texttt{.expo-snips.json}.
+\end{itemize}
+
+\textbf{Consequence:} a behavioural change (for example, ``shadcn always implies
+NativeWind and Lucide'') must be made in more than one place, and there is
+currently no test that would catch a divergence.
+
+\textbf{Recommendation (RECOMMENDED):} promote the orchestration layer into
+\texttt{@expo-snips/core} (or a new shared package) so that both clients call one
+implementation, leaving only UI/terminal concerns in the clients.
+
+\section{Debt heat map}
+
+\begin{table}[H]
+\centering
+\caption{Debt by theme and interest}
+\begin{tabular}{@{}L{5cm}L{1.7cm}L{7.5cm}@{}}
+\toprule
+\textbf{Theme} & \textbf{Interest} & \textbf{Items} \\
+\midrule
+Verification (tests, CI, lint) & High & TD-01, TD-03, TD-02, TD-07, TD-14 \\
+Shared architecture & High & TD-08, TD-04 \\
+Documentation / onboarding & Medium & TD-09, TD-11 \\
+Robustness & Medium & TD-12, TD-13 \\
+Hygiene & Low & TD-10, TD-06, TD-05, TD-15 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Priority}
+
+\begin{enumerate}
+  \item \textbf{Introduce CI with validation and build} (TD-03) --- nearest-term,
+        protects everything else.
+  \item \textbf{Add golden-file tests for the core engine} (TD-01) --- makes the
+        shared engine safe to refactor.
+  \item \textbf{Unify the orchestration layer} (TD-08) --- removes the highest
+        structural interest.
+  \item \textbf{Address the output-correctness issues} in
+        Chapter~\ref{ch:known-issues} (KI-01, KI-02, KI-03) --- these are product
+        promises, not just hygiene.
+  \item \textbf{Pay down the remaining low-interest items} opportunistically.
+\end{enumerate}
+
+\section{Summary}
+
+\textbf{Status:} the debt is concentrated and identifiable rather than diffuse.
+The core rendering engine is small, well-typed and reasonably factored; the debt
+lives in verification (no tests, no PR CI) and in duplicated orchestration across
+the two clients. Both are addressable without rearchitecting, and both have high
+leverage because the engine is shared.

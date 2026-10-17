@@ -1,0 +1,216 @@
+\chapter{Product Requirements Document (PRD)}
+\label{ch:prd}
+
+\section{Product vision}
+
+A developer should never hand-write a login screen again. Expo Snips aims to make
+any common mobile screen available as a versioned, stack-aware recipe that can be
+generated into an existing project in one action and kept current thereafter.
+
+\textbf{Status:} INFERRED (vision statement); the underlying capability is
+IMPLEMENTED.
+
+\section{Problem statement}
+
+See Section~2.3 of Chapter~\ref{ch:project-description}. In short: recurring
+screen boilerplate is slow, inconsistent and easy to get subtly wrong, and no
+existing category of tool (snippet library, project starter, component library)
+generates whole, wired screens into an existing stack.
+
+\section{Goals and objectives}
+
+\begin{longtable}{@{}L{6cm}L{8.6cm}@{}}
+\caption{Goals and how they are served}\\
+\toprule
+\textbf{Goal} & \textbf{Mechanism} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Goal} & \textbf{Mechanism} \\
+\midrule
+\endhead
+Generate complete screens & Multi-file recipes (\texttt{files[]} with conditions). \\
+Match the user's stack & \texttt{detectProject()} plus conditional template rendering. \\
+Make output trustworthy & Best-practice libraries (react-hook-form, zod) and standard platform patterns. \\
+Remove dependency friction & Package-manager detection and installation. \\
+Support long-term maintenance & Manifest, \texttt{status}, diff-previewed \texttt{update}. \\
+Work in terminal and editor & One engine, two surfaces. \\
+Zero-config, offline-capable & Catalog bundled into both clients. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Status:} IMPLEMENTED (mechanisms) / RECOMMENDED (goal phrasing).
+
+\section{Personas}
+
+See Section~2.6 of Chapter~\ref{ch:project-description} for the three personas
+(solo developer, team/agency developer, VS Code power user).
+
+\section{User stories}
+
+Stories are written in the standard form and each is mapped to the code that
+satisfies it. Stories without an implementation are listed separately as future
+scope.
+
+\begin{longtable}{@{}L{1.3cm}L{6.4cm}L{6.9cm}@{}}
+\caption{Implemented user stories}\\
+\toprule
+\textbf{ID} & \textbf{Story} & \textbf{Implementation} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Story} & \textbf{Implementation} \\
+\midrule
+\endhead
+US-01 & As a developer, I want to add a screen with one command so I do not hand-write boilerplate. & \texttt{add.ts}: \texttt{expo-snips add <screenId>}. \\
+US-02 & As a developer, I want the generated code to match my project's styling. & \texttt{detectProject.ts} + \texttt{\#if (eq styling ...)} in templates. \\
+US-03 & As a developer, I want to choose a screen interactively if I do not know its id. & \texttt{add.ts} interactive \texttt{prompts} select when no argument is given. \\
+US-04 & As a developer, I want form validation in generated auth screens. & \texttt{zod} schema + \texttt{zodResolver} in \texttt{components.login-form.hbs}. \\
+US-05 & As a developer, I want loading and error states. & \texttt{isLoading} state and error rendering in the login template. \\
+US-06 & As a developer, I want keyboard handling. & \texttt{KeyboardAvoidingView} with platform-specific behaviour. \\
+US-07 & As a developer, I want the right dependencies installed automatically. & \texttt{installDeps.ts} / \texttt{generator.ts}. \\
+US-08 & As a developer, I want to see which screens my project uses. & \texttt{expo-snips status} reading \texttt{.expo-snips.json}. \\
+US-09 & As a developer, I want to update generated screens safely. & \texttt{update.ts} with \texttt{printDiff} and confirmation. \\
+US-10 & As a VS Code user, I want to add a screen without leaving the editor. & \texttt{completionProvider.ts}, \texttt{commands.ts}, status bar in \texttt{extension.ts}. \\
+US-11 & As a TypeScript user, I want TypeScript output. & Recipe \texttt{typescript} flag and \texttt{\#if typescript} blocks; TS/JS file variants. \\
+US-12 & As a JavaScript user, I want JavaScript output. & \texttt{--javascript} flag; \texttt{hooks/useLogin.js} variant. \\
+US-13 & As a developer using shadcn-style UI, I want the primitives generated. & \texttt{primitives.ts} plus \texttt{ui/*} recipes. \\
+US-14 & As a developer, I want to start a brand-new Expo project. & \texttt{init.ts} running \texttt{create-expo-app}. \\
+US-15 & As a maintainer, I want to validate recipes before publishing. & \texttt{scripts/validate.mjs} against \texttt{schema.json}. \\
+\bottomrule
+\end{longtable}
+
+\section{Use cases}
+
+\begin{longtable}{@{}L{2.2cm}L{5.2cm}L{7.2cm}@{}}
+\caption{Use cases}\\
+\toprule
+\textbf{ID} & \textbf{Use case} & \textbf{Flow} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Use case} & \textbf{Flow} \\
+\midrule
+\endhead
+UC-01 & Add an authentication screen & \texttt{add auth/login} $\rightarrow$ detect $\rightarrow$ render $\rightarrow$ install $\rightarrow$ manifest. \\
+UC-02 & Add an app-chrome screen & \texttt{add app/home}. \\
+UC-03 & Generate a glassmorphism variant & \texttt{add app/home --variant glass} (variant templates exist for \texttt{app/home}, \texttt{auth/login}, \texttt{onboarding/welcome}). \\
+UC-04 & Generate shadcn UI & \texttt{add auth/register --ui shadcn} (forces NativeWind and lucide; adds primitives). \\
+UC-05 & Generate JavaScript output & \texttt{add auth/login --javascript}. \\
+UC-06 & Generate through react-navigation & \texttt{add auth/login --router react-navigation} (supported only for \texttt{auth/login} and \texttt{auth/register}). \\
+UC-07 & Inspect installed screens & \texttt{status}. \\
+UC-08 & Update installed screens & \texttt{update} or \texttt{update <id> --yes}. \\
+UC-09 & Use a custom registry & \texttt{add app/home --registry http://localhost:3000}. \\
+UC-10 & Bootstrap a project & \texttt{init --name myapp}. \\
+\bottomrule
+\end{longtable}
+
+\section{Features}
+
+The reference list of features is the recipe and command inventory in
+Section~3.10 of Chapter~\ref{ch:project-description}. The catalog itself is
+tabulated in Appendix~A.
+
+\section{Functional requirements}
+
+Functional requirements are numbered and detailed in
+Chapter~\ref{ch:functional-requirements}. In the PRD they are summarised as:
+
+\begin{itemize}
+  \item FR-1 Catalog resolution (bundled or remote).
+  \item FR-2 Project stack detection.
+  \item FR-3 Option resolution and validation.
+  \item FR-4 Conditional template rendering.
+  \item FR-5 File writing.
+  \item FR-6 UI primitive resolution.
+  \item FR-7 Dependency installation.
+  \item FR-8 Manifest maintenance.
+  \item FR-9 Update with diff preview.
+  \item FR-10 Interactive selection.
+  \item FR-11 Project bootstrap.
+\end{itemize}
+
+\section{Non-functional requirements}
+
+See Chapter~\ref{ch:non-functional-requirements}. Highlights: offline operation,
+no telemetry, cross-platform paths, deterministic output, and a 10-second network
+timeout.
+
+\section{Acceptance criteria}
+
+Acceptance criteria are stated against observable behaviour.
+
+\begin{longtable}{@{}L{1.3cm}L{12.6cm}@{}}
+\caption{Acceptance criteria}\\
+\toprule
+\textbf{ID} & \textbf{Criterion} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Criterion} \\
+\midrule
+\endhead
+AC-01 & Running \texttt{expo-snips add auth/login} in a TypeScript Expo Router project creates \texttt{app/login/index.tsx}, \texttt{components/LoginForm.tsx} and \texttt{hooks/useLogin.ts}. \\
+AC-02 & The generated screen contains a \texttt{KeyboardAvoidingView} and a \texttt{SafeAreaView}. \\
+AC-03 & Validation errors render for empty or malformed input because a \texttt{zod} schema is applied through \texttt{react-hook-form}. \\
+AC-04 & With \texttt{--ui shadcn}, \texttt{components/ui/button.tsx}, \texttt{components/ui/input.tsx} and \texttt{lib/utils.ts} are created unless they already exist. \\
+AC-05 & With \texttt{--no-install}, no package-manager command is executed. \\
+AC-06 & After generation, \texttt{.expo-snips.json} contains an install entry for the recipe with its version and options. \\
+AC-07 & \texttt{expo-snips status} lists every entry in the manifest. \\
+AC-08 & \texttt{expo-snips update} prints a diff and changes nothing when the user declines. \\
+AC-09 & In VS Code, typing \texttt{snip:} offers the recipe identifiers and selecting one generates the screen. \\
+AC-10 & With no network and no registry configured, \texttt{list} still reports the bundled catalog. \\
+AC-11 & \texttt{expo-snips add auth/login --styling tamagui} exits with an error because the recipe does not support it. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Status:} IMPLEMENTED (each criterion is directly derivable from the cited
+source) --- except AC-11, which is the intended validation path in
+\texttt{add.ts} lines 104--109.
+
+\section{Success metrics}
+
+\textbf{UNKNOWN.} See Section~4.9 of Chapter~\ref{ch:brd}. No metric data exists
+in the repository.
+
+\section{Constraints and dependencies}
+
+\begin{itemize}
+  \item Runtime: Node.js $\geq$ 18.
+  \item Engine dependency: \texttt{handlebars} \^{}4.7.8 (only runtime dependency of
+        \texttt{@expo-snips/core}).
+  \item CLI dependencies: \texttt{commander} \^{}12, \texttt{prompts} \^{}2.4,
+        \texttt{chalk} \^{}4.1, \texttt{fs-extra} \^{}11.2.
+  \item Extension build: \texttt{esbuild} \^{}0.21.5 and \texttt{@vscode/vsce} \^{}2.24
+        (development only).
+  \item Generated screens depend on recipe-declared packages; for auth recipes
+        that is \texttt{react-hook-form}, \texttt{zod}, \texttt{@hookform/resolvers}
+        and \texttt{lucide-react-native}.
+\end{itemize}
+
+\section{Risks}
+
+See Section~4.11 of Chapter~\ref{ch:brd} (R-01 \dots R-06).
+
+\section{Future scope}
+
+The following are \emph{not} implemented and are listed as candidate future work.
+They are drawn from gaps in the repository and from the extension's own
+``Roadmap'' section, which is itself an unimplemented checklist.
+
+\begin{itemize}
+  \item VS Code commands for update and status (the CLI has them; the extension
+        does not).
+  \item Tamagui styling support, Vector Icons support, custom UI primitive
+        support (declared in types/schema/settings; no recipes).
+  \item Test infrastructure (\texttt{README.md} ``Roadmap'': ``Testing
+        infrastructure'').
+  \item CI for packaging the VS Code extension (\texttt{README.md} ``Roadmap'':
+        ``CI/CD pipeline for the VS Code extension'').
+  \item Additional recipes for react-navigation.
+  \item A NativeWind/Tailwind theme providing the shadcn design tokens used by
+        the \texttt{ui=shadcn} templates.
+\end{itemize}
+
+\textbf{Status:} \textbf{RECOMMENDED / POTENTIAL FUTURE WORK} --- explicitly not
+committed plans.

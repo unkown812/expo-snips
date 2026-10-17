@@ -1,0 +1,162 @@
+\chapter{Performance}
+\label{ch:performance}
+
+\section{Method and evidence boundary}
+
+\textbf{Status:} IMPLEMENTED (code paths) / UNKNOWN (measured runtimes).
+
+No benchmark, profiler run or performance test exists in the repository, and no
+timing instrumentation is present in the code. The analysis below is therefore
+derived from \emph{static} properties of the code --- algorithmic complexity,
+bundle sizes and workload sizes --- plus artefact sizes measured directly from
+the working tree. No wall-clock figure in this chapter is claimed as measured on
+the user's machine unless it is an artefact size.
+
+\section{Measured artefact sizes}
+
+All values below were read from the working tree at analysis time.
+
+\begin{longtable}{@{}L{7.4cm}L{2.6cm}L{3.8cm}@{}}
+\caption{Measured artefact sizes}\\
+\toprule
+\textbf{Artefact} & \textbf{Size} & \textbf{Path} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Artefact} & \textbf{Size} & \textbf{Path} \\
+\midrule
+\endhead
+VS Code extension bundle (esbuild, dev sourcemap) & 568{,}423 B & \texttt{packages/vscode-extension/out/extension.js} \\
+CLI generated offline catalog (TypeScript) & 249{,}874 B & \texttt{packages/cli/dist/generated/registry-data.js} \\
+CLI generated offline catalog (source) & 239{,}885 B & \texttt{packages/cli/src/generated/registry-data.ts} \\
+Registry offline bundle & 242{,}775 B & \texttt{packages/registry/bundle.json} \\
+Registry published index & 12{,}748 B & \texttt{registry/index.json} \\
+Packaged extension (VSIX 0.1.3) & 502{,}508 B & \texttt{expo-snippets-0.1.3.vsix} \\
+\bottomrule
+\end{longtable}
+
+About 95\,\% of the CLI's compiled JavaScript and roughly 40\,\% of the
+extension bundle is the inlined recipe catalog (templates and metadata), not
+logic. This is the single dominant size factor in the product.
+
+\section{Workload sizes}
+
+\begin{itemize}
+  \item 24 recipes in the catalog; the largest recipe (\texttt{auth/login}) has
+        7 file entries.
+  \item 48 Handlebars templates.
+  \item A typical generation writes 1--7 files, each below roughly 300 lines.
+  \item A primitive resolution pass touches at most a handful of recipes
+        (\texttt{ui/button}, \texttt{ui/input}, \texttt{ui/utils}).
+\end{itemize}
+
+\section{Algorithmic characteristics}
+
+\begin{longtable}{@{}L{4.2cm}L{3.4cm}L{6.2cm}@{}}
+\caption{Complexity of the principal routines}\\
+\toprule
+\textbf{Routine} & \textbf{Complexity} & \textbf{Notes} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Routine} & \textbf{Complexity} & \textbf{Notes} \\
+\midrule
+\endhead
+Catalog load & $O(1)$ per lookup & The catalog is a module constant in the CLI and
+extension; a lookup is an array \texttt{find}. \\
+Remote index fetch & $O(1)$ request & One HTTP GET of a 12.7\,KB document. \\
+Remote recipe fetch & $O(1)$ request & One HTTP GET per selected recipe. \\
+Template render & $O(n)$ per template & Handlebars compile plus execute, where $n$ is
+template length. \\
+Primitive resolution & $O(r \cdot f)$ & $r$ = primitives transitively referenced, $f$
+= files per primitive; guarded against cycles. \\
+Diff & $O(n \cdot m)$ time, $O(n \cdot m)$ space & Longest-common-subsequence
+table over two files; $n$, $m$ are line counts. \\
+\bottomrule
+\end{longtable}
+
+The only super-linear routine is the update diff, and its inputs are single
+generated source files of a few hundred lines, so the practical cost is
+negligible (a few hundred thousand table cells).
+
+\section{Observed efficiency measures}
+
+\begin{itemize}
+  \item \textbf{Offline-first design.} The catalog ships inside each client, so
+        the common path performs \emph{no} network work at all. This is the most
+        significant performance property of the product.
+  \item \textbf{Bounded network calls.} Every fetch carries a 10-second timeout,
+        so a slow or dead registry degrades gracefully instead of hanging.
+  \item \textbf{Extension caching.} The extension caches a remote catalog for
+        5 minutes, avoiding repeated index fetches during a working session.
+  \item \textbf{Packaging.} The extension is bundled (not shipped as many files);
+        \texttt{.vscodeignore} excludes sources and dev material from the VSIX.
+  \item \textbf{Build ordering.} The registry is prepared once per build and
+        inlined, so runtime never reads registry files from disk.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{Optimisation opportunities}
+
+\begin{longtable}{@{}L{1.4cm}L{4cm}L{4cm}L{4.4cm}@{}}
+\caption{Performance findings}\\
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Evidence} & \textbf{Recommendation} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Finding} & \textbf{Evidence} & \textbf{Recommendation} \\
+\midrule
+\endhead
+PERF-01 & Templates are recompiled on every render; there is no compiled-template
+cache. & \texttt{core/src/generate.ts} line 9 calls
+\texttt{Handlebars.compile} inside \texttt{renderTemplate}. & Cache compiled
+templates by template string, or precompile at build time with
+\texttt{handlebars}. Impact is small at current volumes. \\
+PERF-02 & The catalog is duplicated: it exists as JSON
+(\texttt{bundle.json}), as a generated \texttt{.ts} module per client, and inside
+each client bundle. & Three copies measured above. & Acceptable; a shared
+generated package would remove duplication if the catalog grows. \\
+PERF-03 & The diff builds a full $(n+1)\times(m+1)$ table and has no context
+grouping, so a large change prints every line. & \texttt{cli/src/utils/diff.ts}. &
+Add a context limit or switch to a streaming diff for very large files. \\
+PERF-04 & No performance budget, benchmark or regression guard is defined. &
+Absence in CI and tests. & Introduce a lightweight generation-time benchmark in
+CI (RECOMMENDED). \\
+\bottomrule
+\end{longtable}
+
+\section{Perceived performance (user experience)}
+
+Because generation is local and synchronous, the dominant perceived cost is the
+\emph{dependency install} step, which shells out to \texttt{npm}/\texttt{pnpm}
+and is inherently network- and disk-bound. The tool mitigates this by making
+installation optional (\texttt{--no-install} in the CLI,
+\texttt{expo-snips.installDependencies} in the extension) and by running it in a
+visible terminal in the extension so the user sees progress.
+
+\textbf{Status:} INFERRED from code; no timing data available.
+
+\section{Summary}
+
+\begin{table}[H]
+\centering
+\caption{Performance posture}
+\begin{tabular}{@{}L{4.4cm}L{9.8cm}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Assessment} \\
+\midrule
+Correctness of complexity & All hot paths are linear or constant except the diff,
+which is small-input. \\
+Cold-start cost & Dominated by loading the inlined catalog ($\approx$240\,KB of
+JavaScript). \\
+Network cost & Zero on the default path; one index request plus one recipe
+request on the remote path. \\
+Largest user-visible delay & Dependency installation. \\
+Measurement maturity & None --- this is the principal gap. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Status:} IMPLEMENTED (design) / RECOMMENDED (measurement).
