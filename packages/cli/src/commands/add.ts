@@ -72,7 +72,8 @@ export const addCommand = new Command("add")
     if (!screenId) {
       if (index.length === 0) {
         console.error(chalk.red("No screens found in the registry."));
-        console.error("Set EXPO_SNIPS_REGISTRY or use --registry <url> to point at a registry.");
+        console.error("The bundled catalog appears to be missing; try reinstalling @expo-snips/cli.");
+        console.error("You can also point at a registry with --registry <url> or EXPO_SNIPS_REGISTRY.");
         process.exitCode = 1;
         return;
       }

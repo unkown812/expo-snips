@@ -8,6 +8,6 @@
     "test": "pnpm -r test",
     "validate": "node scripts/validate.mjs",
     "build:registry": "node scripts/build-registry.mjs",
-    "serve": "node scripts/serve.mjs"
+    "serve": "node scripts/build-registry.mjs && node scripts/serve.mjs"
   }
 }

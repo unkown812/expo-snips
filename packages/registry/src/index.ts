@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { ScreenRecipe } from "@expo-snips/core";
+import { ScreenRecipe, StylingOption } from "@expo-snips/core";
 
 const dataDir = path.resolve(__dirname, "..", "data");
 const templatesDir = path.resolve(__dirname, "..", "templates");
@@ -15,15 +15,38 @@ function walkJson(dir: string): string[] {
   return results;
 }
 
-function loadRecipeFromFile(filePath: string): ScreenRecipe {
+function readTemplate(ref: string): string {
+  const templatePath = path.resolve(templatesDir, ref);
+  if (!fs.existsSync(templatePath)) {
+    throw new Error(`Template not found: ${ref}`);
+  }
+  return fs.readFileSync(templatePath, "utf-8");
+}
+
+function inlineTemplateRef(value: string): string {
+  // Variant / per-styling overrides hold either inline template strings or a
+  // path to a `.hbs` file. Resolve file references to their contents.
+  return value.endsWith(".hbs") ? readTemplate(value) : value;
+}
+
+export function loadRecipeFromFile(filePath: string): ScreenRecipe {
   const raw = fs.readFileSync(filePath, "utf-8");
   const recipe = JSON.parse(raw) as ScreenRecipe;
 
   for (const file of recipe.files) {
     if (file.templateFile) {
-      const templatePath = path.resolve(templatesDir, file.templateFile);
-      file.template = fs.readFileSync(templatePath, "utf-8");
+      file.template = readTemplate(file.templateFile);
       delete file.templateFile;
+    }
+    if (file.variants) {
+      for (const [key, value] of Object.entries(file.variants)) {
+        file.variants[key] = inlineTemplateRef(value);
+      }
+    }
+    if (file.perStyling) {
+      for (const [key, value] of Object.entries(file.perStyling)) {
+        file.perStyling[key as StylingOption] = inlineTemplateRef(value);
+      }
     }
   }
 

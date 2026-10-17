@@ -7,7 +7,16 @@ export function registerCommands(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand("expo-snips.addScreen", async () => {
       const index = await getRecipeIndex();
       if (index.length === 0) {
-        vscode.window.showErrorMessage("Expo Snips: no screens found in the registry.");
+        const action = await vscode.window.showErrorMessage(
+          "Expo Snips: no screens found in the built-in catalog.",
+          "Open Settings"
+        );
+        if (action === "Open Settings") {
+          await vscode.commands.executeCommand(
+            "workbench.action.openSettings",
+            "expo-snips.registryUrl"
+          );
+        }
         return;
       }
 

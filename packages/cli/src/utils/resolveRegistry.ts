@@ -1,20 +1,30 @@
 import chalk from "chalk";
-import { getRecipeIndex, getRegistryBase, RecipeIndexEntry } from "./registry";
+import {
+  getRegistryBase,
+  resolveRecipeIndex,
+  type RecipeIndexEntry,
+  type RegistrySource,
+} from "./registry";
 
 export interface RegistryResolution {
   index: RecipeIndexEntry[];
-  source: "remote";
+  source: RegistrySource;
   url: string;
 }
 
 export async function resolveRegistry(registryUrl?: string): Promise<RegistryResolution> {
   const base = getRegistryBase(registryUrl);
-  console.log(chalk.dim(`Fetching registry index from ${base}...`));
-  const index = await getRecipeIndex(registryUrl);
-  if (index.length === 0) {
-    console.warn(chalk.yellow(`Could not fetch registry index from ${base}.`));
+  const resolved = await resolveRecipeIndex(registryUrl);
+
+  if (resolved.source === "remote") {
+    console.log(chalk.dim(`Loaded ${resolved.index.length} screens from ${base}.`));
+  } else if (base) {
+    console.warn(
+      chalk.yellow(`Could not reach registry at ${base}. Using ${resolved.index.length} built-in screens.`)
+    );
   } else {
-    console.log(chalk.dim(`Loaded ${index.length} screens from remote registry.`));
+    console.log(chalk.dim(`Using ${resolved.index.length} built-in screens.`));
   }
-  return { index, source: "remote", url: base };
+
+  return resolved;
 }

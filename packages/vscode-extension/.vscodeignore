@@ -1,4 +1,5 @@
 src/**
+scripts/**
 out/**/*.map
 node_modules/**
 tsconfig.json

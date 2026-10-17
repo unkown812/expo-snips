@@ -4,11 +4,11 @@
 
 ### Generate complete React Native / Expo screens from a short abbreviation.
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue)](https://github.com/expo-snips/expo-snips/releases)
+[![Version](https://img.shields.io/badge/version-0.1.3-blue)](https://github.com/expo-snips/expo-snips/releases)
 [![License](https://img.shields.io/badge/license-proprietary-red)](./LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-%5E1.80.0-007acc?logo=visual-studio-code)](https://code.visualstudio.com/)
 [![React Native](https://img.shields.io/badge/React%20Native-Expo-black?logo=react)](https://expo.dev/)
-[![Registry](https://img.shields.io/badge/registry-expo--snips.dev-green)](https://registry.expo-snips.dev)
+[![Registry](https://img.shields.io/badge/registry-built--in%20catalog-green)](#registry-driven-catalog)
 
 [Installation](#installation) &bull; [Usage](#usage) &bull; [Settings](#settings) &bull; [Development](#development)
 
@@ -66,12 +66,20 @@ Detected values are used as defaults, with user-configurable settings as fallbac
 
 ### Registry-Driven Catalog
 
-The screen catalog is fetched from the remote registry at `https://registry.expo-snips.dev` (configurable). Recipes are versioned, stack-aware, and include battle-tested patterns:
+The full screen catalog is **bundled into the extension**, so it works offline and
+immediately after install — no account, server, or network access required. The
+catalog includes recipes that are versioned, stack-aware, and built on
+battle-tested patterns:
 
 - `react-hook-form` + `zod` validation
 - `KeyboardAvoidingView` and `SafeAreaView` handling
 - Loading spinners and error states
 - shadcn-style UI primitives (Button, Input, cn utility)
+
+Optionally, set `expo-snips.registryUrl` to fetch screens from a hosted registry
+instead (for example `http://localhost:3000` while running `pnpm serve` from the
+repository). When a remote registry is unreachable, the extension automatically
+falls back to the built-in catalog.
 
 ### Automatic Dependency Installation
 
@@ -104,8 +112,8 @@ flowchart LR
     A[Developer] -->|snip:login| B[VS Code Extension]
     A -->|Command Palette| B
     A -->|Status Bar| B
-    B -->|GET /index.json| C[Screen Registry]
-    B -->|GET /recipes/:id.json| C
+    B -->|bundled catalog| C[Built-in Screens]
+    B -->|GET /index.json| C2[Remote Registry (optional)]
     B -->|read package.json| D[Project Detection]
     B -->|getFilesForRecipe| E["@expo-snips/core\n(Handlebars)"]
     E -->|Generated files| F[Write to Workspace]
@@ -115,7 +123,8 @@ flowchart LR
 ```
 
 1. You trigger screen generation via `snip:`, command palette, or status bar.
-2. The extension fetches the recipe index from the registry (cached 5 minutes).
+2. The extension loads the screen catalog from its built-in bundle (or from a
+   remote registry if `expo-snips.registryUrl` is set; cached 5 minutes).
 3. You select a screen from the Quick Pick list.
 4. The extension detects your project's stack from `package.json`.
 5. `@expo-snips/core` renders Handlebars templates adapted to your stack.
@@ -130,7 +139,7 @@ flowchart LR
 
 ### From VSIX
 
-1. Download `expo-snips-0.1.0.vsix` from the [releases page](https://github.com/expo-snips/expo-snips/releases).
+1. Download `expo-snips-0.1.3.vsix` from the [releases page](https://github.com/expo-snips/expo-snips/releases).
 2. In VS Code, open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`).
 3. Run **Extensions: Install from VSIX...** and select the downloaded file.
 4. Reload VS Code when prompted.
@@ -173,7 +182,7 @@ Click the sparkle icon (`$(sparkle) Expo Snips`) in the bottom-right status bar.
 
 | Setting | Type | Default | Description |
 |---------|------|---------|-------------|
-| `expo-snips.registryUrl` | `string` | `https://registry.expo-snips.dev` | URL of the screen registry |
+| `expo-snips.registryUrl` | `string` | *(empty)* | Optional remote registry URL. Leave empty to use the built-in catalog |
 | `expo-snips.defaultStyling` | `enum` | `nativewind` | Styling fallback when not detected |
 | `expo-snips.defaultRouter` | `enum` | `expo-router` | Router fallback when not detected |
 | `expo-snips.defaultUi` | `enum` | `native` | UI primitives fallback when not detected |
@@ -201,7 +210,10 @@ vscode-extension/
 │   ├── completionProvider.ts   # Inline snip: / expo-snips: completion
 │   ├── generator.ts            # Core screen generation logic
 │   ├── project.ts              # Project detection & manifest management
-│   └── registry.ts             # Registry API client with caching
+│   ├── registry.ts             # Offline catalog + optional remote registry client
+│   └── generated/              # Build-time registry bundle (git-ignored)
+├── scripts/
+│   └── prepare-registry.mjs    # Inlines the registry into the extension at build time
 ├── out/
 │   └── extension.js            # Bundled output (esbuild)
 ├── package.json                # Extension manifest & settings
@@ -221,7 +233,7 @@ vscode-extension/
 | `completionProvider.ts` | 45 | Provides `snip:` / `expo-snips:` inline completions |
 | `generator.ts` | 268 | Orchestrates detection, rendering, file writing, and dependency install |
 | `project.ts` | 103 | Detects project stack and manages `.expo-snips.json` manifest |
-| `registry.ts` | 60 | Fetches recipe index and individual recipes from the registry |
+| `registry.ts` | ~120 | Loads the bundled catalog and (optionally) a remote registry |
 
 ---
 
@@ -303,7 +315,7 @@ pnpm --filter expo-snips package    # Produces expo-snips-<version>.vsix
 - **No tests** — testing infrastructure is not yet implemented.
 - **No CI/CD for the extension** — the extension is packaged manually; only the registry and npm packages have automated workflows.
 - **Limited icon/styling options** — `tamagui`, `vector-icons`, and `custom` are setting options but lack recipe support.
-- **Registry-dependent** — screen generation requires network access to fetch recipes (cached 5 minutes).
+- **Offline by default** — the catalog ships with the extension; only set `expo-snips.registryUrl` if you want to load a custom/remote registry.
 - **VS Code only** — the VS Code extension is separate from the CLI; both share the same core engine but are independently installed.
 
 ---

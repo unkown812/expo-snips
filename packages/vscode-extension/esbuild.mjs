@@ -1,10 +1,15 @@
 import { build } from "esbuild";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { prepareRegistry } from "./scripts/prepare-registry.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const watch = process.argv.includes("--watch");
+
+// Regenerate the offline registry bundle before every build so the extension
+// ships the full screen catalog (and works without network access).
+prepareRegistry();
 
 const options = {
   entryPoints: [path.join(__dirname, "src", "extension.ts")],

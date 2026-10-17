@@ -4,3 +4,5 @@ out/
 *.tsbuildinfo
 *.vsix
 .turbo/
+packages/vscode-extension/src/generated/
+packages/cli/src/generated/

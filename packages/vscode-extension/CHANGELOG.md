@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-10-17
+
+### Fixed
+
+- **Screen catalog is now bundled into the extension** and works fully offline,
+  immediately after install. Previously the extension could only load screens
+  from a remote registry URL that was not reachable, which produced
+  "no screens found in the registry".
+- `expo-snips.registryUrl` now defaults to empty (built-in catalog). Set it only
+  to load screens from a self-hosted or remote registry.
+- Variant templates (for example the `glass` variant) are now resolved to their
+  actual file contents instead of a raw template file path.
+- Added a request timeout so an unreachable registry no longer hangs the
+  extension.
+
 ## [0.1.0] - 2026-08-30
 
 ### Added
