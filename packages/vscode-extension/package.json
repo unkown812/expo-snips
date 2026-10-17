@@ -1,11 +1,12 @@
 {
-  "name": "expo-snips",
-  "displayName": "Expo Snips",
+  "name": "expo-snippets",
+  "displayName": "Expo Snippets",
   "description": "Generate complete React Native screens with a single abbreviation.",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "publisher": "ukown812",
   "author": "Jay Jogane",
   "license": "Private License",
+  "icon": "assets/logo.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/unkown812/expo-snips.git"
