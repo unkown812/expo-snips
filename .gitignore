@@ -1,8 +1,33 @@
+# Dependencies
 node_modules/
+
+# Build output
 dist/
 out/
 *.tsbuildinfo
-*.vsix
 .turbo/
+
+# Build-time generated catalogs (regenerate via `pnpm build`)
 packages/vscode-extension/src/generated/
 packages/cli/src/generated/
+
+# Packaged VS Code extension artifacts
+*.vsix
+
+# Local Expo Snips manifest (written into a project when the CLI/extension is run)
+.expo-snips.json
+
+# Environment files (keep the example tracked if one is ever added)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db

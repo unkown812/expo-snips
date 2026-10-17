@@ -341,17 +341,17 @@ Run it from **inside your Expo project** so files are written there and dependen
 
 ### 4. Install the VS Code extension
 
-Install a committed build (`packages/vscode-extension/expo-snippets-0.1.3.vsix`):
-
-1. In VS Code open the Command Palette (`Ctrl/Cmd + Shift + P`).
-2. Run **Extensions: Install from VSIX…** and select the `.vsix` file.
-3. Reload VS Code. Open your Expo project and type `snip:` in a `.tsx` file.
-
-Or build it yourself:
+The extension is **not published to the Marketplace and has no tagged releases yet**, so you install it from a locally built package. Build one, then install it:
 
 ```bash
 pnpm --filter expo-snippets package    # esbuild + vsce → packages/vscode-extension/expo-snippets-<version>.vsix
 ```
+
+1. In VS Code open the Command Palette (`Ctrl/Cmd + Shift + P`).
+2. Run **Extensions: Install from VSIX…** and select the generated `.vsix` file.
+3. Reload VS Code. Open your Expo project and type `snip:` in a `.tsx` file.
+
+> Packaged `.vsix` files are git-ignored build artifacts — build the extension from source to get one.
 
 ---
 
@@ -550,7 +550,7 @@ expo-snips/
 │   └── vscode-extension/     # expo-snippets — VS Code extension (proprietary)
 │       ├── src/              # extension, commands, completionProvider, generator, project, registry
 │       ├── assets/logo.png   # extension icon
-│       └── *.vsix            # committed builds 0.1.0 → 0.1.3
+│       └── *.vsix            # local packaged builds (git-ignored)
 ├── registry/                 # built, deployable registry (index.json + recipes/*.json)
 ├── scripts/
 │   ├── build-registry.mjs    # compile data/ + templates/ → registry/
@@ -631,14 +631,15 @@ What *is* available for verifying changes:
 
 ## CI/CD & Deployment
 
-Two GitHub Actions workflows exist under `.github/workflows/`:
+Three GitHub Actions workflows exist under `.github/workflows/`:
 
 | Workflow | Trigger | What it does |
 |---|---|---|
+| **CI** | push to `main`/`master`, pull requests, manual | Installs (frozen lockfile), runs `pnpm validate`, `pnpm build`, and the extension type check |
 | **Deploy Registry** | push to `main`/`master`, manual | Runs `scripts/build-registry.mjs`, copies `registry/` into `public/registry`, and deploys `public/` to **GitHub Pages** via `peaceiris/actions-gh-pages@v3` |
 | **Publish Packages** | push of a `v*` tag | Installs (frozen lockfile), runs `pnpm build`, and publishes `@expo-snips/core` and `@expo-snips/cli` to **npm** (requires an `NPM_TOKEN` secret) |
 
-The VS Code extension is **packaged manually** with `vsce` — there is no automated pipeline for it.
+The VS Code extension is **packaged manually** with `vsce` — there is no automated pipeline for it (the CI workflow only type-checks it).
 
 ---
 
@@ -673,7 +674,7 @@ No wall-clock benchmarks or Lighthouse-style metrics are published (none were me
 
 - `@expo-snips/core` and `@expo-snips/cli` are **not yet published on npm** (the publish workflow is configured but the package names resolve to 404 on the npm registry). Install and run from this repository.
 - The default registry host `registry.expo-snips.dev` and the GitHub Pages registry path **did not resolve** when checked. Because the catalog is bundled, this has **no effect** on normal use — it only means a *remote* registry is not currently reachable.
-- The VS Code extension is distributed as committed `.vsix` files in the repository; do not assume Marketplace availability.
+- The VS Code extension is **not on the Marketplace and has no tagged releases**; package it locally with `pnpm --filter expo-snippets package` (the `.vsix` files in the working tree, if present, are git-ignored local artifacts).
 
 ---
 
@@ -738,7 +739,7 @@ Contributions are welcome — the catalog is designed to grow through new recipe
 - **Improve the engine or tooling:** work in `packages/core`, `packages/cli` or `packages/vscode-extension` and rebuild the affected package.
 - **Keep the surfaces in sync:** the CLI and the extension share `@expo-snips/core`; prefer fixing behavior there when both are affected.
 
-There is **no `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` or `SECURITY.md`** in this repository yet. Until those exist, open an issue or pull request on [GitHub](https://github.com/unkown812/expo-snips).
+Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the full workflow (setup, checks to run, PR expectations), [`AGENTS.md`](./AGENTS.md) for architecture and conventions, and [`SECURITY.md`](./SECURITY.md) to report vulnerabilities privately. Notable changes are tracked in [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
 
@@ -779,6 +780,21 @@ There is no root `LICENSE` file; licensing is declared per package.
 ## Documentation Suite
 
 Beyond this README, `documents/` contains a full reverse-engineered documentation suite generated from repository analysis: business and requirements documents, architecture and design chapters, API/auth/data-flow references, security/performance/testing/deployment chapters, and appendices — compiled as **LaTeX source**, a **PDF** (~203 pages) and a **DOCX** (~170 tables) under `documents/output/`. See [`documents/README.md`](documents/README.md) for the index and build instructions.
+
+---
+
+## Working in This Repository
+
+| File | Purpose |
+|---|---|
+| [`AGENTS.md`](./AGENTS.md) | Architecture, conventions, commands and guardrails for AI coding agents and contributors |
+| [`CONTRIBUTING.md`](./CONTRIBUTING.md) | Setup, ways to contribute, checks to run, and PR expectations |
+| [`SECURITY.md`](./SECURITY.md) | How to report vulnerabilities privately |
+| [`CHANGELOG.md`](./CHANGELOG.md) | Notable monorepo changes (see also the extension's own changelog) |
+| [`.editorconfig`](./.editorconfig) | Shared editor settings (2-space indent, LF, UTF-8) |
+| [`.gitattributes`](./.gitattributes) | Binary/generated-file handling for Git |
+| [`.nvmrc`](./.nvmrc) | Node version used by CI (`20`) |
+| [`.github/`](./.github) | CI workflow, issue and pull-request templates, Dependabot config |
 
 ---
 
