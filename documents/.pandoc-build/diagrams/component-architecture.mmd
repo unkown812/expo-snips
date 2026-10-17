@@ -1,0 +1,35 @@
+flowchart LR
+  subgraph CORE["packages/core (@expo-snips/core, MIT)"]
+    T["types.ts<br/>ScreenRecipe, FileTemplate"]
+    C["context.ts<br/>GenerationContext, RenderContext"]
+    G["generate.ts<br/>getFilesForRecipe, eq/neq helpers"]
+  end
+  subgraph CLI["packages/cli (@expo-snips/cli, MIT)"]
+    IDX["index.ts (commander)"]
+    CMD["commands<br/>init, list, add, update, status"]
+    UTIL["utils<br/>detectProject, registry, manifest,<br/>primitives, diff, installDeps, writeFiles"]
+  end
+  subgraph REG["packages/registry (@expo-snips/registry, private)"]
+    RIDX["src/index.ts<br/>loadRecipeFromFile, fetchRecipes"]
+    schema["schema.json<br/>recipe JSON Schema"]
+    bscript["scripts/build-bundle.mjs"]
+  end
+  subgraph VSC["packages/vscode-extension (expo-snippets, proprietary)"]
+    EXT["extension.ts"]
+    CMDS["commands.ts + completionProvider.ts"]
+    GEN["generator.ts"]
+    PROJ["project.ts + registry.ts"]
+  end
+  DATA["registry/ (built)<br/>index.json + recipes/*.json"]
+  SCRIPTS["scripts/<br/>build-registry.mjs, build-recipes.mjs,<br/>validate.mjs, serve.mjs"]
+
+  CLI --> CORE
+  VSC --> CORE
+  REG --> CORE
+  CMD --> UTIL
+  UTIL --> CORE
+  GEN --> CORE
+  PROJ --> CORE
+  SCRIPTS --> DATA
+  SCRIPTS --> schema
+  REG --> DATA

@@ -1,0 +1,164 @@
+\chapter{Non-Functional Requirements}
+\label{ch:non-functional-requirements}
+
+Non-functional requirements are stated only where the repository provides
+evidence, or are explicitly marked as RECOMMENDED.
+
+\section{Compatibility}
+
+\begin{longtable}{p{4.2cm}p{10cm}}
+\caption{Compatibility requirements}\\
+\toprule
+\textbf{Area} & \textbf{Requirement / evidence} \\
+\midrule
+
+Node.js & $\geq$ 18 (\texttt{engines.node} in \texttt{@expo-snips/cli}; esbuild
+target \texttt{node18}). \\
+Language target & ES2020, CommonJS modules (\texttt{tsconfig.base.json}). \\
+VS Code & $\geq$ 1.80.0 (\texttt{engines.vscode}). \\
+Operating system & No OS-specific code; paths are built with \texttt{path.join}
+and the CLI uses \texttt{process.cwd()}, so Windows, macOS and Linux are supported. \\
+Target projects & Expo / React Native with Expo Router (default); NativeWind or
+StyleSheet; TypeScript or JavaScript. \\
+\bottomrule
+\end{longtable}
+
+\section{Performance}
+
+\begin{itemize}
+  \item A remote registry request is bounded by a 10-second abort timeout
+        (\texttt{registry.ts} in both clients).
+  \item The extension caches a successful remote index for 5 minutes and enters a
+        5-minute back-off after an unreachable registry, preventing repeated stalls
+        (\texttt{packages/vscode-extension/src/registry.ts}).
+  \item Rendering is in-memory Handlebars compilation per file; there is no
+        incremental compilation or caching. This is INFERRED as adequate because
+        recipes contain at most seven file entries, but no benchmark exists in the
+        repository.
+  \item The diff algorithm is a full $O(n \times m)$ longest-common-subsequence
+        table (\texttt{diff.ts}), allocated per file compared.
+\end{itemize}
+
+Quantified performance targets (\textbf{UNKNOWN}) --- the repository defines none.
+
+\section{Reliability and fault tolerance}
+
+\begin{itemize}
+  \item Catalog resolution degrades gracefully: remote failure falls back to the
+        bundled catalog (FR-1).
+  \item An unreadable or corrupt manifest is treated as empty
+        (\texttt{manifest.ts}, lines 37--45).
+  \item Update skips recipes that are no longer present in the registry with a
+        warning instead of failing the whole operation (\texttt{update.ts},
+        lines 78--83).
+  \item An unknown primitive id logs a warning and is skipped
+        (\texttt{primitives.ts}, line 31).
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{Security (summary)}
+
+Detailed in Chapter~\ref{ch:security}. Non-functional expectations:
+
+\begin{itemize}
+  \item No credentials are stored or transmitted by the product.
+  \item Network access is read-only HTTP GET against JSON endpoints.
+  \item Recipe content and recipe dependency names are treated as trusted input;
+        there is no signature verification.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED (behaviour) / RECOMMENDED (hardening measures).
+
+\section{Usability}
+
+\begin{itemize}
+  \item Coloured terminal output groups information, warnings and errors
+        (\texttt{chalk}).
+  \item Interactive prompts are used only when a value cannot be resolved.
+  \item Post-generation guidance lists concrete next steps
+        (\texttt{add.ts}, lines 275--278).
+  \item The extension reports progress in a notification and offers a single
+        follow-up action.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{Accessibility}
+
+\textbf{NOT APPLICABLE} for a graphical user interface: the product has no web or
+mobile UI of its own; its interface is a command-line program and a VS Code
+extension surface built entirely from native VS Code components (Quick Pick,
+notification, status bar), which inherit the editor's own accessibility
+behaviour.
+
+Accessibility of \emph{generated screens} is the responsibility of the recipe
+authors. The templates verify: they use \texttt{Text} components for all copy and
+\texttt{Pressable} for interaction, but no recipe adds
+\texttt{accessibilityLabel}, \texttt{accessibilityRole} or
+\texttt{accessibilityHint}. This is recorded as a recommendation in
+Chapter~\ref{ch:ui-ux} and as technical debt in Chapter~\ref{ch:technical-debt}.
+
+\section{Maintainability}
+
+\begin{itemize}
+  \item The engine, CLI, registry and extension are separated into distinct
+        packages with a single dependency direction
+        (CLI/extension/registry $\rightarrow$ core).
+  \item The recipe format is captured in a JSON Schema and enforced by a
+        validation script.
+  \item TypeScript strict mode is enabled workspace-wide
+        (\texttt{strict: true}).
+  \item Counter-evidence: the stack-detection logic and the primitive-resolution
+        logic are duplicated between the CLI and the extension; there is no test
+        suite; and generated catalog modules are committed/ignored inconsistently.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED (structure) / INFERRED (assessment).
+
+\section{Portability and distribution}
+
+\begin{itemize}
+  \item The CLI is published to npm with public access.
+  \item The extension is packaged with \texttt{vsce} into a \texttt{.vsix}.
+  \item The registry is plain static files, deployable to any static host.
+  \item The catalog is additionally embedded in both clients, so distribution of
+        the catalog does not depend on hosting availability.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{Observability}
+
+The product emits console output only. There is no logging framework, no log
+levels, no log destination configuration, no metrics and no telemetry. Diagnostics
+are limited to \texttt{console.log}/\texttt{console.warn}/\texttt{console.error}
+with \texttt{chalk} colouring in the CLI.
+
+\textbf{Status:} IMPLEMENTED (as a limitation); instrumentation is RECOMMENDED for
+future work but is not required for a local code-generation tool.
+
+\section{Privacy}
+
+\begin{itemize}
+  \item No personal data is collected, transmitted or stored by the product.
+  \item The only persistent artefact is \texttt{.expo-snips.json} in the user's
+        project, containing recipe ids, versions, timestamps and option values.
+  \item No analytics or third-party trackers exist in the repository.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED (verified by absence).
+
+\section{Localisation}
+
+\textbf{NOT APPLICABLE.} All user-facing strings are hard-coded English literals;
+there is no i18n framework, message catalogue or locale handling.
+
+\section{Portability of generated code}
+
+Generated screens target React Native only. They import from \texttt{react-native},
+\texttt{expo-router} or \texttt{@react-navigation/native}, and the third-party
+libraries declared by each recipe. They are therefore portable across the platforms
+Expo supports, subject to the recipe's dependency set (for example
+\texttt{map/location} declares \texttt{react-native-maps}, which is not available
+on the web target without an additional provider).

@@ -1,0 +1,123 @@
+\chapter{Executive Summary}
+\label{ch:executive-summary}
+
+\section{What the product is}
+
+Expo Snips is a free developer tool that writes complete Expo / React Native
+screens into an existing mobile project from a single short command or an editor
+trigger. A developer types \texttt{expo-snips add auth/login} in a terminal, or
+\texttt{snip:} inside VS Code, and the tool produces the screen file, its
+supporting form component and any hooks --- complete with form validation,
+loading and error states, and keyboard handling.
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{The problem}
+
+Teams building React Native apps repeatedly hand-write the same screens:
+login, registration, one-time-code entry, settings, product listings, onboarding
+flows and empty/error states. Each one involves several files and several
+libraries, and it is easy to omit the details that make a screen feel finished
+(validation messages, loading spinners, keyboard avoidance, safe areas).
+
+\textbf{Status:} INFERRED from the product's stated rationale
+(\texttt{packages/vscode-extension/README.md}) and from the recipe coverage in
+\texttt{packages/registry/data}.
+
+\section{The solution}
+
+A catalog of 24 versioned ``screen recipes''. Each recipe declares the stacks it
+supports, the npm dependencies it needs, and the files it produces. A shared
+Handlebars engine renders those files to match the target project.
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{How value is delivered}
+
+\begin{enumerate}
+  \item \textbf{Whole screens, not snippets.} A recipe such as \texttt{auth/login}
+        emits up to seven file variants depending on the project's stack
+        (\texttt{app/login/index.tsx}, \texttt{screens/LoginScreen.tsx},
+        \texttt{components/LoginForm.tsx}, \texttt{hooks/useLogin.ts} or
+        \texttt{.js}).
+  \item \textbf{Stack-aware output.} The tool reads \texttt{package.json} and
+        \texttt{tsconfig.json} to detect the router, styling solution, UI
+        primitives, icon library and language, then renders conditionally.
+  \item \textbf{Best-practice patterns.} Auth recipes use
+        \texttt{react-hook-form} with \texttt{zod} validation and
+        \texttt{@hookform/resolvers}.
+  \item \textbf{No dependency drift.} Recipe dependencies are installed with the
+        project's own package manager (npm, pnpm, yarn or bun).
+  \item \textbf{Reviewable updates.} Installs are recorded in
+        \texttt{.expo-snips.json}; \texttt{expo-snips update} shows a line-level
+        diff before applying changes.
+  \item \textbf{Works offline.} The catalog is bundled into both the CLI and the
+        extension, so no network access is required.
+\end{enumerate}
+
+\textbf{Status:} IMPLEMENTED --- each item is traceable to source (see the
+corresponding chapters).
+
+\section{Technology and architecture in one paragraph}
+
+Expo Snips is a pnpm workspace monorepo with four packages: a shared generation
+engine (\texttt{@expo-snips/core}, Handlebars + TypeScript types), a CLI
+(\texttt{@expo-snips/cli}, commander + prompts + chalk), a registry package
+(\texttt{@expo-snips/registry}, recipe data + 48 templates + a JSON Schema) and
+a VS Code extension (\texttt{expo-snippets}, esbuild-bundled). The catalog is
+compiled from source recipe files into a static JSON registry that is published
+to GitHub Pages, and into offline bundles embedded in the CLI and the extension.
+There is no backend, no database and no user account system.
+
+\textbf{Status:} IMPLEMENTED.
+
+\section{Current maturity}
+
+\textbf{Classification: MVP / early-stage.}
+
+\begin{itemize}
+  \item All packages are version 0.1.0 (extension 0.1.3).
+  \item The generation engine, CLI, registry and VS Code extension are all
+        implemented and functional.
+  \item Infrastructure for distribution exists (GitHub Actions for registry
+        deployment and npm publishing).
+  \item There are no automated tests, no linters and no root README.
+  \item There is no evidence of production adoption, usage metrics, customers or
+        testimonials anywhere in the repository.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED (versions, CI, absence of tests);
+\textbf{UNKNOWN} (adoption --- not evidenced).
+
+\section{Key limitations}
+
+\begin{itemize}
+  \item Generated screens target \textbf{Expo Router} by default; only
+        \texttt{auth/login} and \texttt{auth/register} support
+        react-navigation, and only in their native-UI form.
+  \item \texttt{tamagui}, \texttt{vector-icons} and \texttt{custom} UI are
+        declared in types, schema and VS Code settings but no recipe implements
+        them.
+  \item Generated authentication hooks contain \emph{placeholder} logic (a
+        1.5-second mock delay and an alert) and must be replaced by the developer.
+  \item The shadcn-style templates rely on design tokens
+        (\texttt{bg-background}, \texttt{text-foreground}, \dots) for which no
+        Tailwind / NativeWind theme configuration is shipped in the repository.
+  \item The VS Code extension exposes no update or status command; those exist
+        only in the CLI.
+\end{itemize}
+
+\textbf{Status:} IMPLEMENTED (each limitation is cited in
+Chapter~\ref{ch:known-issues}).
+
+\section{Summary judgement}
+
+Expo Snips is a coherent, well-factored developer tool with a genuinely useful
+core idea --- stack-aware whole-screen generation from a versioned registry ---
+implemented across two delivery surfaces. Its principal risks are not
+architectural but of completeness and hardening: no tests, several declared but
+unimplemented options, and placeholder business logic in generated code that must
+be clearly communicated to users.
+
+\textbf{Status:} INFERRED (an assessment by this document, based on the evidence
+gathered).

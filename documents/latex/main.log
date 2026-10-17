@@ -1,0 +1,1903 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.16)  17 OCT 2026 22:11
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**./main.tex
+(main.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-24>
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/base\report.cls
+Document Class: report 2025/01/22 v1.4n Standard LaTeX document class
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo
+File: size11.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count275
+\c@chapter=\count276
+\c@section=\count277
+\c@subsection=\count278
+\c@subsubsection=\count279
+\c@paragraph=\count280
+\c@subparagraph=\count281
+\c@figure=\count282
+\c@table=\count283
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen148
+)
+(preamble.tex
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+Package: inputenc 2024/02/08 v1.3d Input encoding file
+\inpenc@prehook=\toks17
+\inpenc@posthook=\toks18
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty
+Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/hyphenat\hyphenat.sty
+Package: hyphenat 2009/09/02 v2.3c hyphenation utilities
+
+
+Package hyphenat Warning: *******************************
+(hyphenat)                * You have used the htt option.
+(hyphenat)                * You are likely to get many Font Warning messages.
+(hyphenat)                * These can usually be ignored.
+(hyphenat)                *******************************.
+
+\langwohyphens=\language79
+LaTeX Info: Redefining \_ on input line 43.
+) (C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+Package: geometry 2026/03/07 v6.0 Page Geometry
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks19
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+))
+\Gm@cnth=\count284
+\Gm@cntv=\count285
+\c@Gm@tempcnt=\count286
+\Gm@bindingoffset=\dimen149
+\Gm@wd@mp=\dimen150
+\Gm@odd@mp=\dimen151
+\Gm@even@mp=\dimen152
+\Gm@layoutwidth=\dimen153
+\Gm@layoutheight=\dimen154
+\Gm@layouthoffset=\dimen155
+\Gm@layoutvoffset=\dimen156
+\Gm@dimlist=\toks20
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/parskip\parskip.sty
+Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+))
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count287
+)) (C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.st
+y
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen157
+\Gin@req@width=\dimen158
+) (C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+) (C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count288
+\float@exts=\toks21
+\float@box=\box53
+\@float@everytoks=\toks22
+\@floatcapt=\box54
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen159
+\captionmargin=\dimen160
+\caption@leftmargin=\dimen161
+\caption@rightmargin=\dimen162
+\caption@width=\dimen163
+\caption@indent=\dimen164
+\caption@parindent=\dimen165
+\caption@hangindent=\dimen166
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count289
+\c@continuedfloat=\count290
+Package caption Info: float package is loaded.
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen167
+\lightrulewidth=\dimen168
+\cmidrulewidth=\dimen169
+\belowrulesep=\dimen170
+\belowbottomsep=\dimen171
+\aboverulesep=\dimen172
+\abovetopsep=\dimen173
+\cmidrulesep=\dimen174
+\cmidrulekern=\dimen175
+\defaultaddspace=\dimen176
+\@cmidla=\count291
+\@cmidlb=\count292
+\@aboverulesep=\dimen177
+\@belowrulesep=\dimen178
+\@thisruleclass=\count293
+\@lastruleclass=\count294
+\@thisrulewidth=\dimen179
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
+Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
+\LTleft=\skip51
+\LTright=\skip52
+\LTpre=\skip53
+\LTpost=\skip54
+\LTchunksize=\count295
+\LTcapwidth=\dimen180
+\LT@head=\box55
+\LT@firsthead=\box56
+\LT@foot=\box57
+\LT@lastfoot=\box58
+\LT@gbox=\box59
+\LT@cols=\count296
+\LT@rows=\count297
+\c@LT@tables=\count298
+\c@LT@chunks=\count299
+\LT@p@ftn=\toks23
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen181
+\ar@mcellbox=\box60
+\extrarowheight=\dimen182
+\NC@list=\toks24
+\extratabsurround=\skip55
+\backup@length=\skip56
+\ar@cellbox=\box61
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+\TX@col@width=\dimen183
+\TX@old@table=\dimen184
+\TX@old@col=\dimen185
+\TX@target=\dimen186
+\TX@delta=\dimen187
+\TX@cols=\count300
+\TX@ftn=\toks25
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+Package: enumitem 2025/02/06 v3.11 Customized lists
+\labelindent=\skip57
+\enit@outerparindent=\dimen188
+\enit@toks=\toks26
+\enit@inbox=\box62
+\enit@count@id=\count301
+\enitdp@description=\count302
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+Package: amsmath 2025/07/09 v2.17z AMS math features
+\@mathmargin=\skip58
+
+For additional information on amsmath, use the `?' option.
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+Package: amstext 2024/11/17 v2.01 AMS text
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks27
+\ex@=\dimen189
+))
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen190
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count303
+LaTeX Info: Redefining \frac on input line 233.
+\uproot@=\count304
+\leftroot@=\count305
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count306
+\DOTSCASE@=\count307
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box63
+\strutbox@=\box64
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen191
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count308
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count309
+\dotsspace@=\muskip17
+\c@parentequation=\count310
+\dspbrk@lvl=\count311
+\tag@help=\toks28
+\row@=\count312
+\column@=\count313
+\maxfields@=\count314
+\andhelp@=\toks29
+\eqnshift@=\dimen192
+\alignsep@=\dimen193
+\tagshift@=\dimen194
+\tagwidth@=\dimen195
+\totwidth@=\dimen196
+\lineht@=\dimen197
+\@envbody=\toks30
+\multlinegap=\skip59
+\multlinetaggap=\skip60
+\mathdisplay@stack=\toks31
+LaTeX Info: Redefining \[ on input line 2950.
+LaTeX Info: Redefining \] on input line 2951.
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.st
+y
+\lst@mode=\count315
+\lst@gtempboxa=\box65
+\lst@token=\toks32
+\lst@length=\count316
+\lst@currlwidth=\dimen198
+\lst@column=\count317
+\lst@pos=\count318
+\lst@lostspace=\dimen199
+\lst@width=\dimen256
+\lst@newlines=\count319
+\lst@lineno=\count320
+\lst@maxwidth=\dimen257
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
+File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
+\c@lstnumber=\count321
+\lst@skipnumbers=\count322
+\lst@framebox=\box66
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+File: listings.cfg 2025/11/14 1.11b listings configuration
+))
+Package: listings 2025/11/14 1.11b (Carsten Heinz)
+==> First Aid for listings.sty no longer applied!
+    Expected:
+        2024/09/23 1.10c (Carsten Heinz)
+    but found:
+        2025/11/14 1.11b (Carsten Heinz)
+    so I'm assuming it got fixed.
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
+Package: titlesec 2025/01/04 v2.17 Sectioning titles
+\ttl@box=\box67
+\beforetitleunit=\skip61
+\aftertitleunit=\skip62
+\ttl@plus=\dimen258
+\ttl@minus=\dimen259
+\ttl@toksa=\toks33
+\titlewidth=\dimen260
+\titlewidthlast=\dimen261
+\titlewidthfirst=\dimen262
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
+Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
+
+\f@nch@headwidth=\skip63
+\f@nch@offset@elh=\skip64
+\f@nch@offset@erh=\skip65
+\f@nch@offset@olh=\skip66
+\f@nch@offset@orh=\skip67
+\f@nch@offset@elf=\skip68
+\f@nch@offset@erf=\skip69
+\f@nch@offset@olf=\skip70
+\f@nch@offset@orf=\skip71
+\f@nch@height=\skip72
+\f@nch@footalignment=\skip73
+\f@nch@widthL=\skip74
+\f@nch@widthC=\skip75
+\f@nch@widthR=\skip76
+\@temptokenb=\toks34
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
+keys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
+ty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
+.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
+ty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+))
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+Package: nameref 2025-06-21 v2.57 Cross-referencing by name of section
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettit
+lestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count323
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.s
+ty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+\@linkdim=\dimen263
+\Hy@linkcounter=\count324
+\Hy@pagecounter=\count325
+ (C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) (C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count326
+ (C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `breaklinks' set `true' on input line 4066.
+Package hyperref Info: Option `pdfusetitle' set `true' on input line 4066.
+Package hyperref Info: Hyper figures OFF on input line 4195.
+Package hyperref Info: Link nesting OFF on input line 4200.
+Package hyperref Info: Hyper index ON on input line 4203.
+Package hyperref Info: Plain pages OFF on input line 4210.
+Package hyperref Info: Backreferencing OFF on input line 4215.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4462.
+\c@Hy@tempcnt=\count327
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+\Urlmuskip=\muskip18
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4801.
+\XeTeXLinkMargin=\dimen264
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc
+.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count328
+\Field@Width=\dimen265
+\Fld@charsize=\dimen266
+Package hyperref Info: Hyper figures OFF on input line 6078.
+Package hyperref Info: Link nesting OFF on input line 6083.
+Package hyperref Info: Hyper index ON on input line 6086.
+Package hyperref Info: backreferencing OFF on input line 6093.
+Package hyperref Info: Link coloring OFF on input line 6098.
+Package hyperref Info: Link coloring with OCG OFF on input line 6103.
+Package hyperref Info: PDF/A mode OFF on input line 6108.
+\Hy@abspage=\count329
+\c@Item=\count330
+\c@Hfootnote=\count331
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
+\Fld@listcount=\count332
+\c@bookmark@seq@number=\count333
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
+echeck.sty
+Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquec
+ounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+84.
+)
+\Hy@SectionHShift=\skip77
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 144.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 144.
+
+) (metadata.tex)
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 19
+.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
+File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def
+File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count334
+) (main.aux)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
+9.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+LaTeX Font Warning: Font shape `T1/lmtt/b/it' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/b/scsl' undefined
+(Font)              using `T1/lmtt/b/sc' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/b/sc' undefined
+(Font)              using `T1/lmtt/b/n' instead on input line 19.
+
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 19.
+
+LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 19.
+
+LaTeX Font Info:    Font shape `T1/lmtt/bx/sl' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 19.
+
+LaTeX Font Warning: Font shape `T1/lmtt/bx/scsl' undefined
+(Font)              using `T1/lmtt/bx/sc' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/bx/sc' undefined
+(Font)              using `T1/lmtt/bx/n' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/sbx/sc' undefined
+(Font)              using `T1/lmtt/bx/sc' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/sbx/n' undefined
+(Font)              using `T1/lmtt/bx/n' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/sbx/it' undefined
+(Font)              using `T1/lmtt/bx/it' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/sbx/sl' undefined
+(Font)              using `T1/lmtt/bx/sl' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/bx/scsl' undefined
+(Font)              using `T1/lmtt/bx/sc' instead on input line 19.
+
+LaTeX Font Info:    Font shape `T1/lmtt/bx/sc' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 19.
+
+LaTeX Font Warning: Font shape `T1/lmtt/bc/sc' undefined
+(Font)              using `T1/lmtt/c/sc' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/c/n' undefined
+(Font)              using `T1/lmtt/m/n' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/c/it' undefined
+(Font)              using `T1/lmtt/c/n' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/c/sl' undefined
+(Font)              using `T1/lmtt/c/it' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/c/scit' undefined
+(Font)              using `T1/lmtt/c/sc' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/c/sc' undefined
+(Font)              using `T1/lmtt/c/n' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/lc/it' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/lc/sl' tried instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/lc/scsl' undefined
+(Font)              using `T1/lmtt/lc/sc' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/lc/sc' undefined
+(Font)              using `T1/lmtt/lc/n' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/m/ui' undefined
+(Font)              using `T1/lmtt/m/n' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/bx/ui' undefined
+(Font)              using `T1/lmtt/bx/n' instead on input line 19.
+
+
+LaTeX Font Warning: Font shape `T1/lmtt/m/In' undefined
+(Font)              using `T1/lmtt/m/n' instead on input line 19.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
+* v-part:(T,H,B)=(73.97733pt, 697.0922pt, 73.97733pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=455.24411pt
+* \textheight=697.0922pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-38.29266pt
+* \headheight=15.0pt
+* \headsep=25.0pt
+* \topskip=11.0pt
+* \footskip=30.0pt
+* \marginparwidth=50.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count335
+\scratchdimen=\dimen267
+\scratchbox=\box68
+\nofMPsegments=\count336
+\nofMParguments=\count337
+\everyMPshowfont=\toks35
+\MPscratchCnt=\count338
+\MPscratchDim=\dimen268
+\MPnumerator=\count339
+\makeMPintoPDFobject=\count340
+\everyMPtoPDFconversion=\toks36
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: longtable package is loaded.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/caption\ltcaption.sty
+Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
+)
+Package caption Info: End \AtBeginDocument code.
+\c@lstlisting=\count341
+Package hyperref Info: Link coloring ON on input line 19.
+
+(main.out) (main.out)
+\@outlinefile=\write3
+\openout3 = `main.out'.
+
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
+7.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 3
+7.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+37.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+37.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 37.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 37.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 37.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 37.
+
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 37.
+
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+[1
+
+{C:/Users/jayjo/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/jayj
+o/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/jayjo/Ap
+pData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
+(sections/document-control.tex
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
+5.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [1
+
+{C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}] [
+2])
+(main.toc [3
+
+
+] [4] [5] [6] [7] [8] [9] [10])
+\tf@toc=\write4
+\openout4 = `main.toc'.
+
+ [11] (main.lof)
+\tf@lof=\write5
+\openout5 = `main.lof'.
+
+ [12
+
+
+] (main.lot
+[13
+
+
+] [14] [15])
+\tf@lot=\write6
+\openout6 = `main.lot'.
+
+ [16] (sections/project-overview.tex
+Chapter 1.
+
+Underfull \hbox (badness 7667) in paragraph at lines 20--22
+[]\T1/lmr/bx/n/10.95 Status: \T1/lmr/m/n/10.95 IM-PLE-MENTED --- see \T1/lmtt/c
+/it/10.95 pack-ages/cli/package.json\T1/lmr/m/n/10.95 , \T1/lmtt/c/it/10.95 pac
+kages/vscode-
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.56 \textbf{Status:}
+                      IMPLEMENTED --- the CLI writes to \texttt{process.cwd(...
+[1
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 56--60
+[]\T1/lmr/bx/n/10.95 Status: \T1/lmr/m/n/10.95 IM-PLE-MENTED --- the CLI writes
+ to \T1/lmtt/c/it/10.95 pro-cess.cwd() \T1/lmr/m/n/10.95 and the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 56--60
+\T1/lmr/m/n/10.95 ex-ten-sion writes to the VS Code workspace root; there is no
+ server
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 56--60
+\T1/lmr/m/n/10.95 com-po-nent (\T1/lmtt/c/it/10.95 packages/cli/src/utils/write
+Files.ts\T1/lmr/m/n/10.95 , \T1/lmtt/c/it/10.95 packages/vscode-
+ []
+
+sections/project-overview.tex:121: ignored error: Infinite glue shrinkage found
+ in box being split [2]) (sections/executive-summary.tex [3]
+Chapter 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--26
+[]\T1/lmr/bx/n/10.95 Status: \T1/lmr/m/n/10.95 IN-FERRED from the prod-uct's st
+ated ra-tio-nale (\T1/lmtt/c/it/10.95 packages/vscode-
+ []
+
+
+Underfull \hbox (badness 1910) in paragraph at lines 38--43
+[]\T1/lmr/bx/n/10.95 Whole screens, not snip-pets. \T1/lmr/m/n/10.95 A recipe s
+uch as \T1/lmtt/c/it/10.95 auth/login \T1/lmr/m/n/10.95 emits up to
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--43
+\T1/lmr/m/n/10.95 seven file vari-ants de-pend-ing on the project's stack (\T1/
+lmtt/c/it/10.95 app/login/index.tsx\T1/lmr/m/n/10.95 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--43
+\T1/lmtt/c/it/10.95 screens/LoginScreen.tsx\T1/lmr/m/n/10.95 , \T1/lmtt/c/it/10
+.95 com-po-nents/LoginForm.tsx\T1/lmr/m/n/10.95 , \T1/lmtt/c/it/10.95 hooks/use
+Login.ts \T1/lmr/m/n/10.95 or
+ []
+
+[4
+
+] [5]) (sections/project-description.tex [6]
+Chapter 3.
+[7
+
+] [8]
+sections/project-description.tex:182: ignored error: Infinite glue shrinkage fo
+und in box being split [9]
+sections/project-description.tex:227: ignored error: Infinite glue shrinkage fo
+und in box being split [10]) (sections/brd.tex [11]
+Chapter 4.
+[12
+
+] [13] [14]
+sections/brd.tex:201: ignored error: Infinite glue shrinkage found in box being
+ split [15]) (sections/prd.tex [16]
+Chapter 5.
+[17
+
+]
+sections/prd.tex:106: ignored error: Infinite glue shrinkage found in box being
+ split [18] [19] [20]) (sections/functional-requirements.tex [21]
+Chapter 6.
+[22
+
+]
+Underfull \hbox (badness 2884) in paragraph at lines 84--87
+[]\T1/lmr/bx/n/10.95 Requirement FR-3.1 \T1/lmr/m/n/10.95 --- se-lect-ing \T1/l
+mtt/c/it/10.95 ui=shadcn \T1/lmr/m/n/10.95 must force \T1/lmtt/c/it/10.95 styli
+ng=nativewind \T1/lmr/m/n/10.95 and
+ []
+
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 118--120
+[]\T1/lmr/m/n/10.95 Evidence: \T1/lmtt/c/it/10.95 pack-ages/cli/src/utils/write
+Files.ts\T1/lmr/m/n/10.95 ; \T1/lmtt/c/it/10.95 packages/vscode-
+ []
+
+
+Underfull \hbox (badness 1975) in paragraph at lines 133--136
+[]\T1/lmr/m/n/10.95 The shipped prim-i-tive chain is \T1/lmtt/c/it/10.95 ui/but
+ton $\OMS/lmsy/m/n/10.95 !$ \T1/lmtt/c/it/10.95 ui/utils \T1/lmr/m/n/10.95 and 
+\T1/lmtt/c/it/10.95 ui/input $\OMS/lmsy/m/n/10.95 !$ \T1/lmtt/c/it/10.95 ui/uti
+ls
+ []
+
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 211--214
+\T1/lmtt/c/it/10.95 expo-snips init --name <name> --template <tem-plate> \T1/lm
+r/m/n/10.95 runs \T1/lmtt/c/it/10.95 npx create-expo-
+ []
+
+sections/functional-requirements.tex:248: ignored error: Infinite glue shrinkag
+e found in box being split [25]
+Overfull \hbox (46.12305pt too wide) in paragraph at lines 259--262
+[]\T1/lmr/m/n/10.95 Evidence: \T1/lmtt/c/it/10.95 pack-ages/core/src/types.ts \
+T1/lmr/m/n/10.95 (\T1/lmtt/c/it/10.95 ScreenVariant\T1/lmr/m/n/10.95 ); \T1/lmt
+t/c/it/10.95 pack-ages/registry/data/app/home.json\T1/lmr/m/n/10.95 ,
+ []
+
+) (sections/non-functional-requirements.tex [26]
+Chapter 7.
+[27
+
+{C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}
+{C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}] [2
+8]) (sections/technical-requirements.tex [29]
+Chapter 8.
+
+Overfull \hbox (29.90732pt too wide) in paragraph at lines 52--52
+[]|\T1/lmtt/c/it/10.95 packages/cli/src/index.ts|  
+ []
+
+
+Overfull \hbox (35.65605pt too wide) in paragraph at lines 54--54
+\T1/lmtt/c/it/10.95 extension/src/extension.ts|  
+ []
+
+
+Overfull \hbox (35.65605pt too wide) in paragraph at lines 55--55
+[]|\T1/lmtt/c/it/10.95 packages/core/src/index.ts|  
+ []
+
+
+Overfull \hbox (58.65099pt too wide) in paragraph at lines 56--56
+[]|\T1/lmtt/c/it/10.95 packages/registry/src/index.ts|  
+ []
+
+[30
+
+] [31]
+sections/technical-requirements.tex:171: ignored error: Infinite glue shrinkage
+ found in box being split [32]) (sections/system-architecture.tex [33]
+Chapter 9.
+<diagrams/system-architecture.png, id=2521, 1573.88pt x 1090.0725pt>
+File: diagrams/system-architecture.png Graphic file (type png)
+<use diagrams/system-architecture.png>
+Package pdftex.def Info: diagrams/system-architecture.png  used on input line 1
+2.
+(pdftex.def)             Requested size: 455.23676pt x 315.2979pt.
+sections/system-architecture.tex:46: ignored error: Infinite glue shrinkage fou
+nd in box being split [34
+
+ <./diagrams/system-architecture.png (PNG copy)>]
+<diagrams/registry-api-sequence.png, id=2526, 1573.88pt x 1148.29pt>
+File: diagrams/registry-api-sequence.png Graphic file (type png)
+<use diagrams/registry-api-sequence.png>
+Package pdftex.def Info: diagrams/registry-api-sequence.png  used on input line
+ 87.
+(pdftex.def)             Requested size: 418.80533pt x 305.55695pt.
+
+[35] [36 <./diagrams/registry-api-sequence.png (PNG copy)>])
+(sections/software-architecture.tex [37]
+Chapter 10.
+<diagrams/component-architecture.png, id=2540, 1573.88pt x 2081.7775pt>
+File: diagrams/component-architecture.png Graphic file (type png)
+<use diagrams/component-architecture.png>
+Package pdftex.def Info: diagrams/component-architecture.png  used on input lin
+e 12.
+(pdftex.def)             Requested size: 455.23676pt x 602.14352pt.
+[38
+
+]
+Overfull \hbox (6.50494pt too wide) in paragraph at lines 29--29
+\T1/lmtt/c/it/10.95 snips/registry|  
+ []
+
+[39 <./diagrams/component-architecture.png (PNG copy)>]
+Underfull \hbox (badness 3148) in paragraph at lines 34--39
+[]\T1/lmr/m/n/10.95 Workspace de-pen-dency dec-la-ra-tions: \T1/lmtt/c/it/10.95
+ "@expo-snips/core": "workspace:*" \T1/lmr/m/n/10.95 in \T1/lmtt/c/it/10.95 pac
+k-
+ []
+
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 42.
+
+Overfull \hbox (6.97066pt too wide) in paragraph at lines 79--79
+[]|\T1/lmtt/c/it/10.95 utils/detectProject.ts|  
+ []
+
+
+Overfull \hbox (18.46812pt too wide) in paragraph at lines 81--81
+[]|\T1/lmtt/c/it/10.95 utils/resolveRegistry.ts|  
+ []
+
+[40]
+Overfull \hbox (1.22192pt too wide) in paragraph at lines 117--117
+[]|\T1/lmtt/c/it/10.95 completionProvider.ts|  
+ []
+
+sections/software-architecture.tex:127: ignored error: Infinite glue shrinkage 
+found in box being split [41]
+sections/software-architecture.tex:160: ignored error: Infinite glue shrinkage 
+found in box being split [42]) (sections/high-level-design.tex [43]
+Chapter 11.
+<diagrams/generation-pipeline.png, id=2572, 732.7375pt x 5101.0575pt>
+File: diagrams/generation-pipeline.png Graphic file (type png)
+<use diagrams/generation-pipeline.png>
+Package pdftex.def Info: diagrams/generation-pipeline.png  used on input line 2
+3.
+(pdftex.def)             Requested size: 92.11745pt x 641.28891pt.
+[44
+
+] [45 <./diagrams/generation-pipeline.png (PNG copy)>] [46])
+(sections/low-level-design.tex [47]
+Chapter 12.
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 7.
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 12.
+
+Overfull \hbox (29.96559pt too wide) in paragraph at lines 77--77
+[]|\T1/lmtt/c/it/10.95 getRegistryBase(override?)|  
+ []
+
+
+Overfull \hbox (6.97066pt too wide) in paragraph at lines 80--80
+[]|\T1/lmtt/c/it/10.95 getLocalRecipeById(id)|  
+ []
+
+
+Overfull \hbox (24.21686pt too wide) in paragraph at lines 83--83
+[]|\T1/lmtt/c/it/10.95 resolveRecipeIndex(base?)|  
+ []
+
+
+Overfull \hbox (1.22192pt too wide) in paragraph at lines 85--85
+[]|\T1/lmtt/c/it/10.95 getRecipeIndex(base?)|  
+ []
+
+
+Overfull \hbox (1.22192pt too wide) in paragraph at lines 88--88
+[]|\T1/lmtt/c/it/10.95 resolveRegistry(url?)|  
+ []
+
+
+Overfull \hbox (41.46306pt too wide) in paragraph at lines 94--94
+[]|\T1/lmtt/c/it/10.95 updateEntryVersions(entries, 
+ []
+
+
+Overfull \hbox (1.22192pt too wide) in paragraph at lines 96--96
+[]|\T1/lmtt/c/it/10.95 getPrimitives(recipe, 
+ []
+
+
+Overfull \hbox (24.21686pt too wide) in paragraph at lines 98--98
+[]|\T1/lmtt/c/it/10.95 installDependencies(deps, 
+ []
+
+[48
+
+] [49]
+<diagrams/primitive-resolution.png, id=2618, 1118.1775pt x 3290.2925pt>
+File: diagrams/primitive-resolution.png Graphic file (type png)
+<use diagrams/primitive-resolution.png>
+Package pdftex.def Info: diagrams/primitive-resolution.png  used on input line 
+169.
+(pdftex.def)             Requested size: 217.94989pt x 641.32834pt.
+ [50] [51 <./diagrams/primitive-resolution.png (PNG copy)>]
+Overfull \hbox (24.21686pt too wide) in paragraph at lines 190--190
+[]|\T1/lmtt/c/it/10.95 registerCommands(context)|  
+ []
+
+
+Overfull \hbox (81.7042pt too wide) in paragraph at lines 193--193
+[]|\T1/lmtt/c/it/10.95 registerCompletionProvider(context)|  
+ []
+
+
+Overfull \hbox (18.46812pt too wide) in paragraph at lines 197--197
+[]|\T1/lmtt/c/it/10.95 pickSupported(supported, 
+ []
+
+
+Overfull \hbox (6.97066pt too wide) in paragraph at lines 199--199
+[]|\T1/lmtt/c/it/10.95 resolveOptions(recipe, 
+ []
+
+
+Overfull \hbox (24.21686pt too wide) in paragraph at lines 203--203
+[]|\T1/lmtt/c/it/10.95 detectPackageManager(dir)|  
+ []
+
+
+Overfull \hbox (18.46812pt too wide) in paragraph at lines 204--204
+[]|\T1/lmtt/c/it/10.95 installDependencies(dir, 
+ []
+
+
+Overfull \hbox (6.97066pt too wide) in paragraph at lines 206--206
+[]|\T1/lmtt/c/it/10.95 generateScreen(recipe)|  
+ []
+
+sections/low-level-design.tex:242: ignored error: Infinite glue shrinkage found
+ in box being split [52]) (sections/frontend-architecture.tex [53]
+Chapter 13.
+<diagrams/user-flow-vscode.png, id=2640, 1108.14pt x 3125.6775pt>
+File: diagrams/user-flow-vscode.png Graphic file (type png)
+<use diagrams/user-flow-vscode.png>
+Package pdftex.def Info: diagrams/user-flow-vscode.png  used on input line 56.
+(pdftex.def)             Requested size: 227.35617pt x 641.29268pt.
+[54
+
+] [55 <./diagrams/user-flow-vscode.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 79--82
+[]\T1/lmr/bx/n/10.95 Command palette. \T1/lmtt/c/it/10.95 Expo Snips: Add Scree
+n... \T1/lmr/m/n/10.95 (de-clared in \T1/lmtt/c/it/10.95 con-
+ []
+
+
+Underfull \hbox (badness 3514) in paragraph at lines 119--123
+\T1/lmr/m/n/10.95 Both clients im-ple-ment the same five probes. The im-ple-men
+-ta-tions are sep-a-rate
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--123
+\T1/lmr/m/n/10.95 files with near-identical bod-ies (\T1/lmtt/c/it/10.95 cli/sr
+c/utils/detectProject.ts \T1/lmr/m/n/10.95 and \T1/lmtt/c/it/10.95 vscode-
+ []
+
+[56]) (sections/cli-reference.tex [57]
+Chapter 14.
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+)
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+)
+[58
+
+] [59] [60]) (sections/registry-and-recipes.tex [61] [62]
+Chapter 15.
+
+Overfull \hbox (9.40866pt too wide) in paragraph at lines 39--39
+[]|\T1/lmtt/c/it/10.95 devDependencies|  
+ []
+
+[63
+
+] [64]
+Underfull \hbox (badness 8000) in paragraph at lines 140--145
+[]\T1/lmr/m/n/10.95 The glass tem-plates ren-der a dark sur-face (\T1/lmtt/c/it
+/10.95 #0F172A\T1/lmr/m/n/10.95 ) with translu-cent over-lays
+ []
+
+
+Underfull \hbox (badness 3482) in paragraph at lines 140--145
+\T1/lmr/m/n/10.95 (\T1/lmtt/c/it/10.95 rgba(255,255,255,0.08)\T1/lmr/m/n/10.95 
+) and, for \T1/lmtt/c/it/10.95 auth/login\T1/lmr/m/n/10.95 , im-port \T1/lmtt/c
+/it/10.95 BlurView \T1/lmr/m/n/10.95 from \T1/lmtt/c/it/10.95 expo-blur\T1/lmr/
+m/n/10.95 ;
+ []
+
+[65]
+Underfull \hbox (badness 10000) in paragraph at lines 165--168
+[]\T1/lmr/m/n/10.95 The nam-ing con-ven-tion is \T1/lmtt/c/it/10.95 <path-with-
+dots>.<variant-suffix>.hbs\T1/lmr/m/n/10.95 , for ex-am-ple
+ []
+
+File: diagrams/component-architecture.png Graphic file (type png)
+<use diagrams/component-architecture.png>
+Package pdftex.def Info: diagrams/component-architecture.png  used on input lin
+e 173.
+(pdftex.def)             Requested size: 446.1349pt x 590.10446pt.
+[66]
+Overfull \hbox (18.58423pt too wide) in paragraph at lines 190--190
+[]|\T1/lmtt/c/it/10.95 registry/recipes/<id>.json|  
+ []
+
+
+Overfull \hbox (35.83043pt too wide) in paragraph at lines 192--192
+[]|\T1/lmtt/c/it/10.95 packages/registry/bundle.json|  
+ []
+
+
+Overfull \hbox (76.07156pt too wide) in paragraph at lines 194--194
+[]|\T1/lmtt/c/it/10.95 packages/cli/src/generated/registry- 
+ []
+
+
+Overfull \hbox (58.82536pt too wide) in paragraph at lines 196--196
+\T1/lmtt/c/it/10.95 extension/src/generated/registry- 
+ []
+
+[67]
+Underfull \hbox (badness 3590) in paragraph at lines 201--206
+[]\T1/lmr/m/n/10.95 All four de-rived out-puts are pro-duced from the sin-gle s
+ource of truth in \T1/lmtt/c/it/10.95 pack-
+ []
+
+) (sections/api-documentation.tex [68]
+Chapter 16.
+sections/api-documentation.tex:63: ignored error: Infinite glue shrinkage found
+ in box being split [69
+
+]
+sections/api-documentation.tex:130: ignored error: Infinite glue shrinkage foun
+d in box being split [70]
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
+153.
+
+(C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmtt.fd
+File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [71]
+sections/api-documentation.tex:252: ignored error: Infinite glue shrinkage foun
+d in box being split [72]
+sections/api-documentation.tex:308: ignored error: Infinite glue shrinkage foun
+d in box being split [73]) (sections/authentication.tex [74]
+Chapter 17.
+[75
+
+]
+Overfull \hbox (31.56274pt too wide) in paragraph at lines 70--72
+[]\T1/lmr/m/n/10.95 Example schema, re-pro-duced from \T1/lmtt/c/it/10.95 packa
+ges/registry/templates/auth/login/components.login-
+ []
+
+<diagrams/authentication-flow.png, id=2892, 1300.86pt x 1991.44pt>
+File: diagrams/authentication-flow.png Graphic file (type png)
+<use diagrams/authentication-flow.png>
+Package pdftex.def Info: diagrams/authentication-flow.png  used on input line 9
+0.
+(pdftex.def)             Requested size: 355.0877pt x 543.59105pt.
+[76] [77 <./diagrams/authentication-flow.png (PNG copy)>]
+Underfull \hbox (badness 5175) in paragraph at lines 114--121
+[]\T1/lmr/bx/n/10.95 The shadcn vari-ants dif-fer ma-te-ri-ally. \T1/lmr/m/n/10
+.95 The shadcn lo-gin form's \T1/lmtt/c/it/10.95 on-Sub-mit
+ []
+
+
+Underfull \hbox (badness 5711) in paragraph at lines 114--121
+\T1/lmr/m/n/10.95 sim-ply runs \T1/lmtt/c/it/10.95 con-sole.log(data) \T1/lmr/m
+/n/10.95 --- it does not call the \T1/lmtt/c/it/10.95 useL-o-gin \T1/lmr/m/n/10
+.95 hook at all
+ []
+
+) (sections/authorization.tex [78]
+Chapter 18.
+[79
+
+]) (sections/user-flows.tex [80]
+Chapter 19.
+<diagrams/user-flow-cli.png, id=2930, 453.695pt x 2961.0625pt>
+File: diagrams/user-flow-cli.png Graphic file (type png)
+<use diagrams/user-flow-cli.png>
+Package pdftex.def Info: diagrams/user-flow-cli.png  used on input line 8.
+(pdftex.def)             Requested size: 98.2625pt x 641.31499pt.
+[81
+
+] [82 <./diagrams/user-flow-cli.png (PNG copy)>]
+File: diagrams/user-flow-vscode.png Graphic file (type png)
+<use diagrams/user-flow-vscode.png>
+Package pdftex.def Info: diagrams/user-flow-vscode.png  used on input line 42.
+(pdftex.def)             Requested size: 227.35617pt x 641.29268pt.
+ [83] [84]
+sections/user-flows.tex:118: ignored error: Infinite glue shrinkage found in bo
+x being split [85]) (sections/data-flows.tex [86]
+Chapter 20.
+File: diagrams/generation-pipeline.png Graphic file (type png)
+<use diagrams/generation-pipeline.png>
+Package pdftex.def Info: diagrams/generation-pipeline.png  used on input line 8
+.
+(pdftex.def)             Requested size: 92.11745pt x 641.28891pt.
+[87
+
+] [88]
+Overfull \hbox (0.98929pt too wide) in paragraph at lines 32--32
+[]|\T1/lmtt/c/it/10.95 GenerationOptions 
+ []
+
+File: diagrams/registry-api-sequence.png Graphic file (type png)
+<use diagrams/registry-api-sequence.png>
+Package pdftex.def Info: diagrams/registry-api-sequence.png  used on input line
+ 44.
+(pdftex.def)             Requested size: 427.90718pt x 312.19759pt.
+[89]
+File: diagrams/primitive-resolution.png Graphic file (type png)
+<use diagrams/primitive-resolution.png>
+Package pdftex.def Info: diagrams/primitive-resolution.png  used on input line 
+53.
+(pdftex.def)             Requested size: 217.94989pt x 641.32834pt.
+ [90] [91]
+<diagrams/update-flow.png, id=2981, 1351.0475pt x 3924.6625pt>
+File: diagrams/update-flow.png Graphic file (type png)
+<use diagrams/update-flow.png>
+Package pdftex.def Info: diagrams/update-flow.png  used on input line 67.
+(pdftex.def)             Requested size: 220.76923pt x 641.3133pt.
+ [92] [93 <./diagrams/update-flow.png (PNG copy)>]) [94]
+(sections/ui-ux.tex [95]
+Chapter 21.
+sections/ui-ux.tex:68: ignored error: Infinite glue shrinkage found in box bein
+g split [96
+
+] [97]
+sections/ui-ux.tex:183: ignored error: Infinite glue shrinkage found in box bei
+ng split [98]) (sections/design-system.tex [99]
+Chapter 22.
+
+Overfull \hbox (5.30693pt too wide) in paragraph at lines 28--28
+[]|\T1/lmr/m/n/10.95 Primary|  
+ []
+
+
+Overfull \hbox (0.86624pt too wide) in paragraph at lines 30--30
+[]|\T1/lmr/m/n/10.95 Surface|  
+ []
+
+
+Overfull \hbox (1.32289pt too wide) in paragraph at lines 32--32
+[]|\T1/lmr/m/n/10.95 Divider|  
+ []
+
+
+Overfull \hbox (14.85812pt too wide) in paragraph at lines 36--36
+[]|\T1/lmr/m/n/10.95 Secondary 
+ []
+
+
+Overfull \hbox (5.30693pt too wide) in paragraph at lines 39--39
+[]|\T1/lmr/m/n/10.95 Primary 
+ []
+
+
+Overfull \hbox (1.2619pt too wide) in paragraph at lines 47--47
+[]|\T1/lmr/m/n/10.95 Success|  
+ []
+
+
+Overfull \hbox (1.2619pt too wide) in paragraph at lines 48--48
+[]|\T1/lmr/m/n/10.95 Success|  
+ []
+
+
+Overfull \hbox (1.2619pt too wide) in paragraph at lines 49--49
+[]|\T1/lmr/m/n/10.95 Success 
+ []
+
+
+Overfull \hbox (1.2619pt too wide) in paragraph at lines 50--50
+[]|\T1/lmr/m/n/10.95 Success 
+ []
+
+
+Overfull \hbox (1.2619pt too wide) in paragraph at lines 51--51
+[]|\T1/lmr/m/n/10.95 Success 
+ []
+
+
+Overfull \hbox (1.2619pt too wide) in paragraph at lines 52--52
+[]|\T1/lmr/m/n/10.95 Success 
+ []
+
+
+Overfull \hbox (6.64554pt too wide) in paragraph at lines 54--54
+[]|\T1/lmr/m/n/10.95 Warning 
+ []
+
+sections/design-system.tex:65: ignored error: Infinite glue shrinkage found in 
+box being split [100
+
+] [101] [102] [103]
+sections/design-system.tex:249: ignored error: Infinite glue shrinkage found in
+ box being split [104]) (sections/security.tex [105] [106]
+Chapter 23.
+
+Overfull \hbox (27.72379pt too wide) in paragraph at lines 52--52
+[]|\T1/lmtt/c/it/10.95 packages/cli/src/commands/init.ts\T1/lmr/m/n/10.95 , 
+ []
+
+
+Overfull \hbox (50.71872pt too wide) in paragraph at lines 57--57
+[]|\T1/lmtt/c/it/10.95 packages/cli/src/utils/installDeps.ts\T1/lmr/m/n/10.95 ,
+ 
+ []
+
+
+Overfull \hbox (4.72885pt too wide) in paragraph at lines 63--63
+[]|\T1/lmtt/c/it/10.95 packages/core/src/generate.ts\T1/lmr/m/n/10.95 , 
+ []
+
+
+Overfull \hbox (16.8287pt too wide) in paragraph at lines 63--64
+[]|\T1/lmr/m/n/10.95 ACCEPTED|  
+ []
+
+[107
+
+]
+sections/security.tex:65: ignored error: Infinite glue shrinkage found in box b
+eing split [108] [109] [110]
+Overfull \hbox (10.47758pt too wide) in paragraph at lines 162--162
+[]|\T1/lmtt/c/it/10.95 packages/registry/templates/**\T1/lmr/m/n/10.95 .|  
+ []
+
+sections/security.tex:164: ignored error: Infinite glue shrinkage found in box 
+being split [111] [112]
+sections/security.tex:271: ignored error: Infinite glue shrinkage found in box 
+being split [113]) (sections/performance.tex [114]
+Chapter 24.
+
+Overfull \hbox (41.34653pt too wide) in paragraph at lines 29--30
+\T1/lmtt/c/it/10.95 extension/out/extension.js|  
+ []
+
+
+Overfull \hbox (104.5826pt too wide) in paragraph at lines 30--31
+[]|\T1/lmtt/c/it/10.95 packages/cli/dist/generated/registry- 
+ []
+
+
+Overfull \hbox (98.83386pt too wide) in paragraph at lines 31--32
+[]|\T1/lmtt/c/it/10.95 packages/cli/src/generated/registry- 
+ []
+
+
+Overfull \hbox (58.59273pt too wide) in paragraph at lines 32--33
+[]|\T1/lmtt/c/it/10.95 packages/registry/bundle.json|  
+ []
+
+
+Overfull \hbox (1.1054pt too wide) in paragraph at lines 33--34
+[]|\T1/lmtt/c/it/10.95 registry/index.json|  
+ []
+
+[115
+
+]
+Overfull \hbox (1.16365pt too wide) in paragraph at lines 113--114
+[]|\T1/lmtt/c/it/10.95 core/src/generate.ts 
+ []
+
+
+Overfull \hbox (9.95403pt too wide) in paragraph at lines 122--122
+[]|\T1/lmtt/c/it/10.95 cli/src/utils/diff.ts\T1/lmr/m/n/10.95 .|  
+ []
+
+sections/performance.tex:128: ignored error: Infinite glue shrinkage found in b
+ox being split [116]) (sections/scalability.tex [117]
+Chapter 25.
+
+Overfull \hbox (8.9073pt too wide) in paragraph at lines 26--26
+[]|\T1/lmr/bx/n/10.95 Assessment|  
+ []
+
+
+Overfull \hbox (8.9073pt too wide) in paragraph at lines 30--30
+[]|\T1/lmr/bx/n/10.95 Assessment|  
+ []
+
+[118
+
+] [119]) (sections/testing.tex [120]
+Chapter 26.
+[121
+
+] [122]) (sections/deployment.tex [123]
+Chapter 27.
+[124
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 77--83
+[]\T1/lmr/m/n/10.95 Both pack-ages de-clare \T1/lmtt/c/it/10.95 "pub-lish-Con-f
+ig": {"ac-cess": "pub-lic"} \T1/lmr/m/n/10.95 and a \T1/lmtt/c/it/10.95 files:
+ []
+
+sections/deployment.tex:130: ignored error: Infinite glue shrinkage found in bo
+x being split [125]) (sections/cicd.tex [126]
+Chapter 28.
+<diagrams/cicd-deployment.png, id=3168, 1573.88pt x 807.015pt>
+File: diagrams/cicd-deployment.png Graphic file (type png)
+<use diagrams/cicd-deployment.png>
+Package pdftex.def Info: diagrams/cicd-deployment.png  used on input line 15.
+(pdftex.def)             Requested size: 455.23676pt x 233.42497pt.
+[127
+
+ <./diagrams/cicd-deployment.png (PNG copy)>] [128])
+(sections/integrations.tex [129]
+Chapter 29.
+[130
+
+] [131]
+Underfull \hbox (badness 10000) in paragraph at lines 138--140
+[]\T1/lmr/bx/n/10.95 Configuration: \T1/lmr/m/n/10.95 CLI \T1/lmtt/c/it/10.95 -
+-registry \T1/lmr/m/n/10.95 or \T1/lmtt/c/it/10.95 EXPO_-SNIPS_-REG-ISTRY\T1/lm
+r/m/n/10.95 ; ex-ten-sion \T1/lmtt/c/it/10.95 expo-
+ []
+
+) (sections/configuration.tex [132]
+Chapter 30.
+[133
+
+]
+Overfull \hbox (24.21686pt too wide) in paragraph at lines 115--115
+\T1/lmtt/c/it/10.95 snips.installDependencies|  
+ []
+
+[134] [135]) (sections/seo.tex [136]
+Chapter 31.
+sections/seo.tex:60: ignored error: Infinite glue shrinkage found in box being 
+split [137
+
+]
+Overfull \hbox (38.52333pt too wide) in paragraph at lines 99--99
+[]|\T1/lmtt/c/it/10.95 packages/*/package.json\T1/lmr/m/n/10.95 .|  
+ []
+
+
+Overfull \hbox (4.03093pt too wide) in paragraph at lines 106--106
+[]|\T1/lmtt/c/it/10.95 scripts/serve.mjs\T1/lmr/m/n/10.95 , 
+ []
+
+sections/seo.tex:109: ignored error: Infinite glue shrinkage found in box being
+ split [138]) (sections/aeo.tex [139]
+Chapter 32.
+
+Overfull \hbox (47.3279pt too wide) in paragraph at lines 59--61
+[]|\T1/lmtt/c/it/10.95 documents/ProjectDescription.md 
+ []
+
+
+Overfull \hbox (84.5132pt too wide) in paragraph at lines 61--61
+[]|\T1/lmtt/c/it/10.95 documents/ProjectDescription.md\T1/lmr/m/n/10.95 .|  
+ []
+
+
+Overfull \hbox (29.73296pt too wide) in paragraph at lines 66--67
+\T1/lmtt/c/it/10.95 extension/package.json 
+ []
+
+sections/aeo.tex:75: ignored error: Infinite glue shrinkage found in box being 
+split [140
+
+] [141]) (sections/geo.tex [142]
+Chapter 33.
+
+Overfull \hbox (18.58423pt too wide) in paragraph at lines 71--74
+\T1/lmtt/c/it/10.95 github.com/unkown812/expo- 
+ []
+
+
+Overfull \hbox (84.5132pt too wide) in paragraph at lines 83--83
+[]|\T1/lmtt/c/it/10.95 documents/ProjectDescription.md\T1/lmr/m/n/10.95 .|  
+ []
+
+[143
+
+] [144]) (sections/known-issues.tex [145]
+Chapter 34.
+
+Overfull \hbox (3.57533pt too wide) in paragraph at lines 23--23
+[]|\T1/lmr/bx/n/10.95 Status|  
+ []
+
+
+Overfull \hbox (3.57533pt too wide) in paragraph at lines 28--28
+[]|\T1/lmr/bx/n/10.95 Status|  
+ []
+
+
+Overfull \hbox (7.9391pt too wide) in paragraph at lines 44--44
+\T1/lmr/m/n/10.95 mented)|  
+ []
+
+
+Overfull \hbox (7.9391pt too wide) in paragraph at lines 51--51
+\T1/lmr/m/n/10.95 mented)|  
+ []
+
+
+Overfull \hbox (14.02234pt too wide) in paragraph at lines 93--93
+[]|\T1/lmr/m/n/10.95 Unknown|  
+ []
+
+sections/known-issues.tex:104: ignored error: Infinite glue shrinkage found in 
+box being split [146
+
+]
+sections/known-issues.tex:104: ignored error: Infinite glue shrinkage found in 
+box being split [147]
+sections/known-issues.tex:104: ignored error: Infinite glue shrinkage found in 
+box being split [148] [149]) (sections/technical-debt.tex [150]
+Chapter 35.
+sections/technical-debt.tex:78: ignored error: Infinite glue shrinkage found in
+ box being split [151
+
+] [152]
+Underfull \hbox (badness 10000) in paragraph at lines 91--94
+[]\T1/lmtt/c/it/10.95 packages/cli/src/utils/detectProject.ts \T1/lmr/m/n/10.95
+ and \T1/lmtt/c/it/10.95 packages/vscode-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--97
+[]\T1/lmtt/c/it/10.95 packages/cli/src/utils/primitives.ts \T1/lmr/m/n/10.95 an
+d the down-load/primitive logic in
+ []
+
+
+Overfull \hbox (25.79413pt too wide) in paragraph at lines 97--100
+[]\T1/lmtt/c/it/10.95 packages/cli/src/utils/registry.ts \T1/lmr/m/n/10.95 and 
+\T1/lmtt/c/it/10.95 packages/vscode-extension/src/registry.ts
+ []
+
+) (sections/roadmap.tex [153] [154]
+Chapter 36.
+[155
+
+]
+Overfull \hbox (1.23724pt too wide) in alignment at lines 89--94
+ [] [] [] 
+ []
+
+
+Overfull \hbox (1.23724pt too wide) in alignment at lines 94--98
+ [] [] [] 
+ []
+
+
+Overfull \hbox (1.23724pt too wide) in alignment at lines 98--116
+ [] [] [] 
+ []
+
+sections/roadmap.tex:116: ignored error: Infinite glue shrinkage found in box b
+eing split [156]) (sections/development-guidelines.tex [157] [158]
+Chapter 37.
+[159
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 87--90
+[]\T1/lmr/m/n/10.95 The recipe file must live at a path that matches the id: \T
+1/lmtt/c/it/10.95 pack-
+ []
+
+
+Overfull \hbox (1.74548pt too wide) in paragraph at lines 131--131
+[]|\T1/lmtt/c/it/10.95 auth/login/app.login.index.hbs|  
+ []
+
+
+Overfull \hbox (41.98662pt too wide) in paragraph at lines 133--133
+[]|\T1/lmtt/c/it/10.95 auth/login/app.login.index.shadcn.hbs|  
+ []
+
+
+Overfull \hbox (36.23788pt too wide) in paragraph at lines 135--135
+[]|\T1/lmtt/c/it/10.95 auth/login/app.login.index.glass.hbs|  
+ []
+
+
+Overfull \hbox (41.98662pt too wide) in paragraph at lines 140--140
+[]|\T1/lmtt/c/it/10.95 auth/login/screens.loginscreen.react- 
+ []
+
+[160]) (sections/contribution-guide.tex [161]
+Chapter 38.
+
+Overfull \hbox (18.73781pt too wide) in paragraph at lines 58--62
+[]\T1/lmr/m/n/10.95 Create or edit a JSON doc-u-ment un-der \T1/lmtt/c/it/10.95
+ pack-ages/registry/data/<category>/<name>.json\T1/lmr/m/n/10.95 .
+ []
+
+
+Underfull \hbox (badness 1137) in paragraph at lines 58--62
+\T1/lmr/m/n/10.95 The file path must match the recipe id, and the doc-u-ment mu
+st sat-isfy \T1/lmtt/c/it/10.95 pack-
+ []
+
+[162
+
+]
+sections/contribution-guide.tex:134: ignored error: Infinite glue shrinkage fou
+nd in box being split [163]) (sections/glossary.tex [164]
+Chapter 39.
+sections/glossary.tex:56: ignored error: Infinite glue shrinkage found in box b
+eing split [165
+
+]
+Overfull \hbox (32.02254pt too wide) in paragraph at lines 82--82
+[]|\T1/lmr/m/n/10.95 General/Project|  
+ []
+
+sections/glossary.tex:103: ignored error: Infinite glue shrinkage found in box 
+being split [166]
+sections/glossary.tex:160: ignored error: Infinite glue shrinkage found in box 
+being split [167]) (sections/references.tex [168]
+Chapter 40.
+
+Overfull \hbox (7.55247pt too wide) in paragraph at lines 83--83
+[]|\T1/lmtt/c/it/10.95 packages/registry/scripts/build- 
+ []
+
+[169
+
+]
+Overfull \hbox (1.80374pt too wide) in paragraph at lines 108--108
+[]|\T1/lmtt/c/it/10.95 documents/ProjectDescription.md|  
+ []
+
+[170]) (sections/appendix-catalog.tex [171]
+Appendix A.
+
+Overfull \hbox (37.23807pt too wide) in alignment at lines 13--19
+ [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (37.23807pt too wide) in alignment at lines 19--24
+ [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (11.87492pt too wide) in paragraph at lines 42--42
+[]|\T1/lmr/m/n/10.95 onboarding/permissions|  
+ []
+
+
+Overfull \hbox (37.23807pt too wide) in alignment at lines 24--50
+ [] [] [] [] [] [] 
+ []
+
+sections/appendix-catalog.tex:50: ignored error: Infinite glue shrinkage found 
+in box being split [172
+
+]
+Overfull \hbox (6.18446pt too wide) in paragraph at lines 87--87
+[]|\T1/lmr/m/n/10.95 onboarding/permissions|  
+ []
+
+[173]
+Underfull \hbox (badness 6001) in paragraph at lines 104--107
+[]\T1/lmr/bx/n/10.95 Router sup-port is al-most en-tirely \T1/lmtt/b/n/10.95 ex
+po-router\T1/lmr/m/n/10.95 ; only \T1/lmtt/c/it/10.95 auth/login \T1/lmr/m/n/10
+.95 and
+ []
+
+
+Underfull \hbox (badness 2042) in paragraph at lines 112--115
+[]\T1/lmr/bx/n/10.95 Every recipe is TypeScript-first \T1/lmr/m/n/10.95 (\T1/lm
+tt/c/it/10.95 typescript: true\T1/lmr/m/n/10.95 ), but \T1/lmtt/c/it/10.95 auth
+/login \T1/lmr/m/n/10.95 and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--133
+[]\T1/lmtt/m/n/10 app, home, dashboard, notifications, list, profile, account, 
+search,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--133
+\T1/lmtt/m/n/10 settings, preferences, auth, forgot-password, form, login, otp,
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--133
+\T1/lmtt/m/n/10 verification, register, signup, calendar, schedule, events, pla
+nner, chat,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--133
+\T1/lmtt/m/n/10 messages, conversations, content, article, reader, blog, detail
+, analytics,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--133
+\T1/lmtt/m/n/10 stats, charts, metrics, ecommerce, product, details, products, 
+catalog,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--133
+\T1/lmtt/m/n/10 map, location, navigation, places, onboarding, features, intro,
+ permissions,
+ []
+
+) (sections/appendix-environment.tex [174]
+Appendix B.
+
+Overfull \hbox (0.93102pt too wide) in paragraph at lines 49--49
+[]|\T1/lmtt/c/it/10.95 out/extension.js|  
+ []
+
+[175
+
+] [176]) (sections/appendix-classification.tex [177]
+Appendix C.
+sections/appendix-classification.tex:101: ignored error: Infinite glue shrinkag
+e found in box being split [178
+
+]
+sections/appendix-classification.tex:101: ignored error: Infinite glue shrinkag
+e found in box being split [179] [180]) (sections/appendix-file-index.tex
+[181]
+Appendix D.
+
+Overfull \hbox (35.94696pt too wide) in paragraph at lines 39--39
+[]|\T1/lmtt/c/it/10.95 documents/ProjectDescription.md|  
+ []
+
+sections/appendix-file-index.tex:67: ignored error: Infinite glue shrinkage fou
+nd in box being split [182
+
+]
+sections/appendix-file-index.tex:110: ignored error: Infinite glue shrinkage fo
+und in box being split [183]
+sections/appendix-file-index.tex:173: ignored error: Infinite glue shrinkage fo
+und in box being split [184]
+Overfull \hbox (30.54741pt too wide) in paragraph at lines 232--232
+[]|\T1/lmtt/c/it/10.95 packages/cli/src/generated/registry- 
+ []
+
+
+Overfull \hbox (13.30121pt too wide) in paragraph at lines 234--234
+\T1/lmtt/c/it/10.95 extension/src/generated/registry- 
+ []
+
+[185]) [186] (main.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-24>
+ ***********
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 866DA3C60EA004B68F6BBC241DFE4272;72483.
+ ) 
+Here is how much of TeX's memory you used:
+ 18015 strings out of 467871
+ 281603 string characters out of 5418375
+ 1137966 words of memory out of 5000000
+ 45429 multiletter control sequences out of 15000+600000
+ 689417 words of font info for 88 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 74i,13n,92p,1195b,2034s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pf
+b><C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pf
+b><C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pf
+b><C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb
+><C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb>
+<C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C
+:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C
+:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C
+:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtk10.pfb><C
+:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C
+:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb><
+C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbol
+s/msam10.pfb>
+Output written on main.pdf (203 pages, 2428565 bytes).
+PDF statistics:
+ 3869 PDF objects out of 4296 (max. 8388607)
+ 1080 named destinations out of 1200 (max. 500000)
+ 3075 words of extra memory for PDF output out of 10000 (max. 10000000)
+

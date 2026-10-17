@@ -1,0 +1,77 @@
+\chapter*{Document Control}
+\addcontentsline{toc}{chapter}{Document Control}
+\markboth{Document Control}{Document Control}
+
+\section*{Purpose of this document set}
+
+This documentation set describes the \textbf{Expo Snips} repository located at
+\RepositoryPath. It was produced by a complete reverse-engineering analysis of
+the source tree: package manifests, TypeScript sources, registry data, Handlebars
+templates, build scripts, GitHub Actions workflows and Markdown documentation.
+No application source code was modified.
+
+\section*{Source of truth}
+
+The repository is the only source of truth. Every material statement in this
+document set is traceable to a file, symbol, configuration key or commit. Where
+the repository does not contain evidence for a statement, the statement is either
+omitted or explicitly labelled \textbf{UNKNOWN}.
+
+\section*{Evidence classification scheme}
+
+Each material claim in this documentation carries a status label:
+
+\begin{itemize}
+  \item \textbf{IMPLEMENTED} --- present and verifiable in the repository source.
+  \item \textbf{INFERRED} --- a reasonable conclusion drawn from repository evidence,
+        but not stated explicitly by the code.
+  \item \textbf{RECOMMENDED} --- a suggestion made by this document; it is \emph{not}
+        a description of existing behaviour.
+  \item \textbf{UNKNOWN} --- no evidence could be found in the repository.
+  \item \textbf{NOT APPLICABLE} --- the subject does not exist in this product
+        (for example, a database, because the product has no data store).
+\end{itemize}
+
+The full scheme and a worked example are given in Appendix~C.
+
+\section*{Scope of analysis}
+
+\begin{table}[H]
+\centering
+\caption{Analysis scope and artefacts inspected}
+\begin{longtable}{p{4.4cm}p{10cm}}
+\toprule
+\textbf{Area} & \textbf{Artefacts inspected} \\
+\midrule
+\endhead
+Root workspace & \texttt{package.json}, \texttt{pnpm-workspace.yaml}, \texttt{tsconfig.base.json}, \texttt{.gitignore} \\
+Packages & \texttt{packages/core}, \texttt{packages/cli}, \texttt{packages/registry}, \texttt{packages/vscode-extension} \\
+Registry data & \texttt{packages/registry/data/**} (24 recipes), \texttt{packages/registry/templates/**} (48 templates) \\
+Built registry & \texttt{registry/index.json}, \texttt{registry/recipes/**}, \texttt{packages/registry/bundle.json} \\
+Scripts & \texttt{scripts/build-registry.mjs}, \texttt{scripts/lib/build-recipes.mjs}, \texttt{scripts/validate.mjs}, \texttt{scripts/serve.mjs} \\
+CI/CD & \texttt{.github/workflows/deploy-registry.yml}, \texttt{.github/workflows/publish.yml} \\
+Documentation & \texttt{documents/ProjectDescription.md}, \texttt{packages/vscode-extension/README.md}, \texttt{CHANGELOG.md}, \texttt{LICENSE} \\
+Version control & \texttt{git log} (10 commits), branches \texttt{master}, \texttt{origin/gh-pages} \\
+\bottomrule
+\end{longtable}
+\end{table}
+
+\section*{Explicitly excluded}
+
+\begin{itemize}
+  \item Generated dependency trees (\texttt{node\_modules/}) were excluded, except
+        where a manifest was needed to identify a dependency.
+  \item Build output directories (\texttt{dist/}, \texttt{out/}, \texttt{*.vsix}) were
+        treated as generated artefacts.
+  \item Git-ignored generated sources (\texttt{packages/*/src/generated/}) were
+        inspected only to confirm their build-time origin.
+\end{itemize}
+
+\section*{Terminology note}
+
+The product uses ``screen recipes'' (JSON definitions) rendered through
+Handlebars templates. Throughout this document, \emph{recipe} means a registry
+entry such as \texttt{auth/login}, and \emph{generated screen} means the resulting
+files written into a developer's project.
+
+\clearpage

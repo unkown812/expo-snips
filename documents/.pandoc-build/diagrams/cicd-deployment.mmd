@@ -1,0 +1,14 @@
+flowchart LR
+  subgraph W1["deploy-registry.yml"]
+    A["push to main / master<br/>or workflow_dispatch"] --> B["checkout + setup-node 20"]
+    B --> C["node scripts/build-registry.mjs"]
+    C --> D["mkdir public; cp -R registry public/registry"]
+    D --> E["peaceiris/actions-gh-pages@v3<br/>publish_dir ./public"]
+  end
+  subgraph W2["publish.yml"]
+    F["push tag v*"] --> G["checkout + pnpm 9 + node 20"]
+    G --> H["pnpm install --frozen-lockfile"]
+    H --> I["pnpm build"]
+    I --> J["publish @expo-snips/core"]
+    I --> K["publish @expo-snips/cli"]
+  end

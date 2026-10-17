@@ -1,0 +1,12 @@
+flowchart TD
+  A["Generated Login Screen<br/>app/login/index.tsx"] --> B["LoginForm component<br/>react-hook-form + zod"]
+  B --> C["zod schema: email + password min 6"]
+  C --> D["useLogin() hook<br/>PLACEHOLDER implementation"]
+  D --> E["setIsLoading(true)"]
+  E --> F["setTimeout 1500ms (mock)"]
+  F --> G["Alert.alert Success"]
+  E --> H["catch: setError + Alert"]
+  G --> I["Developer replaces with real<br/>auth call (comment in template)"]
+  H --> I
+  A --> J["Link to /register"]
+  A --> K["Link to /forgot-password"]

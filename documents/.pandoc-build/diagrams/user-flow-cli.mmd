@@ -1,0 +1,11 @@
+flowchart TD
+  S["npm i -g @expo-snips/cli<br/>or npx"] --> I{"New project?"}
+  I -- "yes" --> INIT["expo-snips init --name myapp<br/>runs create-expo-app"]
+  I -- "no" --> L
+  INIT --> L["expo-snips list<br/>browse 24 recipes"]
+  L --> ADD["expo-snips add auth/login<br/>or run add with no id for picker"]
+  ADD --> DET["Stack detection + prompts"]
+  DET --> GEN["Files written + deps installed<br/>+ manifest updated"]
+  GEN --> REV["Developer reviews generated code<br/>wires real backend logic"]
+  REV --> ST["expo-snips status"]
+  ST --> UP["expo-snips update<br/>diff preview + confirmation"]

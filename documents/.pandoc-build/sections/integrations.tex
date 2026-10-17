@@ -1,0 +1,152 @@
+\chapter{Integrations}
+\label{ch:integrations}
+
+\section{Integration map}
+
+Expo Snips integrates with external systems in three directions: build-time
+tooling, distribution channels, and the developer projects it generates code
+into. There is no server-side integration surface (no webhooks, no message
+queues, no third-party APIs called at runtime other than an optional registry
+fetch).
+
+\begin{longtable}{p{3.1cm}p{2.2cm}p{3.2cm}p{5.6cm}}
+\caption{External integrations}\\
+\toprule
+\textbf{Integration} & \textbf{Direction} & \textbf{Status} & \textbf{Notes} \\
+\midrule
+
+npm registry & Outbound (install, publish) & IMPLEMENTED & Dependency install of
+generated screens; publishing of the two public packages. \\
+GitHub Pages & Outbound (deploy) & IMPLEMENTED & Static hosting of the recipe
+registry. \\
+VS Code Extension API & Bidirectional (host) & IMPLEMENTED & Commands, completion
+provider, status bar, settings, terminals. \\
+Remote recipe registry & Inbound (HTTP GET JSON) & IMPLEMENTED (optional,
+off-by-default) & Configurable base URL; 10\,s timeout; extension caches 5\,min. \\
+GitHub Actions & Platform & IMPLEMENTED & Two delivery workflows. \\
+VS Code Marketplace & Outbound (distribution) & NOT IMPLEMENTED & No publish step;
+the VSIX is packaged locally. \\
+Package managers in target project & Outbound (shell) & IMPLEMENTED & Detects
+npm/pnpm/yarn/bun and shells out to install. \\
+Analytics / telemetry & --- & NOT APPLICABLE & None present. \\
+Authentication providers & --- & NOT APPLICABLE & No accounts, tokens or OAuth. \\
+Databases & --- & NOT APPLICABLE & No database. \\
+\bottomrule
+\end{longtable}
+
+\section{Build-time library integrations}
+
+These are libraries the project itself depends on, not external services.
+
+\begin{longtable}{p{3.2cm}p{3cm}p{6.4cm}}
+\caption{Third-party libraries used by the product}\\
+\toprule
+\textbf{Library} & \textbf{Used by} & \textbf{Role} \\
+\midrule
+
+\texttt{handlebars} \^{}4.7.8 & \texttt{core} & Template compilation and
+rendering; the generation engine. \\
+\texttt{commander} \^{}12 & \texttt{cli} & Command and option parsing. \\
+\texttt{prompts} \^{}2.4 & \texttt{cli} & Interactive question prompts. \\
+\texttt{chalk} \^{}4.1 & \texttt{cli} & Terminal colour output. \\
+\texttt{fs-extra} \^{}11.2 & \texttt{cli}, extension & Directory creation and file
+writing. \\
+\texttt{esbuild} \^{}0.21 & extension & Bundling the extension to CommonJS. \\
+\texttt{@vscode/vsce} \^{}2.24 & extension & Packaging the \texttt{.vsix}. \\
+\texttt{typescript} \^{}5.5 & all & Compilation and strict type checking. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Note on dependency shape:} the CLI and core declare runtime
+dependencies; the extension declares its runtime helpers (\texttt{fs-extra},
+\texttt{@expo-snips/core}) as \emph{devDependencies} because esbuild bundles them
+into the shipped artefact. This is correct for a bundled extension but means the
+extension's declared dependency set is not a runtime contract.
+
+\section{Libraries the generated screens depend on}
+
+When a recipe is generated, the tool installs the recipe's declared
+dependencies. Across the whole catalog the union is:
+
+\begin{longtable}{p{5.4cm}p{8.8cm}}
+\caption{Dependencies declared by recipes}\\
+\toprule
+\textbf{Package} & \textbf{Used for} \\
+\midrule
+
+\texttt{react-hook-form} & Form state management in auth and input screens. \\
+\texttt{@hookform/resolvers} & Bridges \texttt{zod} schemas into
+\texttt{react-hook-form}. \\
+\texttt{zod} & Schema validation for forms. \\
+\texttt{lucide-react-native} & Icons (selected when \texttt{icons=lucide}). \\
+\texttt{react-native-maps} & The \texttt{map/location} recipe. \\
+\texttt{expo-notifications} & The notifications flow. \\
+\texttt{class-variance-authority}, \texttt{clsx}, \texttt{tailwind-merge} &
+shadcn-style UI primitives and the \texttt{cn} class-merging utility. \\
+\bottomrule
+\end{longtable}
+
+The generated screens also import modules that are expected to exist in any Expo
+project and are therefore not installed by the tool: \texttt{react},
+\texttt{react-native}, \texttt{react-native-safe-area-context},
+\texttt{expo-router} (the default router) or \texttt{@react-navigation/native}
+(when that router is selected), and \texttt{nativewind} (default styling).
+
+\subsection*{Integration gap: \texttt{expo-blur}}
+
+Three templates --- the \texttt{glass} variants of \texttt{app/home},
+\texttt{auth/login} and \texttt{onboarding/welcome} --- import
+\texttt{BlurView} from \texttt{expo-blur}:
+
+\begin{lstlisting}[language=JavaScript]
+import { BlurView } from 'expo-blur';
+\end{lstlisting}
+
+However, no recipe declares \texttt{expo-blur} in its \texttt{dependencies}
+array, so generating a glass variant does not install the package. A developer
+selecting a glass variant would get a module-resolution error until they
+installed \texttt{expo-blur} manually.
+
+\textbf{Status:} IMPLEMENTED (templates) / GAP (declared dependency).
+\textbf{Recommendation:} declare \texttt{expo-blur} on the three recipes that
+offer a glass variant.
+
+\section{The remote registry as an integration}
+
+The registry integration is the only network-facing contract and is worth
+treating as a formal API (see Chapter~\ref{ch:api-documentation}). Its
+properties:
+
+\begin{itemize}
+  \item \textbf{Protocol:} plain HTTPS (or HTTP) GET returning JSON.
+  \item \textbf{Endpoints:} \texttt{\{base\}/index.json} and
+        \texttt{\{base\}/recipes/\{id\}.json}, where the id contains a slash and
+        is therefore URL-encoded by the client.
+  \item \textbf{Authentication:} none.
+  \item \textbf{Configuration:} CLI \texttt{--registry} or
+        \texttt{EXPO\_SNIPS\_REGISTRY}; extension \texttt{expo-snips.registryUrl}.
+  \item \textbf{Resilience:} 10-second timeouts; the extension caches for 5
+        minutes and falls back to its embedded catalog on failure; the CLI falls
+        back to its embedded catalog when no base is configured.
+  \item \textbf{Failure mode:} a non-2xx response or malformed shape causes an
+        error on the CLI and a silent fallback on the extension.
+\end{itemize}
+
+\section{Integration risks}
+
+\begin{itemize}
+  \item A user-configured registry becomes a trusted code channel with no
+        signature or hash verification (see Chapter~\ref{ch:security}).
+  \item The hard-coded default host \texttt{registry.expo-snips.dev} is not
+        represented in the repository by any hosting configuration, so its
+        liveness is \textbf{UNKNOWN}.
+  \item The extension's ``fallback to embedded catalog'' behaviour is helpful but
+        means a misconfigured registry silently produces the built-in catalog
+        rather than an error, which can mask configuration mistakes.
+\end{itemize}
+
+\section{Summary}
+
+\textbf{Status:} IMPLEMENTED (build tooling, npm, GitHub Pages, VS Code API,
+optional registry) / NOT IMPLEMENTED (Marketplace publishing) / NOT APPLICABLE
+(analytics, auth providers, databases).

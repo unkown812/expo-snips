@@ -1,0 +1,161 @@
+\chapter{Technical Requirements}
+\label{ch:technical-requirements}
+
+\section{Technology stack}
+
+\begin{longtable}{p{3.4cm}p{4.4cm}p{6.6cm}}
+\caption{Technology stack (declared in package manifests)}\\
+\toprule
+\textbf{Category} & \textbf{Technology} & \textbf{Detail} \\
+\midrule
+
+Language & TypeScript 5.5 & Strict mode, ES2020 target, CommonJS, declaration + source maps. \\
+Runtime & Node.js $\geq$ 18 & Declared in \texttt{@expo-snips/cli} engines. \\
+Workspace & pnpm workspaces & \texttt{pnpm-workspace.yaml} lists \texttt{packages/*}. \\
+Engine & Handlebars 4.7 & Only runtime dependency of \texttt{@expo-snips/core}. \\
+CLI & commander 12 & Command registration. \\
+CLI prompts & prompts 2.4 & Interactive selection and confirmation. \\
+CLI output & chalk 4.1 & Terminal colouring. \\
+File I/O & fs-extra 11.2 & \texttt{ensureDir}, \texttt{readJSON}, \texttt{writeJSON}, \texttt{pathExists}. \\
+Extension bundler & esbuild 0.21 & CJS bundle, \texttt{node18} target, \texttt{vscode} external. \\
+Extension packaging & @vscode/vsce 2.24 & Produces the \texttt{.vsix}. \\
+Validation & Node built-ins & Hand-written Draft-07 subset validator in \texttt{scripts/validate.mjs}. \\
+Registry serving (dev) & Node \texttt{http} & \texttt{scripts/serve.mjs}. \\
+\bottomrule
+\end{longtable}
+
+\section{Frameworks and platforms}
+
+\begin{itemize}
+  \item \textbf{Target framework:} React Native, generated through Expo. Every
+        recipe declares \texttt{framework: "react-native"} and
+        \texttt{runtime: "expo"} (enforced by the JSON Schema enums).
+  \item \textbf{Routing:} Expo Router is the primary target
+        (\texttt{app/} directory conventions); react-navigation is available for
+        two recipes.
+  \item \textbf{Styling:} NativeWind (Tailwind-style utility classes) or React
+        Native \texttt{StyleSheet}.
+  \item \textbf{Editor platform:} VS Code Extension API.
+\end{itemize}
+
+\section{Runtime requirements and entry points}
+
+\begin{longtable}{p{4cm}p{1.9cm}p{8.3cm}}
+\toprule
+\textbf{Entry point} & \textbf{Runtime} & \textbf{Detail} \\
+\midrule
+\endhead
+\texttt{packages/cli/src/index.ts} & Node & CLI binary, shebang \texttt{\#!/usr/bin/env node},
+declares five subcommands. \\
+\texttt{packages/vscode-extension/src/extension.ts} & VS Code & \texttt{activate()} registers commands, completion provider and status bar. \\
+\texttt{packages/core/src/index.ts} & Node/VS Code & Re-exports types, context and engine. \\
+\texttt{packages/registry/src/index.ts} & Node & Filesystem recipe loading; also exposes an HTTP fetch helper. \\
+\texttt{scripts/build-registry.mjs} & Node & Builds the deployable registry folder. \\
+\texttt{scripts/serve.mjs} & Node & Local static registry server on \texttt{PORT} (default 3000). \\
+\bottomrule
+\end{longtable}
+
+\section{Architecture requirements}
+
+\begin{itemize}
+  \item A single shared generation engine must be used by all clients. The CLI and
+        the extension both import \texttt{@expo-snips/core} and render with the
+        same \texttt{getFilesForRecipe} function.
+  \item The catalog must be consumable both as a bundle embedded in the clients and
+        as static JSON over HTTP.
+  \item Recipe definitions must not require filesystem access at render time; all
+        \texttt{.hbs} templates are inlined into the emitted recipe JSON at build
+        time (\texttt{scripts/lib/build-recipes.mjs}).
+  \item There is no server-side state; all state is local to the user's project.
+\end{itemize}
+
+\section{Interfaces and APIs}
+
+\begin{longtable}{p{3.4cm}p{11cm}}
+\caption{Interface inventory}\\
+\toprule
+\textbf{Interface} & \textbf{Definition} \\
+\midrule
+
+CLI & Five subcommands with documented flags; see Chapter~\ref{ch:cli-reference}. \\
+Registry HTTP & \texttt{GET \{base\}/index.json};
+\texttt{GET \{base\}/recipes/\{url-encoded-id\}.json}. See Chapter~\ref{ch:api-documentation}. \\
+Programmatic & \texttt{@expo-snips/core} exports
+\texttt{renderTemplate}, \texttt{getFilesForRecipe},
+\texttt{GenerationContext}, \texttt{ScreenRecipe}, \texttt{FileTemplate},
+\texttt{ScreenVariant} and the option union types. \\
+Extension commands & \texttt{expo-snips.addScreen} and
+\texttt{expo-snips.generateFromCompletion} (the latter is not declared in
+\texttt{contributes.commands}, only registered at runtime). \\
+Configuration & Six VS Code settings; two environment variables; two secrets used
+in CI. See Chapter~\ref{ch:configuration}. \\
+\bottomrule
+\end{longtable}
+
+\section{Data requirements}
+
+\begin{itemize}
+  \item \textbf{No database.} NOT APPLICABLE.
+  \item \textbf{Persistent state:} a JSON manifest (\texttt{.expo-snips.json})
+        written to the user's project root. Its shape is defined in
+        Section~5.8 of Chapter~\ref{ch:functional-requirements}.
+  \item \textbf{Catalog data:} JSON recipe documents plus inlined Handlebars
+        template strings.
+  \item \textbf{Schema:} \texttt{packages/registry/schema.json}
+        (JSON Schema Draft-07).
+\end{itemize}
+
+\section{Authentication and authorization requirements}
+
+The product itself requires no authentication and implements no authorization.
+\textbf{NOT APPLICABLE.} See Chapters~\ref{ch:authentication} and
+\ref{ch:authorization} for why, and for the authentication templates that are
+generated \emph{for} user applications.
+
+\section{Infrastructure requirements}
+
+\begin{itemize}
+  \item \textbf{Build:} Node 18+ and pnpm 9+.
+  \item \textbf{Distribution:} npm registry for the two public packages; GitHub
+        Pages for the registry; manual \texttt{.vsix} for the extension.
+  \item \textbf{CI:} GitHub Actions, \texttt{ubuntu-latest} runners.
+  \item \textbf{No containerisation, orchestration or cloud infrastructure is
+        required or present.}
+\end{itemize}
+
+\section{Storage requirements}
+
+None beyond local disk. NOT APPLICABLE for object storage, databases or caches
+(a 5-minute in-memory cache in the extension aside).
+
+\section{Monitoring requirements}
+
+\textbf{UNKNOWN / not implemented.} There is no monitoring, alerting, error
+reporting or health endpoint.
+
+\section{Testing requirements}
+
+\textbf{Not implemented.} There are no test files, no test runner and no test
+script. The only automated check in the repository is the recipe validator
+(\texttt{scripts/validate.mjs}), which verifies recipe structure against the JSON
+Schema and is exposed as \texttt{pnpm validate}. See Chapter~\ref{ch:testing}.
+
+\section{Third-party integration requirements}
+
+\begin{longtable}{p{4.4cm}p{5.2cm}p{4.8cm}}
+\caption{Integrations}\\
+\toprule
+\textbf{Integration} & \textbf{Direction} & \textbf{Used for} \\
+\midrule
+
+npm registry & outbound (publish) & Publishing \texttt{@expo-snips/core} and \texttt{@expo-snips/cli}. \\
+GitHub Pages & outbound (deploy) & Hosting the static registry. \\
+GitHub Actions & build & CI/CD. \\
+Registry HTTP endpoint & inbound (fetch) & Optional remote recipe source. \\
+create-expo-app & outbound (exec) & \texttt{init} project bootstrap. \\
+Package managers & outbound (exec) & Installing recipe dependencies. \\
+VS Code API & host & Extension surface. \\
+\bottomrule
+\end{longtable}
+
+Detailed in Chapter~\ref{ch:integrations}.
