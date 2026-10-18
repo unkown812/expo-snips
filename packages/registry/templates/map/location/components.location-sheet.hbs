@@ -2,8 +2,16 @@ import { View, Text, Pressable{{#if (eq styling "stylesheet")}}, StyleSheet{{/if
 {{#if (eq icons "lucide")}}
 import { Star, Navigation, Phone, Bookmark } from 'lucide-react-native';
 {{/if}}
+{{#if typescript}}
+type LocationSheetProps = {
+  name: string;
+  address: string;
+  rating: number;
+  distance: string;
+};
+{{/if}}
 
-export function LocationSheet({ name, address, rating, distance }) {
+export function LocationSheet({ name, address, rating, distance }{{#if typescript}}: LocationSheetProps{{/if}}) {
   return (
     <View {{#if (eq styling "nativewind")}}className="absolute bottom-0 left-0 right-0 rounded-t-3xl bg-white px-5 pt-4 pb-8"{{else}}style={styles.container}{{/if}}>
       {/* Handle */}

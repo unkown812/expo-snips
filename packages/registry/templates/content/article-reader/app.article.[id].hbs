@@ -33,7 +33,7 @@ export default function ArticleScreen() {
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Hero Image */}
         <Image
-          source={{ uri: article.image }}
+          source=\{{ uri: article.image }}
           {{#if (eq styling "nativewind")}}className="h-64 w-full"{{else}}style={styles.heroImage}{{/if}}
         />
 
@@ -47,7 +47,7 @@ export default function ArticleScreen() {
           {/* Author */}
           <View {{#if (eq styling "nativewind")}}className="mt-4 flex-row items-center"{{else}}style={styles.authorRow}{{/if}}>
             <Image
-              source={{ uri: article.authorAvatar }}
+              source=\{{ uri: article.authorAvatar }}
               {{#if (eq styling "nativewind")}}className="h-10 w-10 rounded-full"{{else}}style={styles.authorAvatar}{{/if}}
             />
             <View {{#if (eq styling "nativewind")}}className="ml-3"{{else}}style={styles.authorInfo}{{/if}}>
