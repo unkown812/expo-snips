@@ -10,6 +10,27 @@ the source tree: package manifests, TypeScript sources, registry data, Handlebar
 templates, build scripts, GitHub Actions workflows and Markdown documentation.
 No application source code was modified.
 
+\section*{Revision history}
+
+\begin{table}[H]
+\centering
+\caption{Document revision history}
+\begin{tabular}{@{}L{2cm}L{3cm}L{9.4cm}@{}}
+\toprule
+\textbf{Version} & \textbf{Date} & \textbf{Change} \\
+\midrule
+1.0 & 17 October 2026 & Initial reverse-engineering documentation suite
+(45 chapters/appendices, 10 Mermaid diagrams, PDF and DOCX outputs). \\
+1.1 & 19 October 2026 & Refresh against the current tree: the three crashing
+catalog templates were fixed (escaped Handlebars literals and typed component
+props --- see Chapter~\ref{ch:known-issues} and the File Index), 22 committed
+screen screenshots were added under \texttt{docs/screenshots/} and are now
+referenced from the UI/UX chapter, the root workspace was returned to a
+dependency-free state, and commit/branch figures were updated. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section*{Source of truth}
 
 The repository is the only source of truth. Every material statement in this
@@ -44,14 +65,16 @@ The full scheme and a worked example are given in Appendix~C.
 \textbf{Area} & \textbf{Artefacts inspected} \\
 \midrule
 \endhead
-Root workspace & \texttt{package.json}, \texttt{pnpm-workspace.yaml}, \texttt{tsconfig.base.json}, \texttt{.gitignore} \\
+Root workspace & \texttt{package.json} (no \texttt{dependencies} block --- the workspace root is dependency-free),
+\texttt{pnpm-workspace.yaml}, \texttt{tsconfig.base.json}, \texttt{.gitignore} \\
 Packages & \texttt{packages/core}, \texttt{packages/cli}, \texttt{packages/registry}, \texttt{packages/vscode-extension} \\
 Registry data & \texttt{packages/registry/data/**} (24 recipes), \texttt{packages/registry/templates/**} (48 templates) \\
 Built registry & \texttt{registry/index.json}, \texttt{registry/recipes/**}, \texttt{packages/registry/bundle.json} \\
 Scripts & \texttt{scripts/build-registry.mjs}, \texttt{scripts/lib/build-recipes.mjs}, \texttt{scripts/validate.mjs}, \texttt{scripts/serve.mjs} \\
 CI/CD & \texttt{.github/workflows/deploy-registry.yml}, \texttt{.github/workflows/publish.yml} \\
-Documentation & \texttt{documents/ProjectDescription.md}, \texttt{packages/vscode-extension/README.md}, \texttt{CHANGELOG.md}, \texttt{LICENSE} \\
-Version control & \texttt{git log} (10 commits), branches \texttt{master}, \texttt{origin/gh-pages} \\
+Documentation & \texttt{README.md} (includes a Screen Showcase gallery), \texttt{CHANGELOG.md}, \texttt{AGENTS.md}, \texttt{documents/ProjectDescription.md}, \texttt{packages/vscode-extension/README.md} \\
+Screen screenshots & \texttt{docs/screenshots/} --- 22 committed PNGs (21 screens plus a gallery shot) with regeneration notes in \texttt{docs/screenshots/README.md} \\
+Version control & \texttt{git log} (18 commits at analysis time), branches \texttt{master}, \texttt{update-fix}, \texttt{origin/gh-pages} and several \texttt{dependabot/*} branches \\
 \bottomrule
 \end{longtable}
 \end{table}

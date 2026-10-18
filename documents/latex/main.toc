@@ -189,190 +189,192 @@
 \contentsline {section}{\numberline {21.1}Tool experience --- terminal}{96}{section.21.1}%
 \contentsline {section}{\numberline {21.2}Tool experience --- VS Code}{96}{section.21.2}%
 \contentsline {section}{\numberline {21.3}Generated screen experience}{97}{section.21.3}%
-\contentsline {section}{\numberline {21.4}Responsive design}{98}{section.21.4}%
-\contentsline {section}{\numberline {21.5}Animations and interaction feedback}{98}{section.21.5}%
-\contentsline {section}{\numberline {21.6}Accessibility}{98}{section.21.6}%
-\contentsline {section}{\numberline {21.7}Dark mode}{99}{section.21.7}%
-\contentsline {chapter}{\numberline {22}Design System}{100}{chapter.22}%
-\contentsline {section}{\numberline {22.1}Scope}{100}{section.22.1}%
-\contentsline {section}{\numberline {22.2}Colour palette}{100}{section.22.2}%
-\contentsline {section}{\numberline {22.3}shadcn-style design tokens}{102}{section.22.3}%
-\contentsline {section}{\numberline {22.4}Typography}{103}{section.22.4}%
-\contentsline {section}{\numberline {22.5}Spacing}{103}{section.22.5}%
-\contentsline {section}{\numberline {22.6}Border radius}{104}{section.22.6}%
-\contentsline {section}{\numberline {22.7}Elevation, borders and shadows}{104}{section.22.7}%
-\contentsline {section}{\numberline {22.8}Component inventory}{104}{section.22.8}%
-\contentsline {section}{\numberline {22.9}Icons}{105}{section.22.9}%
-\contentsline {section}{\numberline {22.10}Breakpoints and responsive units}{105}{section.22.10}%
-\contentsline {section}{\numberline {22.11}Animation}{105}{section.22.11}%
-\contentsline {section}{\numberline {22.12}Design-system gap summary}{105}{section.22.12}%
-\contentsline {chapter}{\numberline {23}Security}{107}{chapter.23}%
-\contentsline {section}{\numberline {23.1}Method and scope}{107}{section.23.1}%
-\contentsline {section}{\numberline {23.2}Secrets}{107}{section.23.2}%
-\contentsline {section}{\numberline {23.3}Injection}{107}{section.23.3}%
-\contentsline {section}{\numberline {23.4}Trust boundary: the registry}{109}{section.23.4}%
-\contentsline {section}{\numberline {23.5}Generated-code findings}{111}{section.23.5}%
-\contentsline {section}{\numberline {23.6}Input validation}{112}{section.23.6}%
-\contentsline {section}{\numberline {23.7}Cross-site, CORS and web concerns}{112}{section.23.7}%
-\contentsline {section}{\numberline {23.8}Dependency posture}{113}{section.23.8}%
-\contentsline {section}{\numberline {23.9}Positive security controls}{113}{section.23.9}%
-\contentsline {section}{\numberline {23.10}Data integrity finding}{113}{section.23.10}%
-\contentsline {section}{\numberline {23.11}Security summary}{114}{section.23.11}%
-\contentsline {chapter}{\numberline {24}Performance}{115}{chapter.24}%
-\contentsline {section}{\numberline {24.1}Method and evidence boundary}{115}{section.24.1}%
-\contentsline {section}{\numberline {24.2}Measured artefact sizes}{115}{section.24.2}%
-\contentsline {section}{\numberline {24.3}Workload sizes}{115}{section.24.3}%
-\contentsline {section}{\numberline {24.4}Algorithmic characteristics}{115}{section.24.4}%
-\contentsline {section}{\numberline {24.5}Observed efficiency measures}{116}{section.24.5}%
-\contentsline {section}{\numberline {24.6}Optimisation opportunities}{116}{section.24.6}%
-\contentsline {section}{\numberline {24.7}Perceived performance (user experience)}{117}{section.24.7}%
-\contentsline {section}{\numberline {24.8}Summary}{117}{section.24.8}%
-\contentsline {chapter}{\numberline {25}Scalability}{118}{chapter.25}%
-\contentsline {section}{\numberline {25.1}Scope of the question}{118}{section.25.1}%
-\contentsline {section}{\numberline {25.2}Catalog growth}{118}{section.25.2}%
-\contentsline {section}{\numberline {25.3}Consumer base growth}{119}{section.25.3}%
-\contentsline {section}{\numberline {25.4}Team growth}{119}{section.25.4}%
-\contentsline {section}{\numberline {25.5}Known scalability limits}{119}{section.25.5}%
-\contentsline {section}{\numberline {25.6}Summary}{120}{section.25.6}%
-\contentsline {chapter}{\numberline {26}Testing}{121}{chapter.26}%
-\contentsline {section}{\numberline {26.1}Current state}{121}{section.26.1}%
-\contentsline {section}{\numberline {26.2}The validator as the de-facto quality gate}{121}{section.26.2}%
-\contentsline {section}{\numberline {26.3}Rendering is untested}{122}{section.26.3}%
-\contentsline {section}{\numberline {26.4}Test coverage by area}{122}{section.26.4}%
-\contentsline {section}{\numberline {26.5}Recommended test strategy}{122}{section.26.5}%
-\contentsline {section}{\numberline {26.6}Summary}{123}{section.26.6}%
-\contentsline {chapter}{\numberline {27}Deployment}{124}{chapter.27}%
-\contentsline {section}{\numberline {27.1}Deployment inventory}{124}{section.27.1}%
-\contentsline {section}{\numberline {27.2}Registry deployment}{124}{section.27.2}%
-\contentsline {section}{\numberline {27.3}npm package deployment}{125}{section.27.3}%
-\contentsline {section}{\numberline {27.4}VS Code extension deployment}{125}{section.27.4}%
-\contentsline {section}{\numberline {27.5}Runtime requirements and prerequisites}{125}{section.27.5}%
-\contentsline {section}{\numberline {27.6}What is absent}{126}{section.27.6}%
-\contentsline {section}{\numberline {27.7}Deployment summary}{126}{section.27.7}%
-\contentsline {chapter}{\numberline {28}CI/CD}{127}{chapter.28}%
-\contentsline {section}{\numberline {28.1}Overview}{127}{section.28.1}%
-\contentsline {section}{\numberline {28.2}Workflow inventory}{127}{section.28.2}%
-\contentsline {section}{\numberline {28.3}Pipeline detail: \texttt {publish.yml}}{128}{section.28.3}%
-\contentsline {section}{\numberline {28.4}Pipeline detail: \texttt {deploy-registry.yml}}{128}{section.28.4}%
-\contentsline {section}{\numberline {28.5}What the pipelines do not do}{128}{section.28.5}%
-\contentsline {section}{\numberline {28.6}Consequences}{129}{section.28.6}%
-\contentsline {section}{\numberline {28.7}Recommended pipeline}{129}{section.28.7}%
-\contentsline {section}{\numberline {28.8}CI/CD summary}{129}{section.28.8}%
-\contentsline {chapter}{\numberline {29}Integrations}{130}{chapter.29}%
-\contentsline {section}{\numberline {29.1}Integration map}{130}{section.29.1}%
-\contentsline {section}{\numberline {29.2}Build-time library integrations}{130}{section.29.2}%
-\contentsline {section}{\numberline {29.3}Libraries the generated screens depend on}{131}{section.29.3}%
-\contentsline {section}{\numberline {29.4}The remote registry as an integration}{132}{section.29.4}%
-\contentsline {section}{\numberline {29.5}Integration risks}{132}{section.29.5}%
-\contentsline {section}{\numberline {29.6}Summary}{132}{section.29.6}%
-\contentsline {chapter}{\numberline {30}Configuration}{133}{chapter.30}%
-\contentsline {section}{\numberline {30.1}Configuration surfaces}{133}{section.30.1}%
-\contentsline {section}{\numberline {30.2}Environment variables}{133}{section.30.2}%
-\contentsline {section}{\numberline {30.3}CLI options}{133}{section.30.3}%
-\contentsline {section}{\numberline {30.4}VS Code settings}{134}{section.30.4}%
-\contentsline {section}{\numberline {30.5}Project detection (configuration by inference)}{135}{section.30.5}%
-\contentsline {section}{\numberline {30.6}Recipe-level configuration}{135}{section.30.6}%
-\contentsline {section}{\numberline {30.7}Project state: the manifest}{135}{section.30.7}%
-\contentsline {section}{\numberline {30.8}Build and development configuration}{136}{section.30.8}%
-\contentsline {section}{\numberline {30.9}Configuration summary}{136}{section.30.9}%
-\contentsline {chapter}{\numberline {31}SEO --- Search Engine Optimisation}{137}{chapter.31}%
-\contentsline {section}{\numberline {31.1}Applicability}{137}{section.31.1}%
-\contentsline {section}{\numberline {31.2}In-repository SEO signals}{137}{section.31.2}%
-\contentsline {section}{\numberline {31.3}Strengths}{138}{section.31.3}%
-\contentsline {section}{\numberline {31.4}Gaps}{138}{section.31.4}%
-\contentsline {section}{\numberline {31.5}Summary}{139}{section.31.5}%
-\contentsline {chapter}{\numberline {32}AEO --- Answer Engine Optimisation}{140}{chapter.32}%
-\contentsline {section}{\numberline {32.1}Applicability}{140}{section.32.1}%
-\contentsline {section}{\numberline {32.2}Content available to answer engines}{140}{section.32.2}%
-\contentsline {section}{\numberline {32.3}Answer-readiness of the content}{140}{section.32.3}%
-\contentsline {section}{\numberline {32.4}Factual accuracy as an AEO risk}{141}{section.32.4}%
-\contentsline {section}{\numberline {32.5}Summary}{142}{section.32.5}%
-\contentsline {chapter}{\numberline {33}GEO --- Generative Engine Optimisation}{143}{chapter.33}%
-\contentsline {section}{\numberline {33.1}Applicability and scope}{143}{section.33.1}%
-\contentsline {section}{\numberline {33.2}Corpus footprint}{143}{section.33.2}%
-\contentsline {section}{\numberline {33.3}Generative-readiness properties}{143}{section.33.3}%
-\contentsline {section}{\numberline {33.4}Representation risks}{144}{section.33.4}%
-\contentsline {section}{\numberline {33.5}Why GEO matters for this product specifically}{144}{section.33.5}%
-\contentsline {section}{\numberline {33.6}Summary}{145}{section.33.6}%
-\contentsline {chapter}{\numberline {34}Known Issues}{146}{chapter.34}%
-\contentsline {section}{\numberline {34.1}Purpose and method}{146}{section.34.1}%
-\contentsline {section}{\numberline {34.2}Issue register}{146}{section.34.2}%
-\contentsline {section}{\numberline {34.3}Author-acknowledged limitations}{149}{section.34.3}%
-\contentsline {section}{\numberline {34.4}Corrections required to prior documentation}{149}{section.34.4}%
-\contentsline {section}{\numberline {34.5}Issue density by area}{150}{section.34.5}%
-\contentsline {section}{\numberline {34.6}Summary}{150}{section.34.6}%
-\contentsline {chapter}{\numberline {35}Technical Debt}{151}{chapter.35}%
-\contentsline {section}{\numberline {35.1}Definition and method}{151}{section.35.1}%
-\contentsline {section}{\numberline {35.2}Debt register}{151}{section.35.2}%
-\contentsline {section}{\numberline {35.3}The dominant debt: two clients, one engine, duplicated orchestration}{152}{section.35.3}%
-\contentsline {section}{\numberline {35.4}Debt heat map}{153}{section.35.4}%
-\contentsline {section}{\numberline {35.5}Priority}{153}{section.35.5}%
-\contentsline {section}{\numberline {35.6}Summary}{153}{section.35.6}%
-\contentsline {chapter}{\numberline {36}Roadmap}{155}{chapter.36}%
-\contentsline {section}{\numberline {36.1}Basis}{155}{section.36.1}%
-\contentsline {section}{\numberline {36.2}Repository-stated roadmap}{155}{section.36.2}%
-\contentsline {section}{\numberline {36.3}Near-term recommendations}{155}{section.36.3}%
-\contentsline {section}{\numberline {36.4}Mid-term recommendations}{156}{section.36.4}%
-\contentsline {section}{\numberline {36.5}Long-term / architectural directions}{157}{section.36.5}%
-\contentsline {section}{\numberline {36.6}Sequencing}{157}{section.36.6}%
-\contentsline {section}{\numberline {36.7}Summary}{158}{section.36.7}%
-\contentsline {chapter}{\numberline {37}Development Guidelines}{159}{chapter.37}%
-\contentsline {section}{\numberline {37.1}Purpose}{159}{section.37.1}%
-\contentsline {section}{\numberline {37.2}Repository layout and tooling}{159}{section.37.2}%
-\contentsline {section}{\numberline {37.3}TypeScript conventions}{159}{section.37.3}%
-\contentsline {section}{\numberline {37.4}Extension conventions (INFERRED)}{160}{section.37.4}%
-\contentsline {section}{\numberline {37.5}Recipe and template conventions (INFERRED + IMPLEMENTED)}{160}{section.37.5}%
-\contentsline {section}{\numberline {37.6}Versioning and change control (INFERRED)}{161}{section.37.6}%
-\contentsline {section}{\numberline {37.7}Recommended additions to these guidelines}{161}{section.37.7}%
-\contentsline {section}{\numberline {37.8}Summary}{161}{section.37.8}%
-\contentsline {chapter}{\numberline {38}Contribution Guide}{162}{chapter.38}%
-\contentsline {section}{\numberline {38.1}Basis and honesty note}{162}{section.38.1}%
-\contentsline {section}{\numberline {38.2}Prerequisites (INFERRED)}{162}{section.38.2}%
-\contentsline {section}{\numberline {38.3}Getting started (INFERRED)}{162}{section.38.3}%
-\contentsline {section}{\numberline {38.4}Contribution paths}{162}{section.38.4}%
-\contentsline {section}{\numberline {38.5}Change and release process (INFERRED)}{163}{section.38.5}%
-\contentsline {section}{\numberline {38.6}What to include in a contribution}{163}{section.38.6}%
-\contentsline {section}{\numberline {38.7}Missing policy areas}{164}{section.38.7}%
-\contentsline {section}{\numberline {38.8}Contribution-friendly features already present}{164}{section.38.8}%
-\contentsline {section}{\numberline {38.9}Summary}{164}{section.38.9}%
-\contentsline {chapter}{\numberline {39}Glossary}{165}{chapter.39}%
-\contentsline {section}{\numberline {39.1}Purpose}{165}{section.39.1}%
-\contentsline {section}{\numberline {39.2}Domain terms}{165}{section.39.2}%
-\contentsline {section}{\numberline {39.3}Ecosystem and technology terms}{166}{section.39.3}%
-\contentsline {section}{\numberline {39.4}Documentation and status terms}{167}{section.39.4}%
-\contentsline {section}{\numberline {39.5}Abbreviations used in this document}{167}{section.39.5}%
-\contentsline {chapter}{\numberline {40}References}{169}{chapter.40}%
-\contentsline {section}{\numberline {40.1}Purpose}{169}{section.40.1}%
-\contentsline {section}{\numberline {40.2}Primary repository sources}{169}{section.40.2}%
-\contentsline {section}{\numberline {40.3}Documentation sources}{170}{section.40.3}%
-\contentsline {section}{\numberline {40.4}External references}{170}{section.40.4}%
-\contentsline {section}{\numberline {40.5}Verified facts ledger}{171}{section.40.5}%
-\contentsline {chapter}{\numberline {A}Catalog Reference}{172}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Overview}{172}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Recipe identity}{172}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Supported options}{173}{section.A.3}%
-\contentsline {section}{\numberline {A.4}Catalog observations}{174}{section.A.4}%
-\contentsline {section}{\numberline {A.5}Tags}{174}{section.A.5}%
-\contentsline {chapter}{\numberline {B}Environment and Toolchain}{175}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Application runtime environment}{175}{section.B.1}%
-\contentsline {section}{\numberline {B.2}TypeScript and build configuration}{175}{section.B.2}%
-\contentsline {section}{\numberline {B.3}Declared dependency versions}{175}{section.B.3}%
-\contentsline {section}{\numberline {B.4}Environment variables}{176}{section.B.4}%
-\contentsline {section}{\numberline {B.5}Documentation build environment}{176}{section.B.5}%
-\contentsline {section}{\numberline {B.6}Version landscape (a source of confusion)}{177}{section.B.6}%
-\contentsline {chapter}{\numberline {C}Classification and Coverage}{178}{appendix.C}%
-\contentsline {section}{\numberline {C.1}Evidence labels}{178}{section.C.1}%
-\contentsline {section}{\numberline {C.2}Coverage of requested document types}{178}{section.C.2}%
-\contentsline {section}{\numberline {C.3}Additional chapters written}{180}{section.C.3}%
-\contentsline {section}{\numberline {C.4}Applicability summary}{180}{section.C.4}%
-\contentsline {section}{\numberline {C.5}Reading guide}{180}{section.C.5}%
-\contentsline {chapter}{\numberline {D}File Index}{182}{appendix.D}%
-\contentsline {section}{\numberline {D.1}Purpose}{182}{section.D.1}%
-\contentsline {section}{\numberline {D.2}Root}{182}{section.D.2}%
-\contentsline {section}{\numberline {D.3}\texttt {packages/core} --- shared engine and types}{182}{section.D.3}%
-\contentsline {section}{\numberline {D.4}\texttt {packages/cli} --- command-line interface}{183}{section.D.4}%
-\contentsline {section}{\numberline {D.5}\texttt {packages/registry} --- recipes, templates and schema}{184}{section.D.5}%
-\contentsline {section}{\numberline {D.6}\texttt {packages/vscode-extension} --- editor integration}{184}{section.D.6}%
-\contentsline {section}{\numberline {D.7}\texttt {scripts} --- workspace tooling}{185}{section.D.7}%
-\contentsline {section}{\numberline {D.8}\texttt {.github/workflows} --- automation}{185}{section.D.8}%
-\contentsline {section}{\numberline {D.9}Generated and derived artefacts}{185}{section.D.9}%
+\contentsline {section}{\numberline {21.4}Visual reference --- committed screenshots}{98}{section.21.4}%
+\contentsline {section}{\numberline {21.5}Responsive design}{101}{section.21.5}%
+\contentsline {section}{\numberline {21.6}Animations and interaction feedback}{101}{section.21.6}%
+\contentsline {section}{\numberline {21.7}Accessibility}{102}{section.21.7}%
+\contentsline {section}{\numberline {21.8}Dark mode}{102}{section.21.8}%
+\contentsline {chapter}{\numberline {22}Design System}{103}{chapter.22}%
+\contentsline {section}{\numberline {22.1}Scope}{103}{section.22.1}%
+\contentsline {section}{\numberline {22.2}Colour palette}{103}{section.22.2}%
+\contentsline {section}{\numberline {22.3}shadcn-style design tokens}{105}{section.22.3}%
+\contentsline {section}{\numberline {22.4}Typography}{106}{section.22.4}%
+\contentsline {section}{\numberline {22.5}Spacing}{106}{section.22.5}%
+\contentsline {section}{\numberline {22.6}Border radius}{107}{section.22.6}%
+\contentsline {section}{\numberline {22.7}Elevation, borders and shadows}{107}{section.22.7}%
+\contentsline {section}{\numberline {22.8}Component inventory}{107}{section.22.8}%
+\contentsline {section}{\numberline {22.9}Icons}{108}{section.22.9}%
+\contentsline {section}{\numberline {22.10}Breakpoints and responsive units}{108}{section.22.10}%
+\contentsline {section}{\numberline {22.11}Animation}{108}{section.22.11}%
+\contentsline {section}{\numberline {22.12}Design-system gap summary}{108}{section.22.12}%
+\contentsline {chapter}{\numberline {23}Security}{110}{chapter.23}%
+\contentsline {section}{\numberline {23.1}Method and scope}{110}{section.23.1}%
+\contentsline {section}{\numberline {23.2}Secrets}{110}{section.23.2}%
+\contentsline {section}{\numberline {23.3}Injection}{110}{section.23.3}%
+\contentsline {section}{\numberline {23.4}Trust boundary: the registry}{112}{section.23.4}%
+\contentsline {section}{\numberline {23.5}Generated-code findings}{114}{section.23.5}%
+\contentsline {section}{\numberline {23.6}Input validation}{115}{section.23.6}%
+\contentsline {section}{\numberline {23.7}Cross-site, CORS and web concerns}{115}{section.23.7}%
+\contentsline {section}{\numberline {23.8}Dependency posture}{116}{section.23.8}%
+\contentsline {section}{\numberline {23.9}Positive security controls}{116}{section.23.9}%
+\contentsline {section}{\numberline {23.10}Data integrity finding}{116}{section.23.10}%
+\contentsline {section}{\numberline {23.11}Security summary}{117}{section.23.11}%
+\contentsline {chapter}{\numberline {24}Performance}{118}{chapter.24}%
+\contentsline {section}{\numberline {24.1}Method and evidence boundary}{118}{section.24.1}%
+\contentsline {section}{\numberline {24.2}Measured artefact sizes}{118}{section.24.2}%
+\contentsline {section}{\numberline {24.3}Workload sizes}{118}{section.24.3}%
+\contentsline {section}{\numberline {24.4}Algorithmic characteristics}{118}{section.24.4}%
+\contentsline {section}{\numberline {24.5}Observed efficiency measures}{119}{section.24.5}%
+\contentsline {section}{\numberline {24.6}Optimisation opportunities}{119}{section.24.6}%
+\contentsline {section}{\numberline {24.7}Perceived performance (user experience)}{120}{section.24.7}%
+\contentsline {section}{\numberline {24.8}Summary}{120}{section.24.8}%
+\contentsline {chapter}{\numberline {25}Scalability}{121}{chapter.25}%
+\contentsline {section}{\numberline {25.1}Scope of the question}{121}{section.25.1}%
+\contentsline {section}{\numberline {25.2}Catalog growth}{121}{section.25.2}%
+\contentsline {section}{\numberline {25.3}Consumer base growth}{122}{section.25.3}%
+\contentsline {section}{\numberline {25.4}Team growth}{122}{section.25.4}%
+\contentsline {section}{\numberline {25.5}Known scalability limits}{122}{section.25.5}%
+\contentsline {section}{\numberline {25.6}Summary}{123}{section.25.6}%
+\contentsline {chapter}{\numberline {26}Testing}{124}{chapter.26}%
+\contentsline {section}{\numberline {26.1}Current state}{124}{section.26.1}%
+\contentsline {section}{\numberline {26.2}The validator as the de-facto quality gate}{124}{section.26.2}%
+\contentsline {section}{\numberline {26.3}Rendering is untested}{125}{section.26.3}%
+\contentsline {section}{\numberline {26.4}Test coverage by area}{125}{section.26.4}%
+\contentsline {section}{\numberline {26.5}Recommended test strategy}{125}{section.26.5}%
+\contentsline {section}{\numberline {26.6}Summary}{126}{section.26.6}%
+\contentsline {chapter}{\numberline {27}Deployment}{127}{chapter.27}%
+\contentsline {section}{\numberline {27.1}Deployment inventory}{127}{section.27.1}%
+\contentsline {section}{\numberline {27.2}Registry deployment}{127}{section.27.2}%
+\contentsline {section}{\numberline {27.3}npm package deployment}{128}{section.27.3}%
+\contentsline {section}{\numberline {27.4}VS Code extension deployment}{128}{section.27.4}%
+\contentsline {section}{\numberline {27.5}Runtime requirements and prerequisites}{128}{section.27.5}%
+\contentsline {section}{\numberline {27.6}What is absent}{129}{section.27.6}%
+\contentsline {section}{\numberline {27.7}Deployment summary}{129}{section.27.7}%
+\contentsline {chapter}{\numberline {28}CI/CD}{130}{chapter.28}%
+\contentsline {section}{\numberline {28.1}Overview}{130}{section.28.1}%
+\contentsline {section}{\numberline {28.2}Workflow inventory}{130}{section.28.2}%
+\contentsline {section}{\numberline {28.3}Pipeline detail: \texttt {publish.yml}}{131}{section.28.3}%
+\contentsline {section}{\numberline {28.4}Pipeline detail: \texttt {deploy-registry.yml}}{131}{section.28.4}%
+\contentsline {section}{\numberline {28.5}What the pipelines do not do}{131}{section.28.5}%
+\contentsline {section}{\numberline {28.6}Consequences}{132}{section.28.6}%
+\contentsline {section}{\numberline {28.7}Recommended pipeline}{132}{section.28.7}%
+\contentsline {section}{\numberline {28.8}CI/CD summary}{132}{section.28.8}%
+\contentsline {chapter}{\numberline {29}Integrations}{133}{chapter.29}%
+\contentsline {section}{\numberline {29.1}Integration map}{133}{section.29.1}%
+\contentsline {section}{\numberline {29.2}Build-time library integrations}{133}{section.29.2}%
+\contentsline {section}{\numberline {29.3}Libraries the generated screens depend on}{134}{section.29.3}%
+\contentsline {section}{\numberline {29.4}The remote registry as an integration}{135}{section.29.4}%
+\contentsline {section}{\numberline {29.5}Integration risks}{135}{section.29.5}%
+\contentsline {section}{\numberline {29.6}Summary}{135}{section.29.6}%
+\contentsline {chapter}{\numberline {30}Configuration}{136}{chapter.30}%
+\contentsline {section}{\numberline {30.1}Configuration surfaces}{136}{section.30.1}%
+\contentsline {section}{\numberline {30.2}Environment variables}{136}{section.30.2}%
+\contentsline {section}{\numberline {30.3}CLI options}{136}{section.30.3}%
+\contentsline {section}{\numberline {30.4}VS Code settings}{137}{section.30.4}%
+\contentsline {section}{\numberline {30.5}Project detection (configuration by inference)}{138}{section.30.5}%
+\contentsline {section}{\numberline {30.6}Recipe-level configuration}{138}{section.30.6}%
+\contentsline {section}{\numberline {30.7}Project state: the manifest}{138}{section.30.7}%
+\contentsline {section}{\numberline {30.8}Build and development configuration}{139}{section.30.8}%
+\contentsline {section}{\numberline {30.9}Configuration summary}{139}{section.30.9}%
+\contentsline {chapter}{\numberline {31}SEO --- Search Engine Optimisation}{140}{chapter.31}%
+\contentsline {section}{\numberline {31.1}Applicability}{140}{section.31.1}%
+\contentsline {section}{\numberline {31.2}In-repository SEO signals}{140}{section.31.2}%
+\contentsline {section}{\numberline {31.3}Strengths}{141}{section.31.3}%
+\contentsline {section}{\numberline {31.4}Gaps}{141}{section.31.4}%
+\contentsline {section}{\numberline {31.5}Summary}{142}{section.31.5}%
+\contentsline {chapter}{\numberline {32}AEO --- Answer Engine Optimisation}{143}{chapter.32}%
+\contentsline {section}{\numberline {32.1}Applicability}{143}{section.32.1}%
+\contentsline {section}{\numberline {32.2}Content available to answer engines}{143}{section.32.2}%
+\contentsline {section}{\numberline {32.3}Answer-readiness of the content}{143}{section.32.3}%
+\contentsline {section}{\numberline {32.4}Factual accuracy as an AEO risk}{144}{section.32.4}%
+\contentsline {section}{\numberline {32.5}Summary}{145}{section.32.5}%
+\contentsline {chapter}{\numberline {33}GEO --- Generative Engine Optimisation}{146}{chapter.33}%
+\contentsline {section}{\numberline {33.1}Applicability and scope}{146}{section.33.1}%
+\contentsline {section}{\numberline {33.2}Corpus footprint}{146}{section.33.2}%
+\contentsline {section}{\numberline {33.3}Generative-readiness properties}{146}{section.33.3}%
+\contentsline {section}{\numberline {33.4}Representation risks}{147}{section.33.4}%
+\contentsline {section}{\numberline {33.5}Why GEO matters for this product specifically}{147}{section.33.5}%
+\contentsline {section}{\numberline {33.6}Summary}{148}{section.33.6}%
+\contentsline {chapter}{\numberline {34}Known Issues}{149}{chapter.34}%
+\contentsline {section}{\numberline {34.1}Purpose and method}{149}{section.34.1}%
+\contentsline {section}{\numberline {34.2}Issue register}{149}{section.34.2}%
+\contentsline {section}{\numberline {34.3}Resolved since the initial documentation}{152}{section.34.3}%
+\contentsline {section}{\numberline {34.4}Author-acknowledged limitations}{153}{section.34.4}%
+\contentsline {section}{\numberline {34.5}Corrections required to prior documentation}{153}{section.34.5}%
+\contentsline {section}{\numberline {34.6}Issue density by area}{153}{section.34.6}%
+\contentsline {section}{\numberline {34.7}Summary}{153}{section.34.7}%
+\contentsline {chapter}{\numberline {35}Technical Debt}{154}{chapter.35}%
+\contentsline {section}{\numberline {35.1}Definition and method}{154}{section.35.1}%
+\contentsline {section}{\numberline {35.2}Debt register}{154}{section.35.2}%
+\contentsline {section}{\numberline {35.3}The dominant debt: two clients, one engine, duplicated orchestration}{155}{section.35.3}%
+\contentsline {section}{\numberline {35.4}Debt heat map}{156}{section.35.4}%
+\contentsline {section}{\numberline {35.5}Priority}{156}{section.35.5}%
+\contentsline {section}{\numberline {35.6}Summary}{156}{section.35.6}%
+\contentsline {chapter}{\numberline {36}Roadmap}{158}{chapter.36}%
+\contentsline {section}{\numberline {36.1}Basis}{158}{section.36.1}%
+\contentsline {section}{\numberline {36.2}Repository-stated roadmap}{158}{section.36.2}%
+\contentsline {section}{\numberline {36.3}Near-term recommendations}{158}{section.36.3}%
+\contentsline {section}{\numberline {36.4}Mid-term recommendations}{159}{section.36.4}%
+\contentsline {section}{\numberline {36.5}Long-term / architectural directions}{160}{section.36.5}%
+\contentsline {section}{\numberline {36.6}Sequencing}{160}{section.36.6}%
+\contentsline {section}{\numberline {36.7}Summary}{161}{section.36.7}%
+\contentsline {chapter}{\numberline {37}Development Guidelines}{162}{chapter.37}%
+\contentsline {section}{\numberline {37.1}Purpose}{162}{section.37.1}%
+\contentsline {section}{\numberline {37.2}Repository layout and tooling}{162}{section.37.2}%
+\contentsline {section}{\numberline {37.3}TypeScript conventions}{162}{section.37.3}%
+\contentsline {section}{\numberline {37.4}Extension conventions (INFERRED)}{163}{section.37.4}%
+\contentsline {section}{\numberline {37.5}Recipe and template conventions (INFERRED + IMPLEMENTED)}{163}{section.37.5}%
+\contentsline {section}{\numberline {37.6}Versioning and change control (INFERRED)}{164}{section.37.6}%
+\contentsline {section}{\numberline {37.7}Recommended additions to these guidelines}{164}{section.37.7}%
+\contentsline {section}{\numberline {37.8}Summary}{164}{section.37.8}%
+\contentsline {chapter}{\numberline {38}Contribution Guide}{165}{chapter.38}%
+\contentsline {section}{\numberline {38.1}Basis and honesty note}{165}{section.38.1}%
+\contentsline {section}{\numberline {38.2}Prerequisites (INFERRED)}{165}{section.38.2}%
+\contentsline {section}{\numberline {38.3}Getting started (INFERRED)}{165}{section.38.3}%
+\contentsline {section}{\numberline {38.4}Contribution paths}{165}{section.38.4}%
+\contentsline {section}{\numberline {38.5}Change and release process (INFERRED)}{166}{section.38.5}%
+\contentsline {section}{\numberline {38.6}What to include in a contribution}{166}{section.38.6}%
+\contentsline {section}{\numberline {38.7}Missing policy areas}{167}{section.38.7}%
+\contentsline {section}{\numberline {38.8}Contribution-friendly features already present}{167}{section.38.8}%
+\contentsline {section}{\numberline {38.9}Summary}{167}{section.38.9}%
+\contentsline {chapter}{\numberline {39}Glossary}{168}{chapter.39}%
+\contentsline {section}{\numberline {39.1}Purpose}{168}{section.39.1}%
+\contentsline {section}{\numberline {39.2}Domain terms}{168}{section.39.2}%
+\contentsline {section}{\numberline {39.3}Ecosystem and technology terms}{169}{section.39.3}%
+\contentsline {section}{\numberline {39.4}Documentation and status terms}{170}{section.39.4}%
+\contentsline {section}{\numberline {39.5}Abbreviations used in this document}{170}{section.39.5}%
+\contentsline {chapter}{\numberline {40}References}{172}{chapter.40}%
+\contentsline {section}{\numberline {40.1}Purpose}{172}{section.40.1}%
+\contentsline {section}{\numberline {40.2}Primary repository sources}{172}{section.40.2}%
+\contentsline {section}{\numberline {40.3}Documentation sources}{173}{section.40.3}%
+\contentsline {section}{\numberline {40.4}External references}{173}{section.40.4}%
+\contentsline {section}{\numberline {40.5}Verified facts ledger}{174}{section.40.5}%
+\contentsline {chapter}{\numberline {A}Catalog Reference}{175}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Overview}{175}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Recipe identity}{175}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Supported options}{176}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Catalog observations}{177}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Tags}{177}{section.A.5}%
+\contentsline {chapter}{\numberline {B}Environment and Toolchain}{178}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Application runtime environment}{178}{section.B.1}%
+\contentsline {section}{\numberline {B.2}TypeScript and build configuration}{178}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Declared dependency versions}{178}{section.B.3}%
+\contentsline {section}{\numberline {B.4}Environment variables}{179}{section.B.4}%
+\contentsline {section}{\numberline {B.5}Documentation build environment}{179}{section.B.5}%
+\contentsline {section}{\numberline {B.6}Version landscape (a source of confusion)}{180}{section.B.6}%
+\contentsline {chapter}{\numberline {C}Classification and Coverage}{181}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Evidence labels}{181}{section.C.1}%
+\contentsline {section}{\numberline {C.2}Coverage of requested document types}{181}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Additional chapters written}{183}{section.C.3}%
+\contentsline {section}{\numberline {C.4}Applicability summary}{183}{section.C.4}%
+\contentsline {section}{\numberline {C.5}Reading guide}{183}{section.C.5}%
+\contentsline {chapter}{\numberline {D}File Index}{185}{appendix.D}%
+\contentsline {section}{\numberline {D.1}Purpose}{185}{section.D.1}%
+\contentsline {section}{\numberline {D.2}Root}{185}{section.D.2}%
+\contentsline {section}{\numberline {D.3}\texttt {packages/core} --- shared engine and types}{186}{section.D.3}%
+\contentsline {section}{\numberline {D.4}\texttt {packages/cli} --- command-line interface}{186}{section.D.4}%
+\contentsline {section}{\numberline {D.5}\texttt {packages/registry} --- recipes, templates and schema}{187}{section.D.5}%
+\contentsline {section}{\numberline {D.6}\texttt {packages/vscode-extension} --- editor integration}{187}{section.D.6}%
+\contentsline {section}{\numberline {D.7}\texttt {scripts} --- workspace tooling}{188}{section.D.7}%
+\contentsline {section}{\numberline {D.8}\texttt {.github/workflows} --- automation}{188}{section.D.8}%
+\contentsline {section}{\numberline {D.9}Generated and derived artefacts}{189}{section.D.9}%

@@ -126,6 +126,48 @@ Selected / unselected & \texttt{onboarding/features} cards and
         pressable, consistent with the surrounding palette.
 \end{itemize}
 
+\section{Visual reference --- committed screenshots}
+
+\textbf{Status: IMPLEMENTED.} The repository ships real renders of the
+generated screens. Twenty-two PNGs live in \texttt{docs/screenshots/} --- one
+per screen recipe (21) plus a shot of the gallery screen used during capture.
+Each image is 780\,$\times$\,1688 px (a 390\,$\times$\,844 viewport at
+2$\times$ scale, light mode) and was produced by generating the screen with the
+CLI (\texttt{--styling stylesheet --router expo-router --ui native --icons
+lucide --typescript}) into a scratch Expo application and capturing the running
+app in a headless browser. Provenance and regeneration instructions are in
+\texttt{docs/screenshots/README.md}; the root \texttt{README.md} embeds the
+same images in a Screen Showcase gallery. Figures~\ref{fig:shot-login}
+to~\ref{fig:shot-gallery} reproduce a representative subset.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.36\textwidth]{assets/auth-login.png}
+    \caption{Generated \texttt{auth/login} screen (screenshot from \texttt{docs/screenshots/auth-login.png}): labelled fields, icon adornments, inline links and a full-width primary button.}
+    \label{fig:shot-login}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.36\textwidth]{assets/app-home.png}
+    \caption{Generated \texttt{app/home} screen: greeting header with icon actions, stat cards and a task list with completion states.}
+    \label{fig:shot-home}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.36\textwidth]{assets/ecommerce-products.png}
+    \caption{Generated \texttt{ecommerce/products} screen: two-column product grid with imagery, price and rating rows.}
+    \label{fig:shot-products}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.36\textwidth]{assets/gallery.png}
+    \caption{Gallery screen used during capture: a grouped, tappable index of every generated screen.}
+    \label{fig:shot-gallery}
+\end{figure}
+
 \section{Responsive design}
 
 All layouts use flex containers and percentage/flex sizing rather than fixed

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.16)  17 OCT 2026 22:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.10.16)  19 OCT 2026 00:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -783,8 +783,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 o/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/jayjo/Ap
 pData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
 (sections/document-control.tex
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-5.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 4
+6.
 
 (C:\Users\jayjo\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -799,15 +799,20 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [11] (main.lof)
+ [11] (main.lof
+Underfull \hbox (badness 3148) in paragraph at lines 36--36
+ [][] [][][]\T1/lmr/m/n/10.95 Generated \T1/lmtt/c/it/10.95 auth/login \T1/lmr/
+m/n/10.95 screen (screen-shot from \T1/lmtt/c/it/10.95 docs/screenshots/auth- 
+ []
+
+)
 \tf@lof=\write5
 \openout5 = `main.lof'.
 
  [12
 
 
-] (main.lot
-[13
+] (main.lot [13
 
 
 ] [14] [15])
@@ -974,7 +979,7 @@ Overfull \hbox (58.65099pt too wide) in paragraph at lines 56--56
 sections/technical-requirements.tex:171: ignored error: Infinite glue shrinkage
  found in box being split [32]) (sections/system-architecture.tex [33]
 Chapter 9.
-<diagrams/system-architecture.png, id=2521, 1573.88pt x 1090.0725pt>
+<diagrams/system-architecture.png, id=2549, 1573.88pt x 1090.0725pt>
 File: diagrams/system-architecture.png Graphic file (type png)
 <use diagrams/system-architecture.png>
 Package pdftex.def Info: diagrams/system-architecture.png  used on input line 1
@@ -984,7 +989,7 @@ sections/system-architecture.tex:46: ignored error: Infinite glue shrinkage fou
 nd in box being split [34
 
  <./diagrams/system-architecture.png (PNG copy)>]
-<diagrams/registry-api-sequence.png, id=2526, 1573.88pt x 1148.29pt>
+<diagrams/registry-api-sequence.png, id=2554, 1573.88pt x 1148.29pt>
 File: diagrams/registry-api-sequence.png Graphic file (type png)
 <use diagrams/registry-api-sequence.png>
 Package pdftex.def Info: diagrams/registry-api-sequence.png  used on input line
@@ -994,7 +999,7 @@ Package pdftex.def Info: diagrams/registry-api-sequence.png  used on input line
 [35] [36 <./diagrams/registry-api-sequence.png (PNG copy)>])
 (sections/software-architecture.tex [37]
 Chapter 10.
-<diagrams/component-architecture.png, id=2540, 1573.88pt x 2081.7775pt>
+<diagrams/component-architecture.png, id=2568, 1573.88pt x 2081.7775pt>
 File: diagrams/component-architecture.png Graphic file (type png)
 <use diagrams/component-architecture.png>
 Package pdftex.def Info: diagrams/component-architecture.png  used on input lin
@@ -1036,7 +1041,7 @@ found in box being split [41]
 sections/software-architecture.tex:160: ignored error: Infinite glue shrinkage 
 found in box being split [42]) (sections/high-level-design.tex [43]
 Chapter 11.
-<diagrams/generation-pipeline.png, id=2572, 732.7375pt x 5101.0575pt>
+<diagrams/generation-pipeline.png, id=2600, 732.7375pt x 5101.0575pt>
 File: diagrams/generation-pipeline.png Graphic file (type png)
 <use diagrams/generation-pipeline.png>
 Package pdftex.def Info: diagrams/generation-pipeline.png  used on input line 2
@@ -1094,7 +1099,7 @@ Overfull \hbox (24.21686pt too wide) in paragraph at lines 98--98
 [48
 
 ] [49]
-<diagrams/primitive-resolution.png, id=2618, 1118.1775pt x 3290.2925pt>
+<diagrams/primitive-resolution.png, id=2646, 1118.1775pt x 3290.2925pt>
 File: diagrams/primitive-resolution.png Graphic file (type png)
 <use diagrams/primitive-resolution.png>
 Package pdftex.def Info: diagrams/primitive-resolution.png  used on input line 
@@ -1138,7 +1143,7 @@ Overfull \hbox (6.97066pt too wide) in paragraph at lines 206--206
 sections/low-level-design.tex:242: ignored error: Infinite glue shrinkage found
  in box being split [52]) (sections/frontend-architecture.tex [53]
 Chapter 13.
-<diagrams/user-flow-vscode.png, id=2640, 1108.14pt x 3125.6775pt>
+<diagrams/user-flow-vscode.png, id=2668, 1108.14pt x 3125.6775pt>
 File: diagrams/user-flow-vscode.png Graphic file (type png)
 <use diagrams/user-flow-vscode.png>
 Package pdftex.def Info: diagrams/user-flow-vscode.png  used on input line 56.
@@ -1260,7 +1265,7 @@ Overfull \hbox (31.56274pt too wide) in paragraph at lines 70--72
 ges/registry/templates/auth/login/components.login-
  []
 
-<diagrams/authentication-flow.png, id=2892, 1300.86pt x 1991.44pt>
+<diagrams/authentication-flow.png, id=2920, 1300.86pt x 1991.44pt>
 File: diagrams/authentication-flow.png Graphic file (type png)
 <use diagrams/authentication-flow.png>
 Package pdftex.def Info: diagrams/authentication-flow.png  used on input line 9
@@ -1285,7 +1290,7 @@ Chapter 18.
 
 ]) (sections/user-flows.tex [80]
 Chapter 19.
-<diagrams/user-flow-cli.png, id=2930, 453.695pt x 2961.0625pt>
+<diagrams/user-flow-cli.png, id=2958, 453.695pt x 2961.0625pt>
 File: diagrams/user-flow-cli.png Graphic file (type png)
 <use diagrams/user-flow-cli.png>
 Package pdftex.def Info: diagrams/user-flow-cli.png  used on input line 8.
@@ -1325,7 +1330,7 @@ Package pdftex.def Info: diagrams/primitive-resolution.png  used on input line
 53.
 (pdftex.def)             Requested size: 217.94989pt x 641.32834pt.
  [90] [91]
-<diagrams/update-flow.png, id=2981, 1351.0475pt x 3924.6625pt>
+<diagrams/update-flow.png, id=3009, 1351.0475pt x 3924.6625pt>
 File: diagrams/update-flow.png Graphic file (type png)
 <use diagrams/update-flow.png>
 Package pdftex.def Info: diagrams/update-flow.png  used on input line 67.
@@ -1337,8 +1342,31 @@ sections/ui-ux.tex:68: ignored error: Infinite glue shrinkage found in box bein
 g split [96
 
 ] [97]
-sections/ui-ux.tex:183: ignored error: Infinite glue shrinkage found in box bei
-ng split [98]) (sections/design-system.tex [99]
+<assets/auth-login.png, id=3040, 782.925pt x 1694.33pt>
+File: assets/auth-login.png Graphic file (type png)
+<use assets/auth-login.png>
+Package pdftex.def Info: assets/auth-login.png  used on input line 145.
+(pdftex.def)             Requested size: 163.88152pt x 354.6564pt.
+<assets/app-home.png, id=3041, 782.925pt x 1694.33pt>
+File: assets/app-home.png Graphic file (type png)
+<use assets/app-home.png>
+Package pdftex.def Info: assets/app-home.png  used on input line 152.
+(pdftex.def)             Requested size: 163.88152pt x 354.6564pt.
+ [98 <./assets/auth-login.png (PNG copy)>]
+<assets/ecommerce-products.png, id=3047, 782.925pt x 1694.33pt>
+File: assets/ecommerce-products.png Graphic file (type png)
+<use assets/ecommerce-products.png>
+Package pdftex.def Info: assets/ecommerce-products.png  used on input line 159.
+
+(pdftex.def)             Requested size: 163.88152pt x 354.6564pt.
+ [99 <./assets/app-home.png (PNG copy)>]
+<assets/gallery.png, id=3052, 782.925pt x 1694.33pt>
+File: assets/gallery.png Graphic file (type png)
+<use assets/gallery.png>
+Package pdftex.def Info: assets/gallery.png  used on input line 166.
+(pdftex.def)             Requested size: 163.88152pt x 354.6564pt.
+ [100 <./assets/ecommerce-products.png (PNG copy)>]
+[101 <./assets/gallery.png (PNG copy)>]) (sections/design-system.tex [102]
 Chapter 22.
 
 Overfull \hbox (5.30693pt too wide) in paragraph at lines 28--28
@@ -1401,11 +1429,11 @@ Overfull \hbox (6.64554pt too wide) in paragraph at lines 54--54
  []
 
 sections/design-system.tex:65: ignored error: Infinite glue shrinkage found in 
-box being split [100
+box being split [103
 
-] [101] [102] [103]
+] [104] [105] [106]
 sections/design-system.tex:249: ignored error: Infinite glue shrinkage found in
- box being split [104]) (sections/security.tex [105] [106]
+ box being split [107]) (sections/security.tex [108] [109]
 Chapter 23.
 
 Overfull \hbox (27.72379pt too wide) in paragraph at lines 52--52
@@ -1428,19 +1456,19 @@ Overfull \hbox (16.8287pt too wide) in paragraph at lines 63--64
 []|\T1/lmr/m/n/10.95 ACCEPTED|  
  []
 
-[107
+[110
 
 ]
 sections/security.tex:65: ignored error: Infinite glue shrinkage found in box b
-eing split [108] [109] [110]
+eing split [111] [112] [113]
 Overfull \hbox (10.47758pt too wide) in paragraph at lines 162--162
 []|\T1/lmtt/c/it/10.95 packages/registry/templates/**\T1/lmr/m/n/10.95 .|  
  []
 
 sections/security.tex:164: ignored error: Infinite glue shrinkage found in box 
-being split [111] [112]
+being split [114] [115]
 sections/security.tex:271: ignored error: Infinite glue shrinkage found in box 
-being split [113]) (sections/performance.tex [114]
+being split [116]) (sections/performance.tex [117]
 Chapter 24.
 
 Overfull \hbox (41.34653pt too wide) in paragraph at lines 29--30
@@ -1467,7 +1495,7 @@ Overfull \hbox (1.1054pt too wide) in paragraph at lines 33--34
 []|\T1/lmtt/c/it/10.95 registry/index.json|  
  []
 
-[115
+[118
 
 ]
 Overfull \hbox (1.16365pt too wide) in paragraph at lines 113--114
@@ -1480,7 +1508,7 @@ Overfull \hbox (9.95403pt too wide) in paragraph at lines 122--122
  []
 
 sections/performance.tex:128: ignored error: Infinite glue shrinkage found in b
-ox being split [116]) (sections/scalability.tex [117]
+ox being split [119]) (sections/scalability.tex [120]
 Chapter 25.
 
 Overfull \hbox (8.9073pt too wide) in paragraph at lines 26--26
@@ -1492,15 +1520,15 @@ Overfull \hbox (8.9073pt too wide) in paragraph at lines 30--30
 []|\T1/lmr/bx/n/10.95 Assessment|  
  []
 
-[118
-
-] [119]) (sections/testing.tex [120]
-Chapter 26.
 [121
 
-] [122]) (sections/deployment.tex [123]
-Chapter 27.
+] [122]) (sections/testing.tex [123]
+Chapter 26.
 [124
+
+] [125]) (sections/deployment.tex [126]
+Chapter 27.
+[127
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 77--83
@@ -1509,40 +1537,40 @@ ig": {"ac-cess": "pub-lic"} \T1/lmr/m/n/10.95 and a \T1/lmtt/c/it/10.95 files:
  []
 
 sections/deployment.tex:130: ignored error: Infinite glue shrinkage found in bo
-x being split [125]) (sections/cicd.tex [126]
+x being split [128]) (sections/cicd.tex [129]
 Chapter 28.
-<diagrams/cicd-deployment.png, id=3168, 1573.88pt x 807.015pt>
+<diagrams/cicd-deployment.png, id=3215, 1573.88pt x 807.015pt>
 File: diagrams/cicd-deployment.png Graphic file (type png)
 <use diagrams/cicd-deployment.png>
 Package pdftex.def Info: diagrams/cicd-deployment.png  used on input line 15.
 (pdftex.def)             Requested size: 455.23676pt x 233.42497pt.
-[127
-
- <./diagrams/cicd-deployment.png (PNG copy)>] [128])
-(sections/integrations.tex [129]
-Chapter 29.
 [130
 
-] [131]
+ <./diagrams/cicd-deployment.png (PNG copy)>] [131])
+(sections/integrations.tex [132]
+Chapter 29.
+[133
+
+] [134]
 Underfull \hbox (badness 10000) in paragraph at lines 138--140
 []\T1/lmr/bx/n/10.95 Configuration: \T1/lmr/m/n/10.95 CLI \T1/lmtt/c/it/10.95 -
 -registry \T1/lmr/m/n/10.95 or \T1/lmtt/c/it/10.95 EXPO_-SNIPS_-REG-ISTRY\T1/lm
 r/m/n/10.95 ; ex-ten-sion \T1/lmtt/c/it/10.95 expo-
  []
 
-) (sections/configuration.tex [132]
+) (sections/configuration.tex [135]
 Chapter 30.
-[133
+[136
 
 ]
 Overfull \hbox (24.21686pt too wide) in paragraph at lines 115--115
 \T1/lmtt/c/it/10.95 snips.installDependencies|  
  []
 
-[134] [135]) (sections/seo.tex [136]
+[137] [138]) (sections/seo.tex [139]
 Chapter 31.
 sections/seo.tex:60: ignored error: Infinite glue shrinkage found in box being 
-split [137
+split [140
 
 ]
 Overfull \hbox (38.52333pt too wide) in paragraph at lines 99--99
@@ -1555,7 +1583,7 @@ Overfull \hbox (4.03093pt too wide) in paragraph at lines 106--106
  []
 
 sections/seo.tex:109: ignored error: Infinite glue shrinkage found in box being
- split [138]) (sections/aeo.tex [139]
+ split [141]) (sections/aeo.tex [142]
 Chapter 32.
 
 Overfull \hbox (47.3279pt too wide) in paragraph at lines 59--61
@@ -1573,9 +1601,9 @@ Overfull \hbox (29.73296pt too wide) in paragraph at lines 66--67
  []
 
 sections/aeo.tex:75: ignored error: Infinite glue shrinkage found in box being 
-split [140
+split [143
 
-] [141]) (sections/geo.tex [142]
+] [144]) (sections/geo.tex [145]
 Chapter 33.
 
 Overfull \hbox (18.58423pt too wide) in paragraph at lines 71--74
@@ -1587,9 +1615,9 @@ Overfull \hbox (84.5132pt too wide) in paragraph at lines 83--83
 []|\T1/lmtt/c/it/10.95 documents/ProjectDescription.md\T1/lmr/m/n/10.95 .|  
  []
 
-[143
+[146
 
-] [144]) (sections/known-issues.tex [145]
+] [147]) (sections/known-issues.tex [148]
 Chapter 34.
 
 Overfull \hbox (3.57533pt too wide) in paragraph at lines 23--23
@@ -1617,18 +1645,60 @@ Overfull \hbox (14.02234pt too wide) in paragraph at lines 93--93
  []
 
 sections/known-issues.tex:104: ignored error: Infinite glue shrinkage found in 
-box being split [146
+box being split [149
 
 ]
 sections/known-issues.tex:104: ignored error: Infinite glue shrinkage found in 
-box being split [147]
+box being split [150]
 sections/known-issues.tex:104: ignored error: Infinite glue shrinkage found in 
-box being split [148] [149]) (sections/technical-debt.tex [150]
+box being split [151]
+Overfull \hbox (179.49094pt too wide) in paragraph at lines 130--132
+[]|\T1/lmtt/c/it/10.95 templates/chat/conversations/components.conversation- 
+ []
+
+
+Overfull \hbox (24.27513pt too wide) in paragraph at lines 130--132
+\T1/lmtt/c/it/10.95 templates/content/article- 
+ []
+
+
+Overfull \hbox (33.0655pt too wide) in paragraph at lines 130--132
+\T1/lmtt/c/it/10.95 reader/app.article.[id].hbs\T1/lmr/m/n/10.95 , 
+ []
+
+
+Overfull \hbox (90.55284pt too wide) in paragraph at lines 130--132
+\T1/lmtt/c/it/10.95 plates/map/location/app.map.index.hbs\T1/lmr/m/n/10.95 .|  
+
+ []
+
+
+Overfull \hbox (12.77766pt too wide) in paragraph at lines 139--140
+[]|\T1/lmtt/c/it/10.95 components.conversation- 
+ []
+
+
+Overfull \hbox (4.32184pt too wide) in paragraph at lines 139--140
+\T1/lmtt/c/it/10.95 app.calendar.index.hbs\T1/lmr/m/n/10.95 .|  
+ []
+
+sections/known-issues.tex:142: You can't use `macro parameter character #' in h
+orizontal mode.
+<argument> \{\{##
+                 if typescript\}\}
+l.142 \texttt{\{\{#if typescript\}\}}
+                                      guard. \\
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+[152]) (sections/technical-debt.tex [153]
 Chapter 35.
 sections/technical-debt.tex:78: ignored error: Infinite glue shrinkage found in
- box being split [151
+ box being split [154
 
-] [152]
+] [155]
 Underfull \hbox (badness 10000) in paragraph at lines 91--94
 []\T1/lmtt/c/it/10.95 packages/cli/src/utils/detectProject.ts \T1/lmr/m/n/10.95
  and \T1/lmtt/c/it/10.95 packages/vscode-
@@ -1646,9 +1716,9 @@ Overfull \hbox (25.79413pt too wide) in paragraph at lines 97--100
 \T1/lmtt/c/it/10.95 packages/vscode-extension/src/registry.ts
  []
 
-) (sections/roadmap.tex [153] [154]
+) (sections/roadmap.tex [156] [157]
 Chapter 36.
-[155
+[158
 
 ]
 Overfull \hbox (1.23724pt too wide) in alignment at lines 89--94
@@ -1666,9 +1736,9 @@ Overfull \hbox (1.23724pt too wide) in alignment at lines 98--116
  []
 
 sections/roadmap.tex:116: ignored error: Infinite glue shrinkage found in box b
-eing split [156]) (sections/development-guidelines.tex [157] [158]
+eing split [159]) (sections/development-guidelines.tex [160] [161]
 Chapter 37.
-[159
+[162
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 87--90
@@ -1696,7 +1766,7 @@ Overfull \hbox (41.98662pt too wide) in paragraph at lines 140--140
 []|\T1/lmtt/c/it/10.95 auth/login/screens.loginscreen.react- 
  []
 
-[160]) (sections/contribution-guide.tex [161]
+[163]) (sections/contribution-guide.tex [164]
 Chapter 38.
 
 Overfull \hbox (18.73781pt too wide) in paragraph at lines 58--62
@@ -1710,14 +1780,14 @@ Underfull \hbox (badness 1137) in paragraph at lines 58--62
 st sat-isfy \T1/lmtt/c/it/10.95 pack-
  []
 
-[162
+[165
 
 ]
 sections/contribution-guide.tex:134: ignored error: Infinite glue shrinkage fou
-nd in box being split [163]) (sections/glossary.tex [164]
+nd in box being split [166]) (sections/glossary.tex [167]
 Chapter 39.
 sections/glossary.tex:56: ignored error: Infinite glue shrinkage found in box b
-eing split [165
+eing split [168
 
 ]
 Overfull \hbox (32.02254pt too wide) in paragraph at lines 82--82
@@ -1725,23 +1795,23 @@ Overfull \hbox (32.02254pt too wide) in paragraph at lines 82--82
  []
 
 sections/glossary.tex:103: ignored error: Infinite glue shrinkage found in box 
-being split [166]
+being split [169]
 sections/glossary.tex:160: ignored error: Infinite glue shrinkage found in box 
-being split [167]) (sections/references.tex [168]
+being split [170]) (sections/references.tex [171]
 Chapter 40.
 
 Overfull \hbox (7.55247pt too wide) in paragraph at lines 83--83
 []|\T1/lmtt/c/it/10.95 packages/registry/scripts/build- 
  []
 
-[169
+[172
 
 ]
 Overfull \hbox (1.80374pt too wide) in paragraph at lines 108--108
 []|\T1/lmtt/c/it/10.95 documents/ProjectDescription.md|  
  []
 
-[170]) (sections/appendix-catalog.tex [171]
+[173]) (sections/appendix-catalog.tex [174]
 Appendix A.
 
 Overfull \hbox (37.23807pt too wide) in alignment at lines 13--19
@@ -1764,14 +1834,14 @@ Overfull \hbox (37.23807pt too wide) in alignment at lines 24--50
  []
 
 sections/appendix-catalog.tex:50: ignored error: Infinite glue shrinkage found 
-in box being split [172
+in box being split [175
 
 ]
 Overfull \hbox (6.18446pt too wide) in paragraph at lines 87--87
 []|\T1/lmr/m/n/10.95 onboarding/permissions|  
  []
 
-[173]
+[176]
 Underfull \hbox (badness 6001) in paragraph at lines 104--107
 []\T1/lmr/bx/n/10.95 Router sup-port is al-most en-tirely \T1/lmtt/b/n/10.95 ex
 po-router\T1/lmr/m/n/10.95 ; only \T1/lmtt/c/it/10.95 auth/login \T1/lmr/m/n/10
@@ -1821,48 +1891,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 126--133
  permissions,
  []
 
-) (sections/appendix-environment.tex [174]
+) (sections/appendix-environment.tex [177]
 Appendix B.
 
 Overfull \hbox (0.93102pt too wide) in paragraph at lines 49--49
 []|\T1/lmtt/c/it/10.95 out/extension.js|  
  []
 
-[175
+[178
 
-] [176]) (sections/appendix-classification.tex [177]
+] [179]) (sections/appendix-classification.tex [180]
 Appendix C.
 sections/appendix-classification.tex:101: ignored error: Infinite glue shrinkag
-e found in box being split [178
+e found in box being split [181
 
 ]
 sections/appendix-classification.tex:101: ignored error: Infinite glue shrinkag
-e found in box being split [179] [180]) (sections/appendix-file-index.tex
-[181]
+e found in box being split [182] [183]) (sections/appendix-file-index.tex
+[184]
 Appendix D.
 
-Overfull \hbox (35.94696pt too wide) in paragraph at lines 39--39
+Overfull \hbox (35.94696pt too wide) in paragraph at lines 48--48
 []|\T1/lmtt/c/it/10.95 documents/ProjectDescription.md|  
  []
 
-sections/appendix-file-index.tex:67: ignored error: Infinite glue shrinkage fou
-nd in box being split [182
+[185
 
 ]
-sections/appendix-file-index.tex:110: ignored error: Infinite glue shrinkage fo
-und in box being split [183]
-sections/appendix-file-index.tex:173: ignored error: Infinite glue shrinkage fo
-und in box being split [184]
-Overfull \hbox (30.54741pt too wide) in paragraph at lines 232--232
+sections/appendix-file-index.tex:119: ignored error: Infinite glue shrinkage fo
+und in box being split [186]
+sections/appendix-file-index.tex:182: ignored error: Infinite glue shrinkage fo
+und in box being split [187] [188]
+Overfull \hbox (30.54741pt too wide) in paragraph at lines 241--241
 []|\T1/lmtt/c/it/10.95 packages/cli/src/generated/registry- 
  []
 
 
-Overfull \hbox (13.30121pt too wide) in paragraph at lines 234--234
+Overfull \hbox (13.30121pt too wide) in paragraph at lines 243--243
 \T1/lmtt/c/it/10.95 extension/src/generated/registry- 
  []
 
-[185]) [186] (main.aux)
+) [189] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -1872,13 +1941,13 @@ L3 programming layer <2025-12-24>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 866DA3C60EA004B68F6BBC241DFE4272;72483.
+(rerunfilecheck)             Checksum: 4D422B4A34C28C333EBC74EF02202D70;73082.
  ) 
 Here is how much of TeX's memory you used:
- 18015 strings out of 467871
- 281603 string characters out of 5418375
- 1137966 words of memory out of 5000000
- 45429 multiletter control sequences out of 15000+600000
+ 18061 strings out of 467871
+ 282650 string characters out of 5418375
+ 1139206 words of memory out of 5000000
+ 45464 multiletter control sequences out of 15000+600000
  689417 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  74i,13n,92p,1195b,2034s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1895,9 +1964,9 @@ b><C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb
 :/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb><
 C:/Users/jayjo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbol
 s/msam10.pfb>
-Output written on main.pdf (203 pages, 2428565 bytes).
+Output written on main.pdf (206 pages, 2747988 bytes).
 PDF statistics:
- 3869 PDF objects out of 4296 (max. 8388607)
- 1080 named destinations out of 1200 (max. 500000)
- 3075 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3920 PDF objects out of 4296 (max. 8388607)
+ 1091 named destinations out of 1200 (max. 500000)
+ 3111 words of extra memory for PDF output out of 10000 (max. 10000000)
 

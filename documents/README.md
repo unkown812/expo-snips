@@ -1,4 +1,4 @@
-# Expo Snips — Documentation Suite
+﻿# Expo Snips — Documentation Suite
 
 Complete software, product and architecture documentation for the
 [Expo Snips](https://github.com/unkown812/expo-snips) monorepo, produced by
@@ -10,22 +10,32 @@ application source code was modified. Where a capability is absent, it is marked
 
 ---
 
+## Revision history
+
+| Version | Date | Change |
+|---|---|---|
+| 1.0 | 17 October 2026 | Initial suite: 45 chapters/appendices, 10 Mermaid diagrams, PDF + DOCX. |
+| 1.1 | 19 October 2026 | Refresh against the current tree: recorded two template defects found and fixed on 19 October (escaped Handlebars literals, typed component props) in the Known Issues chapter; embedded four committed screen screenshots (`docs/screenshots/`) as figures in the UI/UX chapter; updated the analysis scope, commit counts and root-workspace description. |
+
+---
+
 ## What is in this folder
 
 ```
 documents/
-├── README.md                         ← this file
-├── build.ps1                         ← one-command build (PDF + DOCX)
-├── ProjectDescription.md             ← pre-existing product description (untouched)
+├── README.md                             ── this file
+├── build.ps1                             ── one-command build (PDF + DOCX)
+├── ProjectDescription.md                 ── pre-existing product description (untouched)
 ├── latex/
-│   ├── main.tex                      ← master document (report class)
-│   ├── preamble.tex                  ← shared LaTeX setup
-│   ├── metadata.tex                  ← title/version metadata
-│   ├── sections/                     ← 45 chapter/appendix files
-│   └── diagrams/                     ← 10 Mermaid sources (.mmd) + rendered PNGs
+│   ├── main.tex                              ── master document (report class)
+│   ├── preamble.tex                          ── shared LaTeX setup
+│   ├── metadata.tex                          ── title/version metadata
+│   ├── sections/                             ── 45 chapter/appendix files
+│   ├── assets/                               ── 4 reference screenshots embedded as figures in the UI/UX chapter
+│   └── diagrams/                             ── 10 Mermaid sources (.mmd) + rendered PNGs
 └── output/
-    ├── Expo-Snips-Documentation.pdf  ← compiled PDF (≈2.4 MB, 203 pages)
-    └── Expo-Snips-Documentation.docx ← Word version (≈1.4 MB, 170 tables)
+    ├── Expo-Snips-Documentation.pdf          ── compiled PDF (~2.7 MB, 206 pages)
+    └── Expo-Snips-Documentation.docx         ── Word version (~1.6 MB, 172 tables)
 ```
 
 ---

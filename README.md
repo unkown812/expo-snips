@@ -120,6 +120,54 @@ The Result
 
 ---
 
+## Screen Showcase
+
+Real, unedited output: every screen below was generated into a fresh Expo app with `expo-snips add <id>` and rendered at a 390 × 844 viewport. Full-resolution PNGs live in [`docs/screenshots/`](./docs/screenshots).
+
+<table>
+  <tr>
+    <td align="center" width="33%"><img src="docs/screenshots/onboarding-welcome.png" alt="Onboarding welcome screen with feature highlights and a call to action" width="100%" /><br/><sub><code>onboarding/welcome</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/onboarding-features.png" alt="Onboarding features screen with selectable feature cards" width="100%" /><br/><sub><code>onboarding/features</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/onboarding-permissions.png" alt="Notification permission request screen with allow and deny actions" width="100%" /><br/><sub><code>onboarding/permissions</code></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/screenshots/auth-login.png" alt="Login screen with email and password fields, validation and a sign in button" width="100%" /><br/><sub><code>auth/login</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/auth-register.png" alt="Registration screen with name, email and password fields" width="100%" /><br/><sub><code>auth/register</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/auth-forgot-password.png" alt="Forgot password screen with email reset form" width="100%" /><br/><sub><code>auth/forgot-password</code></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/screenshots/auth-otp-verification.png" alt="OTP verification screen with one-time passcode input boxes" width="100%" /><br/><sub><code>auth/otp-verification</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/app-home.png" alt="Home dashboard with greeting, stat cards and an upcoming tasks list" width="100%" /><br/><sub><code>app/home</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/app-notifications.png" alt="Notifications list with unread indicators" width="100%" /><br/><sub><code>app/notifications</code></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/screenshots/app-profile.png" alt="User profile with avatar, ratings and account menu" width="100%" /><br/><sub><code>app/profile</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/app-settings.png" alt="Settings screen with grouped items and toggles" width="100%" /><br/><sub><code>app/settings</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/app-search.png" alt="Search screen with recent searches and results" width="100%" /><br/><sub><code>app/search</code></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/screenshots/ecommerce-products.png" alt="Two-column product grid with prices and ratings" width="100%" /><br/><sub><code>ecommerce/products</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/ecommerce-product-details.png" alt="Product details with image, rating, quantity selector and add to cart" width="100%" /><br/><sub><code>ecommerce/product-details</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/content-article-reader.png" alt="Article reader with hero image, author byline and rich text" width="100%" /><br/><sub><code>content/article-reader</code></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/screenshots/calendar-schedule.png" alt="Monthly calendar grid with event dots and an event list" width="100%" /><br/><sub><code>calendar/schedule</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/chat-conversations.png" alt="Chat conversation list with avatars, previews and unread badges" width="100%" /><br/><sub><code>chat/conversations</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/dashboard-analytics.png" alt="Analytics dashboard with stat cards, charts and recent activity" width="100%" /><br/><sub><code>dashboard/analytics</code></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><img src="docs/screenshots/map-location.png" alt="Map screen with markers and a bottom sheet showing location details" width="100%" /><br/><sub><code>map/location</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/utility-empty.png" alt="Empty state with icon, message and primary action" width="100%" /><br/><sub><code>utility/empty</code></sub></td>
+    <td align="center" width="33%"><img src="docs/screenshots/utility-error.png" alt="Error state with warning icon, message and retry action" width="100%" /><br/><sub><code>utility/error</code></sub></td>
+  </tr>
+</table>
+
+<p align="center"><img src="docs/screenshots/gallery.png" alt="Gallery screen listing every generated screen, available in the demo app" width="240" /></p>
+
+> **How these were made:** the CLI generated all 21 screens into a scratch Expo app (`styling=stylesheet`, `ui=native`, `icons=lucide`), which was then rendered in a headless browser and captured at 780 × 1688 px. See [`docs/screenshots/README.md`](./docs/screenshots/README.md) to regenerate or reuse the shots.
+
+---
+
 ## Screen Catalog
 
 A recipe is a JSON definition (`packages/registry/data/**`) plus its Handlebars templates (`packages/registry/templates/**`). Every handlerless screen is authored for TypeScript-first projects and renders a JavaScript variant when requested.

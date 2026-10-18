@@ -7,40 +7,44 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {9.1}{\ignorespaces System architecture: clients, shared engine, catalog sources and target project}}{34}{figure.caption.8}%
-\contentsline {figure}{\numberline {9.2}{\ignorespaces Registry resolution sequence with bundled-catalog fallback}}{36}{figure.caption.9}%
+\contentsline {figure}{\numberline {9.1}{\ignorespaces System architecture: clients, shared engine, catalog sources and target project}}{34}{figure.caption.9}%
+\contentsline {figure}{\numberline {9.2}{\ignorespaces Registry resolution sequence with bundled-catalog fallback}}{36}{figure.caption.10}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {10.1}{\ignorespaces Component architecture of the pnpm workspace}}{39}{figure.caption.10}%
+\contentsline {figure}{\numberline {10.1}{\ignorespaces Component architecture of the pnpm workspace}}{39}{figure.caption.11}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {11.1}{\ignorespaces High-level generation pipeline from command to persisted manifest}}{45}{figure.caption.12}%
+\contentsline {figure}{\numberline {11.1}{\ignorespaces High-level generation pipeline from command to persisted manifest}}{45}{figure.caption.13}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {12.1}{\ignorespaces Recursive UI primitive resolution when \texttt {ui=shadcn}}}{51}{figure.caption.13}%
+\contentsline {figure}{\numberline {12.1}{\ignorespaces Recursive UI primitive resolution when \texttt {ui=shadcn}}}{51}{figure.caption.14}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {13.1}{\ignorespaces VS Code extension interaction flow}}{55}{figure.caption.15}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {15.1}{\ignorespaces Recipe data flows into the built registry and into the embedded client bundles}}{67}{figure.caption.19}%
+\contentsline {figure}{\numberline {13.1}{\ignorespaces VS Code extension interaction flow}}{55}{figure.caption.16}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {17.1}{\ignorespaces Authentication flow encoded in the generated templates (placeholder backend)}}{77}{figure.caption.20}%
+\contentsline {figure}{\numberline {15.1}{\ignorespaces Recipe data flows into the built registry and into the embedded client bundles}}{67}{figure.caption.20}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {19.1}{\ignorespaces CLI journey from installation to keeping screens up to date}}{82}{figure.caption.21}%
-\contentsline {figure}{\numberline {19.2}{\ignorespaces VS Code journey using the inline completion trigger}}{84}{figure.caption.22}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {20.1}{\ignorespaces Generation data flow: from command input to persisted manifest}}{88}{figure.caption.23}%
-\contentsline {figure}{\numberline {20.2}{\ignorespaces Sequence for resolving a recipe, including fallback}}{90}{figure.caption.24}%
-\contentsline {figure}{\numberline {20.3}{\ignorespaces Recursive primitive resolution data flow}}{91}{figure.caption.25}%
-\contentsline {figure}{\numberline {20.4}{\ignorespaces Update flow with diff preview and confirmation}}{93}{figure.caption.26}%
+\contentsline {figure}{\numberline {17.1}{\ignorespaces Authentication flow encoded in the generated templates (placeholder backend)}}{77}{figure.caption.21}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {19.1}{\ignorespaces CLI journey from installation to keeping screens up to date}}{82}{figure.caption.22}%
+\contentsline {figure}{\numberline {19.2}{\ignorespaces VS Code journey using the inline completion trigger}}{84}{figure.caption.23}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {20.1}{\ignorespaces Generation data flow: from command input to persisted manifest}}{88}{figure.caption.24}%
+\contentsline {figure}{\numberline {20.2}{\ignorespaces Sequence for resolving a recipe, including fallback}}{90}{figure.caption.25}%
+\contentsline {figure}{\numberline {20.3}{\ignorespaces Recursive primitive resolution data flow}}{91}{figure.caption.26}%
+\contentsline {figure}{\numberline {20.4}{\ignorespaces Update flow with diff preview and confirmation}}{93}{figure.caption.27}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {21.1}{\ignorespaces Generated \texttt {auth/login} screen (screenshot from \texttt {docs/screenshots/auth-login.png}): labelled fields, icon adornments, inline links and a full-width primary button.}}{98}{figure.caption.29}%
+\contentsline {figure}{\numberline {21.2}{\ignorespaces Generated \texttt {app/home} screen: greeting header with icon actions, stat cards and a task list with completion states.}}{99}{figure.caption.30}%
+\contentsline {figure}{\numberline {21.3}{\ignorespaces Generated \texttt {ecommerce/products} screen: two-column product grid with imagery, price and rating rows.}}{100}{figure.caption.31}%
+\contentsline {figure}{\numberline {21.4}{\ignorespaces Gallery screen used during capture: a grouped, tappable index of every generated screen.}}{101}{figure.caption.32}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {28.1}{\ignorespaces Continuous delivery pipelines present in the repository}}{127}{figure.caption.39}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {28.1}{\ignorespaces Continuous delivery pipelines present in the repository}}{130}{figure.caption.44}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
