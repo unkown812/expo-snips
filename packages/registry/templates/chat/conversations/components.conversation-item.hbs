@@ -1,10 +1,20 @@
 import { View, Text, Pressable, Image{{#if (eq styling "stylesheet")}}, StyleSheet{{/if}} } from 'react-native';
 
-export function ConversationItem({ name, lastMessage, time, unread, avatar }) {
+{{#if typescript}}
+type ConversationItemProps = {
+  name: string;
+  lastMessage: string;
+  time: string;
+  unread: number;
+  avatar: string;
+};
+{{/if}}
+
+export function ConversationItem({ name, lastMessage, time, unread, avatar }{{#if typescript}}: ConversationItemProps{{/if}}) {
   return (
     <Pressable {{#if (eq styling "nativewind")}}className="flex-row items-center px-5 py-4"{{else}}style={styles.container}{{/if}}>
       <Image
-        source={{ uri: avatar }}
+        source=\{{ uri: avatar }}
         {{#if (eq styling "nativewind")}}className="h-12 w-12 rounded-full"{{else}}style={styles.avatar}{{/if}}
       />
       <View {{#if (eq styling "nativewind")}}className="ml-3 flex-1"{{else}}style={styles.content}{{/if}}>

@@ -2,8 +2,16 @@ import { View, Text, Pressable{{#if (eq styling "stylesheet")}}, StyleSheet{{/if
 {{#if (eq icons "lucide")}}
 import { MapPin } from 'lucide-react-native';
 {{/if}}
+{{#if typescript}}
+type CalendarEvent = {
+  title: string;
+  time: string;
+  color: string;
+  location: string;
+};
+{{/if}}
 
-export function EventItem({ event }) {
+export function EventItem({ event }{{#if typescript}}: { event: CalendarEvent }{{/if}}) {
   return (
     <Pressable {{#if (eq styling "nativewind")}}className="flex-row rounded-xl bg-white p-4"{{else}}style={styles.container}{{/if}}>
       <View {{#if (eq styling "nativewind")}}className="mr-3 w-1 rounded-full"{{else}}style={[styles.colorBar, { backgroundColor: event.color }]}{{/if}} />

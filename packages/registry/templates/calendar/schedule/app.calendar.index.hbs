@@ -22,11 +22,11 @@ const events = [
   { id: '4', title: 'Sprint Planning', time: '3:00 PM - 4:00 PM', color: '#F59E0B', location: 'Conference Room' },
 ];
 
-function getDaysInMonth(year, month) {
+function getDaysInMonth(year{{#if typescript}}: number{{/if}}, month{{#if typescript}}: number{{/if}}) {
   return new Date(year, month + 1, 0).getDate();
 }
 
-function getFirstDayOfMonth(year, month) {
+function getFirstDayOfMonth(year{{#if typescript}}: number{{/if}}, month{{#if typescript}}: number{{/if}}) {
   return new Date(year, month, 1).getDay();
 }
 
