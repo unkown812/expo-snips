@@ -1,8 +1,12 @@
-﻿# Expo Snips — Documentation Suite
+﻿<div align="center">
+
+# Expo Snips — Documentation Suite
 
 Complete software, product and architecture documentation for the
 [Expo Snips](https://github.com/unkown812/expo-snips) monorepo, produced by
 reverse-engineering the repository at `C:\Dev\expo-snips`.
+
+</div>
 
 Everything in this folder is **generated from repository analysis**. No
 application source code was modified. Where a capability is absent, it is marked

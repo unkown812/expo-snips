@@ -1,6 +1,10 @@
+<div align="center">
+
 # Screens
 
 Static marketing captures of the **21 screens** in the Expo Snips catalog, plus one shot of the demo app's gallery screen.
+
+</div>
 
 | | |
 |---|---|
