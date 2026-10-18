@@ -15,6 +15,12 @@ Versioning is intended to follow [Semantic Versioning](https://semver.org/spec/v
 
 - Root project documentation and repository metadata: [`AGENTS.md`](./AGENTS.md), [`CONTRIBUTING.md`](./CONTRIBUTING.md), [`SECURITY.md`](./SECURITY.md), this changelog, [`.editorconfig`](./.editorconfig), [`.gitattributes`](./.gitattributes), [`.nvmrc`](./.nvmrc), and GitHub issue/PR templates and a CI workflow.
 - Root [`README.md`](./README.md) rewritten as a project-focused landing page.
+- Marketing screenshots of all 21 catalog screens (plus a gallery shot) in [`docs/screenshots/`](./docs/screenshots/), with provenance and regeneration notes in [`docs/screenshots/README.md`](./docs/screenshots/README.md), and a new **Screen Showcase** section in the root [`README.md`](./README.md).
+
+### Fixed
+
+- Three templates crashed at render/parse time because Handlebars swallowed JSX object literals (`source={{ uri: ... }}`, `initialRegion={{ ... }}`, `style={{ flex: 1 }}`). Those expressions are now escaped (`\{{`), so `chat/conversations`, `content/article-reader` and `map/location` generate correctly again.
+- Generated output from `chat/conversations`, `calendar/schedule` and `map/location` failed `tsc --noEmit` in strict projects (implicit `any` component props and helper parameters). The templates now emit typed props behind the existing `{{#if typescript}}` guard.
 
 ### Notes
 

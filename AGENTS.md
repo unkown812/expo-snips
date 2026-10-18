@@ -64,6 +64,7 @@ expo-snips/
 │   ├── serve.mjs              # local static registry server (:3000, CORS)
 │   └── lib/build-recipes.mjs  # shared recipe loader / template inliner
 ├── documents/                 # generated documentation suite (do not edit as source)
+├── docs/screenshots/          # committed marketing screenshots + regeneration notes (docs/screenshots/README.md)
 ├── .github/workflows/         # deploy-registry.yml, publish.yml, ci.yml
 ├── package.json               # workspace root scripts
 ├── pnpm-workspace.yaml

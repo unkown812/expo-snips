@@ -92,6 +92,9 @@ Copy-Item (Join-Path $latexDir "preamble.tex") $pdir
 Copy-Item (Join-Path $latexDir "metadata.tex") $pdir
 Copy-Item (Join-Path $latexDir "sections") $pdir -Recurse
 Copy-Item $diagramsDir (Join-Path $pdir "diagrams") -Recurse
+if (Test-Path (Join-Path $latexDir "assets")) {
+  Copy-Item (Join-Path $latexDir "assets") (Join-Path $pdir "assets") -Recurse
+}
 
 Get-ChildItem $pdir -Filter *.tex -Recurse | ForEach-Object {
   $c = Get-Content $_.FullName -Raw

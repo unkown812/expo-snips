@@ -103,6 +103,49 @@ workflow's build differs from a manual build. The single source of truth is
 \bottomrule
 \end{longtable}
 
+\section{Resolved since the initial documentation}
+
+The 1.0 release of this document set (17 October 2026) did not record two
+template defects that were discovered the following day while generating every
+screen for the repository's screenshot set. Both were fixed in the source
+templates on 19 October 2026 and are documented in \texttt{CHANGELOG.md}
+(Unreleased section).
+
+\begin{longtable}{@{}L{1.6cm}L{4.6cm}L{4.4cm}L{3.4cm}@{}}
+\caption{Resolved template defects (19 October 2026)}\\
+\toprule
+\textbf{ID} & \textbf{Defect} & \textbf{Evidence} & \textbf{Resolution} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Defect} & \textbf{Evidence} & \textbf{Resolution} \\
+\midrule
+\endhead
+RS-01 & JSX object literals written as \texttt{\{\{ uri: ... \}\}},
+\texttt{initialRegion=\{\{...\}\}} and \texttt{style=\{\{...\}\}} were parsed by
+Handlebars as helper calls, so \texttt{chat/conversations},
+\texttt{content/article-reader} and \texttt{map/location} crashed at generation
+(\emph{Missing helper: ``uri:''}; a parse error in the map template).
+\textbf{Status:} IMPLEMENTED (fixed). &
+\texttt{templates/chat/conversations/components.conversation-item.hbs},
+\texttt{templates/content/article-reader/app.article.[id].hbs},
+\texttt{templates/map/location/app.map.index.hbs}. &
+Escaped literals (\texttt{\textbackslash\{\{}). All three recipes generate correctly;
+\texttt{pnpm validate} reports 0 errors. \\
+RS-02 & Component props and calendar helpers were emitted without TypeScript
+types, so generated output failed \texttt{tsc --noEmit} in strict projects
+(implicit \texttt{any}).
+\textbf{Status:} IMPLEMENTED (fixed). &
+\texttt{components.conversation-item.hbs}, \texttt{components.event-item.hbs},
+\texttt{components.location-sheet.hbs}, \texttt{app.calendar.index.hbs}. &
+Typed props/parameters added behind the catalog's existing
+\texttt{\{\{#if typescript\}\}} guard. \\
+\bottomrule
+\end{longtable}
+
+These entries are listed here rather than in the open issue register because
+they no longer reproduce against the current tree.
+
 \section{Author-acknowledged limitations}
 
 The extension README's ``Known Limitations'' section explicitly states: no tests;

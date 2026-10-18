@@ -1,13 +1,14 @@
-\contentsline {table}{\numberline {1}{\ignorespaces Analysis scope and artefacts inspected}}{ii}{table.caption.2}%
+\contentsline {table}{\numberline {1}{\ignorespaces Document revision history}}{i}{table.caption.2}%
+\contentsline {table}{\numberline {2}{\ignorespaces Analysis scope and artefacts inspected}}{ii}{table.caption.3}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {1.1}{\ignorespaces Repository identity and metrics (all values verified from the working tree)}}{1}{table.caption.6}%
+\contentsline {table}{\numberline {1.1}{\ignorespaces Repository identity and metrics (all values verified from the working tree)}}{1}{table.caption.7}%
 \contentsline {table}{\numberline {1.2}{\ignorespaces Capability summary}}{2}{table.1.2}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {3.1}{\ignorespaces Product identity}}{7}{table.3.1}%
 \contentsline {table}{\numberline {3.2}{\ignorespaces Target audience groups}}{8}{table.3.2}%
 \contentsline {table}{\numberline {3.3}{\ignorespaces Core features}}{9}{table.3.3}%
-\contentsline {table}{\numberline {3.4}{\ignorespaces Feature priority assignment}}{10}{table.caption.7}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Feature priority assignment}}{10}{table.caption.8}%
 \contentsline {table}{\numberline {3.5}{\ignorespaces Use cases mapped to recipes}}{10}{table.3.5}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {4.1}{\ignorespaces Business problems and repository evidence}}{12}{table.4.1}%
@@ -35,7 +36,7 @@
 \contentsline {table}{\numberline {9.4}{\ignorespaces Architectural decisions and rationale}}{37}{table.9.4}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {10.1}{\ignorespaces Package inventory}}{40}{table.10.1}%
-\contentsline {table}{\numberline {10.5}{\ignorespaces Runtime and build dependencies}}{42}{table.caption.11}%
+\contentsline {table}{\numberline {10.5}{\ignorespaces Runtime and build dependencies}}{42}{table.caption.12}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {11.1}{\ignorespaces Pipeline stages}}{46}{table.11.1}%
 \contentsline {table}{\numberline {11.2}{\ignorespaces Service-equivalent components and their interactions}}{46}{table.11.2}%
@@ -46,10 +47,10 @@
 \contentsline {table}{\numberline {12.2}{\ignorespaces \texttt {add} command steps}}{50}{table.12.2}%
 \contentsline {table}{\numberline {12.3}{\ignorespaces Extension functions}}{52}{table.12.3}%
 \contentsline {table}{\numberline {12.4}{\ignorespaces State inventory}}{52}{table.12.4}%
-\contentsline {table}{\numberline {12.5}{\ignorespaces Module-level import graph (workspace)}}{53}{table.caption.14}%
+\contentsline {table}{\numberline {12.5}{\ignorespaces Module-level import graph (workspace)}}{53}{table.caption.15}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {13.1}{\ignorespaces CLI versus VS Code extension}}{54}{table.13.1}%
-\contentsline {table}{\numberline {13.2}{\ignorespaces VS Code command identifiers}}{56}{table.caption.16}%
+\contentsline {table}{\numberline {13.2}{\ignorespaces VS Code command identifiers}}{56}{table.caption.17}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {14.1}{\ignorespaces Command summary}}{58}{table.14.1}%
 \contentsline {table}{\numberline {14.2}{\ignorespaces \texttt {init} options}}{58}{table.14.2}%
@@ -59,8 +60,8 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {15.1}{\ignorespaces Recipe fields}}{63}{table.15.1}%
 \contentsline {table}{\numberline {15.2}{\ignorespaces File entry fields}}{64}{table.15.2}%
-\contentsline {table}{\numberline {15.3}{\ignorespaces Option enumerations (from the schema and the core types)}}{64}{table.caption.17}%
-\contentsline {table}{\numberline {15.4}{\ignorespaces Catalog composition (verified)}}{65}{table.caption.18}%
+\contentsline {table}{\numberline {15.3}{\ignorespaces Option enumerations (from the schema and the core types)}}{64}{table.caption.18}%
+\contentsline {table}{\numberline {15.4}{\ignorespaces Catalog composition (verified)}}{65}{table.caption.19}%
 \contentsline {table}{\numberline {15.6}{\ignorespaces Build outputs derived from the recipe sources}}{68}{table.15.6}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {16.1}{\ignorespaces Registry base URL resolution}}{69}{table.16.1}%
@@ -79,121 +80,122 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {20.1}{\ignorespaces Data transformations in the generation flow}}{89}{table.20.1}%
 \contentsline {table}{\numberline {20.2}{\ignorespaces Manifest lifecycle events}}{94}{table.20.2}%
-\contentsline {table}{\numberline {20.3}{\ignorespaces Typical data volumes (measured from the repository)}}{95}{table.caption.27}%
+\contentsline {table}{\numberline {20.3}{\ignorespaces Typical data volumes (measured from the repository)}}{95}{table.caption.28}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {21.1}{\ignorespaces Terminal interaction design}}{96}{table.21.1}%
 \contentsline {table}{\numberline {21.2}{\ignorespaces Editor interaction design}}{96}{table.21.2}%
 \contentsline {table}{\numberline {21.3}{\ignorespaces States provided by generated screens}}{97}{table.21.3}%
-\contentsline {table}{\numberline {21.4}{\ignorespaces Accessibility finding}}{98}{table.21.4}%
+\contentsline {table}{\numberline {21.4}{\ignorespaces Accessibility finding}}{102}{table.21.4}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {22.1}{\ignorespaces Colour palette derived from template literals}}{100}{table.22.1}%
-\contentsline {table}{\numberline {22.2}{\ignorespaces Recommended semantic colour mapping}}{102}{table.caption.28}%
-\contentsline {table}{\numberline {22.3}{\ignorespaces Tokens referenced by shadcn-style templates}}{102}{table.caption.29}%
-\contentsline {table}{\numberline {22.4}{\ignorespaces Type scale (Frontend)}}{103}{table.caption.30}%
-\contentsline {table}{\numberline {22.5}{\ignorespaces Spacing scale observed in templates}}{103}{table.caption.31}%
-\contentsline {table}{\numberline {22.6}{\ignorespaces Radius scale}}{104}{table.caption.32}%
-\contentsline {table}{\numberline {22.7}{\ignorespaces Design-system components demonstrated by recipes}}{104}{table.22.7}%
-\contentsline {table}{\numberline {22.8}{\ignorespaces Design-system gaps}}{105}{table.caption.33}%
+\contentsline {table}{\numberline {22.1}{\ignorespaces Colour palette derived from template literals}}{103}{table.22.1}%
+\contentsline {table}{\numberline {22.2}{\ignorespaces Recommended semantic colour mapping}}{105}{table.caption.33}%
+\contentsline {table}{\numberline {22.3}{\ignorespaces Tokens referenced by shadcn-style templates}}{105}{table.caption.34}%
+\contentsline {table}{\numberline {22.4}{\ignorespaces Type scale (Frontend)}}{106}{table.caption.35}%
+\contentsline {table}{\numberline {22.5}{\ignorespaces Spacing scale observed in templates}}{106}{table.caption.36}%
+\contentsline {table}{\numberline {22.6}{\ignorespaces Radius scale}}{107}{table.caption.37}%
+\contentsline {table}{\numberline {22.7}{\ignorespaces Design-system components demonstrated by recipes}}{107}{table.22.7}%
+\contentsline {table}{\numberline {22.8}{\ignorespaces Design-system gaps}}{108}{table.caption.38}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {23.1}{\ignorespaces Secret-related findings}}{107}{table.23.1}%
-\contentsline {table}{\numberline {23.2}{\ignorespaces Injection findings}}{108}{table.23.2}%
-\contentsline {table}{\numberline {23.3}{\ignorespaces Remote-content findings}}{110}{table.23.3}%
-\contentsline {table}{\numberline {23.4}{\ignorespaces Findings in generated screens}}{111}{table.23.4}%
-\contentsline {table}{\numberline {23.5}{\ignorespaces Input validation posture}}{112}{table.23.5}%
-\contentsline {table}{\numberline {23.7}{\ignorespaces Findings by severity}}{114}{table.caption.34}%
+\contentsline {table}{\numberline {23.1}{\ignorespaces Secret-related findings}}{110}{table.23.1}%
+\contentsline {table}{\numberline {23.2}{\ignorespaces Injection findings}}{111}{table.23.2}%
+\contentsline {table}{\numberline {23.3}{\ignorespaces Remote-content findings}}{113}{table.23.3}%
+\contentsline {table}{\numberline {23.4}{\ignorespaces Findings in generated screens}}{114}{table.23.4}%
+\contentsline {table}{\numberline {23.5}{\ignorespaces Input validation posture}}{115}{table.23.5}%
+\contentsline {table}{\numberline {23.7}{\ignorespaces Findings by severity}}{117}{table.caption.39}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {24.1}{\ignorespaces Measured artefact sizes}}{115}{table.24.1}%
-\contentsline {table}{\numberline {24.2}{\ignorespaces Complexity of the principal routines}}{116}{table.24.2}%
-\contentsline {table}{\numberline {24.3}{\ignorespaces Performance findings}}{116}{table.24.3}%
-\contentsline {table}{\numberline {24.4}{\ignorespaces Performance posture}}{117}{table.caption.35}%
+\contentsline {table}{\numberline {24.1}{\ignorespaces Measured artefact sizes}}{118}{table.24.1}%
+\contentsline {table}{\numberline {24.2}{\ignorespaces Complexity of the principal routines}}{119}{table.24.2}%
+\contentsline {table}{\numberline {24.3}{\ignorespaces Performance findings}}{119}{table.24.3}%
+\contentsline {table}{\numberline {24.4}{\ignorespaces Performance posture}}{120}{table.caption.40}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {25.1}{\ignorespaces Catalog growth analysis}}{118}{table.25.1}%
-\contentsline {table}{\numberline {25.2}{\ignorespaces Scalability limits and risks}}{119}{table.25.2}%
-\contentsline {table}{\numberline {25.3}{\ignorespaces Scalability posture}}{120}{table.caption.36}%
+\contentsline {table}{\numberline {25.1}{\ignorespaces Catalog growth analysis}}{121}{table.25.1}%
+\contentsline {table}{\numberline {25.2}{\ignorespaces Scalability limits and risks}}{122}{table.25.2}%
+\contentsline {table}{\numberline {25.3}{\ignorespaces Scalability posture}}{123}{table.caption.41}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {26.1}{\ignorespaces Checks performed by \texttt {validate.mjs}}}{121}{table.26.1}%
-\contentsline {table}{\numberline {26.2}{\ignorespaces Coverage assessment by area}}{122}{table.26.2}%
-\contentsline {table}{\numberline {26.3}{\ignorespaces Testing posture}}{123}{table.caption.37}%
+\contentsline {table}{\numberline {26.1}{\ignorespaces Checks performed by \texttt {validate.mjs}}}{124}{table.26.1}%
+\contentsline {table}{\numberline {26.2}{\ignorespaces Coverage assessment by area}}{125}{table.26.2}%
+\contentsline {table}{\numberline {26.3}{\ignorespaces Testing posture}}{126}{table.caption.42}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {27.1}{\ignorespaces Deployment inventory}}{124}{table.27.1}%
-\contentsline {table}{\numberline {27.2}{\ignorespaces Runtime prerequisites}}{125}{table.27.2}%
-\contentsline {table}{\numberline {27.3}{\ignorespaces Deployment posture}}{126}{table.caption.38}%
+\contentsline {table}{\numberline {27.1}{\ignorespaces Deployment inventory}}{127}{table.27.1}%
+\contentsline {table}{\numberline {27.2}{\ignorespaces Runtime prerequisites}}{128}{table.27.2}%
+\contentsline {table}{\numberline {27.3}{\ignorespaces Deployment posture}}{129}{table.caption.43}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {28.1}{\ignorespaces GitHub Actions workflows}}{127}{table.28.1}%
-\contentsline {table}{\numberline {28.2}{\ignorespaces Missing pipeline capabilities}}{128}{table.28.2}%
-\contentsline {table}{\numberline {28.3}{\ignorespaces CI/CD posture}}{129}{table.caption.40}%
+\contentsline {table}{\numberline {28.1}{\ignorespaces GitHub Actions workflows}}{130}{table.28.1}%
+\contentsline {table}{\numberline {28.2}{\ignorespaces Missing pipeline capabilities}}{131}{table.28.2}%
+\contentsline {table}{\numberline {28.3}{\ignorespaces CI/CD posture}}{132}{table.caption.45}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {29.1}{\ignorespaces External integrations}}{130}{table.29.1}%
-\contentsline {table}{\numberline {29.2}{\ignorespaces Third-party libraries used by the product}}{131}{table.29.2}%
-\contentsline {table}{\numberline {29.3}{\ignorespaces Dependencies declared by recipes}}{131}{table.29.3}%
+\contentsline {table}{\numberline {29.1}{\ignorespaces External integrations}}{133}{table.29.1}%
+\contentsline {table}{\numberline {29.2}{\ignorespaces Third-party libraries used by the product}}{134}{table.29.2}%
+\contentsline {table}{\numberline {29.3}{\ignorespaces Dependencies declared by recipes}}{134}{table.29.3}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {30.1}{\ignorespaces Environment variables}}{133}{table.30.1}%
-\contentsline {table}{\numberline {30.2}{\ignorespaces CLI generation options}}{134}{table.30.2}%
-\contentsline {table}{\numberline {30.3}{\ignorespaces VS Code settings}}{134}{table.30.3}%
-\contentsline {table}{\numberline {30.4}{\ignorespaces Detection probes}}{135}{table.30.4}%
-\contentsline {table}{\numberline {30.5}{\ignorespaces Build-related configuration}}{136}{table.30.5}%
-\contentsline {table}{\numberline {30.6}{\ignorespaces Configuration posture}}{136}{table.caption.41}%
+\contentsline {table}{\numberline {30.1}{\ignorespaces Environment variables}}{136}{table.30.1}%
+\contentsline {table}{\numberline {30.2}{\ignorespaces CLI generation options}}{137}{table.30.2}%
+\contentsline {table}{\numberline {30.3}{\ignorespaces VS Code settings}}{137}{table.30.3}%
+\contentsline {table}{\numberline {30.4}{\ignorespaces Detection probes}}{138}{table.30.4}%
+\contentsline {table}{\numberline {30.5}{\ignorespaces Build-related configuration}}{139}{table.30.5}%
+\contentsline {table}{\numberline {30.6}{\ignorespaces Configuration posture}}{139}{table.caption.46}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {31.1}{\ignorespaces SEO-relevant metadata found in the repository}}{137}{table.31.1}%
-\contentsline {table}{\numberline {31.2}{\ignorespaces SEO findings}}{138}{table.31.2}%
-\contentsline {table}{\numberline {31.3}{\ignorespaces SEO posture}}{139}{table.caption.42}%
+\contentsline {table}{\numberline {31.1}{\ignorespaces SEO-relevant metadata found in the repository}}{140}{table.31.1}%
+\contentsline {table}{\numberline {31.2}{\ignorespaces SEO findings}}{141}{table.31.2}%
+\contentsline {table}{\numberline {31.3}{\ignorespaces SEO posture}}{142}{table.caption.47}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {32.1}{\ignorespaces Answer-engine-relevant content}}{140}{table.32.1}%
-\contentsline {table}{\numberline {32.2}{\ignorespaces AEO findings}}{140}{table.32.2}%
-\contentsline {table}{\numberline {32.3}{\ignorespaces AEO posture}}{142}{table.caption.43}%
+\contentsline {table}{\numberline {32.1}{\ignorespaces Answer-engine-relevant content}}{143}{table.32.1}%
+\contentsline {table}{\numberline {32.2}{\ignorespaces AEO findings}}{143}{table.32.2}%
+\contentsline {table}{\numberline {32.3}{\ignorespaces AEO posture}}{145}{table.caption.48}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {33.1}{\ignorespaces Sources a generative system could learn from}}{143}{table.33.1}%
-\contentsline {table}{\numberline {33.2}{\ignorespaces GEO findings}}{144}{table.33.2}%
-\contentsline {table}{\numberline {33.3}{\ignorespaces GEO posture}}{145}{table.caption.44}%
+\contentsline {table}{\numberline {33.1}{\ignorespaces Sources a generative system could learn from}}{146}{table.33.1}%
+\contentsline {table}{\numberline {33.2}{\ignorespaces GEO findings}}{147}{table.33.2}%
+\contentsline {table}{\numberline {33.3}{\ignorespaces GEO posture}}{148}{table.caption.49}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {34.1}{\ignorespaces Known issues}}{146}{table.34.1}%
-\contentsline {table}{\numberline {34.2}{\ignorespaces Documentation corrections}}{149}{table.34.2}%
-\contentsline {table}{\numberline {34.3}{\ignorespaces Issues by category}}{150}{table.caption.45}%
+\contentsline {table}{\numberline {34.1}{\ignorespaces Known issues}}{149}{table.34.1}%
+\contentsline {table}{\numberline {34.2}{\ignorespaces Resolved template defects (19 October 2026)}}{152}{table.34.2}%
+\contentsline {table}{\numberline {34.3}{\ignorespaces Documentation corrections}}{153}{table.34.3}%
+\contentsline {table}{\numberline {34.4}{\ignorespaces Issues by category}}{153}{table.caption.50}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {35.1}{\ignorespaces Technical debt register}}{151}{table.35.1}%
-\contentsline {table}{\numberline {35.2}{\ignorespaces Debt by theme and interest}}{153}{table.caption.46}%
+\contentsline {table}{\numberline {35.1}{\ignorespaces Technical debt register}}{154}{table.35.1}%
+\contentsline {table}{\numberline {35.2}{\ignorespaces Debt by theme and interest}}{156}{table.caption.51}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {36.1}{\ignorespaces Items the repository itself lists as future work}}{155}{table.36.1}%
-\contentsline {table}{\numberline {36.2}{\ignorespaces Near-term recommendations}}{156}{table.36.2}%
-\contentsline {table}{\numberline {36.3}{\ignorespaces Mid-term recommendations}}{156}{table.36.3}%
-\contentsline {table}{\numberline {36.4}{\ignorespaces Suggested sequencing}}{157}{table.caption.47}%
+\contentsline {table}{\numberline {36.1}{\ignorespaces Items the repository itself lists as future work}}{158}{table.36.1}%
+\contentsline {table}{\numberline {36.2}{\ignorespaces Near-term recommendations}}{159}{table.36.2}%
+\contentsline {table}{\numberline {36.3}{\ignorespaces Mid-term recommendations}}{159}{table.36.3}%
+\contentsline {table}{\numberline {36.4}{\ignorespaces Suggested sequencing}}{160}{table.caption.52}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {37.1}{\ignorespaces TypeScript settings and their implications}}{159}{table.37.1}%
-\contentsline {table}{\numberline {37.2}{\ignorespaces Template naming examples}}{161}{table.37.2}%
+\contentsline {table}{\numberline {37.1}{\ignorespaces TypeScript settings and their implications}}{162}{table.37.1}%
+\contentsline {table}{\numberline {37.2}{\ignorespaces Template naming examples}}{164}{table.37.2}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {38.1}{\ignorespaces Contribution expectations (INFERRED)}}{163}{table.38.1}%
+\contentsline {table}{\numberline {38.1}{\ignorespaces Contribution expectations (INFERRED)}}{166}{table.38.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {39.1}{\ignorespaces Glossary of domain terms}}{165}{table.39.1}%
-\contentsline {table}{\numberline {39.2}{\ignorespaces Glossary of technology terms}}{166}{table.39.2}%
-\contentsline {table}{\numberline {39.3}{\ignorespaces Glossary of documentation terms}}{167}{table.39.3}%
-\contentsline {table}{\numberline {39.4}{\ignorespaces Abbreviations}}{167}{table.39.4}%
+\contentsline {table}{\numberline {39.1}{\ignorespaces Glossary of domain terms}}{168}{table.39.1}%
+\contentsline {table}{\numberline {39.2}{\ignorespaces Glossary of technology terms}}{169}{table.39.2}%
+\contentsline {table}{\numberline {39.3}{\ignorespaces Glossary of documentation terms}}{170}{table.39.3}%
+\contentsline {table}{\numberline {39.4}{\ignorespaces Abbreviations}}{170}{table.39.4}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {40.1}{\ignorespaces Manifest and configuration sources}}{169}{table.40.1}%
-\contentsline {table}{\numberline {40.2}{\ignorespaces Source code sources}}{169}{table.40.2}%
-\contentsline {table}{\numberline {40.3}{\ignorespaces Data, scripts and automation sources}}{170}{table.40.3}%
-\contentsline {table}{\numberline {40.4}{\ignorespaces Existing documentation consulted}}{170}{table.40.4}%
-\contentsline {table}{\numberline {40.5}{\ignorespaces External references}}{171}{table.40.5}%
-\contentsline {table}{\numberline {40.6}{\ignorespaces Verified figures}}{171}{table.40.6}%
+\contentsline {table}{\numberline {40.1}{\ignorespaces Manifest and configuration sources}}{172}{table.40.1}%
+\contentsline {table}{\numberline {40.2}{\ignorespaces Source code sources}}{172}{table.40.2}%
+\contentsline {table}{\numberline {40.3}{\ignorespaces Data, scripts and automation sources}}{173}{table.40.3}%
+\contentsline {table}{\numberline {40.4}{\ignorespaces Existing documentation consulted}}{173}{table.40.4}%
+\contentsline {table}{\numberline {40.5}{\ignorespaces External references}}{174}{table.40.5}%
+\contentsline {table}{\numberline {40.6}{\ignorespaces Verified figures}}{174}{table.40.6}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces All recipes: identity and shape}}{172}{table.A.1}%
-\contentsline {table}{\numberline {A.2}{\ignorespaces Options each recipe supports}}{173}{table.A.2}%
+\contentsline {table}{\numberline {A.1}{\ignorespaces All recipes: identity and shape}}{175}{table.A.1}%
+\contentsline {table}{\numberline {A.2}{\ignorespaces Options each recipe supports}}{176}{table.A.2}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {B.1}{\ignorespaces Required runtime environment for the product}}{175}{table.B.1}%
-\contentsline {table}{\numberline {B.2}{\ignorespaces Compiler and bundler settings}}{175}{table.B.2}%
-\contentsline {table}{\numberline {B.3}{\ignorespaces Third-party dependencies by package}}{176}{table.B.3}%
-\contentsline {table}{\numberline {B.4}{\ignorespaces Environment variables}}{176}{table.B.4}%
-\contentsline {table}{\numberline {B.5}{\ignorespaces Tooling used to produce this documentation}}{176}{table.B.5}%
-\contentsline {table}{\numberline {B.6}{\ignorespaces Version lines}}{177}{table.B.6}%
+\contentsline {table}{\numberline {B.1}{\ignorespaces Required runtime environment for the product}}{178}{table.B.1}%
+\contentsline {table}{\numberline {B.2}{\ignorespaces Compiler and bundler settings}}{178}{table.B.2}%
+\contentsline {table}{\numberline {B.3}{\ignorespaces Third-party dependencies by package}}{179}{table.B.3}%
+\contentsline {table}{\numberline {B.4}{\ignorespaces Environment variables}}{179}{table.B.4}%
+\contentsline {table}{\numberline {B.5}{\ignorespaces Tooling used to produce this documentation}}{179}{table.B.5}%
+\contentsline {table}{\numberline {B.6}{\ignorespaces Version lines}}{180}{table.B.6}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {C.1}{\ignorespaces Evidence labels}}{178}{table.C.1}%
-\contentsline {table}{\numberline {C.2}{\ignorespaces Requested document types and their handling}}{178}{table.C.2}%
-\contentsline {table}{\numberline {C.3}{\ignorespaces Areas that are not applicable to this product}}{180}{table.C.3}%
+\contentsline {table}{\numberline {C.1}{\ignorespaces Evidence labels}}{181}{table.C.1}%
+\contentsline {table}{\numberline {C.2}{\ignorespaces Requested document types and their handling}}{181}{table.C.2}%
+\contentsline {table}{\numberline {C.3}{\ignorespaces Areas that are not applicable to this product}}{183}{table.C.3}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {D.1}{\ignorespaces Root-level files}}{182}{table.D.1}%
-\contentsline {table}{\numberline {D.2}{\ignorespaces Core package files}}{182}{table.D.2}%
-\contentsline {table}{\numberline {D.3}{\ignorespaces CLI package files}}{183}{table.D.3}%
-\contentsline {table}{\numberline {D.4}{\ignorespaces Registry package files}}{184}{table.D.4}%
-\contentsline {table}{\numberline {D.5}{\ignorespaces Extension package files}}{184}{table.D.5}%
-\contentsline {table}{\numberline {D.6}{\ignorespaces Build and tooling scripts}}{185}{table.D.6}%
-\contentsline {table}{\numberline {D.7}{\ignorespaces Workflows}}{185}{table.D.7}%
-\contentsline {table}{\numberline {D.8}{\ignorespaces Generated artefacts and their disposition}}{186}{table.D.8}%
+\contentsline {table}{\numberline {D.1}{\ignorespaces Root-level files}}{185}{table.D.1}%
+\contentsline {table}{\numberline {D.2}{\ignorespaces Core package files}}{186}{table.D.2}%
+\contentsline {table}{\numberline {D.3}{\ignorespaces CLI package files}}{186}{table.D.3}%
+\contentsline {table}{\numberline {D.4}{\ignorespaces Registry package files}}{187}{table.D.4}%
+\contentsline {table}{\numberline {D.5}{\ignorespaces Extension package files}}{187}{table.D.5}%
+\contentsline {table}{\numberline {D.6}{\ignorespaces Build and tooling scripts}}{188}{table.D.6}%
+\contentsline {table}{\numberline {D.7}{\ignorespaces Workflows}}{189}{table.D.7}%
+\contentsline {table}{\numberline {D.8}{\ignorespaces Generated artefacts and their disposition}}{189}{table.D.8}%
